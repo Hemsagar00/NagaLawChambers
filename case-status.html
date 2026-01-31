@@ -425,8 +425,8 @@
       if (updates && updates.length > 0) {
         updatesList.innerHTML = updates.map(u => `
           <div class="update-item">
-            <div class="update-date">${new Date(u.created_at).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' })}</div>
-            <div class="update-text">${u.update_message || u.notes || 'Status updated'}</div>
+            <div class="update-date">${new Date(u.created_at).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' })} - <strong>${u.update_title || 'Update'}</strong></div>
+            <div class="update-text">${u.update_text || 'Status updated'}</div>
           </div>
         `).join('');
         document.getElementById('updatesSection').style.display = 'block';
