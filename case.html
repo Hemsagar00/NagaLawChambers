@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Status Tracker | Naga Law Chambers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .search-input {
+            width: 100%;
+            background: #0f0f0f;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            color: #fff;
+            border-radius: 12px;
+            padding: 18px;
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .search-input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+        }
+        #resultArea {
+            display: none;
+            margin-top: 30px;
+        }
+        .status-box {
+            background: #121212;
+            padding: 35px;
+            border-radius: 16px;
+            border-left: 4px solid var(--primary);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+        .status-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .status-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .status-label {
+            color: var(--primary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        .status-value {
+            color: #fff;
+            font-size: 1.1rem;
+        }
+        .error-msg {
+            color: #ff6b6b;
+            text-align: center;
+            padding: 30px;
+        }
+        .sample-refs {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255,215,0,0.05);
+            border-radius: 10px;
+            text-align: center;
+        }
+        .sample-refs span {
+            display: inline-block;
+            background: rgba(255,215,0,0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .sample-refs span:hover {
+            background: var(--primary);
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="main-header" style="position:relative; background: #0a0a0a;">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">NAGA <span class="text-gold">LEGAL</span></a>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="tools.html" class="nav-link">Back to Dashboard</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="section">
+        <div class="container" style="max-width: 700px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h1 class="display-2"><i class="fa-solid fa-magnifying-glass text-gold"></i> Case Status Tracker</h1>
+                <p class="text-muted">Check the status of your case using your Reference Number</p>
+            </div>
+
+            <div class="card">
+                <h3 style="color:var(--primary); font-family:var(--font-heading); font-weight:400; margin-bottom:10px;">
+                    Enter Case Reference</h3>
+                <p style="color:#888; font-size:0.9rem;">Your case reference number was provided when you registered your case with us.</p>
+
+                <input type="text" id="caseRef" class="search-input" placeholder="e.g. NLC-001">
+
+                <button class="btn btn-primary" style="width: 100%;" onclick="checkStatus()">
+                    <i class="fa-solid fa-search"></i> Check Status
+                </button>
+
+                <div class="sample-refs">
+                    <p style="color:#666; font-size:0.8rem; margin-bottom:10px;">Try sample references:</p>
+                    <span onclick="fillRef('NLC-001')">NLC-001</span>
+                    <span onclick="fillRef('NLC-002')">NLC-002</span>
+                    <span onclick="fillRef('NLC-003')">NLC-003</span>
+                </div>
+            </div>
+
+            <div id="resultArea">
+                <div class="status-box" id="statusBox"></div>
+
+                <a href="https://wa.me/919440000417?text=Hello%20Advocate,%20I%20checked%20my%20case%20status.%20I%20need%20more%20details."
+                    target="_blank" class="btn btn-outline" style="width: 100%; margin-top: 20px;">
+                    <i class="fa-brands fa-whatsapp"></i> Discuss with Advocate
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let casesData = null;
+
+        // Load cases.json on page load
+        fetch('cases.json')
+            .then(res => res.json())
+            .then(data => { casesData = data.cases; })
+            .catch(err => console.error('Failed to load cases:', err));
+
+        function fillRef(ref) {
+            document.getElementById('caseRef').value = ref;
+        }
+
+        function checkStatus() {
+            const ref = document.getElementById('caseRef').value.trim().toUpperCase();
+            const resultArea = document.getElementById('resultArea');
+            const statusBox = document.getElementById('statusBox');
+
+            if (!ref) {
+                alert('Please enter a case reference number.');
+                return;
+            }
+
+            if (!casesData) {
+                alert('Case data is loading. Please try again.');
+                return;
+            }
+
+            const caseData = casesData.find(c => c.case_ref.toUpperCase() === ref);
+
+            if (caseData) {
+                statusBox.innerHTML = `
+                    <div class="status-item">
+                        <div class="status-label">Case Reference</div>
+                        <div class="status-value">${caseData.case_ref}</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-label">Court</div>
+                        <div class="status-value">${caseData.court_name}</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-label">Status</div>
+                        <div class="status-value">${caseData.status_message}</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-label">Next Hearing Date</div>
+                        <div class="status-value" style="color: var(--primary); font-weight: bold;">${formatDate(caseData.next_hearing_date)}</div>
+                    </div>
+                `;
+            } else {
+                statusBox.innerHTML = `
+                    <div class="error-msg">
+                        <i class="fa-solid fa-circle-exclamation" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                        <p><strong>Case Not Found</strong></p>
+                        <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">
+                            The reference "${ref}" was not found in our system.<br>
+                            Please verify your case reference or contact us directly.
+                        </p>
+                    </div>
+                `;
+            }
+
+            resultArea.style.display = 'block';
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('en-IN', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+    </script>
+</body>
+
+</html>

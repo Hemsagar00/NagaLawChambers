@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Rental Agreement | Naga Law Chambers</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FFD700;
+            --primary-dark: #b8860b;
+            --bg: #0a0a0a;
+            --card: #121212;
+            --text: #e0e0e0;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-family: var(--font-heading);
+            color: var(--primary);
+            margin: 0;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 2.5rem;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            margin-top: 8px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            margin-top: 20px;
+        }
+
+        .nav-links a {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            padding: 8px 20px;
+            border-radius: 25px;
+            transition: 0.3s;
+            background: rgba(255, 215, 0, 0.05);
+        }
+
+        .nav-links a:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .lang-switch {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            margin-top: 25px;
+            background: #1a1a1a;
+            border-radius: 30px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            overflow: hidden;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #666;
+            padding: 12px 28px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 600;
+            font-family: var(--font-body);
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #000;
+        }
+
+        .card {
+            background: rgba(18, 18, 18, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 45px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #555;
+            transition: 0.3s;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 16px 16px 16px 50px;
+            background: #0f0f0f;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            color: #fff;
+            border-radius: 12px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            transition: 0.3s;
+            font-family: var(--font-body);
+        }
+
+        input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+        }
+
+        input:focus+i {
+            color: var(--primary);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #000;
+            border: none;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-top: 15px;
+            transition: 0.3s;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: var(--font-body);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        #outputArea {
+            display: none;
+            margin-top: 30px;
+            animation: slideUp 0.5s ease;
+        }
+
+        .paper {
+            background: #fff;
+            color: #000;
+            padding: 25mm 20mm;
+            min-height: 297mm;
+            width: 210mm;
+            font-family: 'Times New Roman', serif;
+            line-height: 1.5;
+            font-size: 11pt;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            margin: 0 auto;
+            position: relative;
+            text-align: justify;
+            overflow: hidden;
+        }
+
+        .legal-header {
+            text-align: center;
+            text-decoration: underline;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            font-weight: bold;
+            font-size: 14pt;
+        }
+
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 35pt;
+            font-weight: bold;
+            color: rgba(200, 0, 0, 0.15);
+            border: 5px solid rgba(200, 0, 0, 0.15);
+            padding: 20px;
+            text-align: center;
+            pointer-events: none;
+            z-index: 10;
+            white-space: nowrap;
+        }
+
+        .blur-lock {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.95) 40%, rgba(255, 255, 255, 1) 100%);
+            backdrop-filter: blur(3px);
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .unlock-msg {
+            background: #fff;
+            padding: 30px;
+            border: 2px solid var(--primary);
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+            max-width: 80%;
+        }
+
+        .unlock-msg h3 {
+            color: #000;
+            margin: 0 0 12px 0;
+            font-family: var(--font-heading);
+        }
+
+        .unlock-msg p {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .btn-unlock {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        .btn-unlock:hover {
+            background: #1ebe57;
+            transform: scale(1.05);
+        }
+
+        .action-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn-reset {
+            background: transparent;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            color: var(--primary);
+            width: 100%;
+            border-radius: 50px;
+            padding: 15px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-family: var(--font-body);
+            transition: 0.3s;
+        }
+
+        .btn-reset:hover {
+            border-color: var(--primary);
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                margin-top: 50px;
+            }
+
+            to {
+                opacity: 1;
+                margin-top: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-file-signature"></i> RENTAL <span style="color:#fff">AI</span></h1>
+            <div class="subtitle">Professional Rental Agreement Drafter</div>
+
+            <div class="lang-switch">
+                <button class="lang-btn active" onclick="setLang('en')">English</button>
+                <button class="lang-btn" onclick="setLang('te')">తెలుగు</button>
+            </div>
+
+            <div class="nav-links">
+                <a href="tools.html"><i class="fa-solid fa-arrow-left"></i> Back to AI Tools</a>
+                <a href="index.html" style="margin-left:10px"><i class="fa-solid fa-house"></i> Home</a>
+            </div>
+        </header>
+
+        <div class="card" id="inputForm">
+            <div class="input-group">
+                <label id="lbl-landlord">Landlord Name (Owner)</label>
+                <div class="input-wrapper">
+                    <input type="text" id="landlord" placeholder="e.g., Ramesh Kumar">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+            </div>
+            <div class="input-group">
+                <label id="lbl-tenant">Tenant Name (Renter)</label>
+                <div class="input-wrapper">
+                    <input type="text" id="tenant" placeholder="e.g., Suresh Reddy">
+                    <i class="fa-solid fa-user-tag"></i>
+                </div>
+            </div>
+            <div class="input-group">
+                <label id="lbl-address">Property Address</label>
+                <div class="input-wrapper">
+                    <input type="text" id="address" placeholder="Full address of the house/flat">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+            </div>
+            <div style="display: flex; gap: 20px;">
+                <div class="input-group" style="flex:1">
+                    <label id="lbl-rent">Monthly Rent (₹)</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="rent" placeholder="10000">
+                        <i class="fa-solid fa-indian-rupee-sign"></i>
+                    </div>
+                </div>
+                <div class="input-group" style="flex:1">
+                    <label id="lbl-deposit">Security Deposit (₹)</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="deposit" placeholder="50000">
+                        <i class="fa-solid fa-piggy-bank"></i>
+                    </div>
+                </div>
+            </div>
+            <button class="btn" id="btn-generate" onclick="generateDoc()">
+                <i class="fa-solid fa-file-contract"></i> Generate Professional Agreement
+            </button>
+        </div>
+
+        <div id="outputArea">
+            <div id="documentToPrint">
+                <div class="paper" id="paperContent"></div>
+            </div>
+
+            <div class="action-bar">
+                <button class="btn-reset" onclick="location.reload()">Create New Document</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLang = 'en';
+
+        const translations = {
+            en: {
+                landlord: "Landlord Name (Owner)",
+                tenant: "Tenant Name (Renter)",
+                address: "Property Address",
+                rent: "Monthly Rent (₹)",
+                deposit: "Security Deposit (₹)",
+                btn: "Generate Professional Agreement"
+            },
+            te: {
+                landlord: "ఇంటి యజమాని పేరు (ఓనర్)",
+                tenant: "అద్దెదారు పేరు (టెనెంట్)",
+                address: "ఇంటి చిరునామా",
+                rent: "నెల అద్దె (₹)",
+                deposit: "అడ్వాన్స్ / డిపాజిట్ (₹)",
+                btn: "ఒప్పందాన్ని సృష్టించండి"
+            }
+        };
+
+        function setLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('lbl-landlord').innerText = translations[lang].landlord;
+            document.getElementById('lbl-tenant').innerText = translations[lang].tenant;
+            document.getElementById('lbl-address').innerText = translations[lang].address;
+            document.getElementById('lbl-rent').innerText = translations[lang].rent;
+            document.getElementById('lbl-deposit').innerText = translations[lang].deposit;
+            document.getElementById('btn-generate').innerText = translations[lang].btn;
+        }
+
+        function generateDoc() {
+            const landlord = document.getElementById('landlord').value;
+            const tenant = document.getElementById('tenant').value;
+            const address = document.getElementById('address').value;
+            const rent = document.getElementById('rent').value;
+            const deposit = document.getElementById('deposit').value;
+            const date = new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            if (!landlord || !tenant || !rent) { alert("Please fill in the details / వివరాలను పూరించండి"); return; }
+
+            let html = '';
+            html += `<div class="watermark">INFORMATION PURPOSES ONLY<br>NOT FOR LEGAL USE</div>`;
+
+            if (currentLang === 'en') {
+                html += `
+                <h2 class="legal-header">RENTAL AGREEMENT</h2>
+                <div class="legal-section">This Rental Agreement is made on this <strong>${date}</strong> at Anantapur, Andhra Pradesh.</div>
+                
+                <div class="legal-section"><strong>BETWEEN:</strong><br>
+                <strong>${landlord}</strong>, hereinafter referred to as the <strong>"LANDLORD"</strong> (which expression shall unless repugnant to the context mean and include his/her heirs, successors, executors, and assigns) of the ONE PART.</div>
+                
+                <div class="legal-section"><strong>AND:</strong><br>
+                <strong>${tenant}</strong>, hereinafter referred to as the <strong>"TENANT"</strong> (which expression shall unless repugnant to the context mean and include his/her heirs, successors, executors, and assigns) of the OTHER PART.</div>
+                
+                <div class="legal-section"><strong>WHEREAS</strong> the Landlord is the absolute owner of the residential property situated at: <strong>${address}</strong> (hereinafter referred to as the "Scheduled Premises").</div>
+                
+                <div class="legal-section"><strong>AND WHEREAS</strong> the Tenant has approached the Landlord to let out the Scheduled Premises for residential purposes, and the Landlord has agreed to do so on the following terms and conditions:</div>
+
+                <div class="legal-section"><strong>NOW THIS AGREEMENT WITNESSETH AS FOLLOWS:</strong></div>
+                
+                <ol>
+                    <li style="margin-bottom:8px"><strong>RENT:</strong> The Tenant agrees to pay a monthly rent of <strong>₹${rent}/-</strong> (Rupees ${rent} Only) on or before the 5th day of every succeeding English calendar month.</li>
+                    <li style="margin-bottom:8px"><strong>SECURITY DEPOSIT:</strong> The Tenant has paid an interest-free refundable security deposit of <strong>₹${deposit}/-</strong>. This amount shall be returned to the Tenant at the time of vacating the premises, subject to deductions for damages or pending dues.</li>
+                    <li style="margin-bottom:8px"><strong>DURATION:</strong> This agreement is valid for a period of <strong>11 months</strong> commencing from today. It may be renewed thereafter by mutual consent with an enhancement of rent by 5-10%.</li>
+                    <li style="margin-bottom:8px"><strong>ELECTRICITY & WATER:</strong> The Tenant shall pay the electricity charges as per the meter reading and water charges as fixed by the Landlord/Municipality regularly.</li>
+                    <li style="margin-bottom:8px"><strong>MAINTENANCE:</strong> The Tenant shall maintain the premises in good and tenantable condition. Any minor repairs (taps, fuses, etc.) shall be borne by the Tenant. Major structural repairs shall be the responsibility of the Landlord.</li>
+                    <li style="margin-bottom:8px"><strong>USAGE:</strong> The premises shall be used for <strong>Residential Purposes only</strong>. The Tenant shall not use the premises for any commercial activity or illegal purposes.</li>
+                </ol>
+            `;
+            } else {
+                html += `
+                <h2 class="legal-header">అద్దె ఒప్పందం (RENTAL AGREEMENT)</h2>
+                <div class="legal-section">ఈ అద్దె ఒప్పందం <strong>${date}</strong> రోజున అనంతపురంలో ఈ క్రింది వారి మధ్య కుదుర్చుకోబడినది:</div>
+                <div class="legal-section"><strong>1. ఇంటి యజమాని (Landlord):</strong><br><strong>${landlord}</strong>, (ఇకపై "యజమాని" అని పిలువబడును). ఇది వారి వారసులు మరియు చట్టపరమైన ప్రతినిధులకు కూడా వర్తిస్తుంది.</div>
+                <div class="legal-section"><strong>2. అద్దెదారు (Tenant):</strong><br><strong>${tenant}</strong>, (ఇకపై "అద్దెదారు" అని పిలువబడును). ఇది వారి వారసులు మరియు చట్టపరమైన ప్రతినిధులకు కూడా వర్తిస్తుంది.</div>
+                <div class="legal-section"><strong>ఆస్తి వివరాలు:</strong><br>యజమాని ఈ క్రింది చిరునామాలో ఉన్న ఇంటికి పూర్తి హక్కుదారు: <strong>${address}</strong> (ఇకపై "షెడ్యూల్ ఆస్తి" అని పిలువబడును).</div>
+                <div class="legal-section"><strong>ఒప్పంద నిబంధనలు:</strong></div>
+                <ol>
+                    <li style="margin-bottom:8px"><strong>అద్దె:</strong> అద్దెదారు నెలకు <strong>₹${rent}/-</strong> అద్దెను ప్రతి ఇంగ్లీష్ క్యాలెండర్ నెల 5వ తేదీ లోపు చెల్లించడానికి అంగీకరించారు.</li>
+                    <li style="margin-bottom:8px"><strong>అడ్వాన్స్ / డిపాజిట్:</strong> అద్దెదారు వడ్డీ లేని సెక్యూరిటీ డిపాజిట్‌గా <strong>₹${deposit}/-</strong> యజమానికి చెల్లించారు. ఇల్లు ఖాళీ చేసేటప్పుడు, బకాయిలు లేదా నష్టాలకు మినహాయించి ఈ మొత్తాన్ని తిరిగి ఇవ్వబడుతుంది.</li>
+                    <li style="margin-bottom:8px"><strong>కాలపరిమితి:</strong> ఈ ఒప్పందం ఈ రోజు నుండి <strong>11 నెలల</strong> పాటు అమలులో ఉంటుంది. ఆ తర్వాత ఇరువురి అంగీకారంతో అద్దెను 5-10% పెంచి ఒప్పందాన్ని పొడిగించవచ్చు.</li>
+                    <li style="margin-bottom:8px"><strong>కరెంట్ & నీటి బిల్లులు:</strong> మీటర్ రీడింగ్ ప్రకారం కరెంట్ బిల్లు మరియు మున్సిపల్ నీటి ఛార్జీలను అద్దెదారే స్వయంగా చెల్లించాలి.</li>
+                    <li style="margin-bottom:8px"><strong>నిర్వహణ:</strong> ఇంటిని అద్దెదారు శుభ్రంగా మరియు జాగ్రత్తగా చూసుకోవాలి. చిన్న చిన్న మరమ్మతులు (టాప్స్, ఫ్యూజులు) అద్దెదారే భరించాలి. పెద్ద స్ట్రక్చరల్ రిపేర్లు యజమాని బాధ్యత.</li>
+                </ol>
+            `;
+            }
+
+            html += `
+            <div class="blur-lock">
+                <div class="unlock-msg">
+                    <h3><i class="fa-solid fa-lock"></i> Trial Version Preview</h3>
+                    <p>This document is blurred. To get the full, legally valid agreement with 15 detailed clauses:</p>
+                    <button onclick="unlockViaWhatsApp()" class="btn-unlock">
+                       <i class="fa-brands fa-whatsapp"></i> Unlock & Download (₹49)
+                    </button>
+                </div>
+            </div>
+        `;
+
+            document.getElementById('paperContent').innerHTML = html;
+            document.getElementById('inputForm').style.display = 'none';
+            document.getElementById('outputArea').style.display = 'block';
+        }
+
+        function unlockViaWhatsApp() {
+            const landlord = document.getElementById('landlord').value || "N/A";
+            const tenant = document.getElementById('tenant').value || "N/A";
+            const rent = document.getElementById('rent').value || "N/A";
+
+            const message = `Hello Advocate, I generated a Rent Agreement draft.\n\n*Details:*\n- Landlord: ${landlord}\n- Tenant: ${tenant}\n- Rent: ₹${rent}\n\nI want to unlock the full PDF.`;
+
+            window.open(`https://wa.me/919440000417?text=${encodeURIComponent(message)}`, '_blank');
+        }
+    </script>
+
+</body>
+
+</html>

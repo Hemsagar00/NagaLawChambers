@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Legal Tools | Naga Law Chambers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lato:wght@300;400;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FFD700;
+            --primary-light: #ffe44d;
+            --primary-dark: #b8860b;
+            --primary-glow: rgba(255, 215, 0, 0.15);
+            --bg: #0a0a0a;
+            --bg-card: #0f0f0f;
+            --bg-glass: rgba(15, 15, 15, 0.85);
+            --text: #f5f5f5;
+            --text-muted: #b0b0b0;
+            --border-subtle: rgba(255, 215, 0, 0.12);
+            --font-heading: 'Playfair Display', Georgia, serif;
+            --font-body: 'Lato', -apple-system, sans-serif;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-gold: 0 8px 32px rgba(255, 215, 0, 0.15);
+            --shadow-dark: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 100px 20px 60px;
+            background:
+                radial-gradient(ellipse at top, rgba(255, 215, 0, 0.06), transparent 50%),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent);
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--primary), transparent);
+        }
+
+        h1 {
+            font-family: var(--font-heading);
+            color: var(--primary);
+            margin: 0;
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-shadow: 0 0 40px var(--primary-glow);
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            margin-top: 15px;
+            font-size: 1.1rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        /* Home Button */
+        .home-btn {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border: 1px solid var(--border-subtle);
+            padding: 12px 26px;
+            border-radius: 50px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .home-btn:hover {
+            color: #fff;
+            border-color: var(--primary);
+            background: rgba(255, 215, 0, 0.1);
+            box-shadow: 0 0 25px var(--primary-glow);
+            transform: translateY(-3px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Section Title */
+        .section-title {
+            font-family: var(--font-heading);
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin: 60px 0 35px;
+            border-bottom: 2px solid var(--border-subtle);
+            padding-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--border-subtle), transparent);
+        }
+
+        /* Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+            padding-bottom: 20px;
+        }
+
+        /* Premium Card */
+        .tool-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 40px 35px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-dark), 0 0 50px var(--primary-glow);
+        }
+
+        .tool-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Glowing Icon */
+        .icon-box {
+            width: 85px;
+            height: 85px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.12), rgba(255, 215, 0, 0.03));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 28px;
+            font-size: 34px;
+            border: 2px solid var(--border-subtle);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .icon-box i {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 10px var(--primary-glow));
+        }
+
+        .tool-card:hover .icon-box {
+            border-color: var(--primary);
+            box-shadow: 0 0 30px var(--primary-glow);
+            transform: scale(1.05);
+        }
+
+        h3 {
+            font-family: var(--font-heading);
+            margin: 0 0 14px 0;
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 28px;
+            flex-grow: 1;
+        }
+
+        /* Badges */
+        .badge {
+            padding: 7px 16px;
+            border-radius: 30px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            text-transform: uppercase;
+        }
+
+        .badge.hot {
+            background: linear-gradient(135deg, #ff4757, #ff6b81);
+            color: white;
+            box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+
+        .badge.new {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+        }
+
+        .badge.ai {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            box-shadow: 0 6px 20px rgba(142, 68, 173, 0.4);
+        }
+
+        .badge.free {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .badge.beta {
+            background: rgba(255, 255, 255, 0.08);
+            color: #666;
+            border: 1px solid #333;
+        }
+
+        @keyframes badgePulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Buttons */
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #000;
+            text-decoration: none;
+            padding: 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: var(--transition);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .btn-disabled {
+            background: linear-gradient(135deg, #1a1a1a, #0f0f0f);
+            color: #444;
+            cursor: not-allowed;
+            border: 1px solid #222;
+        }
+
+        .btn-disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-disabled::before {
+            display: none;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin: 50px 0 40px;
+            transition: var(--transition);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+            transform: translateX(-5px);
+        }
+
+        /* Reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-1 {
+            transition-delay: 0.1s;
+        }
+
+        .stagger-2 {
+            transition-delay: 0.2s;
+        }
+
+        .stagger-3 {
+            transition-delay: 0.3s;
+        }
+
+        .stagger-4 {
+            transition-delay: 0.4s;
+        }
+
+        @media (max-width: 600px) {
+            .home-btn {
+                top: 20px;
+                left: 20px;
+                padding: 10px 18px;
+                font-size: 0.85rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+                letter-spacing: 2px;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .tool-card {
+                padding: 30px 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <a href="index.html" class="home-btn"><i class="fa-solid fa-house"></i> Home</a>
+        <h1>NAGA LAW <span style="color:#fff">AI</span></h1>
+        <p class="subtitle">Advanced Legal Intelligence Suite</p>
+    </div>
+
+    <div class="container">
+
+        <h2 class="section-title"><i class="fa-solid fa-rocket"></i> Live Tools (Ready to Use)</h2>
+        <div class="tools-grid">
+
+            <div class="tool-card reveal stagger-1">
+                <span class="badge hot">Most Used</span>
+                <div class="icon-box"><i class="fa-solid fa-file-signature"></i></div>
+                <h3>Rental Agreement</h3>
+                <p>Generate a legally valid rental agreement in <strong>English</strong> or <strong>Telugu</strong>
+                    instantly. Professional PDF format ready for print.</p>
+                <a href="rental.html" class="btn">Launch Tool <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="tool-card reveal stagger-2">
+                <span class="badge beta">Trial</span>
+                <div class="icon-box"><i class="fa-solid fa-gavel"></i></div>
+                <h3>Legal Opinion AI</h3>
+                <p>Draft a preliminary <strong>Title Scrutiny Report</strong> for property purchases or bank loans.
+                    <span style="color:var(--primary);">Trial Version.</span>
+                </p>
+                <a href="opinion.html" class="btn">Launch Tool <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="tool-card reveal stagger-3">
+                <span class="badge new">New</span>
+                <div class="icon-box"><i class="fa-solid fa-envelope-open-text"></i></div>
+                <h3>Legal Notice Generator</h3>
+                <p>Auto-draft notices for <strong>Cheque Bounce</strong> (Sec 138) or <strong>Money Recovery</strong>.
+                    Instant professional format.</p>
+                <a href="notice.html" class="btn">Launch Tool <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="tool-card reveal stagger-4">
+                <span class="badge ai">AI Powered</span>
+                <div class="icon-box"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                <h3>Case Strength Analyzer</h3>
+                <p><strong>Powered by Google AI.</strong> Upload your facts. The AI analyzes risks, missing clauses, and
+                    legal strength instantly.</p>
+                <a href="case.html" class="btn">Launch Tool <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="tool-card reveal stagger-1">
+                <span class="badge hot">Popular</span>
+                <div class="icon-box"><i class="fa-solid fa-calculator"></i></div>
+                <h3>Legal Cost Estimator</h3>
+                <p>Transparent fee calculation for Civil Cases, Property Registrations, and Cheque Bounce cases in
+                    Andhra Pradesh.</p>
+                <a href="cost.html" class="btn">Launch Tool <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="tool-card reveal stagger-2">
+                <span class="badge new">New</span>
+                <div class="icon-box"><i class="fa-solid fa-handcuffs"></i></div>
+                <h3>Bail Eligibility Check</h3>
+                <p>Input IPC/BNS Sections (e.g., 420, 302). Instant check if the offense is <strong>Bailable</strong> or
+                    <strong>Non-Bailable</strong>.
+                </p>
+                <a href="bail.html" class="btn">Launch Tool <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="tool-card reveal stagger-3">
+                <span class="badge ai">AI Powered</span>
+                <div class="icon-box"><i class="fa-solid fa-landmark"></i></div>
+                <h3>Court Order Explainer</h3>
+                <p>Paste a complex court order or case status. AI translates legalese into simple
+                    <strong>English</strong> or <strong>Telugu</strong>.
+                </p>
+                <a href="court.html" class="btn">Launch Tool <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="tool-card reveal stagger-4">
+                <span class="badge hot">Business</span>
+                <div class="icon-box"><i class="fa-solid fa-rocket"></i></div>
+                <h3>Startup Legal Pack</h3>
+                <p>Instant generation of <strong>NDAs, Founders Agreements, and Vendor Contracts</strong> for new
+                    businesses.</p>
+                <a href="startup.html" class="btn">Launch Tool <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="tool-card reveal stagger-1">
+                <span class="badge new">New</span>
+                <div class="icon-box"><i class="fa-solid fa-fingerprint"></i></div>
+                <h3>Evidence Strength Checker</h3>
+                <p>Upload screenshots, chats, or audio. AI analyzes admissibility and evidentiary value in court.</p>
+                <a href="evidence.html" class="btn">Launch Tool <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="tool-card reveal stagger-2">
+                <span class="badge new">New</span>
+                <div class="icon-box"><i class="fa-solid fa-briefcase"></i></div>
+                <h3>Employment Law Checker</h3>
+                <p>Check if termination, notice periods, or salary cuts violate AP Shops & Establishments Act.</p>
+                <a href="employment.html" class="btn">Launch Tool <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+        </div>
+
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Main Website</a>
+
+        <div style="text-align:center; margin-bottom:40px;">
+            <a href="legal.html" style="color:#555; font-size:0.8rem; text-decoration:none; transition: 0.3s;">Terms &
+                Disclaimer</a>
+        </div>
+    </div>
+
+    <script>
+        // Reveal animation
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    </script>
+
+    <script src="chatbot.js"></script>
+</body>
+
+</html>

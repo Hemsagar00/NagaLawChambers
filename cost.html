@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Cost Estimator | Naga Law Chambers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Specific overrides for Cost Estimator */
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #555;
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 16px 16px 16px 50px;
+            background: #0f0f0f;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            color: #fff;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: 0.3s;
+            appearance: none;
+            font-family: var(--font-body);
+        }
+
+        select:focus,
+        input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+        }
+
+        #resultArea {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .result-card {
+            background: #121212;
+            border-left: 4px solid var(--primary);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .row:last-child {
+            border-bottom: none;
+        }
+
+        .row i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: bold;
+            padding-top: 20px;
+            border-top: 2px dashed rgba(255, 215, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="main-header" style="position:relative; background: #0a0a0a;">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">NAGA <span class="text-gold">LEGAL</span></a>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="tools.html" class="nav-link">Back to Dashboard</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="section">
+        <div class="container" style="max-width: 600px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h1 class="display-2"><i class="fa-solid fa-calculator text-gold"></i> Cost Estimator</h1>
+                <p class="text-muted">Calculate approximated legal fees & expenses</p>
+            </div>
+
+            <div class="card">
+                <div class="input-group">
+                    <label>Select Case Type</label>
+                    <div class="input-wrapper">
+                        <select id="caseType" onchange="toggleFields()">
+                            <option value="cheque">Cheque Bounce (Sec 138)</option>
+                            <option value="civil">Civil Suit / Money Recovery</option>
+                            <option value="registration">Property Registration (AP)</option>
+                            <option value="criminal">Criminal Defense (Bail/Trial)</option>
+                        </select>
+                        <i class="fa-solid fa-scale-balanced" style="color:#555"></i>
+                    </div>
+                </div>
+
+                <div class="input-group" id="amountGroup">
+                    <label id="amountLabel">Cheque Amount (₹)</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="amount" placeholder="e.g. 100000">
+                        <i class="fa-solid fa-indian-rupee-sign" style="color:#555"></i>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" style="width: 100%;" onclick="calculate()">
+                    <i class="fa-solid fa-calculator"></i> Calculate Estimate
+                </button>
+            </div>
+
+            <div id="resultArea">
+                <div class="result-card">
+                    <div class="row">
+                        <span><i class="fa-solid fa-landmark"></i> Govt/Court Fees (Approx):</span>
+                        <span id="resCourt" style="color:#fff;">₹0</span>
+                    </div>
+                    <div class="row">
+                        <span><i class="fa-solid fa-user-tie"></i> Lawyer/Drafting Fees:</span>
+                        <span id="resLawyer" style="color:#fff;">₹0</span>
+                    </div>
+                    <div class="row">
+                        <span><i class="fa-solid fa-file-invoice"></i> Miscellaneous:</span>
+                        <span id="resMisc" style="color:#fff;">₹0</span>
+                    </div>
+
+                    <div class="total-row">
+                        <span>Est. Total:</span>
+                        <span id="resTotal">₹0</span>
+                    </div>
+                </div>
+
+                <p style="font-size: 0.8rem; color: #666; margin-top: 20px; text-align: center;">
+                    *<strong>Disclaimer:</strong> This estimate is for informational purposes only. For an exact quote,
+                    consult the Advocate.
+                </p>
+
+                <a href="https://wa.me/919440000417?text=Hello%20Advocate,%20I%20checked%20the%20cost%20estimate%20on%20your%20website.%20I%20want%20to%20proceed%20with%20my%20case."
+                    target="_blank" class="btn btn-outline" style="width: 100%; margin-top: 20px;">
+                    <i class="fa-brands fa-whatsapp"></i> Consult Advocate for Exact Quote
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleFields() {
+            const type = document.getElementById('caseType').value;
+            const label = document.getElementById('amountLabel');
+            const group = document.getElementById('amountGroup');
+
+            if (type === 'criminal') {
+                group.style.display = 'none';
+            } else {
+                group.style.display = 'block';
+                if (type === 'cheque') label.innerText = "Cheque Amount (₹)";
+                if (type === 'civil') label.innerText = "Claim/Suit Amount (₹)";
+                if (type === 'registration') label.innerText = "Market Value of Property (₹)";
+            }
+        }
+
+        function calculate() {
+            const type = document.getElementById('caseType').value;
+            const amount = parseFloat(document.getElementById('amount').value) || 0;
+
+            let courtFee = 0;
+            let lawyerFee = 0;
+            let misc = 0;
+
+            if (type === 'cheque') {
+                courtFee = Math.min(amount * 0.05, 2000);
+                if (courtFee < 200) courtFee = 200;
+                lawyerFee = Math.max(5000, amount * 0.05);
+                if (lawyerFee > 50000) lawyerFee = 50000 + (amount * 0.01);
+                misc = 2500;
+            }
+            else if (type === 'civil') {
+                courtFee = amount * 0.015;
+                lawyerFee = Math.max(15000, amount * 0.06);
+                misc = 5000;
+            }
+            else if (type === 'registration') {
+                courtFee = amount * 0.075;
+                lawyerFee = Math.max(5000, amount * 0.005);
+                misc = 2000;
+            }
+            else if (type === 'criminal') {
+                courtFee = 500;
+                lawyerFee = 20000;
+                misc = 3000;
+            }
+
+            courtFee = Math.round(courtFee);
+            lawyerFee = Math.round(lawyerFee);
+            const total = courtFee + lawyerFee + misc;
+
+            document.getElementById('resCourt').innerText = "₹" + courtFee.toLocaleString('en-IN');
+            document.getElementById('resLawyer').innerText = "₹" + lawyerFee.toLocaleString('en-IN');
+            document.getElementById('resMisc').innerText = "₹" + misc.toLocaleString('en-IN');
+            document.getElementById('resTotal').innerText = "₹" + total.toLocaleString('en-IN');
+
+            document.getElementById('resultArea').style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

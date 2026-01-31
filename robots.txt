@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nagalawchambers.com/sitemap.xml
