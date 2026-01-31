@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | Naga Law Chambers</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --gold: #D4AF37;
+      --bg: #0a0a0a;
+      --bg-card: #141414;
+      --text: #ffffff;
+      --text-dim: #888;
+      --border: rgba(255,255,255,0.1);
+      --success: #4CAF50;
+      --warning: #FFC107;
+      --danger: #F44336;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    
+    /* Login Screen */
+    .login-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .login-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 50px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+    .login-box h1 { color: var(--gold); margin-bottom: 10px; font-size: 1.5rem; }
+    .login-box p { color: var(--text-dim); margin-bottom: 30px; font-size: 0.9rem; }
+    .login-box input {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 1rem;
+      margin-bottom: 16px;
+    }
+    .login-box input:focus { outline: none; border-color: var(--gold); }
+    .login-box button {
+      width: 100%;
+      padding: 14px;
+      background: var(--gold);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .login-box button:hover { opacity: 0.9; }
+    .login-error { color: var(--danger); font-size: 0.85rem; margin-top: 16px; display: none; }
+    .login-error.show { display: block; }
+
+    /* Admin Panel */
+    .admin-panel { display: none; }
+    .admin-panel.show { display: block; }
+    
+    .header {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header h1 { font-size: 1.2rem; }
+    .header h1 span { color: var(--gold); }
+    .header button {
+      padding: 8px 16px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .header button:hover { border-color: var(--danger); color: var(--danger); }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+    }
+    .tab {
+      padding: 10px 20px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .tab.active { background: var(--gold); color: #000; border-color: var(--gold); }
+    .tab:hover:not(.active) { border-color: var(--gold); color: var(--gold); }
+
+    /* Tab Content */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Cases Table */
+    .cases-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-card);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .cases-table th, .cases-table td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .cases-table th { background: rgba(255,255,255,0.02); color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; }
+    .cases-table td { font-size: 0.9rem; }
+    .cases-table tr:hover { background: rgba(255,255,255,0.02); }
+    
+    .status-pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .status-pending { background: rgba(255,193,7,0.2); color: #FFC107; }
+    .status-filed { background: rgba(33,150,243,0.2); color: #2196F3; }
+    .status-hearing_scheduled { background: rgba(156,39,176,0.2); color: #9C27B0; }
+    .status-in_progress { background: rgba(0,188,212,0.2); color: #00BCD4; }
+    .status-closed_won { background: rgba(76,175,80,0.2); color: #4CAF50; }
+    .status-closed_lost { background: rgba(244,67,54,0.2); color: #F44336; }
+
+    .action-btn {
+      padding: 6px 12px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      margin-right: 6px;
+    }
+    .action-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .action-btn.delete:hover { border-color: var(--danger); color: var(--danger); }
+
+    /* Forms */
+    .form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 30px;
+      max-width: 600px;
+    }
+    .form-card h3 { margin-bottom: 24px; color: var(--gold); }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; margin-bottom: 8px; font-size: 0.85rem; color: var(--text-dim); }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 12px 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-family: inherit;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    .form-group textarea { min-height: 100px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    
+    .btn-primary {
+      padding: 12px 24px;
+      background: var(--gold);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 16px 24px;
+      background: var(--success);
+      color: #fff;
+      border-radius: 8px;
+      font-weight: 500;
+      display: none;
+      z-index: 1000;
+    }
+    .toast.show { display: block; animation: slideIn 0.3s ease; }
+    .toast.error { background: var(--danger); }
+    @keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 20px;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 30px;
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal h3 { margin-bottom: 24px; }
+    .modal-close {
+      float: right;
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .cases-table { font-size: 0.8rem; }
+      .cases-table th, .cases-table td { padding: 10px 8px; }
+      .form-row { grid-template-columns: 1fr; }
+      .tabs { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Screen -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-box">
+      <h1><i class="fa-solid fa-lock"></i> Admin Panel</h1>
+      <p>Naga Law Chambers Case Management</p>
+      <input type="password" id="adminPassword" placeholder="Enter admin password" onkeypress="if(event.key==='Enter')attemptLogin()">
+      <button onclick="attemptLogin()">Login</button>
+      <p class="login-error" id="loginError">Invalid password. Try again.</p>
+    </div>
+  </div>
+
+  <!-- Admin Panel -->
+  <div class="admin-panel" id="adminPanel">
+    <div class="header">
+      <h1><i class="fa-solid fa-gavel"></i> Naga<span>Legal</span> Admin</h1>
+      <button onclick="logout()"><i class="fa-solid fa-sign-out-alt"></i> Logout</button>
+    </div>
+
+    <div class="container">
+      <div class="tabs">
+        <button class="tab active" onclick="showTab('cases')"><i class="fa-solid fa-folder-open"></i> All Cases</button>
+        <button class="tab" onclick="showTab('add')"><i class="fa-solid fa-plus"></i> Add Case</button>
+        <button class="tab" onclick="showTab('updates')"><i class="fa-solid fa-bell"></i> Add Update</button>
+      </div>
+
+      <!-- All Cases Tab -->
+      <div class="tab-content active" id="tab-cases">
+        <table class="cases-table">
+          <thead>
+            <tr>
+              <th>Case Number</th>
+              <th>Title</th>
+              <th>Status</th>
+              <th>Next Hearing</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="casesTableBody">
+            <tr><td colspan="5" style="text-align:center;color:var(--text-dim);">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Add Case Tab -->
+      <div class="tab-content" id="tab-add">
+        <div class="form-card">
+          <h3><i class="fa-solid fa-plus-circle"></i> Add New Case</h3>
+          <form id="addCaseForm" onsubmit="addCase(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Case Number *</label>
+                <input type="text" id="newCaseNumber" placeholder="NLC-2026-XXX" required>
+              </div>
+              <div class="form-group">
+                <label>Status</label>
+                <select id="newStatus">
+                  <option value="pending">Pending</option>
+                  <option value="consultation">Consultation</option>
+                  <option value="document_collection">Document Collection</option>
+                  <option value="filed">Filed</option>
+                  <option value="hearing_scheduled">Hearing Scheduled</option>
+                  <option value="in_progress">In Progress</option>
+                  <option value="reserved">Reserved</option>
+                  <option value="closed_won">Closed - Won</option>
+                  <option value="closed_lost">Closed - Lost</option>
+                  <option value="withdrawn">Withdrawn</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Case Title *</label>
+              <input type="text" id="newTitle" placeholder="Client Name vs Opponent - Case Type" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Case Type</label>
+                <select id="newCaseType">
+                  <option value="Land Revenue">Land Revenue</option>
+                  <option value="Property">Property</option>
+                  <option value="Civil">Civil</option>
+                  <option value="Documentation">Documentation</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Court Name</label>
+                <input type="text" id="newCourtName" placeholder="District Court Anantapur">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Next Hearing Date</label>
+                <input type="date" id="newHearingDate">
+              </div>
+              <div class="form-group">
+                <label>Priority</label>
+                <select id="newPriority">
+                  <option value="normal">Normal</option>
+                  <option value="high">High</option>
+                  <option value="urgent">Urgent</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea id="newDescription" placeholder="Brief case description..."></textarea>
+            </div>
+            <button type="submit" class="btn-primary"><i class="fa-solid fa-save"></i> Save Case</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Add Update Tab -->
+      <div class="tab-content" id="tab-updates">
+        <div class="form-card">
+          <h3><i class="fa-solid fa-bell"></i> Add Case Update</h3>
+          <form id="addUpdateForm" onsubmit="addUpdate(event)">
+            <div class="form-group">
+              <label>Select Case *</label>
+              <select id="updateCaseId" required>
+                <option value="">-- Select a case --</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Update Title *</label>
+              <input type="text" id="updateTitle" placeholder="e.g., Hearing Completed" required>
+            </div>
+            <div class="form-group">
+              <label>Update Details *</label>
+              <textarea id="updateText" placeholder="Describe what happened..." required></textarea>
+            </div>
+            <div class="form-group">
+              <label><input type="checkbox" id="updateVisible" checked> Visible to Client</label>
+            </div>
+            <button type="submit" class="btn-primary"><i class="fa-solid fa-paper-plane"></i> Post Update</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="modal-overlay" id="editModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeEditModal()">&times;</button>
+      <h3><i class="fa-solid fa-edit"></i> Edit Case</h3>
+      <form id="editCaseForm" onsubmit="saveEdit(event)">
+        <input type="hidden" id="editCaseId">
+        <div class="form-group">
+          <label>Case Number</label>
+          <input type="text" id="editCaseNumber" required>
+        </div>
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" id="editTitle" required>
+        </div>
+        <div class="form-group">
+          <label>Status</label>
+          <select id="editStatus">
+            <option value="pending">Pending</option>
+            <option value="consultation">Consultation</option>
+            <option value="document_collection">Document Collection</option>
+            <option value="filed">Filed</option>
+            <option value="hearing_scheduled">Hearing Scheduled</option>
+            <option value="in_progress">In Progress</option>
+            <option value="reserved">Reserved</option>
+            <option value="closed_won">Closed - Won</option>
+            <option value="closed_lost">Closed - Lost</option>
+            <option value="withdrawn">Withdrawn</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Next Hearing Date</label>
+          <input type="date" id="editHearingDate">
+        </div>
+        <div class="form-group">
+          <label>Court Name</label>
+          <input type="text" id="editCourtName">
+        </div>
+        <button type="submit" class="btn-primary"><i class="fa-solid fa-save"></i> Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const SUPABASE_URL = 'https://svhpxqqddrtukupkwafn.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN2aHB4cXFkZHJ0dWt1cGt3YWZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkyNTQyMzMsImV4cCI6MjA4NDgzMDIzM30.DXZg_siYUE2j62YX5GRky05o9AQRYmxh9olJfD-Vzi8';
+    const ADMIN_PASS = 'naga@2026';
+
+    // Auth
+    function attemptLogin() {
+      const pass = document.getElementById('adminPassword').value;
+      if (pass === ADMIN_PASS) {
+        sessionStorage.setItem('adminAuth', 'true');
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('adminPanel').classList.add('show');
+        loadCases();
+      } else {
+        document.getElementById('loginError').classList.add('show');
+      }
+    }
+
+    function logout() {
+      sessionStorage.removeItem('adminAuth');
+      location.reload();
+    }
+
+    // Check auth on load
+    if (sessionStorage.getItem('adminAuth') === 'true') {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminPanel').classList.add('show');
+      loadCases();
+    }
+
+    // Tabs
+    function showTab(tabName) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.querySelector(`.tab:nth-child(${tabName === 'cases' ? 1 : tabName === 'add' ? 2 : 3})`).classList.add('active');
+      document.getElementById('tab-' + tabName).classList.add('active');
+      if (tabName === 'updates') loadCasesDropdown();
+    }
+
+    // API helpers
+    async function supaFetch(endpoint, options = {}) {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/' + endpoint, {
+        ...options,
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_KEY,
+          'Content-Type': 'application/json',
+          'Prefer': options.method === 'POST' ? 'return=representation' : 'return=minimal',
+          ...options.headers
+        }
+      });
+      if (!res.ok) throw new Error(await res.text());
+      return options.method === 'DELETE' ? null : res.json();
+    }
+
+    // Load Cases
+    async function loadCases() {
+      try {
+        const cases = await supaFetch('cases?order=created_at.desc');
+        const tbody = document.getElementById('casesTableBody');
+        if (cases.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-dim);">No cases found</td></tr>';
+          return;
+        }
+        tbody.innerHTML = cases.map(c => `
+          <tr>
+            <td><strong>${c.case_number || '-'}</strong></td>
+            <td>${c.title || '-'}</td>
+            <td><span class="status-pill status-${c.status}">${formatStatus(c.status)}</span></td>
+            <td>${c.next_hearing_date ? new Date(c.next_hearing_date).toLocaleDateString('en-IN') : '-'}</td>
+            <td>
+              <button class="action-btn" onclick="openEditModal('${c.id}')"><i class="fa-solid fa-edit"></i></button>
+              <button class="action-btn delete" onclick="deleteCase('${c.id}')"><i class="fa-solid fa-trash"></i></button>
+            </td>
+          </tr>
+        `).join('');
+      } catch (e) {
+        console.error(e);
+        showToast('Failed to load cases', true);
+      }
+    }
+
+    function formatStatus(s) {
+      return s ? s.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Unknown';
+    }
+
+    // Add Case
+    async function addCase(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      btn.disabled = true;
+      try {
+        await supaFetch('cases', {
+          method: 'POST',
+          body: JSON.stringify({
+            case_number: document.getElementById('newCaseNumber').value,
+            title: document.getElementById('newTitle').value,
+            status: document.getElementById('newStatus').value,
+            case_type: document.getElementById('newCaseType').value,
+            court_name: document.getElementById('newCourtName').value,
+            next_hearing_date: document.getElementById('newHearingDate').value || null,
+            priority: document.getElementById('newPriority').value,
+            description: document.getElementById('newDescription').value
+          })
+        });
+        showToast('Case added successfully!');
+        e.target.reset();
+        showTab('cases');
+        loadCases();
+      } catch (err) {
+        showToast('Failed to add case: ' + err.message, true);
+      }
+      btn.disabled = false;
+    }
+
+    // Load cases for dropdown
+    async function loadCasesDropdown() {
+      try {
+        const cases = await supaFetch('cases?select=id,case_number,title&order=created_at.desc');
+        const select = document.getElementById('updateCaseId');
+        select.innerHTML = '<option value="">-- Select a case --</option>' +
+          cases.map(c => `<option value="${c.id}">${c.case_number} - ${c.title}</option>`).join('');
+      } catch (e) { console.error(e); }
+    }
+
+    // Add Update
+    async function addUpdate(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      btn.disabled = true;
+      try {
+        await supaFetch('case_updates', {
+          method: 'POST',
+          body: JSON.stringify({
+            case_id: document.getElementById('updateCaseId').value,
+            update_title: document.getElementById('updateTitle').value,
+            update_text: document.getElementById('updateText').value,
+            update_type: 'note',
+            is_visible_to_client: document.getElementById('updateVisible').checked
+          })
+        });
+        showToast('Update posted successfully!');
+        e.target.reset();
+      } catch (err) {
+        showToast('Failed to post update: ' + err.message, true);
+      }
+      btn.disabled = false;
+    }
+
+    // Edit Modal
+    let allCases = [];
+    async function openEditModal(id) {
+      try {
+        const cases = await supaFetch(`cases?id=eq.${id}`);
+        if (cases.length === 0) return;
+        const c = cases[0];
+        document.getElementById('editCaseId').value = c.id;
+        document.getElementById('editCaseNumber').value = c.case_number || '';
+        document.getElementById('editTitle').value = c.title || '';
+        document.getElementById('editStatus').value = c.status || 'pending';
+        document.getElementById('editHearingDate').value = c.next_hearing_date || '';
+        document.getElementById('editCourtName').value = c.court_name || '';
+        document.getElementById('editModal').classList.add('show');
+      } catch (e) { showToast('Failed to load case', true); }
+    }
+
+    function closeEditModal() {
+      document.getElementById('editModal').classList.remove('show');
+    }
+
+    async function saveEdit(e) {
+      e.preventDefault();
+      const id = document.getElementById('editCaseId').value;
+      const btn = e.target.querySelector('button');
+      btn.disabled = true;
+      try {
+        await supaFetch(`cases?id=eq.${id}`, {
+          method: 'PATCH',
+          body: JSON.stringify({
+            case_number: document.getElementById('editCaseNumber').value,
+            title: document.getElementById('editTitle').value,
+            status: document.getElementById('editStatus').value,
+            next_hearing_date: document.getElementById('editHearingDate').value || null,
+            court_name: document.getElementById('editCourtName').value
+          })
+        });
+        showToast('Case updated!');
+        closeEditModal();
+        loadCases();
+      } catch (err) {
+        showToast('Failed to update: ' + err.message, true);
+      }
+      btn.disabled = false;
+    }
+
+    // Delete
+    async function deleteCase(id) {
+      if (!confirm('Are you sure you want to delete this case?')) return;
+      try {
+        await supaFetch(`cases?id=eq.${id}`, { method: 'DELETE' });
+        showToast('Case deleted');
+        loadCases();
+      } catch (e) { showToast('Failed to delete', true); }
+    }
+
+    // Toast
+    function showToast(msg, isError = false) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.className = 'toast show' + (isError ? ' error' : '');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+  </script>
+</body>
+</html>
