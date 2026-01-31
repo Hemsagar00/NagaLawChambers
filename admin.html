@@ -386,6 +386,10 @@
               </select>
             </div>
             <div class="form-group">
+              <label>Client WhatsApp Number *</label>
+              <input type="tel" id="clientPhone" placeholder="91XXXXXXXXXX (with country code)" required>
+            </div>
+            <div class="form-group">
               <label>Update Title *</label>
               <input type="text" id="updateTitle" placeholder="e.g., Hearing Completed" required>
             </div>
@@ -398,6 +402,15 @@
             </div>
             <button type="submit" class="btn-primary"><i class="fa-solid fa-paper-plane"></i> Post Update</button>
           </form>
+          
+          <!-- WhatsApp Send Box (shows after update) -->
+          <div id="whatsappBox" style="display:none; margin-top:24px; padding:24px; background:rgba(37,211,102,0.1); border:1px solid #25D366; border-radius:12px;">
+            <h4 style="color:#25D366; margin-bottom:12px;"><i class="fa-brands fa-whatsapp"></i> Send Update via WhatsApp</h4>
+            <p style="color:var(--text-dim); margin-bottom:16px; font-size:0.9rem;">Click the button below to send this update to the client:</p>
+            <a id="whatsappLink" href="#" target="_blank" style="display:inline-block; padding:12px 24px; background:#25D366; color:#fff; text-decoration:none; border-radius:8px; font-weight:600;">
+              <i class="fa-brands fa-whatsapp"></i> Send on WhatsApp
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -579,18 +592,32 @@
       e.preventDefault();
       const btn = e.target.querySelector('button');
       btn.disabled = true;
+      
+      const caseSelect = document.getElementById('updateCaseId');
+      const caseName = caseSelect.options[caseSelect.selectedIndex].text;
+      const phone = document.getElementById('clientPhone').value.replace(/\D/g, '');
+      const title = document.getElementById('updateTitle').value;
+      const text = document.getElementById('updateText').value;
+      
       try {
         await supaFetch('case_updates', {
           method: 'POST',
           body: JSON.stringify({
-            case_id: document.getElementById('updateCaseId').value,
-            update_title: document.getElementById('updateTitle').value,
-            update_text: document.getElementById('updateText').value,
+            case_id: caseSelect.value,
+            update_title: title,
+            update_text: text,
             update_type: 'note',
             is_visible_to_client: document.getElementById('updateVisible').checked
           })
         });
         showToast('Update posted successfully!');
+        
+        // Show WhatsApp box
+        const message = `🔔 *Case Update - Naga Law Chambers*\n\n📁 *Case:* ${caseName}\n\n📌 *${title}*\n${text}\n\n🔗 Check status: https://nagalawchambers.com/case-status.html\n\n📞 For queries: +91 9440000417`;
+        const waLink = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+        document.getElementById('whatsappLink').href = waLink;
+        document.getElementById('whatsappBox').style.display = 'block';
+        
         e.target.reset();
       } catch (err) {
         showToast('Failed to post update: ' + err.message, true);
