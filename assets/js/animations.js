@@ -26,7 +26,8 @@
     const ctx = canvas.getContext('2d');
     let particles = [];
     let animId;
-    const maxParticles = 65;
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const maxParticles = isMobile ? 28 : 65;
 
     function resize() {
       canvas.width = window.innerWidth;
@@ -79,46 +80,22 @@
     animateParticles();
   }
 
-  /* ── SMOOTH SCROLL (Lenis-like) ── */
+  /* ── SMOOTH SCROLL ── */
   const SmoothScroll = {
-    target: 0,
-    current: 0,
-    ease: 0.075,
-    raf: null,
-
-    init() {
-      this.current = window.scrollY;
-      this.target = this.current;
-      this.raf = requestAnimationFrame(this.tick.bind(this));
-    },
-
-    tick() {
-      this.target = window.scrollY;
-      this.current += (this.target - this.current) * this.ease;
-      const diff = Math.abs(this.target - this.current);
-      if (diff < 0.5) this.current = this.target;
-
-      window.scrollTo(0, this.current);
-      this.raf = requestAnimationFrame(this.tick.bind(this));
-    },
-
-    scrollTo(targetY, duration = 1200) {
-      const start = this.current;
+    scrollTo(targetY, duration = 800) {
+      const start = window.scrollY;
       const startTime = performance.now();
 
       const animate = (now) => {
         const elapsed = now - startTime;
         const progress = Math.min(elapsed / duration, 1);
         const eased = 1 - Math.pow(1 - progress, 3);
-        const y = start + (targetY - start) * eased;
-        window.scrollTo(0, y);
+        window.scrollTo(0, start + (targetY - start) * eased);
         if (progress < 1) requestAnimationFrame(animate);
-        else { this.target = targetY; this.current = targetY; }
       };
       requestAnimationFrame(animate);
     }
   };
-  SmoothScroll.init();
 
   /* Override native smooth-scroll anchors */
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
