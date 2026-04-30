@@ -20,7 +20,7 @@
   <meta name="keywords" content="property lawyer Andhra Pradesh, land dispute advocate, revenue court lawyer, Anantapur lawyer, civil litigation, property documentation, ROR appeals, mutation, land revenue law, best lawyer Anantapur">
   <meta name="author" content="Advocate S. Nagendra Naik">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#0a0a0a">
+  <meta name="theme-color" content="#050505">
   <link rel="canonical" href="https://nagalawchambers.com/">
 
   <!-- Open Graph / Facebook -->
@@ -92,6 +92,21 @@
   </script>
 </head>
 <body>
+
+  <!-- Preloader -->
+  <div id="preloader" aria-hidden="true">
+    <div class="preloader-inner">
+      <div class="preloader-scales">
+        <div class="preloader-ring"></div>
+        <i class="fa-solid fa-scale-balanced"></i>
+      </div>
+      <p class="preloader-text">NAGA LEGAL</p>
+    </div>
+  </div>
+
+  <!-- Ambient Particle Canvas -->
+  <canvas id="particleCanvas" aria-hidden="true"></canvas>
+
   <!-- Skip to Content -->
   <a href="#main-content" class="skip-link">Skip to content</a>
 
@@ -123,14 +138,14 @@
             <i class="fa-solid fa-scale-balanced"></i>
             <span>Advocate S. Nagendra Naik</span>
           </div>
-          <h1>Defending Your <em>Legacy & Rights</em></h1>
-          <p class="hero-text reveal" data-reveal-delay="100" data-typed-text="Premier legal representation in Land, Revenue & Property disputes. Combining 7+ years of courtroom expertise with strategic case management across Andhra Pradesh.">
+          <h1>Defending Your <em>Legacy &amp; Rights</em></h1>
+          <p class="hero-text reveal" data-reveal-delay="100">
             Premier legal representation in Land, Revenue & Property disputes.
             Combining 7+ years of courtroom expertise with strategic case management
             across Andhra Pradesh.
           </p>
           <div class="hero-buttons reveal" data-reveal-delay="200">
-            <a href="#contact" class="btn btn-primary">
+            <a href="#contact" class="btn btn-primary magnetic-btn">
               <i class="fa-solid fa-calendar"></i> Book Appointment
             </a>
             <a href="tel:+919440000417" class="btn btn-outline">
@@ -170,7 +185,7 @@
   <section id="about" class="about">
     <div class="container">
       <div class="about-grid">
-        <div class="about-image reveal reveal-left">
+        <div class="about-image reveal-image reveal-left">
           <img src="https://i.ibb.co/rRKbLsg4/IMG-20251101-WA0017.jpg" alt="Advocate S. Nagendra Naik at District Court Anantapur">
         </div>
         <div class="about-content">
@@ -188,22 +203,10 @@
             ensuring clients receive personalized attention at every stage.
           </p>
           <div class="about-features reveal" data-reveal-delay="250">
-            <div class="about-feature">
-              <i class="fa-solid fa-check"></i>
-              <span>ROR Appeals & Mutations</span>
-            </div>
-            <div class="about-feature">
-              <i class="fa-solid fa-check"></i>
-              <span>Property Disputes</span>
-            </div>
-            <div class="about-feature">
-              <i class="fa-solid fa-check"></i>
-              <span>Civil Litigation</span>
-            </div>
-            <div class="about-feature">
-              <i class="fa-solid fa-check"></i>
-              <span>Documentation</span>
-            </div>
+            <div class="about-feature"><i class="fa-solid fa-check"></i><span>ROR Appeals & Mutations</span></div>
+            <div class="about-feature"><i class="fa-solid fa-check"></i><span>Property Disputes</span></div>
+            <div class="about-feature"><i class="fa-solid fa-check"></i><span>Civil Litigation</span></div>
+            <div class="about-feature"><i class="fa-solid fa-check"></i><span>Documentation</span></div>
           </div>
           <div class="bar-badge reveal" data-reveal-delay="300">
             <i class="fa-solid fa-certificate"></i>
@@ -226,24 +229,18 @@
         <div class="section-line"></div>
       </div>
       <div class="practice-grid">
-        <div class="practice-card glass-card shimmer-container reveal reveal-scale" data-reveal-delay="0">
-          <div class="practice-icon">
-            <i class="fa-solid fa-landmark"></i>
-          </div>
+        <div class="practice-card glass-card reveal reveal-scale" data-reveal-delay="0">
+          <div class="practice-icon"><i class="fa-solid fa-landmark"></i></div>
           <h3>Land Revenue</h3>
           <p>Expert handling of Record of Rights (ROR) appeals, mutation proceedings, and revenue court disputes with deep understanding of AP land laws.</p>
         </div>
-        <div class="practice-card glass-card shimmer-container reveal reveal-scale" data-reveal-delay="100">
-          <div class="practice-icon">
-            <i class="fa-solid fa-gavel"></i>
-          </div>
+        <div class="practice-card glass-card reveal reveal-scale" data-reveal-delay="100">
+          <div class="practice-icon"><i class="fa-solid fa-gavel"></i></div>
           <h3>Civil Litigation</h3>
           <p>Strategic resolution of ownership conflicts, partition suits, injunctions, and possession claims through aggressive courtroom advocacy.</p>
         </div>
-        <div class="practice-card glass-card shimmer-container reveal reveal-scale" data-reveal-delay="200">
-          <div class="practice-icon">
-            <i class="fa-solid fa-file-signature"></i>
-          </div>
+        <div class="practice-card glass-card reveal reveal-scale" data-reveal-delay="200">
+          <div class="practice-icon"><i class="fa-solid fa-file-signature"></i></div>
           <h3>Property Documentation</h3>
           <p>Precision drafting of sale deeds, wills, gift deeds, and thorough due diligence for property title verification and transfer.</p>
         </div>
@@ -275,7 +272,7 @@
     </div>
   </div>
 
-  <!-- Testimonials -->
+  <!-- Testimonials Marquee -->
   <section id="testimonials" class="testimonials">
     <div class="container">
       <div class="section-header reveal">
@@ -283,45 +280,55 @@
         <h2 class="section-title">Client Stories</h2>
         <div class="section-line"></div>
       </div>
-      <div class="testimonials-grid">
-        <div class="testimonial-card glass-card reveal" data-reveal-delay="0">
-          <div class="testimonial-stars">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-          </div>
-          <p class="testimonial-text">
-            "Advocate Nagendra Naik solved a land dispute that was stuck for 10 years.
-            His understanding of revenue records is unmatched."
-          </p>
-          <div class="testimonial-author">
-            <h4>Ramesh K.</h4>
-            <span>Farmer, Anantapur</span>
-          </div>
+    </div>
+    <div class="marquee-wrapper">
+      <div class="marquee-fade-left"></div>
+      <div class="marquee-fade-right"></div>
+      <div class="marquee-track">
+        <div class="testimonial-card glass-card">
+          <div class="testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p class="testimonial-text">"Advocate Nagendra Naik solved a land dispute that was stuck for 10 years. His understanding of revenue records is unmatched."</p>
+          <div class="testimonial-author"><h4>Ramesh K.</h4><span>Farmer, Anantapur</span></div>
         </div>
-        <div class="testimonial-card glass-card reveal" data-reveal-delay="100">
-          <div class="testimonial-stars">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-          </div>
-          <p class="testimonial-text">
-            "Professional and transparent. The legal opinion provided saved me from
-            buying a property with hidden litigation."
-          </p>
-          <div class="testimonial-author">
-            <h4>Sreenivasulu</h4>
-            <span>Real Estate Investor</span>
-          </div>
+        <div class="testimonial-card glass-card">
+          <div class="testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p class="testimonial-text">"Professional and transparent. The legal opinion provided saved me from buying a property with hidden litigation."</p>
+          <div class="testimonial-author"><h4>Sreenivasulu</h4><span>Real Estate Investor</span></div>
         </div>
-        <div class="testimonial-card glass-card reveal" data-reveal-delay="200">
-          <div class="testimonial-stars">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-          </div>
-          <p class="testimonial-text">
-            "Excellent drafting of our partition deed. The process was smooth and
-            explained clearly at every step."
-          </p>
-          <div class="testimonial-author">
-            <h4>Lakshmi Devi</h4>
-            <span>Homeowner</span>
-          </div>
+        <div class="testimonial-card glass-card">
+          <div class="testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p class="testimonial-text">"Excellent drafting of our partition deed. The process was smooth and explained clearly at every step."</p>
+          <div class="testimonial-author"><h4>Lakshmi Devi</h4><span>Homeowner</span></div>
+        </div>
+        <div class="testimonial-card glass-card">
+          <div class="testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p class="testimonial-text">"Recovered our family property that was illegally occupied for years. His dedication and knowledge of land laws is exceptional."</p>
+          <div class="testimonial-author"><h4>Venkatesh R.</h4><span>Businessman, Kadapa</span></div>
+        </div>
+        <div class="testimonial-card glass-card">
+          <div class="testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p class="testimonial-text">"Very responsive and transparent. Got my mutation done in just 3 weeks after waiting 8 months with another lawyer."</p>
+          <div class="testimonial-author"><h4>Anitha S.</h4><span>Teacher, Anantapur</span></div>
+        </div>
+      </div>
+    </div>
+    <!-- Mobile fallback -->
+    <div class="container">
+      <div class="testimonials-grid-fallback">
+        <div class="testimonial-card glass-card">
+          <div class="testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p class="testimonial-text">"Advocate Nagendra Naik solved a land dispute that was stuck for 10 years. His understanding of revenue records is unmatched."</p>
+          <div class="testimonial-author"><h4>Ramesh K.</h4><span>Farmer, Anantapur</span></div>
+        </div>
+        <div class="testimonial-card glass-card">
+          <div class="testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p class="testimonial-text">"Professional and transparent. The legal opinion provided saved me from buying a property with hidden litigation."</p>
+          <div class="testimonial-author"><h4>Sreenivasulu</h4><span>Real Estate Investor</span></div>
+        </div>
+        <div class="testimonial-card glass-card">
+          <div class="testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p class="testimonial-text">"Excellent drafting of our partition deed. The process was smooth and explained clearly at every step."</p>
+          <div class="testimonial-author"><h4>Lakshmi Devi</h4><span>Homeowner</span></div>
         </div>
       </div>
     </div>
@@ -340,36 +347,70 @@
           <span class="success-badge">Land Revenue</span>
           <h3 class="success-title">10-Year Land Dispute Resolved</h3>
           <p class="success-desc">A farmer family was denied access to their ancestral land for over a decade due to fraudulent entries in revenue records. Through meticulous investigation and presentation of historical records, we secured a favorable verdict.</p>
-          <div class="success-result">
-            <i class="fa-solid fa-check-circle"></i>
-            <span>Full ownership restored + compensation awarded</span>
-          </div>
+          <div class="success-result"><i class="fa-solid fa-check-circle"></i><span>Full ownership restored + compensation awarded</span></div>
         </div>
         <div class="success-card glass-card reveal" data-reveal-delay="100">
           <span class="success-badge">Property Documentation</span>
           <h3 class="success-title">Prevented Fraudulent Property Sale</h3>
           <p class="success-desc">Our due diligence revealed hidden litigation and forged documents before a major property purchase. The client was saved from a ₹1.2 Crore potential loss.</p>
-          <div class="success-result">
-            <i class="fa-solid fa-check-circle"></i>
-            <span>Client saved from ₹1.2 Cr fraud</span>
-          </div>
+          <div class="success-result"><i class="fa-solid fa-check-circle"></i><span>Client saved from ₹1.2 Cr fraud</span></div>
         </div>
         <div class="success-card glass-card reveal" data-reveal-delay="200">
           <span class="success-badge">Civil Litigation</span>
           <h3 class="success-title">Family Partition Settled Amicably</h3>
           <p class="success-desc">A complex 4-way partition involving agricultural and residential properties was resolved through skilled negotiation, avoiding prolonged court battles.</p>
-          <div class="success-result">
-            <i class="fa-solid fa-check-circle"></i>
-            <span>Settlement in 6 months + family harmony preserved</span>
-          </div>
+          <div class="success-result"><i class="fa-solid fa-check-circle"></i><span>Settlement in 6 months + family harmony preserved</span></div>
         </div>
         <div class="success-card glass-card reveal" data-reveal-delay="300">
           <span class="success-badge">ROR Appeals</span>
           <h3 class="success-title">Government Land Patta Obtained</h3>
           <p class="success-desc">Successfully argued for regularization of encroached government land that a family had occupied for 40+ years, securing permanent patta rights.</p>
-          <div class="success-result">
-            <i class="fa-solid fa-check-circle"></i>
-            <span>Permanent patta granted by Collector</span>
+          <div class="success-result"><i class="fa-solid fa-check-circle"></i><span>Permanent patta granted by Collector</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Career Timeline -->
+  <section id="timeline" class="timeline">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">The Journey</span>
+        <h2 class="section-title">Years of Dedication</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="timeline-wrapper">
+        <div class="timeline-line"></div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content glass-card">
+            <div class="timeline-year">2019</div>
+            <h4>Started Independent Practice</h4>
+            <p>Enrolled with Bar Council of Andhra Pradesh and began practice at District Court Anantapur, focusing on land and property matters.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content glass-card">
+            <div class="timeline-year">2020</div>
+            <h4>Bar Association Member</h4>
+            <p>Became an active member of the Anantapur Bar Association, handling complex revenue appeals and mutation cases across the district.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content glass-card">
+            <div class="timeline-year">2022</div>
+            <h4>200+ Cases Milestone</h4>
+            <p>Successfully resolved over 200 land, revenue, and property cases with a 95% success rate, earning trust across Andhra Pradesh.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content glass-card">
+            <div class="timeline-year">2025</div>
+            <h4>Senior Legal Counsel</h4>
+            <p>Recognized as a trusted authority in land revenue law, handling High Court matters and providing legal opinions for major property transactions.</p>
           </div>
         </div>
       </div>
@@ -386,36 +427,30 @@
       </div>
       <div class="blog-grid">
         <div class="blog-card glass-card reveal" data-reveal-delay="0">
-          <div class="blog-image">
-            <i class="fa-solid fa-scroll"></i>
-          </div>
+          <div class="blog-image"><i class="fa-solid fa-scroll"></i></div>
           <div class="blog-content">
             <span class="blog-category">Property Law</span>
             <h3 class="blog-title">Understanding ROR & Pahani Records in AP</h3>
             <p class="blog-excerpt">Learn about Record of Rights, how to read Pahani entries, and common mistakes to avoid when purchasing agricultural land.</p>
-            <a href="#contact" class="blog-link">Read More &rarr;</a>
+            <a href="#contact" class="blog-link">Read More <i class="fa-solid fa-arrow-right"></i></a>
           </div>
         </div>
         <div class="blog-card glass-card reveal" data-reveal-delay="100">
-          <div class="blog-image">
-            <i class="fa-solid fa-file-contract"></i>
-          </div>
+          <div class="blog-image"><i class="fa-solid fa-file-contract"></i></div>
           <div class="blog-content">
             <span class="blog-category">Documentation</span>
             <h3 class="blog-title">Essential Documents for Property Transfer</h3>
             <p class="blog-excerpt">A comprehensive checklist of documents required for buying, selling, or transferring property in Andhra Pradesh.</p>
-            <a href="#contact" class="blog-link">Read More &rarr;</a>
+            <a href="#contact" class="blog-link">Read More <i class="fa-solid fa-arrow-right"></i></a>
           </div>
         </div>
         <div class="blog-card glass-card reveal" data-reveal-delay="200">
-          <div class="blog-image">
-            <i class="fa-solid fa-gavel"></i>
-          </div>
+          <div class="blog-image"><i class="fa-solid fa-gavel"></i></div>
           <div class="blog-content">
             <span class="blog-category">Civil Rights</span>
             <h3 class="blog-title">Your Rights in Land Disputes</h3>
             <p class="blog-excerpt">Know your legal rights when facing encroachment, boundary disputes, or ownership challenges.</p>
-            <a href="#contact" class="blog-link">Read More &rarr;</a>
+            <a href="#contact" class="blog-link">Read More <i class="fa-solid fa-arrow-right"></i></a>
           </div>
         </div>
       </div>
@@ -432,38 +467,20 @@
           <p class="reveal" data-reveal-delay="100">Available for consultation at our office or via phone. We respond within 24 hours.</p>
 
           <div class="contact-item reveal" data-reveal-delay="150">
-            <div class="contact-icon">
-              <i class="fa-solid fa-location-dot"></i>
-            </div>
-            <div>
-              <h4>Office Address</h4>
-              <p>District Court Premises, Near Bar Association<br>Anantapur, Andhra Pradesh 515001</p>
-            </div>
+            <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div><h4>Office Address</h4><p>District Court Premises, Near Bar Association<br>Anantapur, Andhra Pradesh 515001</p></div>
           </div>
-
           <div class="contact-item reveal" data-reveal-delay="200">
-            <div class="contact-icon">
-              <i class="fa-solid fa-phone"></i>
-            </div>
-            <div>
-              <h4>Phone & WhatsApp</h4>
-              <p><a href="tel:+919440000417">+91 9440000417</a></p>
-            </div>
+            <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+            <div><h4>Phone & WhatsApp</h4><p><a href="tel:+919440000417">+91 9440000417</a></p></div>
           </div>
-
           <div class="contact-item reveal" data-reveal-delay="250">
-            <div class="contact-icon">
-              <i class="fa-solid fa-envelope"></i>
-            </div>
-            <div>
-              <h4>Email</h4>
-              <p><a href="mailto:contact@nagalawchambers.com">contact@nagalawchambers.com</a></p>
-            </div>
+            <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div><h4>Email</h4><p><a href="mailto:contact@nagalawchambers.com">contact@nagalawchambers.com</a></p></div>
           </div>
         </div>
 
-        <form class="contact-form glass-card reveal reveal-right" action="https://formsubmit.co/contact@nagalawchambers.com" method="POST" novalidate>
-          <!-- FormSubmit Configuration -->
+        <form class="contact-form reveal reveal-right" action="https://formsubmit.co/contact@nagalawchambers.com" method="POST" novalidate>
           <input type="hidden" name="_subject" value="New Consultation Request - Naga Law Chambers">
           <input type="hidden" name="_autoresponse" value="Thank you for contacting Naga Law Chambers.
 
@@ -483,20 +500,24 @@ Naga Law Chambers">
           <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
 
           <h3>Request Consultation</h3>
-          <div class="form-group">
-            <input type="text" name="name" placeholder="Your Name" required aria-required="true" aria-label="Your full name">
+          <div class="float-group">
+            <input type="text" name="name" id="formName" required>
+            <label for="formName">Your Name *</label>
             <span class="form-error" role="alert"></span>
           </div>
-          <div class="form-group">
-            <input type="email" name="email" placeholder="Your Email" required aria-required="true" aria-label="Your email address">
+          <div class="float-group">
+            <input type="email" name="email" id="formEmail" required>
+            <label for="formEmail">Your Email *</label>
             <span class="form-error" role="alert"></span>
           </div>
-          <div class="form-group">
-            <input type="tel" name="phone" placeholder="Phone Number" required aria-required="true" aria-label="Your phone number">
+          <div class="float-group">
+            <input type="tel" name="phone" id="formPhone" required>
+            <label for="formPhone">Phone Number *</label>
             <span class="form-error" role="alert"></span>
           </div>
-          <div class="form-group">
-            <textarea name="message" placeholder="Brief details about your case..." aria-label="Case details"></textarea>
+          <div class="float-group">
+            <textarea name="message" id="formMessage"></textarea>
+            <label for="formMessage">Brief details about your case...</label>
           </div>
           <button type="submit">Send Request</button>
         </form>
@@ -511,6 +532,25 @@ Naga Law Chambers">
     </div>
   </footer>
 
+  <!-- Side Navigation Dots -->
+  <nav class="side-dots" aria-label="Section navigation">
+    <span class="side-dot active" data-target="main-content" data-label="Home"></span>
+    <span class="side-dot" data-target="about" data-label="About"></span>
+    <span class="side-dot" data-target="practice" data-label="Expertise"></span>
+    <span class="side-dot" data-target="testimonials" data-label="Testimonials"></span>
+    <span class="side-dot" data-target="timeline" data-label="Journey"></span>
+    <span class="side-dot" data-target="contact" data-label="Contact"></span>
+  </nav>
+
+  <!-- Back to Top -->
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <svg viewBox="0 0 48 48">
+      <circle class="bg-circle" cx="24" cy="24" r="19"/>
+      <circle class="progress-circle" cx="24" cy="24" r="19"/>
+    </svg>
+    <span class="back-to-top-icon"><i class="fa-solid fa-arrow-up"></i></span>
+  </div>
+
   <!-- WhatsApp Float -->
   <a href="https://wa.me/919440000417" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chat on WhatsApp">
     <i class="fa-brands fa-whatsapp"></i>
@@ -519,7 +559,7 @@ Naga Law Chambers">
   <!-- Tidio Live Chat -->
   <script src="//code.tidio.co/i5s3soanbhlxt1jk2ikq9g1dxm9f4dcm.js" async></script>
 
-  <!-- Animation Engine -->
+  <!-- Premium Animation Engine -->
   <script src="assets/js/animations.js" defer></script>
 </body>
 </html>
