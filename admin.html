@@ -145,11 +145,15 @@
       font-weight: 600;
     }
     .status-pending { background: rgba(255,193,7,0.2); color: #FFC107; }
+    .status-consultation { background: rgba(0,188,212,0.2); color: #00BCD4; }
+    .status-document_collection { background: rgba(255,152,0,0.2); color: #FF9800; }
     .status-filed { background: rgba(33,150,243,0.2); color: #2196F3; }
     .status-hearing_scheduled { background: rgba(156,39,176,0.2); color: #9C27B0; }
     .status-in_progress { background: rgba(0,188,212,0.2); color: #00BCD4; }
+    .status-reserved { background: rgba(96,125,139,0.2); color: #90A4AE; }
     .status-closed_won { background: rgba(76,175,80,0.2); color: #4CAF50; }
     .status-closed_lost { background: rgba(244,67,54,0.2); color: #F44336; }
+    .status-withdrawn { background: rgba(158,158,158,0.2); color: #9E9E9E; }
 
     .action-btn {
       padding: 6px 12px;
@@ -267,9 +271,9 @@
     <div class="login-box">
       <h1><i class="fa-solid fa-lock"></i> Admin Panel</h1>
       <p>Naga Law Chambers Case Management</p>
-      <input type="password" id="adminPassword" placeholder="Enter admin password" onkeypress="if(event.key==='Enter')attemptLogin()">
-      <button onclick="attemptLogin()">Login</button>
-      <p class="login-error" id="loginError">Invalid password. Try again.</p>
+      <input type="password" id="adminPassword" placeholder="Enter admin password" aria-label="Admin password" onkeypress="if(event.key==='Enter')attemptLogin()">
+      <button onclick="attemptLogin()" id="loginBtn">Login</button>
+      <p class="login-error" id="loginError" role="alert">Invalid password. Try again.</p>
     </div>
   </div>
 
@@ -282,9 +286,9 @@
 
     <div class="container">
       <div class="tabs">
-        <button class="tab active" onclick="showTab('cases')"><i class="fa-solid fa-folder-open"></i> All Cases</button>
-        <button class="tab" onclick="showTab('add')"><i class="fa-solid fa-plus"></i> Add Case</button>
-        <button class="tab" onclick="showTab('updates')"><i class="fa-solid fa-bell"></i> Add Update</button>
+        <button class="tab active" data-tab="cases"><i class="fa-solid fa-folder-open"></i> All Cases</button>
+        <button class="tab" data-tab="add"><i class="fa-solid fa-plus"></i> Add Case</button>
+        <button class="tab" data-tab="updates"><i class="fa-solid fa-bell"></i> Add Update</button>
       </div>
 
       <!-- All Cases Tab -->
@@ -465,28 +469,62 @@
   <script>
     const SUPABASE_URL = 'https://svhpxqqddrtukupkwafn.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN2aHB4cXFkZHJ0dWt1cGt3YWZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkyNTQyMzMsImV4cCI6MjA4NDgzMDIzM30.DXZg_siYUE2j62YX5GRky05o9AQRYmxh9olJfD-Vzi8';
-    const ADMIN_PASS = 'naga@2026';
+    const AUTH_ENDPOINT = '/api/auth';
 
     // Auth
-    function attemptLogin() {
+    async function attemptLogin() {
       const pass = document.getElementById('adminPassword').value;
-      if (pass === ADMIN_PASS) {
-        sessionStorage.setItem('adminAuth', 'true');
-        document.getElementById('loginScreen').style.display = 'none';
-        document.getElementById('adminPanel').classList.add('show');
-        loadCases();
-      } else {
-        document.getElementById('loginError').classList.add('show');
+      const errorEl = document.getElementById('loginError');
+      const btn = document.getElementById('loginBtn');
+      errorEl.classList.remove('show');
+
+      if (!pass) {
+        errorEl.textContent = 'Please enter a password.';
+        errorEl.classList.add('show');
+        return;
       }
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging in...';
+
+      try {
+        const res = await fetch(AUTH_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: pass })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          sessionStorage.setItem('adminAuth', data.token);
+          sessionStorage.setItem('adminExpires', data.expiresAt);
+          document.getElementById('loginScreen').style.display = 'none';
+          document.getElementById('adminPanel').classList.add('show');
+          loadCases();
+        } else {
+          errorEl.textContent = data.error || 'Invalid password. Try again.';
+          errorEl.classList.add('show');
+        }
+      } catch (err) {
+        errorEl.textContent = 'Network error. Please try again.';
+        errorEl.classList.add('show');
+      }
+
+      btn.disabled = false;
+      btn.innerHTML = 'Login';
     }
 
     function logout() {
       sessionStorage.removeItem('adminAuth');
+      sessionStorage.removeItem('adminExpires');
       location.reload();
     }
 
     // Check auth on load
-    if (sessionStorage.getItem('adminAuth') === 'true') {
+    const authToken = sessionStorage.getItem('adminAuth');
+    const expiresAt = sessionStorage.getItem('adminExpires');
+    if (authToken && expiresAt && Date.now() < parseInt(expiresAt)) {
       document.getElementById('loginScreen').style.display = 'none';
       document.getElementById('adminPanel').classList.add('show');
       loadCases();
@@ -496,8 +534,10 @@
     function showTab(tabName) {
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-      document.querySelector(`.tab:nth-child(${tabName === 'cases' ? 1 : tabName === 'add' ? 2 : 3})`).classList.add('active');
-      document.getElementById('tab-' + tabName).classList.add('active');
+      const targetTab = document.querySelector(`.tab[data-tab="${tabName}"]`);
+      if (targetTab) targetTab.classList.add('active');
+      const targetContent = document.getElementById('tab-' + tabName);
+      if (targetContent) targetContent.classList.add('active');
       if (tabName === 'updates') loadCasesDropdown();
     }
 
@@ -540,7 +580,8 @@
         `).join('');
       } catch (e) {
         console.error(e);
-        showToast('Failed to load cases', true);
+        const tbody = document.getElementById('casesTableBody');
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--danger);">Failed to load cases. <a href="#" onclick="loadCases();return false;" style="color:var(--gold);text-decoration:underline;">Retry</a></td></tr>';
       }
     }
 

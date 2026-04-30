@@ -1,2 +1,23 @@
-# Local Netlify folder
+# Legacy Netlify
 .netlify
+
+# Cloudflare
+.wrangler
+.dev.vars
+.env
+*.env
+
+# Sensitive
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Claude
+.claude/

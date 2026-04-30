@@ -151,6 +151,15 @@
     .status-hearing { background: rgba(156, 39, 176, 0.2); color: #9C27B0; }
     .status-won { background: rgba(76, 175, 80, 0.2); color: #4CAF50; }
     .status-closed { background: rgba(158, 158, 158, 0.2); color: #9E9E9E; }
+    .status-consultation { background: rgba(0, 188, 212, 0.2); color: #00BCD4; }
+    .status-document_collection { background: rgba(255, 152, 0, 0.2); color: #FF9800; }
+    .status-filed { background: rgba(33, 150, 243, 0.2); color: #2196F3; }
+    .status-in_progress { background: rgba(0, 188, 212, 0.2); color: #00BCD4; }
+    .status-hearing_scheduled { background: rgba(156, 39, 176, 0.2); color: #9C27B0; }
+    .status-reserved { background: rgba(96, 125, 139, 0.2); color: #90A4AE; }
+    .status-closed_won { background: rgba(76, 175, 80, 0.2); color: #4CAF50; }
+    .status-closed_lost { background: rgba(244, 67, 54, 0.2); color: #F44336; }
+    .status-withdrawn { background: rgba(158, 158, 158, 0.2); color: #9E9E9E; }
 
     .result-grid {
       display: grid;
@@ -270,7 +279,7 @@
     <div class="search-box">
       <label for="caseNumber">Case Number / Reference</label>
       <div class="input-group">
-        <input type="text" id="caseNumber" placeholder="Enter case number (e.g., NLC-2026-001)" autocomplete="off">
+        <input type="text" id="caseNumber" placeholder="Enter case number (e.g., NLC-2026-001)" autocomplete="off" aria-label="Case number">
         <button onclick="searchCase()" id="searchBtn">
           <i class="fa-solid fa-search"></i> Search
         </button>
@@ -278,17 +287,17 @@
       <p class="hint">Your case number was provided when you registered your case with us.</p>
     </div>
 
-    <div class="loading" id="loading">
+    <div class="loading" id="loading" role="status" aria-label="Loading results">
       <i class="fa-solid fa-spinner"></i>
       <p>Searching...</p>
     </div>
 
-    <div class="error-box" id="errorBox">
+    <div class="error-box" id="errorBox" role="alert">
       <i class="fa-solid fa-exclamation-circle"></i>
       <span id="errorText">Case not found. Please check the case number and try again.</span>
     </div>
 
-    <div class="results" id="results">
+    <div class="results" id="results" aria-live="polite">
       <div class="result-card">
         <div class="result-header">
           <div class="case-title">
@@ -336,8 +345,8 @@
 
     async function searchCase() {
       const caseNumber = document.getElementById('caseNumber').value.trim();
-      if (!caseNumber) {
-        showError('Please enter a case number');
+      if (!caseNumber || caseNumber.trim().length < 3) {
+        showError('Please enter a valid case number (minimum 3 characters)');
         return;
       }
 
@@ -431,7 +440,8 @@
         `).join('');
         document.getElementById('updatesSection').style.display = 'block';
       } else {
-        document.getElementById('updatesSection').style.display = 'none';
+        updatesList.innerHTML = '<p style="color:var(--text-secondary); font-style:italic;">No updates available yet.</p>';
+        document.getElementById('updatesSection').style.display = 'block';
       }
 
       document.getElementById('results').classList.add('show');
