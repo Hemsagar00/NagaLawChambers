@@ -1,10 +1,10 @@
 // functions/api/contact.js
 // Cloudflare Pages Function — handles contact form submissions
-// Forwards to AgentMail inbox: enthusiasticauthority275@agentmail.to
+// Forwards to AgentMail inbox: nagalawchambers@agentmail.to
 
 const AGENTMAIL_KEY = 'am_us_193c23b33811c37248bed1b7c02a3995edc03536e49c4f58afa666802a274693';
 const AGENTMAIL_URL = 'https://api.agentmail.to';
-const INBOX_ID = 'sorename574@agentmail.to';
+const INBOX_ID = 'nagalawchambers@agentmail.to';
 
 export async function onRequestPost({ request }) {
   try {
