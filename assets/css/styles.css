@@ -1374,6 +1374,7 @@ footer a:hover { color: var(--gold-light); }
   .hero-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
   .practice-grid { grid-template-columns: 1fr 1fr; }
   .hero-image-wrapper { order: -1; }
+  .hero { min-height: auto; }
   .hero-floating-card { right: 0; }
   .blog-grid { grid-template-columns: 1fr 1fr; }
   .success-grid { grid-template-columns: 1fr; }
