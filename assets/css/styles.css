@@ -669,12 +669,16 @@ section { padding: 130px 0; position: relative; }
   overflow: hidden;
   clip-path: inset(0 0 0 0);
   transition: clip-path 1s var(--ease-out-expo);
+  /* Always visible by default; JS reveal only adds animation on scroll */
 }
 .about-image.reveal-image {
-  clip-path: inset(100% 0 0 0);
+  opacity: 0.15;
+  transform: scale(0.95);
+  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
 }
 .about-image.reveal-image.revealed {
-  clip-path: inset(0 0 0 0);
+  opacity: 1;
+  transform: scale(1);
 }
 .about-image::before {
   content: '';
