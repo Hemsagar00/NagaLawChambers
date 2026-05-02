@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Naga Law Chambers](https://i.ibb.co/rRKbLsg4/IMG-20251101-WA0017.jpg)
+![Naga Law Chambers](./images/advocate-photo.jpg)
 
 **Advocate S. Nagendra Naik**  
 _Land, Revenue & Property Law Expert_
