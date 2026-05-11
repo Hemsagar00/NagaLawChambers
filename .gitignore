@@ -22,3 +22,7 @@ Thumbs.db
 # Claude
 .claude/
 .aider*
+
+.dev.vars*
+!.dev.vars.example
+!.env.example
