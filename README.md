@@ -26,9 +26,9 @@ Official website for **Advocate S. Nagendra Naik**, a distinguished legal profes
 
 ## Features
 
-- Modern, responsive design with gold + black premium aesthetic
-- Scroll-triggered reveal animations, glass morphism, 3D tilt effects
-- Gold particle effects, typed text, parallax, cursor trail
+- Portavia-inspired warm minimalist design with refined gold accents
+- Playfair Display + Inter typography, cream/warm palette
+- Scroll-triggered reveal animations, count-up stats, FAQ accordion
 - Live chat support (Tidio)
 - WhatsApp integration with floating button
 - Contact form with FormSubmit auto-reply
@@ -47,6 +47,7 @@ Official website for **Advocate S. Nagendra Naik**, a distinguished legal profes
 
 ## Tech Stack
 
+- **Design:** Portavia-inspired warm minimalist (refined gold + cream)
 - **Frontend:** HTML5, CSS3, Vanilla JavaScript
 - **Animations:** Custom JS engine (Intersection Observer, requestAnimationFrame)
 - **Fonts:** Playfair Display, Inter (Google Fonts)
@@ -55,7 +56,7 @@ Official website for **Advocate S. Nagendra Naik**, a distinguished legal profes
 - **DNS & SSL:** Cloudflare
 - **Chat:** Tidio
 - **Backend:** Supabase (PostgreSQL)
-- **Forms:** FormSubmit
+- **Forms:** AgentMail (via Cloudflare Pages Function)
 - **Analytics:** Google Analytics
 
 ## Deployment
