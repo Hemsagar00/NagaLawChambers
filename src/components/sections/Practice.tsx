@@ -78,7 +78,7 @@ function PracticeCard({ practice, index }: { practice: typeof practices[0]; inde
 
       <ul className="space-y-3">
         {practice.items.map((item) => (
-          <li key={item} className="flex items-start gap-3 text-sm text-muted-foreground">
+          <li key={item} className="flex items-start gap-3 text-sm text-muted-foreground leading-relaxed">
             <span className="w-1.5 h-1.5 rounded-full bg-[#c9a962] mt-2 shrink-0" />
             {item}
           </li>
@@ -112,7 +112,7 @@ export default function Practice() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
           {practices.map((p, i) => (
             <PracticeCard key={p.title} practice={p} index={i} />
           ))}

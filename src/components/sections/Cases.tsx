@@ -64,7 +64,7 @@ export default function Cases() {
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="text-xs uppercase tracking-[0.2em] text-[#c9a962]">{c.category}</span>
+                    <span className="border border-[#c9a962]/30 rounded-full px-3 py-1 text-xs uppercase tracking-[0.15em] text-[#c9a962]">{c.category}</span>
                     <span className="w-8 h-px bg-[#c9a962]/30" />
                   </div>
                   <h3 className="text-xl font-semibold text-[#f0f0f5] mb-2 font-[family-name:var(--font-playfair)] group-hover:text-[#c9a962] transition-colors">

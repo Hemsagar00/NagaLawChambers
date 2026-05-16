@@ -75,8 +75,7 @@ export default function BentoHero() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-[28px] sm:text-3xl md:text-4xl lg:text-[44px] leading-[1.15] font-normal tracking-tight font-[family-name:var(--font-playfair)]"
             >
-              Hi, I&apos;m{" "}
-              <span className="text-gradient-gold">S. Nagendra Naik!</span>
+              Hi, I&apos;m <span className="text-gradient-gold">S. Nagendra Naik!</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -291,7 +290,7 @@ export default function BentoHero() {
                     <Sparkle size={14} className="text-[#c9a962]/70" strokeWidth={1.5} />
                     <span className="text-[11px] uppercase tracking-[0.22em] text-white/70">Reach Me</span>
                   </div>
-                  <Link href="#contact">
+                  <Link href="#contact" className="inline-flex">
                     <div className="liquid-glass h-9 w-9 rounded-full flex items-center justify-center">
                       <ArrowUpRight size={16} className="text-white/80" strokeWidth={1.5} />
                     </div>

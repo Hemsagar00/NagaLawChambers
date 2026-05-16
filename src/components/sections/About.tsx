@@ -35,8 +35,7 @@ export default function About() {
             </div>
             <p className="text-sm uppercase tracking-[0.3em] text-[#c9a962] mb-4">About Me</p>
             <h2 className="text-4xl md:text-5xl font-bold font-[family-name:var(--font-playfair)] mb-6">
-              A tradition of{" "}
-              <span className="text-gradient-gold">trust.</span>
+              A tradition of <span className="text-gradient-gold">trust.</span>
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-6">
               Hi, I'm Nagendra — registered with the Bar Council of Andhra Pradesh since 2019.

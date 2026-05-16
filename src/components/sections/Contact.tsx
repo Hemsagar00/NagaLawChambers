@@ -40,7 +40,7 @@ export default function Contact() {
       <div className="relative z-10">
         <div className="gold-line mb-24" />
 
-        <div ref={ref} className="max-w-7xl mx-auto px-6">
+        <div ref={ref} className="max-w-7xl mx-auto px-6 lg:px-12 xl:px-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -49,8 +49,7 @@ export default function Contact() {
           >
             <p className="text-sm uppercase tracking-[0.3em] text-[#c9a962] mb-4">Get In Touch</p>
             <h2 className="text-4xl md:text-5xl font-bold font-[family-name:var(--font-playfair)]">
-              Let&apos;s work{" "}
-              <span className="text-gradient-gold">together.</span>
+              Let&apos;s work <span className="text-gradient-gold">together.</span>
             </h2>
           </motion.div>
 
@@ -107,7 +106,7 @@ export default function Contact() {
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.3 }}
               onSubmit={handleSubmit}
-              className="bg-[#12121f] rounded-2xl p-8 border border-[#c9a962]/10 space-y-6 card-3d"
+              className="bg-[#12121f] rounded-2xl p-8 lg:p-12 border border-[#c9a962]/10 space-y-6 card-3d"
             >
               <div className="grid md:grid-cols-2 gap-6">
                 <div>

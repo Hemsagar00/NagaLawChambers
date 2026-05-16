@@ -1,7 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import { Scale, Phone, Mail } from "lucide-react";
+import { Scale, Phone, Mail, MapPin } from "lucide-react";
 
 const links = [
   { href: "#home", label: "Home" },
@@ -31,6 +29,17 @@ export default function Footer() {
             <p className="text-sm text-muted-foreground">
               Defending Land. Legacy. Rights. Across Andhra Pradesh since 2019.
             </p>
+            <div className="flex items-center gap-4 mt-4">
+              <div className="w-8 h-8 rounded-full bg-[#c9a962]/10 flex items-center justify-center text-[#c9a962]">
+                <Phone size={14} />
+              </div>
+              <div className="w-8 h-8 rounded-full bg-[#c9a962]/10 flex items-center justify-center text-[#c9a962]">
+                <Mail size={14} />
+              </div>
+              <div className="w-8 h-8 rounded-full bg-[#c9a962]/10 flex items-center justify-center text-[#c9a962]">
+                <MapPin size={14} />
+              </div>
+            </div>
           </div>
 
           {/* Links */}
@@ -41,7 +50,7 @@ export default function Footer() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="block text-muted-foreground hover:text-[#c9a962] transition-colors text-sm"
+                  className="inline-block text-muted-foreground hover:text-[#c9a962] transition-colors text-sm"
                 >
                   {link.label}
                 </Link>
@@ -64,6 +73,10 @@ export default function Footer() {
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Mail size={14} />
                 nagalawchambers@gmail.com
+              </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <MapPin size={14} />
+                District Court Premises, Anantapur
               </div>
             </div>
           </div>
