@@ -54,8 +54,8 @@ export default function BentoHero() {
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#c9a962] rounded-full blur-[200px] opacity-[0.07]" />
       <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[#c9a962] rounded-full blur-[180px] opacity-[0.05]" />
 
-      {/* Header */}
-      <div className="px-4 sm:px-6 md:px-10 lg:px-14 pt-6 sm:pt-8 md:pt-10 pb-4">
+      {/* Header — clears fixed navbar */}
+      <div className="px-4 sm:px-6 md:px-10 lg:px-14 pt-24 sm:pt-28 md:pt-32 pb-4">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
           <div className="max-w-3xl">
               <motion.div
@@ -109,7 +109,7 @@ export default function BentoHero() {
 
       {/* Bento Grid */}
       <div className="px-4 sm:px-6 md:px-10 lg:px-14 pb-6 sm:pb-8 md:pb-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 lg:h-[calc(100vh-180px)]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 lg:h-[calc(100vh-260px)]">
 
           {/* === COLUMN 1: Experience / Background === */}
           <motion.div
