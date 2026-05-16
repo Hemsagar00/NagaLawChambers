@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const words = ["Justice", "Defend", "Protect", "Win"];
@@ -8,14 +8,8 @@ const words = ["Justice", "Defend", "Protect", "Win"];
 export default function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   const [count, setCount] = useState(0);
   const [wordIndex, setWordIndex] = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    // Play video
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    }
-
     const interval = setInterval(() => {
       setCount((prev) => {
         if (prev >= 100) {
@@ -43,20 +37,12 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
       exit={{ opacity: 0 }}
       transition={{ duration: 0.6 }}
     >
-      {/* Video Background */}
-      <video
-        ref={videoRef}
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover opacity-30"
-      >
-        <source src="/scale-animation.mp4" type="video/mp4" />
-      </video>
-
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/60" />
+      {/* Themed Background - Dark Navy + Gold Glow */}
+      <div className="absolute inset-0 bg-[#0a0a12]">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a12] via-[#0f1020] to-[#1a1528]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(201,169,98,0.08)_0%,transparent_70%)] blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[radial-gradient(circle,rgba(201,169,98,0.05)_0%,transparent_70%)] blur-2xl" />
+      </div>
 
       {/* Top label */}
       <motion.div
