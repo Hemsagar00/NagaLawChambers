@@ -4,7 +4,7 @@
 __turbopack_context__.v((parentImport) => {
     return Promise.all([
   "static/chunks/src_components_three_TerrainScene_tsx_0h_h0ua._.js",
-  "static/chunks/src_0.7nsfk._.js",
+  "static/chunks/src_0552iba._.js",
   "static/chunks/node_modules_0a-js0f._.js",
   "static/chunks/src_components_HomeContent_tsx_0-oc43h._.js"
 ].map((chunk) => __turbopack_context__.l(chunk))).then(() => {

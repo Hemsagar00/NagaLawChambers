@@ -105,6 +105,13 @@ export default function RootLayout({
       className={`${cinzel.variable} ${outfit.variable} ${mono.variable} antialiased`}
     >
       <head>
+        {/*
+          JSON-LD structured data for SEO.
+          Per the official Next.js docs (https://nextjs.org/docs/app/guides/json-ld),
+          this is the canonical pattern. The payload is a hardcoded literal — no
+          user input flows through it — so `dangerouslySetInnerHTML` is safe here.
+          `JSON.stringify` emits ECMAScript-safe text; it never produces HTML tags.
+        */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

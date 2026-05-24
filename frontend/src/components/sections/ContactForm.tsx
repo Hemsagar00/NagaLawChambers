@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { motion } from "motion/react";
 import {
   Phone,
@@ -9,61 +9,15 @@ import {
   CheckCircle2,
   Loader2,
 } from "lucide-react";
-
-type Status = "idle" | "submitting" | "sent" | "error";
+import { useInquirySubmit } from "@/lib/useInquirySubmit";
 
 export default function ContactForm() {
   const formRef = useRef<HTMLFormElement>(null);
-  const [status, setStatus] = useState<Status>("idle");
+  const { status, submit } = useInquirySubmit();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!formRef.current) return;
-    setStatus("submitting");
-    const data = new FormData(formRef.current);
-    const payload = {
-      name: String(data.get("name") || ""),
-      email: String(data.get("email") || ""),
-      phone: String(data.get("phone") || "") || null,
-      service: String(data.get("service") || "") || null,
-      message: String(data.get("message") || ""),
-    };
-
-    // 1) Primary: POST to our FastAPI backend (Mongo-persisted)
-    try {
-      const res = await fetch("/api/inquiries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      if (res.ok) {
-        setStatus("sent");
-        formRef.current.reset();
-        setTimeout(() => setStatus("idle"), 5500);
-        return;
-      }
-    } catch (err) {
-      console.warn("Backend submit failed, falling back to Formspree:", err);
-    }
-
-    // 2) Fallback: Formspree (if backend unreachable, e.g. static export)
-    try {
-      const formspreeId =
-        process.env.NEXT_PUBLIC_FORMSPREE_ID || "mnqevwqr";
-      const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
-        method: "POST",
-        body: data,
-        headers: { Accept: "application/json" },
-      });
-      if (!res.ok) throw new Error(`Formspree ${res.status}`);
-      setStatus("sent");
-      formRef.current.reset();
-      setTimeout(() => setStatus("idle"), 5500);
-    } catch (err) {
-      console.error("Contact form error:", err);
-      setStatus("error");
-      setTimeout(() => setStatus("idle"), 5500);
-    }
+    if (formRef.current) void submit(formRef.current);
   };
 
   return (

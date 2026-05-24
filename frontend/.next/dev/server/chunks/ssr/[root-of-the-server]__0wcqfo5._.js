@@ -194,7 +194,7 @@ function RootLayout({ children }) {
                     }
                 }, void 0, false, {
                     fileName: "[project]/src/app/layout.tsx",
-                    lineNumber: 108,
+                    lineNumber: 115,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
@@ -207,7 +207,7 @@ function RootLayout({ children }) {
                 children: children
             }, void 0, false, {
                 fileName: "[project]/src/app/layout.tsx",
-                lineNumber: 113,
+                lineNumber: 120,
                 columnNumber: 7
             }, this)
         ]
