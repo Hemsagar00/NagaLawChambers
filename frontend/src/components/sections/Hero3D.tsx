@@ -4,6 +4,8 @@ import { Suspense, lazy } from "react";
 import { motion } from "motion/react";
 import { ArrowDown, Sparkle } from "lucide-react";
 import Link from "next/link";
+import { useLowMotion } from "@/lib/useLowMotion";
+import TerrainFallback from "@/components/three/TerrainFallback";
 
 const TerrainScene = lazy(() => import("@/components/three/TerrainScene"));
 
@@ -14,17 +16,23 @@ const reveal = (delay = 0) => ({
 });
 
 export default function Hero3D() {
+  const lowMotion = useLowMotion();
+
   return (
     <section
       id="home"
       className="relative min-h-[100svh] w-full overflow-hidden flex items-center"
       data-testid="hero-section"
     >
-      {/* 3D Background */}
+      {/* 3D Background (or static fallback for mobile / reduced-motion users) */}
       <div className="absolute inset-0">
-        <Suspense fallback={<div className="absolute inset-0 bg-[#02100c]" />}>
-          <TerrainScene />
-        </Suspense>
+        {lowMotion ? (
+          <TerrainFallback />
+        ) : (
+          <Suspense fallback={<TerrainFallback />}>
+            <TerrainScene />
+          </Suspense>
+        )}
         {/* Bottom fade into next section */}
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-b from-transparent via-[#02100c]/70 to-[#02100c] pointer-events-none" />
         {/* Top vignette */}

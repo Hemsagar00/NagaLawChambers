@@ -53,6 +53,11 @@ Redesign and upgrade the static legal services website (https://github.com/Hemsa
 - Text: `#F8FAFC` / muted `#94A3B8`
 - Glass surfaces, gold hairlines, grain overlay, terminal CLI accents
 
+## Implemented (v2.1 · 2026-01)
+- **Reduced-motion / mobile fallback for 3D**: new `useLowMotion()` hook detects `prefers-reduced-motion: reduce`, viewport ≤ 768px, and `navigator.deviceMemory ≤ 2`. When triggered, Hero3D swaps the WebGL `<Canvas>` for `TerrainFallback.tsx` — a hand-tuned SVG composition (emerald base, gold radial glow, perspective grid, static scales glyph, soft scanlines). Verified: mobile / reduced-motion → no `<canvas>`, fallback active. Desktop / motion → canvas present.
+- **Contact form → Formspree wired**: posts FormData to `https://formspree.io/f/{NEXT_PUBLIC_FORMSPREE_ID}` (defaults to original repo's `mnqevwqr`, overridable via env). Adds an explicit error state with retry CTA + "call directly" fallback. ⚠️ The original `mnqevwqr` form ID currently returns 404 on Formspree — the wiring works (verified via network capture), but the owner needs to either re-activate that form on formspree.io OR set `NEXT_PUBLIC_FORMSPREE_ID` in `/app/frontend/.env` to a new active form ID.
+- **Production build verified**: `yarn build` (Next.js 16 + Turbopack) compiles in ~10s, prerenders 2 static routes, exits 0. Ready for `yarn serve` / Emergent deploy.
+
 ## Implemented (v2.0 · 2026-01)
 - Hero: full-bleed R3F wireframe terrain + animated gold scales monolith + cursor-parallax + gold particles + cinematic text reveal with blur-in
 - Floating glass navigation dock with brand mark + mobile slide-in drawer
@@ -64,12 +69,8 @@ Redesign and upgrade the static legal services website (https://github.com/Hemsa
 - Responsive: mobile-first breakpoints (md/lg) throughout; mobile nav drawer; bento grid collapses to single column on mobile
 
 ## What's NOT implemented (backlog)
-- P1: Persist contact form submissions (currently `console.log` + optimistic success). Could be wired to:
-  - SendGrid/Resend (email)
-  - MongoDB persistence + admin dashboard
-  - Formspree (original repo used `mnqevwqr` endpoint)
+- P1: Owner action — activate Formspree form `mnqevwqr` or set `NEXT_PUBLIC_FORMSPREE_ID=<new-id>` in `/app/frontend/.env`. Optionally swap to SendGrid/Resend/Mongo persistence for full control.
 - P2: Loading screen counter (currently `useEffect` `setTimeout` triggers exit at 1.8s — original counter approach had Turbopack/HMR timer quirks in dev)
-- P2: Reduced-motion accessibility variant for 3D scene
 - P2: Mobile screenshot used 1920 width; design has md/lg breakpoints in code — recommend manual device testing
 
 ## Known Notes

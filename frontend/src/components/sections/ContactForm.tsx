@@ -21,18 +21,22 @@ export default function ContactForm() {
     if (!formRef.current) return;
     setStatus("submitting");
     const data = new FormData(formRef.current);
+    const formspreeId =
+      process.env.NEXT_PUBLIC_FORMSPREE_ID || "mnqevwqr";
     try {
-      // Optimistic UX — simulate submission (no backend wiring required)
-      await new Promise((res) => setTimeout(res, 1100));
-      // Hook up to Formspree or any backend later via data
-      console.log("Inquiry:", Object.fromEntries(data.entries()));
+      const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+      if (!res.ok) throw new Error(`Formspree responded ${res.status}`);
       setStatus("sent");
       formRef.current.reset();
-      setTimeout(() => setStatus("idle"), 4500);
+      setTimeout(() => setStatus("idle"), 5500);
     } catch (err) {
-      console.error(err);
+      console.error("Contact form error:", err);
       setStatus("error");
-      setTimeout(() => setStatus("idle"), 4500);
+      setTimeout(() => setStatus("idle"), 5500);
     }
   };
 
@@ -287,6 +291,16 @@ export default function ContactForm() {
                   >
                     ✓ Your inquiry has been logged. Expect a reply within 2
                     working hours.
+                  </motion.p>
+                )}
+                {status === "error" && (
+                  <motion.p
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-[12px] text-[#ff8a8a] font-mono tracking-wider"
+                    data-testid="form-error"
+                  >
+                    ✗ Transmission failed. Please retry or call +91 94400 00417 directly.
                   </motion.p>
                 )}
               </form>
