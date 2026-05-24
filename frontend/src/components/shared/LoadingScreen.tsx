@@ -1,91 +1,91 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "motion/react";
 
-const words = ["Justice", "Defend", "Protect", "Win"];
+const words = ["Land.", "Legacy.", "Rights."];
 
-export default function LoadingScreen({ onComplete }: { onComplete: () => void }) {
+export default function LoadingScreen({
+  onComplete,
+}: {
+  onComplete: () => void;
+}) {
   const [count, setCount] = useState(0);
   const [wordIndex, setWordIndex] = useState(0);
+  const onCompleteRef = useRef(onComplete);
+  onCompleteRef.current = onComplete;
 
   useEffect(() => {
+    let value = 0;
     const interval = setInterval(() => {
-      setCount((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(onComplete, 600);
-          return 100;
-        }
-        return prev + 1;
-      });
-    }, 27);
+      value += 2;
+      setCount(value);
+      if (value >= 100) {
+        clearInterval(interval);
+        setTimeout(onCompleteRef.current, 500);
+      }
+    }, 22);
 
     const wordInterval = setInterval(() => {
-      setWordIndex((prev) => (prev + 1) % words.length);
-    }, 900);
+      setWordIndex((p) => (p + 1) % words.length);
+    }, 700);
 
     return () => {
       clearInterval(interval);
       clearInterval(wordInterval);
     };
-  }, [onComplete]);
+  }, []);
 
   return (
     <motion.div
-      className="fixed inset-0 z-[9999] bg-[#0a0a12] flex flex-col items-center justify-center overflow-hidden"
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.6 }}
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden"
+      style={{
+        background:
+          "radial-gradient(ellipse at center, #04150f 0%, #02100c 50%, #0a0a12 100%)",
+      }}
+      exit={{ opacity: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } }}
+      data-testid="loading-screen"
     >
-      {/* Themed Background - Dark Navy + Gold Glow */}
-      <div className="absolute inset-0 bg-[#0a0a12]">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a12] via-[#0f1020] to-[#1a1528]" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(201,169,98,0.08)_0%,transparent_70%)] blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[radial-gradient(circle,rgba(201,169,98,0.05)_0%,transparent_70%)] blur-2xl" />
-      </div>
+      <div className="absolute inset-0 grain pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(212,175,55,0.08)_0%,transparent_70%)] blur-3xl" />
 
-      {/* Top label */}
       <motion.div
-        initial={{ opacity: 0, y: -20 }}
+        initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="absolute top-8 left-8 text-xs uppercase tracking-[0.3em] text-white/40 z-10"
+        className="absolute top-8 left-8 text-[10px] tracking-[0.42em] uppercase text-[#D4AF37]/80 font-mono z-10"
       >
-        NAGA Law Chambers
+        Naga Law Chambers
       </motion.div>
 
-      {/* Rotating words */}
-      <div className="relative z-10 mb-8 h-16 flex items-center justify-center">
+      <div className="relative z-10 mb-10 h-20 flex items-center justify-center">
         <AnimatePresence mode="wait">
           <motion.p
             key={wordIndex}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="text-4xl md:text-6xl font-[family-name:var(--font-playfair)] italic text-white/90"
+            initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -14, filter: "blur(6px)" }}
+            transition={{ duration: 0.4 }}
+            className="font-heading text-5xl md:text-7xl italic text-gold-gradient"
           >
             {words[wordIndex]}
           </motion.p>
         </AnimatePresence>
       </div>
 
-      {/* Counter */}
-      <p className="relative z-10 text-6xl md:text-8xl font-[family-name:var(--font-playfair)] text-white tabular-nums">
+      <p className="relative z-10 font-heading text-7xl md:text-9xl text-white tabular-nums">
         {String(count).padStart(3, "0")}
       </p>
 
-      {/* Progress bar */}
-      <div className="relative z-10 w-48 h-[3px] bg-white/10 rounded-full mt-6 overflow-hidden">
+      <div className="relative z-10 w-56 h-px bg-white/10 rounded-full mt-6 overflow-hidden">
         <motion.div
-          className="h-full bg-gradient-to-r from-[#c9a962] to-[#e8d5a3]"
+          className="h-full bg-gradient-to-r from-[#D4AF37] to-[#E6C965]"
           style={{ width: `${count}%` }}
         />
       </div>
 
-      {/* Bottom label */}
-      <p className="relative z-10 text-xs text-white/30 mt-4 uppercase tracking-[0.2em]">
-        Anantapur Bar · Andhra Pradesh
+      <p className="relative z-10 text-[10px] text-white/40 mt-5 tracking-[0.32em] uppercase font-mono">
+        Anantapur · Andhra Pradesh
       </p>
     </motion.div>
   );

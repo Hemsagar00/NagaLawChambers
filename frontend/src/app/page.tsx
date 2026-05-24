@@ -1,42 +1,33 @@
 "use client";
 
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import LoadingScreen from "@/components/shared/LoadingScreen";
-import Navbar from "@/components/shared/Navbar";
-import BentoHero from "@/components/sections/BentoHero";
-import Practice from "@/components/sections/Practice";
-import About from "@/components/sections/About";
-import Testimonials from "@/components/sections/Testimonials";
-import Cases from "@/components/sections/Cases";
-import Contact from "@/components/sections/Contact";
-import Footer from "@/components/shared/Footer";
+import dynamic from "next/dynamic";
 
-export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  return (
-    <>
-      <AnimatePresence>
-        {isLoading && (
-          <LoadingScreen onComplete={() => setIsLoading(false)} />
-        )}
-      </AnimatePresence>
-
-      <motion.main
-        initial={{ opacity: 0 }}
-        animate={isLoading ? {} : { opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
+const HomeContent = dynamic(() => import("@/components/HomeContent"), {
+  ssr: false,
+  loading: () => (
+    <div
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
+      style={{
+        background:
+          "radial-gradient(ellipse at center, #04150f 0%, #02100c 50%, #0a0a12 100%)",
+      }}
+    >
+      <p
+        className="text-[10px] tracking-[0.42em] uppercase font-mono"
+        style={{ color: "#d4af37" }}
       >
-        <Navbar />
-        <BentoHero />
-        <Practice />
-        <About />
-        <Testimonials />
-        <Cases />
-        <Contact />
-        <Footer />
-      </motion.main>
-    </>
-  );
+        Naga Law Chambers
+      </p>
+      <p
+        className="mt-6 font-heading text-6xl"
+        style={{ color: "#f8fafc" }}
+      >
+        Initialising
+      </p>
+    </div>
+  ),
+});
+
+export default function Page() {
+  return <HomeContent />;
 }

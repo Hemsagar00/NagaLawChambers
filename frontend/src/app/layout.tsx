@@ -1,24 +1,40 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Cinzel, Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-sans",
-  subsets: ["latin"],
-});
-
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+const cinzel = Cinzel({
+  variable: "--font-heading",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const outfit = Outfit({
+  variable: "--font-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const mono = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Advocate S. Nagendra Naik | NAGA Law Chambers",
-  description: "Premier legal representation in Land, Revenue & Property disputes across Andhra Pradesh courts. 7+ years experience, 50+ cases handled.",
-  keywords: ["land revenue lawyer", "property advocate", "civil litigation", "Anantapur", "Andhra Pradesh"],
+  title: "Naga Law Chambers · Land · Legacy · Rights",
+  description:
+    "Premier legal representation in Land Revenue, Civil Litigation & Property Law across Andhra Pradesh. Advocate S. Nagendra Naik — Anantapur Bar Council, 2019.",
+  keywords: [
+    "land revenue lawyer",
+    "property advocate",
+    "civil litigation",
+    "Anantapur",
+    "Andhra Pradesh",
+    "Naga Law Chambers",
+  ],
   openGraph: {
-    title: "NAGA Law Chambers",
+    title: "Naga Law Chambers",
     description: "Defending Land. Legacy. Rights.",
     type: "website",
   },
@@ -26,12 +42,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable} antialiased`}>
-      <body className="min-h-screen bg-[#0a0a12] text-[#f0f0f5] font-sans">
+    <html
+      lang="en"
+      className={`${cinzel.variable} ${outfit.variable} ${mono.variable} antialiased`}
+    >
+      <body className="min-h-screen bg-[#02100C] text-[#F8FAFC] font-sans selection:bg-[#D4AF37]/30 selection:text-[#F8FAFC]">
         {children}
       </body>
     </html>

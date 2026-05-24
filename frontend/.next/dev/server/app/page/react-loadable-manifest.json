@@ -1,1 +1,11 @@
-{}
+{
+  "[project]/src/components/HomeContent.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/HomeContent.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/src_components_three_TerrainScene_tsx_0.j4d~r._.js",
+      "static/chunks/src_components_06u1zv4._.js",
+      "static/chunks/node_modules_0a-js0f._.js",
+      "static/chunks/src_components_HomeContent_tsx_0-oc43h._.js"
+    ]
+  }
+}
