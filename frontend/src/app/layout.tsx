@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cinzel, Outfit, JetBrains_Mono } from "next/font/google";
+import JsonLd from "@/components/shared/JsonLd";
 import "./globals.css";
 
 const cinzel = Cinzel({
@@ -105,17 +106,7 @@ export default function RootLayout({
       className={`${cinzel.variable} ${outfit.variable} ${mono.variable} antialiased`}
     >
       <head>
-        {/*
-          JSON-LD structured data for SEO.
-          Per the official Next.js docs (https://nextjs.org/docs/app/guides/json-ld),
-          this is the canonical pattern. The payload is a hardcoded literal — no
-          user input flows through it — so `dangerouslySetInnerHTML` is safe here.
-          `JSON.stringify` emits ECMAScript-safe text; it never produces HTML tags.
-        */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <JsonLd data={jsonLd} />
       </head>
       <body className="min-h-screen bg-[#02100C] text-[#F8FAFC] font-sans selection:bg-[#D4AF37]/30 selection:text-[#F8FAFC]">
         {children}
