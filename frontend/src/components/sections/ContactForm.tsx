@@ -21,15 +21,41 @@ export default function ContactForm() {
     if (!formRef.current) return;
     setStatus("submitting");
     const data = new FormData(formRef.current);
-    const formspreeId =
-      process.env.NEXT_PUBLIC_FORMSPREE_ID || "mnqevwqr";
+    const payload = {
+      name: String(data.get("name") || ""),
+      email: String(data.get("email") || ""),
+      phone: String(data.get("phone") || "") || null,
+      service: String(data.get("service") || "") || null,
+      message: String(data.get("message") || ""),
+    };
+
+    // 1) Primary: POST to our FastAPI backend (Mongo-persisted)
     try {
+      const res = await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        setStatus("sent");
+        formRef.current.reset();
+        setTimeout(() => setStatus("idle"), 5500);
+        return;
+      }
+    } catch (err) {
+      console.warn("Backend submit failed, falling back to Formspree:", err);
+    }
+
+    // 2) Fallback: Formspree (if backend unreachable, e.g. static export)
+    try {
+      const formspreeId =
+        process.env.NEXT_PUBLIC_FORMSPREE_ID || "mnqevwqr";
       const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
         method: "POST",
         body: data,
         headers: { Accept: "application/json" },
       });
-      if (!res.ok) throw new Error(`Formspree responded ${res.status}`);
+      if (!res.ok) throw new Error(`Formspree ${res.status}`);
       setStatus("sent");
       formRef.current.reset();
       setTimeout(() => setStatus("idle"), 5500);

@@ -43,11 +43,73 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LegalService",
+    name: "Naga Law Chambers",
+    legalName: "S. Nagendra Naik · Advocate",
+    description:
+      "Premier legal counsel in Land Revenue, Civil Litigation, and Property Law across Andhra Pradesh.",
+    url: "https://nagalawchambers.com",
+    telephone: "+91-94400-00417",
+    email: "contact@nagalawchambers.com",
+    priceRange: "₹₹",
+    image: "/advocate.jpg",
+    founder: {
+      "@type": "Person",
+      name: "S. Nagendra Naik",
+      jobTitle: "Advocate",
+      alumniOf: "Bar Council of Andhra Pradesh",
+    },
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "District Court Premises",
+      addressLocality: "Anantapur",
+      addressRegion: "Andhra Pradesh",
+      postalCode: "515001",
+      addressCountry: "IN",
+    },
+    areaServed: [
+      { "@type": "AdministrativeArea", name: "Andhra Pradesh" },
+      { "@type": "City", name: "Anantapur" },
+      { "@type": "City", name: "Kadiri" },
+    ],
+    knowsAbout: [
+      "Land Revenue Law",
+      "Record of Rights (ROR) Appeals",
+      "Mutation Proceedings",
+      "Civil Litigation",
+      "Partition Suits",
+      "Property Documentation",
+      "Title Verification",
+      "Court Representation",
+    ],
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ],
+      opens: "09:30",
+      closes: "19:00",
+    },
+  };
+
   return (
     <html
       lang="en"
       className={`${cinzel.variable} ${outfit.variable} ${mono.variable} antialiased`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-screen bg-[#02100C] text-[#F8FAFC] font-sans selection:bg-[#D4AF37]/30 selection:text-[#F8FAFC]">
         {children}
       </body>

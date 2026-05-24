@@ -53,6 +53,12 @@ Redesign and upgrade the static legal services website (https://github.com/Hemsa
 - Text: `#F8FAFC` / muted `#94A3B8`
 - Glass surfaces, gold hairlines, grain overlay, terminal CLI accents
 
+## Implemented (v2.2 · 2026-01)
+- **Mongo-backed inquiries**: FastAPI backend now exposes `POST /api/inquiries` (validates payload via Pydantic + EmailStr, persists name/email/phone/service/message + UTC timestamp + ip + user-agent to `naga_law.inquiries`) and `GET /api/inquiries` (lists newest-first, requires `X-Admin-Token` header — defaults to `naga-admin-2026`, configurable via `/app/backend/.env`). Verified end-to-end: 201 from preview URL, 2 records in Mongo, 401 without token.
+- **Contact form upgraded**: now POSTs JSON to `/api/inquiries` first; falls back to Formspree on network failure, then surfaces an error UX with retry CTA. Best of both worlds — the dynamic deploy uses Mongo, a hypothetical static export still works via Formspree.
+- **LegalService JSON-LD SEO schema** injected in `<head>` via `layout.tsx` — includes `areaServed` (Andhra Pradesh, Anantapur, Kadiri), `knowsAbout` (8 practice keywords), `address`, `telephone`, `openingHoursSpecification`, and founder Person sub-graph. Boosts local "advocate near me" rankings.
+- **Production build re-verified**: 2 static routes prerendered, 9.9s build, 0 errors.
+
 ## Implemented (v2.1 · 2026-01)
 - **Reduced-motion / mobile fallback for 3D**: new `useLowMotion()` hook detects `prefers-reduced-motion: reduce`, viewport ≤ 768px, and `navigator.deviceMemory ≤ 2`. When triggered, Hero3D swaps the WebGL `<Canvas>` for `TerrainFallback.tsx` — a hand-tuned SVG composition (emerald base, gold radial glow, perspective grid, static scales glyph, soft scanlines). Verified: mobile / reduced-motion → no `<canvas>`, fallback active. Desktop / motion → canvas present.
 - **Contact form → Formspree wired**: posts FormData to `https://formspree.io/f/{NEXT_PUBLIC_FORMSPREE_ID}` (defaults to original repo's `mnqevwqr`, overridable via env). Adds an explicit error state with retry CTA + "call directly" fallback. ⚠️ The original `mnqevwqr` form ID currently returns 404 on Formspree — the wiring works (verified via network capture), but the owner needs to either re-activate that form on formspree.io OR set `NEXT_PUBLIC_FORMSPREE_ID` in `/app/frontend/.env` to a new active form ID.

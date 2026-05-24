@@ -119,20 +119,101 @@ const metadata = {
     }
 };
 function RootLayout({ children }) {
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        name: "Naga Law Chambers",
+        legalName: "S. Nagendra Naik · Advocate",
+        description: "Premier legal counsel in Land Revenue, Civil Litigation, and Property Law across Andhra Pradesh.",
+        url: "https://nagalawchambers.com",
+        telephone: "+91-94400-00417",
+        email: "contact@nagalawchambers.com",
+        priceRange: "₹₹",
+        image: "/advocate.jpg",
+        founder: {
+            "@type": "Person",
+            name: "S. Nagendra Naik",
+            jobTitle: "Advocate",
+            alumniOf: "Bar Council of Andhra Pradesh"
+        },
+        address: {
+            "@type": "PostalAddress",
+            streetAddress: "District Court Premises",
+            addressLocality: "Anantapur",
+            addressRegion: "Andhra Pradesh",
+            postalCode: "515001",
+            addressCountry: "IN"
+        },
+        areaServed: [
+            {
+                "@type": "AdministrativeArea",
+                name: "Andhra Pradesh"
+            },
+            {
+                "@type": "City",
+                name: "Anantapur"
+            },
+            {
+                "@type": "City",
+                name: "Kadiri"
+            }
+        ],
+        knowsAbout: [
+            "Land Revenue Law",
+            "Record of Rights (ROR) Appeals",
+            "Mutation Proceedings",
+            "Civil Litigation",
+            "Partition Suits",
+            "Property Documentation",
+            "Title Verification",
+            "Court Representation"
+        ],
+        openingHoursSpecification: {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday"
+            ],
+            opens: "09:30",
+            closes: "19:00"
+        }
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("html", {
         lang: "en",
         className: `${__TURBOPACK__imported__module__$5b$next$5d2f$internal$2f$font$2f$google$2f$cinzel_186e3f56$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"].variable} ${__TURBOPACK__imported__module__$5b$next$5d2f$internal$2f$font$2f$google$2f$outfit_9f2671d7$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"].variable} ${__TURBOPACK__imported__module__$5b$next$5d2f$internal$2f$font$2f$google$2f$jetbrains_mono_7f3086f3$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"].variable} antialiased`,
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("body", {
-            className: "min-h-screen bg-[#02100C] text-[#F8FAFC] font-sans selection:bg-[#D4AF37]/30 selection:text-[#F8FAFC]",
-            children: children
-        }, void 0, false, {
-            fileName: "[project]/src/app/layout.tsx",
-            lineNumber: 51,
-            columnNumber: 7
-        }, this)
-    }, void 0, false, {
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("head", {
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("script", {
+                    type: "application/ld+json",
+                    dangerouslySetInnerHTML: {
+                        __html: JSON.stringify(jsonLd)
+                    }
+                }, void 0, false, {
+                    fileName: "[project]/src/app/layout.tsx",
+                    lineNumber: 108,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/app/layout.tsx",
+                lineNumber: 107,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("body", {
+                className: "min-h-screen bg-[#02100C] text-[#F8FAFC] font-sans selection:bg-[#D4AF37]/30 selection:text-[#F8FAFC]",
+                children: children
+            }, void 0, false, {
+                fileName: "[project]/src/app/layout.tsx",
+                lineNumber: 113,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
         fileName: "[project]/src/app/layout.tsx",
-        lineNumber: 47,
+        lineNumber: 103,
         columnNumber: 5
     }, this);
 }
