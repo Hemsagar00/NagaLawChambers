@@ -1,0 +1,102 @@
+{
+  "theme": "dark",
+  "archetype": "Archetype 5: Luxury",
+  "domain": "Legal Services / Premium Law",
+  "colors": {
+    "background_base": "#022C22",
+    "background_secondary": "#0A0A12",
+    "primary_accent": "#D4AF37",
+    "primary_accent_hover": "#E6C965",
+    "text_primary": "#F8FAFC",
+    "text_secondary": "#94A3B8",
+    "surface_glass": "rgba(255, 255, 255, 0.03)",
+    "border_glass": "rgba(255, 255, 255, 0.08)",
+    "gradient_overlay": "linear-gradient(180deg, rgba(2, 44, 34, 0.4) 0%, rgba(10, 10, 18, 0.9) 100%)"
+  },
+  "typography": {
+    "heading_font": "Cinzel",
+    "body_font": "Outfit",
+    "scales": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl tracking-tighter leading-[1.1] font-bold",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl tracking-tight leading-tight",
+      "h3": "text-xl sm:text-2xl leading-snug",
+      "body": "text-base leading-relaxed text-[#F8FAFC]/80",
+      "overline": "text-xs tracking-[0.2em] uppercase text-[#D4AF37] font-medium"
+    }
+  },
+  "spacing_and_layout": {
+    "container_padding": "px-6 md:px-12 lg:px-24",
+    "section_gap": "py-24 md:py-32",
+    "grid_bento": "grid grid-cols-1 md:grid-cols-8 lg:grid-cols-12 gap-8",
+    "radius": "rounded-2xl"
+  },
+  "surfaces": {
+    "glass_card": "backdrop-blur-2xl bg-white/[0.03] border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.3)] rounded-2xl",
+    "glass_nav": "backdrop-blur-xl bg-[#0A0A12]/60 border-b border-white/10",
+    "solid_dark": "bg-[#0A0A12] border border-[#022C22]"
+  },
+  "motion": {
+    "scroll_reveal": "initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} viewport={{ once: true, margin: '-100px' }}",
+    "hover_card": "hover:-translate-y-2 hover:border-[#D4AF37]/30 transition-all duration-500",
+    "stagger_children": "transition={{ staggerChildren: 0.15 }}"
+  },
+  "sections": {
+    "header": {
+      "layout": "fixed top-0 w-full z-50 py-4",
+      "style": "glass_nav floating minimalist horizontal dock",
+      "interactions": "Hover color transition on links to primary_accent (#D4AF37), active state underline."
+    },
+    "hero": {
+      "layout": "relative h-screen w-full flex flex-col justify-center overflow-hidden",
+      "content": "Cinematic text-reveal animation displaying 'Naga Law Chambers' and 'Land, Revenue & Property Law'.",
+      "3d_element": "React Three Fiber abstract 3D terrain grid symbolizing land/property law, reacting smoothly to mouse movement.",
+      "visuals": "Dark emerald gradient fading to midnight navy (#0A0A12) at the bottom to blend with the next section. Overlay with subtle noise texture."
+    },
+    "advocate_profile": {
+      "layout": "container mx-auto grid_bento py-32 items-center",
+      "composition": "Image: col-span-full md:col-span-5 | Bio/Text: col-span-full md:col-span-7",
+      "image_treatment": "MANDATORY: Use exact original asset '/advocate.jpg'. Wrap in a sleek glassmorphism bento card (glass_card) with micro-interactions on hover (slight scale up, border glow).",
+      "text_treatment": "Scroll-triggered staggered fade-in for Overline, Heading, Bio paragraphs, and Qualifications list."
+    },
+    "practice_areas": {
+      "layout": "container mx-auto py-32",
+      "composition": "Bento grid layout (Mode A). grid-cols-1 md:grid-cols-8 lg:grid-cols-12.",
+      "cards": [
+        {
+          "title": "Land Disputes",
+          "span": "col-span-full md:col-span-8 lg:col-span-6"
+        },
+        {
+          "title": "Revenue Law",
+          "span": "col-span-full md:col-span-4 lg:col-span-6"
+        },
+        {
+          "title": "Property Registration",
+          "span": "col-span-full md:col-span-4 lg:col-span-4"
+        },
+        {
+          "title": "Court Representation",
+          "span": "col-span-full md:col-span-8 lg:col-span-8"
+        }
+      ],
+      "style": "glass_card style with frictionless transitions. Hover reveals a glowing #D4AF37 subtle radial gradient behind the card text."
+    },
+    "contact": {
+      "layout": "container mx-auto py-32 max-w-4xl",
+      "form_style": "Floating input labels. Inputs have completely transparent backgrounds with a solid border-b (border-white/20), turning to #D4AF37 on focus. Terminal-style submit action (minimalist, tracking-[0.2em] uppercase gold text, sharp 1px border)."
+    }
+  },
+  "media": {
+    "advocate_image": "/advocate.jpg",
+    "court_aerial": "/court-aerial.jpg",
+    "court_icon": "/court-icon.jpg",
+    "watercolor_bg": "/watercolor-bg.jpg",
+    "background_video": "/videos/Abstract_geometric_grid_pulsing_1.mp4"
+  },
+  "component_instructions": {
+    "3d_scene": "Use @react-three/fiber and @react-three/drei. Implement a <Canvas> in the Hero section with a dark-themed wireframe terrain (representing land). Add floating particles. Ensure it gracefully degrades on mobile.",
+    "fonts": "Import 'Cinzel' and 'Outfit' from next/font/google. Map Cinzel to font-serif or font-heading, and Outfit to font-sans.",
+    "testing": "All interactive elements (nav links, buttons, form inputs) MUST include data-testid attributes (e.g., 'data-testid=\"nav-home\"', 'data-testid=\"contact-submit\"').",
+    "libraries": "Framer Motion for animations. Lucide-React for icons (sleek, minimal). clsx and tailwind-merge for class utility."
+  }
+}
