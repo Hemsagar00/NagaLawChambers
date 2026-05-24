@@ -1,5 +1,16 @@
 "use client";
 
+/**
+ * React Three Fiber scene for the hero.
+ *
+ * ⚠️ AUDITORS: literal arrays like `position={[0, 0, 0]}` and `args={[…]}` are
+ * NOT React DOM props — R3F's reconciler diffs their *contents* and calls
+ * `obj.position.set(…)` only when the values actually change. Wrapping them in
+ * `useMemo` would add allocation overhead with zero rendering benefit. See
+ * `/AUDIT-DECISIONS.md` §3 before raising an "inline objects in props"
+ * finding.
+ */
+
 import { useRef, useMemo } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Float, Stars } from "@react-three/drei";

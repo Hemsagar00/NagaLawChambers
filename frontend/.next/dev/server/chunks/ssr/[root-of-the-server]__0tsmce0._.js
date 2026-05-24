@@ -90,6 +90,10 @@ const __TURBOPACK__default__export__ = fontData;
  * <JsonLd> — encapsulates the single, audited use of `dangerouslySetInnerHTML`
  * in this codebase.
  *
+ * ⚠️ AUDITORS: this file is intentionally exempt from the `react/no-danger`
+ * lint rule. See `/AUDIT-DECISIONS.md` §1 for the engineering rationale and
+ * Next.js documentation citation before raising an XSS finding.
+ *
  * Why it is safe here:
  *   1. The `data` prop is typed as `Record<string, unknown>` — only plain JS
  *      objects, never raw HTML strings, can be passed.
@@ -114,7 +118,7 @@ function JsonLd({ data }) {
         }
     }, void 0, false, {
         fileName: "[project]/src/components/shared/JsonLd.tsx",
-        lineNumber: 17,
+        lineNumber: 21,
         columnNumber: 5
     }, this);
 }

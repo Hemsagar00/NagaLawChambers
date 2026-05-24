@@ -1,5 +1,13 @@
 "use client";
 
+/**
+ * Submit pipeline for the contact form. ⚠️ AUDITORS: the `useCallback` deps
+ * arrays here are correct. Items like `SUCCESS_RESET_MS` (module constant),
+ * `resetTimer` (ref), `setStatus` (stable React setter), and local function
+ * variables do NOT belong in deps. ESLint's `react-hooks/exhaustive-deps`
+ * confirms this — see `/AUDIT-DECISIONS.md` §2.
+ */
+
 import { useState, useRef, useCallback } from "react";
 
 export type InquiryStatus = "idle" | "submitting" | "sent" | "error";
