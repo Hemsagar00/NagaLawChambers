@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display, JetBrains_Mono } from "next/font/google";
+import { metadataBase } from "@/lib/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -22,6 +23,7 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase,
   title: "Advocate S. Nagendra Naik | NAGA Law Chambers",
   description: "Premier legal representation in Land, Revenue & Property disputes across Andhra Pradesh courts. 7+ years experience, 50+ cases handled.",
   keywords: "land revenue lawyer, property advocate, civil litigation, Anantapur, Andhra Pradesh",

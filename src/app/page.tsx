@@ -1,29 +1,62 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useMemo } from "react";
 import {
   Scale, Landmark, FileText, ShieldCheck, Phone, Mail, MapPin, ArrowRight,
   ChevronDown, Users, Clock, Gavel, BookOpen, MessageCircle, ChevronRight
 } from "lucide-react";
 import Image from "next/image";
 
+/* ── Deterministic seeded random for stable SSR/CSR output ── */
+function seededRandom(seed: number) {
+  const x = Math.sin(seed) * 10000;
+  return x - Math.floor(x);
+}
+
 /* ── Animated Particles ── */
 function ParticleField() {
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 20 }).map((_, i) => {
+        const r1 = seededRandom(i + 1);
+        const r2 = seededRandom(i + 21);
+        const r3 = seededRandom(i + 41);
+        const r4 = seededRandom(i + 61);
+        return {
+          id: i,
+          size: r1 * 3 + 1,
+          left: r2 * 100,
+          top: r3 * 100,
+          opacity: r4 * 0.25 + 0.08,
+          yShift: 15 + r3 * 30,
+          duration: 5 + r2 * 7,
+          delay: r4 * 5,
+        };
+      }),
+    []
+  );
+
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-      {Array.from({ length: 20 }).map((_, i) => (
+      {particles.map((p) => (
         <motion.div
-          key={i}
+          key={p.id}
           className="absolute rounded-full"
           style={{
-            width: Math.random() * 3 + 1,
-            height: Math.random() * 3 + 1,
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            background: `rgba(212, 175, 55, ${Math.random() * 0.25 + 0.08})`,
+            width: p.size,
+            height: p.size,
+            left: `${p.left}%`,
+            top: `${p.top}%`,
+            background: `rgba(212, 175, 55, ${p.opacity})`,
           }}
-          animate={{ y: [0, -15 - Math.random() * 30, 0], opacity: [0.1, 0.5, 0.1] }}
-          transition={{ duration: 5 + Math.random() * 7, repeat: Infinity, ease: "easeInOut", delay: Math.random() * 5 }}
+          animate={{ y: [0, -p.yShift, 0], opacity: [0.1, 0.5, 0.1] }}
+          transition={{
+            duration: p.duration,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: p.delay,
+          }}
         />
       ))}
     </div>
