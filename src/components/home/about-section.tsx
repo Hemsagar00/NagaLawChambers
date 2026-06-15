@@ -7,17 +7,17 @@ import { about } from "@/lib/content";
 export function AboutSection() {
   return (
     <AnimatedSection
-      className="py-16 md:py-20 border-t border-gold-faint bg-kiwi-dark"
+      className="portavia-section border-t border-gold-faint bg-kiwi-dark"
       id="about"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="portavia-container">
         <SectionHeading
           eyebrow={about.eyebrow}
           title={about.title}
           subtitle={about.subtitle}
         />
 
-        <div className="grid lg:grid-cols-[minmax(0,340px)_1fr] gap-10 lg:gap-14 items-start">
+        <div className="grid lg:grid-cols-[minmax(0,360px)_1fr] gap-12 lg:gap-20 items-start max-w-5xl mx-auto">
           <AboutImage />
           <AboutContent />
         </div>

@@ -1,15 +1,32 @@
-import { Scale, Phone } from "lucide-react";
+"use client";
+
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { Phone, Scale } from "lucide-react";
+import { useState } from "react";
 import { navLinks } from "@/lib/content";
 import { phoneHref } from "@/lib/site";
+import { cn } from "@/lib/utils";
 
 export function Navbar() {
+  const { scrollY } = useScroll();
+  const [scrolled, setScrolled] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setScrolled(latest > 24);
+  });
+
   return (
     <header>
-      <nav
+      <motion.nav
         aria-label="Primary"
-        className="fixed top-0 left-0 right-0 z-50 liquid-glass border-b border-cyan-subtle"
+        initial={false}
+        animate={{ height: scrolled ? 60 : 64 }}
+        className={cn(
+          "fixed top-0 left-0 right-0 z-50 liquid-glass border-b transition-colors duration-300",
+          scrolled ? "portavia-nav-scrolled border-cyan-subtle" : "border-gold-faint"
+        )}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <div className="portavia-container h-full flex items-center justify-between">
           <a href="#" className="flex items-center gap-2.5 sm:gap-3 min-w-0">
             <div className="w-8 h-8 rounded-xl bg-gold-muted flex items-center justify-center border border-gold-subtle shrink-0">
               <Scale className="w-4 h-4 text-gold" aria-hidden="true" />
@@ -19,12 +36,12 @@ export function Navbar() {
             </span>
           </a>
 
-          <div className="hidden md:flex items-center gap-9 text-sm">
+          <div className="hidden md:flex items-center gap-10 text-sm">
             {navLinks.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="text-text-secondary hover:text-kiwi-cyan transition-colors tracking-[0.2px]"
+                className="text-text-secondary hover:text-kiwi-cyan transition-colors tracking-[0.15px] font-medium"
               >
                 {item.label}
               </a>
@@ -40,7 +57,7 @@ export function Navbar() {
             <span className="sm:hidden">Call</span>
           </a>
         </div>
-      </nav>
+      </motion.nav>
     </header>
   );
 }

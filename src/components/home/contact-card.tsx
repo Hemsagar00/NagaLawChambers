@@ -6,7 +6,7 @@ import { staggerItem } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 const cardClass =
-  "glass-card p-6 block hover:border-cyan-hover transition-all duration-300 hover:-translate-y-0.5";
+  "portavia-card p-7 block hover:border-cyan-hover transition-all duration-300";
 
 function ContactCardBody({
   icon: Icon,

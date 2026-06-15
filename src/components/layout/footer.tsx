@@ -4,8 +4,8 @@ import { emailHref, phoneHref, site } from "@/lib/site";
 
 export function Footer() {
   return (
-    <footer className="border-t border-gold-faint py-12 md:py-14 bg-kiwi-dark">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <footer className="border-t border-gold-faint py-14 md:py-16 bg-kiwi-dark">
+      <div className="portavia-container">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10 mb-10 md:mb-12">
           <div>
             <div className="flex items-center gap-3 mb-5">

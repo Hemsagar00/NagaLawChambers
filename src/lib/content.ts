@@ -1,11 +1,16 @@
 import { site } from "@/lib/site";
 
-export type PracticeAreaIcon = "landmark" | "file-text" | "scale" | "users";
+export type PracticeAreaIcon =
+  | "landmark"
+  | "file-text"
+  | "gavel"
+  | "users"
+  | "shield-check";
 export type StatIcon = "clock" | "book-open" | "map-pin" | "landmark";
 
 export const navLinks = [
   { label: "Practice", href: "#practice" },
-  { label: "About", href: "#about" },
+  { label: "Advocate", href: "#about" },
   { label: "Contact", href: "#contact" },
 ] as const;
 
@@ -16,39 +21,49 @@ export const practiceAreas = [
     title: "Revenue & Land",
     courts: "Tahsildar, RDO, AP High Court",
     summary:
-      "ROR corrections, mutations, patta disputes, and land acquisition matters before revenue authorities and appellate forums.",
+      "ROR corrections, mutations, patta disputes, and land acquisition proceedings before revenue authorities.",
     details:
-      "Representation before Tahsildar, RDO, and Collector on revenue records, encumbrance disputes, and administrative appeals. High Court writs and revisions for land title and government acquisition challenges across Anantapur district.",
+      "Representation before Tahsildar, RDO, and Collector on revenue records, encumbrance disputes, and administrative appeals. Writs and revisions before the Andhra Pradesh High Court for title and acquisition challenges across Anantapur district.",
   },
   {
-    id: "civil-contract-partition",
+    id: "civil-contract",
     icon: "file-text" as const,
-    title: "Civil & Contract / Partition",
+    title: "Civil & Contract",
     courts: "District Court, AP High Court",
     summary:
-      "Property partition, title disputes, specific performance, and contractual enforcement in civil courts.",
+      "Contract enforcement, recovery suits, specific performance, and declaratory relief in civil courts.",
     details:
-      "Filing and defending partition suits, injunctions, declaration of title, and boundary conflicts. Contract breach, recovery suits, and declaratory relief before District Courts with appellate representation in the Andhra Pradesh High Court.",
+      "Drafting and contesting civil suits for breach of contract, recovery of dues, injunctions, and specific performance. Appellate representation before the Andhra Pradesh High Court with thorough documentary preparation.",
   },
   {
     id: "bail-criminal",
-    icon: "scale" as const,
+    icon: "gavel" as const,
     title: "Bail & Criminal",
     courts: "Sessions & Magistrate Courts",
     summary:
       "Bail applications, anticipatory bail, quashing petitions, and criminal defence with urgent filing support.",
     details:
-      "Regular and anticipatory bail in Sessions and Magistrate courts. Quashing under Section 482 CrPC, trial defence, and procedural remedies with direct advocate communication on custody and hearing dates.",
+      "Regular and anticipatory bail before Sessions and Magistrate courts. Quashing under Section 482 CrPC, trial defence, and custody-related remedies with direct advocate communication on hearing dates.",
   },
   {
-    id: "family-consumer",
+    id: "family-partition",
     icon: "users" as const,
-    title: "Family & Consumer",
-    courts: "Family Court, Consumer Forum",
+    title: "Family & Partition",
+    courts: "Family Court, District Court",
     summary:
-      "Divorce, maintenance, custody, consumer complaints, and cheque bounce matters with clear case assessment.",
+      "Divorce, maintenance, custody, and property partition suits with clear procedural guidance.",
     details:
-      "Mutual and contested divorce, maintenance and custody proceedings, domestic violence remedies, and consumer forum complaints. Negotiable Instruments Act matters including Section 138 cheque bounce cases.",
+      "Mutual and contested divorce, maintenance and custody proceedings, domestic violence remedies, and partition suits for ancestral and self-acquired property before Family Court and District Court.",
+  },
+  {
+    id: "consumer-forums",
+    icon: "shield-check" as const,
+    title: "Consumer Forums",
+    courts: "District & State Consumer Forum",
+    summary:
+      "Consumer complaints, deficiency of service, and cheque bounce matters before statutory forums.",
+    details:
+      "Complaints before District and State Consumer Disputes Redressal Commissions. Negotiable Instruments Act proceedings including Section 138 cheque bounce cases with focused pleadings and hearing representation.",
   },
 ] as const;
 
@@ -67,7 +82,7 @@ export const stats = [
   },
   {
     value: "Anantapur",
-    label: "District Practice",
+    label: "Bar Association",
     icon: "map-pin" as const,
   },
   {
@@ -79,7 +94,7 @@ export const stats = [
 
 export const credentials = [
   `${site.advocate.barCouncil} — ${site.advocate.barCouncilYear}`,
-  "Anantapur District Court practice",
+  `Anantapur Bar — practising since ${site.advocate.practisingSince}`,
   "Revenue & land record expertise",
   "Urgent bail and interim relief",
 ] as const;
@@ -87,7 +102,7 @@ export const credentials = [
 export const hero = {
   eyebrow: `BAR COUNCIL OF ANDHRA PRADESH • ${site.advocate.barCouncilYear}`,
   headline: ["Defending", "Land, Legacy", "& Rights"],
-  description: `Advocate ${site.advocate.name} practises in Anantapur since ${site.advocate.practisingSince}, representing clients in revenue, civil, criminal, and family matters before district courts and Andhra Pradesh authorities.`,
+  description: `Advocate ${site.advocate.name} practises at Anantapur Bar since ${site.advocate.practisingSince}, appearing before revenue authorities, district courts, and the Andhra Pradesh High Court.`,
 } as const;
 
 export const about = {
@@ -96,9 +111,9 @@ export const about = {
   subtitle:
     "Direct advocacy grounded in Anantapur courts, revenue offices, and local procedure.",
   paragraphs: [
-    `Advocate ${site.advocate.name} has practised in Anantapur district since ${site.advocate.practisingSince}, building deep familiarity with revenue records, district court procedure, and the forums where land and property disputes are decided. He was enrolled with the ${site.advocate.barCouncil} in ${site.advocate.barCouncilYear} and appears regularly before Tahsildar, RDO, District Courts, and the Andhra Pradesh High Court.`,
-    "Clients receive direct communication with the advocate — clear case assessment, transparent fee discussion, and timely updates on filings, hearings, and compliance steps. The practice prioritises thorough preparation on revenue and title documents before court or administrative proceedings.",
+    `Advocate ${site.advocate.name} has practised in Anantapur district since ${site.advocate.practisingSince}, with deep familiarity in revenue records, district court procedure, and the forums where land and property disputes are decided. Enrolled with the ${site.advocate.barCouncil} in ${site.advocate.barCouncilYear}, he appears regularly before Tahsildar, RDO, District Courts, and the Andhra Pradesh High Court.`,
+    "Clients receive direct communication with the advocate — clear case assessment, transparent fee discussion, and timely updates on filings, hearings, and compliance. Preparation on revenue and title documents precedes every court or administrative proceeding.",
   ],
 } as const;
 
-export const footerBlurb = `Advocate ${site.advocate.name} — focused representation in revenue, land, civil, criminal, and family matters before Andhra Pradesh courts and revenue authorities.`;
+export const footerBlurb = `Advocate ${site.advocate.name} — focused representation in revenue, civil, criminal, family, and consumer matters before Andhra Pradesh courts and statutory forums.`;

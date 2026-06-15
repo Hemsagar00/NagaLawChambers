@@ -12,7 +12,7 @@ function seededRandom(seed: number) {
 export function ParticleField() {
   const particles = useMemo(
     () =>
-      Array.from({ length: 22 }).map((_, i) => {
+      Array.from({ length: 26 }).map((_, i) => {
         const r1 = seededRandom(i + 1);
         const r2 = seededRandom(i + 21);
         const r3 = seededRandom(i + 41);
@@ -38,8 +38,11 @@ export function ParticleField() {
       className="absolute inset-0 overflow-hidden pointer-events-none z-0"
       aria-hidden="true"
     >
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(90vw,520px)] h-[min(90vw,520px)]">
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(92vw,560px)] h-[min(92vw,560px)]">
         <div className="hud-pulse-ring h-full w-full rounded-full" />
+      </div>
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(70vw,400px)] h-[min(70vw,400px)] opacity-40">
+        <div className="hud-pulse-ring h-full w-full rounded-full [animation-delay:1.2s]" />
       </div>
 
       {particles.map((p) => (

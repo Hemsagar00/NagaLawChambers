@@ -10,15 +10,15 @@ import { emailHref, phoneHref, site } from "@/lib/site";
 
 export function ContactSection() {
   return (
-    <AnimatedSection className="py-16 md:py-20" id="contact">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6">
+    <AnimatedSection className="portavia-section" id="contact">
+      <div className="portavia-container max-w-4xl">
         <SectionHeading
           eyebrow="NEXT STEP"
           title="Book a Consultation"
           subtitle={`Discuss your matter directly with Advocate ${site.advocate.name}.`}
         />
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-6">
           <ContactCard
             icon={Phone}
             label="Phone"
@@ -38,10 +38,10 @@ export function ContactSection() {
           />
         </div>
 
-        <motion.div variants={staggerItem} className="mt-8 text-center">
+        <motion.div variants={staggerItem} className="mt-10 text-center">
           <a
             href={phoneHref}
-            className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-cyan-muted border border-cyan-subtle text-kiwi-cyan rounded-xl text-sm font-medium hover:bg-cyan-muted-hover transition-colors"
+            className="inline-flex items-center gap-2.5 px-8 py-4 bg-cyan-muted border border-cyan-subtle text-kiwi-cyan rounded-2xl text-sm font-medium hover:bg-cyan-muted-hover transition-colors"
           >
             <Phone className="w-4 h-4" aria-hidden="true" />
             Call {site.contact.phoneDisplay}

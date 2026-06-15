@@ -18,6 +18,8 @@
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
   --radius-lg: 0.75rem;
   --radius-md: 0.5rem;
+  --spacing-portavia-section: 7rem;
+  --spacing-portavia-hero: 6rem;
 }
 
 @layer base {
@@ -89,6 +91,80 @@
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(212, 175, 55, 0.15);
     border-radius: 0.75rem;
+  }
+
+  /* Portavia-Kiwi hybrid */
+  .portavia-container {
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4vw, 1.5rem);
+  }
+
+  .portavia-section {
+    padding-block: clamp(4.5rem, 10vw, 7.5rem);
+  }
+
+  .portavia-flow > * + * {
+    position: relative;
+  }
+
+  .portavia-hero-title {
+    font-size: clamp(2.75rem, 7.5vw, 5.25rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+  }
+
+  .portavia-section-title {
+    font-size: clamp(2.25rem, 5vw, 3.25rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+  }
+
+  .portavia-card {
+    background: rgba(8, 12, 22, 0.72);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    border-radius: 1rem;
+    transition:
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.35s ease,
+      box-shadow 0.35s ease;
+  }
+
+  .portavia-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 229, 255, 0.22);
+    box-shadow:
+      0 20px 48px -24px rgba(0, 0, 0, 0.8),
+      0 0 32px -12px rgba(0, 229, 255, 0.12);
+  }
+
+  .portavia-nav-scrolled {
+    background: rgba(5, 5, 8, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom-color: rgba(0, 229, 255, 0.14);
+    box-shadow: 0 8px 32px -12px rgba(0, 0, 0, 0.6);
+  }
+
+  .portavia-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(212, 175, 55, 0.2) 30%,
+      rgba(0, 229, 255, 0.15) 70%,
+      transparent
+    );
+  }
+
+  .portavia-eyebrow {
+    font-size: 0.6875rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
   }
 
   /* Card 3D hover */
