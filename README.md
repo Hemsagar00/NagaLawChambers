@@ -1,19 +1,22 @@
 # NAGA Law Chambers
 
-Official website of **Advocate S. Nagendra Naik** — practising in Anantapur, Andhra Pradesh since 2011. Enrolled with the Bar Council of Andhra Pradesh in 2019.
+Official website of **Advocate S. Nagendra Naik** — practising at Anantapur Bar since 2011. Enrolled with the Bar Council of Andhra Pradesh in 2019.
 
 **Live:** [nagalawchambers.com](https://nagalawchambers.com)
 
 ## About
 
-NAGA Law Chambers provides focused legal representation before Andhra Pradesh courts and revenue authorities. The site is advocate-first and trust-building — no marketing fluff.
+NAGA Law Chambers provides focused legal representation before Andhra Pradesh courts, revenue authorities, and statutory forums. The site is advocate-first and trust-building — no marketing fluff.
 
 ### Practice Areas
 
-- **Revenue & Land** — Tahsildar, RDO, AP High Court
-- **Civil & Contract / Partition** — District Court, AP High Court
-- **Bail & Criminal** — Sessions & Magistrate Courts
-- **Family & Consumer** — Family Court, Consumer Forum
+| Area | Courts / Forums |
+|---|---|
+| **Revenue & Land** | Tahsildar, RDO, AP High Court |
+| **Civil & Contract** | District Court, AP High Court |
+| **Bail & Criminal** | Sessions & Magistrate Courts |
+| **Family & Partition** | Family Court, District Court |
+| **Consumer Forums** | District & State Consumer Forum |
 
 ### Contact
 
@@ -36,30 +39,60 @@ NAGA Law Chambers provides focused legal representation before Andhra Pradesh co
 | Hosting | Vercel |
 | Domain | [nagalawchambers.com](https://nagalawchambers.com) |
 
-## Design System (Kiwi)
+## Design System — Portavia × Kiwi Hybrid
+
+A refined blend of **Portavia** minimal elegance and **Kiwi** legal-tech authority.
 
 | Token | Value | Usage |
 |---|---|---|
-| Primary dark | `#050508` | Page background, professional base |
+| Primary dark | `#050508` | Page background, stark professional base |
 | Accent cyan | `#00E5FF` | HUD highlights, interactive accents |
-| Gold | `#D4AF37` | Legal authority, CTAs, headings |
-| Style | Glassmorphism, scanlines, HUD-pulse | Hero and section overlays |
+| Legal gold | `#D4AF37` | Authority, CTAs, headings |
+| Glass | Frosted dark cards | Practice area & contact cards |
+| Effects | Scanlines, HUD-pulse | Hero particle field, section overlays |
 
-Theme tokens live in `src/app/globals.css` (`--color-kiwi-dark`, `--color-kiwi-cyan`, `--color-gold`).
+### Portavia-inspired traits
+
+- Bold, large hero typography with strong hierarchy
+- Generous section spacing and minimal layout
+- Refined sticky navigation (scroll-aware glass)
+- Clean card/grid design for practice areas
+- Smooth scroll-triggered section reveals
+
+### Kiwi legal aesthetic
+
+- Glassmorphism on nav and cards
+- HUD-pulse particle field in hero
+- Subtle scanline overlays
+- Gold accents for legal authority
+
+Theme tokens and Portavia utilities live in `src/app/globals.css`:
+
+- `--color-kiwi-dark`, `--color-kiwi-cyan`, `--color-gold`
+- `.portavia-container`, `.portavia-section`, `.portavia-card`
+- `.portavia-hero-title`, `.portavia-nav-scrolled`
+
+## Site Sections
+
+1. **Hero** — advocate photo, credentials badge, HUD particles
+2. **Stats** — practising since 2011, Bar Council 2019, Anantapur, AP courts
+3. **Practice Areas** — five expandable cards with layout animations
+4. **Advocate Profile** — dedicated section with `/advocate.jpg`
+5. **Contact** — phone, email, office
 
 ## Project Structure
 
 ```
 src/
 ├── app/
-│   ├── page.tsx          # Server Component — composes all sections
+│   ├── page.tsx          # Server Component — Portavia-Kiwi composition
 │   ├── layout.tsx        # Root layout, metadata, JSON-LD
-│   ├── globals.css       # Kiwi design tokens + utilities
+│   ├── globals.css       # Kiwi tokens + Portavia utilities
 │   ├── sitemap.ts
 │   └── robots.ts
 ├── components/
 │   ├── home/             # Hero, practice areas, about, contact, particles
-│   ├── layout/           # Navbar, Footer (server-rendered)
+│   ├── layout/           # Navbar (sticky scroll), Footer
 │   └── seo/              # JSON-LD structured data
 └── lib/
     ├── site.ts           # Contact info, advocate credentials, base URL
@@ -71,9 +104,10 @@ src/
 
 ### Architecture
 
-- **Server Components** by default — `page.tsx`, `Navbar`, `Footer`, `JsonLd`
-- **Client islands** only where interactivity is needed — animations, accordion state, particles
+- **Server Components** by default — `page.tsx`, `Footer`, `StatsSection`, `AboutSection`, `JsonLd`
+- **Client islands** for interactivity — `Hero`, `Navbar`, `PracticeAreasSection`, `ContactSection`, particles, animations
 - **Centralized content** — edit phone, practice areas, and copy in `lib/site.ts` + `lib/content.ts`
+- **Hydration-safe** — static constants, seeded particles, no `new Date()` in render
 
 ## Getting Started
 
@@ -96,6 +130,10 @@ Open [http://localhost:3000](http://localhost:3000).
 ### Production build (static export)
 
 ```bash
+# Clear cache for a clean build
+rm -rf .next dist        # macOS / Linux
+# Remove-Item -Recurse -Force .next, dist   # Windows PowerShell
+
 npm run build
 ```
 
@@ -121,16 +159,26 @@ npm run lint
 2. Framework preset: **Next.js**
 3. Build command: `npm run build`
 4. Output directory: `dist`
-5. Set environment variable (optional):
+5. Environment variable (recommended):
 
 ```
 NEXT_PUBLIC_SITE_URL=https://nagalawchambers.com
 ```
 
-Or deploy from CLI:
+Deploy from CLI:
 
 ```bash
 npx vercel --prod
+```
+
+### Windows — clean build & deploy
+
+```powershell
+Set-Location D:\Websites\NagaLawChambers
+Remove-Item -Recurse -Force .next, dist -ErrorAction SilentlyContinue
+npm.cmd install
+npm.cmd run build
+npx.cmd vercel --prod
 ```
 
 ### Manual static hosting
@@ -139,9 +187,10 @@ After `npm run build`, upload the contents of `dist/` to any static host (Netlif
 
 ## SEO
 
-- Next.js `metadata` in `layout.tsx` (title, description, Open Graph, Twitter card, canonical)
+- Next.js `metadata` in `layout.tsx` (title, description, keywords, Open Graph, Twitter card, canonical)
 - JSON-LD structured data: `LegalService` + `Person` (Advocate)
 - `robots.txt` and `sitemap.xml` generated at build time
+- Semantic HTML with accessible landmarks and ARIA on interactive cards
 
 ## Editing Content
 
@@ -150,6 +199,7 @@ After `npm run build`, upload the contents of `dist/` to any static host (Netlif
 | Phone, email, office, advocate name | `src/lib/site.ts` |
 | Practice areas, stats, hero/about copy | `src/lib/content.ts` |
 | Page metadata / SEO title | `src/app/layout.tsx` |
+| Portavia spacing / Kiwi tokens | `src/app/globals.css` |
 | Advocate photo | `public/advocate.jpg` (do not rename) |
 
 ## Repository
