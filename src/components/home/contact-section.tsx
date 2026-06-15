@@ -1,14 +1,17 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { AnimatedSection } from "@/components/home/animated-section";
 import { ContactCard } from "@/components/home/contact-card";
+import { MagneticButton } from "@/components/motion/magnetic-button";
 import { SectionHeading } from "@/components/home/section-heading";
-import { staggerItem } from "@/lib/motion";
+import { EASE, staggerItem } from "@/lib/motion";
 import { emailHref, phoneHref, site } from "@/lib/site";
 
 export function ContactSection() {
+  const reduce = useReducedMotion();
+
   return (
     <AnimatedSection className="portavia-section" id="contact">
       <div className="portavia-container max-w-4xl">
@@ -38,14 +41,22 @@ export function ContactSection() {
           />
         </div>
 
-        <motion.div variants={staggerItem} className="mt-10 text-center">
-          <a
+        <motion.div
+          variants={staggerItem}
+          initial={reduce ? false : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
+          className="mt-10 text-center"
+        >
+          <MagneticButton
+            as="a"
             href={phoneHref}
             className="inline-flex items-center gap-2.5 px-8 py-4 bg-cyan-muted border border-cyan-subtle text-kiwi-cyan rounded-2xl text-sm font-medium hover:bg-cyan-muted-hover transition-colors"
           >
             <Phone className="w-4 h-4" aria-hidden="true" />
             Call {site.contact.phoneDisplay}
-          </a>
+          </MagneticButton>
         </motion.div>
       </div>
     </AnimatedSection>

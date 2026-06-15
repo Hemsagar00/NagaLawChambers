@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
-import { staggerItem } from "@/lib/motion";
+import { EASE, staggerItem } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 const cardClass =
@@ -19,9 +19,13 @@ function ContactCardBody({
 }) {
   return (
     <div className="flex items-start gap-4">
-      <div className="w-11 h-11 rounded-xl bg-gold-muted flex items-center justify-center border border-gold-subtle shrink-0">
+      <motion.div
+        className="w-11 h-11 rounded-xl bg-gold-muted flex items-center justify-center border border-gold-subtle shrink-0"
+        whileHover={{ scale: 1.08 }}
+        transition={{ duration: 0.25, ease: EASE }}
+      >
         <Icon className="w-5 h-5 text-gold" aria-hidden="true" />
-      </div>
+      </motion.div>
       <div>
         <p className="text-[11px] uppercase tracking-[1.5px] text-text-secondary/70 mb-1.5 font-medium">
           {label}
@@ -45,18 +49,28 @@ export function ContactCard({
   value: string;
   href?: string;
 }) {
+  const reduce = useReducedMotion();
   const body = <ContactCardBody icon={icon} label={label} value={value} />;
 
   if (href) {
     return (
-      <motion.a variants={staggerItem} href={href} className={cardClass}>
+      <motion.a
+        variants={staggerItem}
+        href={href}
+        className={cn(cardClass, "group")}
+        whileHover={reduce ? undefined : { y: -5, transition: { duration: 0.25, ease: EASE } }}
+      >
         {body}
       </motion.a>
     );
   }
 
   return (
-    <motion.div variants={staggerItem} className={cn(cardClass, "cursor-default")}>
+    <motion.div
+      variants={staggerItem}
+      className={cn(cardClass, "cursor-default")}
+      whileHover={reduce ? undefined : { y: -5, transition: { duration: 0.25, ease: EASE } }}
+    >
       {body}
     </motion.div>
   );

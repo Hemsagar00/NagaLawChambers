@@ -1,10 +1,10 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import type { PracticeAreaIcon } from "@/lib/content";
 import { getPracticeAreaIcon } from "@/lib/icons";
-import { staggerItem } from "@/lib/motion";
+import { EASE, staggerItem } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 export function ExpandablePracticeCard({
@@ -29,13 +29,15 @@ export function ExpandablePracticeCard({
   className?: string;
 }) {
   const Icon = getPracticeAreaIcon(icon);
+  const reduce = useReducedMotion();
 
   return (
     <motion.div
       layout
       variants={staggerItem}
+      whileHover={reduce ? undefined : { y: -4, transition: { duration: 0.25, ease: EASE } }}
       className={cn(
-        "portavia-card overflow-hidden",
+        "portavia-card overflow-hidden group",
         isOpen && "border-cyan-hover",
         className
       )}
@@ -45,12 +47,16 @@ export function ExpandablePracticeCard({
         onClick={onToggle}
         aria-expanded={isOpen}
         aria-controls={`${id}-details`}
-        className="w-full text-left p-7 md:p-9 group"
+        className="w-full text-left p-7 md:p-9"
       >
         <div className="flex items-start gap-5">
-          <div className="w-12 h-12 rounded-2xl bg-gold-muted flex items-center justify-center border border-gold-subtle shrink-0 group-hover:scale-[1.05] transition-transform duration-300">
+          <motion.div
+            className="w-12 h-12 rounded-2xl bg-gold-muted flex items-center justify-center border border-gold-subtle shrink-0"
+            whileHover={reduce ? undefined : { scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+          >
             <Icon className="w-6 h-6 text-gold" aria-hidden="true" />
-          </div>
+          </motion.div>
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -82,10 +88,10 @@ export function ExpandablePracticeCard({
             id={`${id}-details`}
             key="details"
             layout
-            initial={{ opacity: 0, height: 0 }}
+            initial={reduce ? { opacity: 1 } : { opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
+            exit={reduce ? { opacity: 0 } : { opacity: 0, height: 0 }}
+            transition={{ duration: reduce ? 0.2 : 0.34, ease: EASE }}
             className="overflow-hidden"
           >
             <div className="px-7 md:px-9 pb-7 md:pb-9 pt-0">

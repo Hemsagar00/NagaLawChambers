@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { staggerContainer } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -13,10 +13,12 @@ export function AnimatedSection({
   className?: string;
   id?: string;
 }) {
+  const reduce = useReducedMotion();
+
   return (
     <motion.section
       id={id}
-      initial="hidden"
+      initial={reduce ? false : "hidden"}
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
       variants={staggerContainer}

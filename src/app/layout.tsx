@@ -1,6 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display, JetBrains_Mono } from "next/font/google";
 import { JsonLd } from "@/components/seo/json-ld";
+import { ScrollProgress } from "@/components/motion/scroll-progress";
+import { SmoothScrollProvider } from "@/components/motion/smooth-scroll";
 import { baseUrl, metadataBase, site } from "@/lib/site";
 import "./globals.css";
 
@@ -76,12 +78,28 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export const viewport: Viewport = {
+  themeColor: "#050508",
+  width: "device-width",
+  initialScale: 1,
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable} ${mono.variable} antialiased`}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${playfair.variable} ${mono.variable} antialiased`}
+    >
       <body>
-        <JsonLd />
-        {children}
+        <SmoothScrollProvider>
+          <ScrollProgress />
+          <JsonLd />
+          {children}
+        </SmoothScrollProvider>
       </body>
     </html>
   );
