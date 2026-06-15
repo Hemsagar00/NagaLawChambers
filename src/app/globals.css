@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --color-obsidian: #090D16;
+  --color-kiwi-dark: #050508;
+  --color-kiwi-cyan: #00E5FF;
+  --color-obsidian: #050508;
   --color-surface: #0F172A;
   --color-surface-hover: #1E293B;
   --color-gold: #D4AF37;
@@ -10,6 +12,7 @@
   --color-text-primary: #F1F5F9;
   --color-text-secondary: #94A3B8;
   --color-border-gold: rgba(212, 175, 55, 0.15);
+  --color-border-cyan: rgba(0, 229, 255, 0.2);
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-display: 'Playfair Display', 'Georgia', serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
@@ -99,6 +102,78 @@
   @keyframes shimmer-gold {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
+  }
+
+  /* Kiwi HUD scanlines */
+  .scanline-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 229, 255, 0.018) 2px,
+      rgba(0, 229, 255, 0.018) 4px
+    );
+    opacity: 0.65;
+  }
+
+  .scanline-overlay-subtle {
+    position: relative;
+  }
+  .scanline-overlay-subtle::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 229, 255, 0.012) 3px,
+      rgba(0, 229, 255, 0.012) 6px
+    );
+  }
+
+  /* HUD pulse ring */
+  .hud-pulse-ring {
+    border: 1px solid rgba(0, 229, 255, 0.12);
+    box-shadow:
+      0 0 40px rgba(0, 229, 255, 0.06),
+      inset 0 0 60px rgba(0, 229, 255, 0.03);
+    animation: hud-pulse 4.5s ease-in-out infinite;
+  }
+
+  .hud-particle-cyan {
+    box-shadow: 0 0 8px rgba(0, 229, 255, 0.45);
+  }
+
+  .hud-image-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow: inset 0 0 0 1px rgba(0, 229, 255, 0.15);
+    animation: hud-frame-pulse 3.5s ease-in-out infinite;
+  }
+
+  @keyframes hud-pulse {
+    0%, 100% {
+      opacity: 0.35;
+      transform: translate(-50%, -50%) scale(0.96);
+    }
+    50% {
+      opacity: 0.85;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  @keyframes hud-frame-pulse {
+    0%, 100% { box-shadow: inset 0 0 0 1px rgba(0, 229, 255, 0.12); }
+    50% { box-shadow: inset 0 0 0 1px rgba(0, 229, 255, 0.35), 0 0 24px rgba(0, 229, 255, 0.08); }
   }
 }
 

@@ -24,13 +24,54 @@ const mono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase,
-  title: "Advocate S. Nagendra Naik | NAGA Law Chambers",
-  description: "Premier legal representation in Land, Revenue & Property disputes across Andhra Pradesh courts. 7+ years experience, 50+ cases handled.",
-  keywords: "land revenue lawyer, property advocate, civil litigation, Anantapur, Andhra Pradesh",
+  title: {
+    default: "Advocate S. Nagendra Naik | NAGA Law Chambers",
+    template: "%s | NAGA Law Chambers",
+  },
+  description:
+    "Advocate S. Nagendra Naik — revenue, land, civil, criminal, and family law in Anantapur, Andhra Pradesh. Bar Council of Andhra Pradesh (2019). Practising since 2011.",
+  keywords: [
+    "Advocate S Nagendra Naik",
+    "NAGA Law Chambers",
+    "land revenue lawyer Anantapur",
+    "property advocate Andhra Pradesh",
+    "bail lawyer Anantapur",
+    "civil litigation advocate",
+    "family court lawyer Anantapur",
+    "Tahsildar RDO land disputes",
+  ],
+  authors: [{ name: "S. Nagendra Naik", url: "https://nagalawchambers.com" }],
+  creator: "NAGA Law Chambers",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "NAGA Law Chambers",
-    description: "Defending Land. Legacy. Rights.",
+    title: "Advocate S. Nagendra Naik | NAGA Law Chambers",
+    description:
+      "Defending land, legacy, and rights. Revenue, civil, criminal, and family matters across Andhra Pradesh courts.",
     type: "website",
+    url: "https://nagalawchambers.com",
+    siteName: "NAGA Law Chambers",
+    locale: "en_IN",
+    images: [
+      {
+        url: "/advocate.jpg",
+        width: 1200,
+        height: 900,
+        alt: "Advocate S. Nagendra Naik — NAGA Law Chambers",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Advocate S. Nagendra Naik | NAGA Law Chambers",
+    description:
+      "Revenue, land, civil, criminal, and family law — Anantapur, Andhra Pradesh.",
+    images: ["/advocate.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
