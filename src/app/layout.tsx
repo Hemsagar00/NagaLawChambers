@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display, JetBrains_Mono } from "next/font/google";
-import { metadataBase } from "@/lib/site";
+import { JsonLd } from "@/components/seo/json-ld";
+import { baseUrl, metadataBase, site } from "@/lib/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -40,18 +41,18 @@ export const metadata: Metadata = {
     "family court lawyer Anantapur",
     "Tahsildar RDO land disputes",
   ],
-  authors: [{ name: "S. Nagendra Naik", url: "https://nagalawchambers.com" }],
-  creator: "NAGA Law Chambers",
+  authors: [{ name: site.advocate.name, url: baseUrl }],
+  creator: site.name,
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Advocate S. Nagendra Naik | NAGA Law Chambers",
+    title: `Advocate ${site.advocate.name} | ${site.name}`,
     description:
       "Defending land, legacy, and rights. Revenue, civil, criminal, and family matters across Andhra Pradesh courts.",
     type: "website",
-    url: "https://nagalawchambers.com",
-    siteName: "NAGA Law Chambers",
+    url: baseUrl,
+    siteName: site.name,
     locale: "en_IN",
     images: [
       {
@@ -78,7 +79,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable} ${mono.variable} antialiased`}>
-      <body>{children}</body>
+      <body>
+        <JsonLd />
+        {children}
+      </body>
     </html>
   );
 }

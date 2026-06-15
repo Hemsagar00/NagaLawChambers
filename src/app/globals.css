@@ -39,9 +39,17 @@
 @layer utilities {
   .font-display-legal { font-family: var(--font-display); }
 
-  .text-gold { color: #D4AF37; }
-  .text-gold-dim { color: rgba(212, 175, 55, 0.7); }
+  .text-gold { color: var(--color-gold); }
+  .text-gold-dim { color: var(--color-gold-dim); }
+  .bg-gold-hover { background-color: #E8C84A; }
+  .bg-gold-muted { background-color: rgba(212, 175, 55, 0.08); }
+  .bg-cyan-muted { background-color: rgba(0, 229, 255, 0.06); }
+  .bg-cyan-muted-hover { background-color: rgba(0, 229, 255, 0.12); }
   .border-gold { border-color: rgba(212, 175, 55, 0.25); }
+  .border-gold-subtle { border-color: rgba(212, 175, 55, 0.18); }
+  .border-gold-faint { border-color: rgba(212, 175, 55, 0.12); }
+  .border-cyan-subtle { border-color: var(--color-border-cyan); }
+  .border-cyan-hover { border-color: rgba(0, 229, 255, 0.28); }
 
   /* Liquid Glass */
   .liquid-glass {
@@ -163,11 +171,11 @@
   @keyframes hud-pulse {
     0%, 100% {
       opacity: 0.35;
-      transform: translate(-50%, -50%) scale(0.96);
+      transform: scale(0.96);
     }
     50% {
       opacity: 0.85;
-      transform: translate(-50%, -50%) scale(1);
+      transform: scale(1);
     }
   }
 
