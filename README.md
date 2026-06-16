@@ -2,7 +2,7 @@
 
 Official website of **Advocate S. Nagendra Naik** — practising at Anantapur Bar since 2011. Enrolled with the Bar Council of Andhra Pradesh in 2019.
 
-**Live:** [nagalawchambers.com](https://nagalawchambers.com)
+**Live:** [nagalawchamber.com](https://nagalawchamber.com)
 
 ## About
 
@@ -12,7 +12,7 @@ NAGA Law Chambers provides focused legal representation before Andhra Pradesh co
 
 | Area | Courts / Forums |
 |---|---|
-| **Revenue & Land** | Tahsildar, RDO, AP High Court |
+| **Revenue & Land** | Tahsildar, RDO, Collector, AP High Court |
 | **Civil & Contract** | District Court, AP High Court |
 | **Bail & Criminal** | Sessions & Magistrate Courts |
 | **Family & Partition** | Family Court, District Court |
@@ -23,7 +23,7 @@ NAGA Law Chambers provides focused legal representation before Andhra Pradesh co
 | | |
 |---|---|
 | Phone | +91 94400 00417 |
-| Email | contact@nagalawchambers.com |
+| Email | contact@nagalawchamber.com |
 | Office | District Court Premises, Anantapur, Andhra Pradesh 515001 |
 
 ## Tech Stack
@@ -37,7 +37,7 @@ NAGA Law Chambers provides focused legal representation before Andhra Pradesh co
 | Icons | Lucide React |
 | Export | Static (`output: 'export'`) |
 | Hosting | Vercel |
-| Domain | [nagalawchambers.com](https://nagalawchambers.com) |
+| Domain | [nagalawchamber.com](https://nagalawchamber.com) |
 
 ## Design System — Portavia × Kiwi Hybrid
 
@@ -74,11 +74,11 @@ Theme tokens and Portavia utilities live in `src/app/globals.css`:
 
 ## Site Sections
 
-1. **Hero** — advocate photo, credentials badge, HUD particles
-2. **Stats** — practising since 2011, Bar Council 2019, Anantapur, AP courts
-3. **Practice Areas** — five expandable cards with layout animations
-4. **Advocate Profile** — dedicated section with `/advocate.jpg`
-5. **Contact** — phone, email, office
+1. **Hero** — advocate photo `/advocate.jpg`, credentials badge, HUD particles
+2. **Stats** — years practising, Bar Council enrolment, Anantapur Bar, practice areas
+3. **Practice Areas** — five expandable cards with smooth layout animations
+4. **Advocate Profile** — dedicated section featuring `/advocate.jpg`
+5. **Contact** — phone, email, office with Google Maps link
 
 ## Project Structure
 
@@ -93,6 +93,7 @@ src/
 ├── components/
 │   ├── home/             # Hero, practice areas, about, contact, particles
 │   ├── layout/           # Navbar (sticky scroll), Footer
+│   ├── motion/           # Magnetic buttons, scroll progress, smooth scroll
 │   └── seo/              # JSON-LD structured data
 └── lib/
     ├── site.ts           # Contact info, advocate credentials, base URL
@@ -130,10 +131,13 @@ Open [http://localhost:3000](http://localhost:3000).
 ### Production build (static export)
 
 ```bash
-# Clear cache for a clean build
-rm -rf .next dist        # macOS / Linux
-# Remove-Item -Recurse -Force .next, dist   # Windows PowerShell
+# macOS / Linux
+rm -rf .next dist
 
+# Windows PowerShell
+Remove-Item -Recurse -Force .next, dist -ErrorAction SilentlyContinue
+
+npm install
 npm run build
 ```
 
@@ -162,7 +166,7 @@ npm run lint
 5. Environment variable (recommended):
 
 ```
-NEXT_PUBLIC_SITE_URL=https://nagalawchambers.com
+NEXT_PUBLIC_SITE_URL=https://nagalawchamber.com
 ```
 
 Deploy from CLI:
@@ -176,9 +180,9 @@ npx vercel --prod
 ```powershell
 Set-Location D:\Websites\NagaLawChambers
 Remove-Item -Recurse -Force .next, dist -ErrorAction SilentlyContinue
-npm.cmd install
-npm.cmd run build
-npx.cmd vercel --prod
+npm install
+npm run build
+npx vercel --prod
 ```
 
 ### Manual static hosting
@@ -187,8 +191,8 @@ After `npm run build`, upload the contents of `dist/` to any static host (Netlif
 
 ## SEO
 
-- Next.js `metadata` in `layout.tsx` (title, description, keywords, Open Graph, Twitter card, canonical)
-- JSON-LD structured data: `LegalService` + `Person` (Advocate)
+- Next.js `metadata` in `layout.tsx` with title `"NAGA Law Chambers | Advocate S. Nagendra Naik"`, description, keywords, Open Graph, Twitter card, canonical
+- JSON-LD structured data: `LegalService` (firm) + `Person` (advocate) + `WebSite` + `WebPage`
 - `robots.txt` and `sitemap.xml` generated at build time
 - Semantic HTML with accessible landmarks and ARIA on interactive cards
 
