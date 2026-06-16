@@ -38,11 +38,11 @@ function useCountUp(
   return count;
 }
 
-function parseStatValue(value: string): { numeric: number; suffix: string; display: string } {
+function parseStatValue(value: string): { numeric: number; suffix: string } {
   const cleaned = value.replace(/[^0-9]/g, "");
   const numeric = cleaned ? Number(cleaned) : 0;
   const suffix = value.replace(/^[^0-9]+/, "").replace(/[0-9]/g, "");
-  return { numeric, suffix, display: value };
+  return { numeric, suffix };
 }
 
 export function Stat({
@@ -59,7 +59,7 @@ export function Stat({
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const reduce = useReducedMotion();
   const { numeric, suffix } = parseStatValue(value);
-  const count = useCountUp(numeric, 1.6, isInView && !reduce && numeric > 0);
+  const count = useCountUp(numeric, 1.8, isInView && !reduce && numeric > 0);
 
   const displayValue = numeric > 0 && !reduce ? `${count}${suffix}` : value;
 
@@ -67,13 +67,15 @@ export function Stat({
     <motion.div
       ref={ref}
       variants={staggerItem}
-      whileHover={reduce ? undefined : { y: -6, transition: { duration: 0.25, ease: EASE } }}
+      whileHover={
+        reduce ? undefined : { y: -6, transition: { duration: 0.25, ease: EASE } }
+      }
       className="flex flex-col items-center text-center py-2 group"
     >
       <div className="mb-3 text-gold transition-transform duration-300 group-hover:scale-110">
         <Icon className="w-5 h-5" aria-hidden="true" />
       </div>
-      <div className="text-3xl sm:text-4xl md:text-[42px] font-bold tracking-[-1.2px] gold-gradient-text font-display-legal tabular-nums">
+      <div className="text-3xl sm:text-4xl md:text-[44px] font-bold tracking-[-1.2px] gold-gradient-text font-display-legal tabular-nums">
         {displayValue}
       </div>
       <div className="text-xs sm:text-sm text-text-secondary mt-1.5 tracking-[0.3px]">

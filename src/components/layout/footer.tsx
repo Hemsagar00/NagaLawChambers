@@ -1,6 +1,6 @@
 import { MapPin, Scale } from "lucide-react";
 import { footerBlurb, practiceAreaTitles } from "@/lib/content";
-import { emailHref, phoneHref, site } from "@/lib/site";
+import { emailHref, mapHref, phoneHref, site } from "@/lib/site";
 
 export function Footer() {
   return (
@@ -48,7 +48,7 @@ export function Footer() {
                 {site.contact.email}
               </a>
               <a
-                href="https://maps.google.com/?q=District+Court+Premises,+Anantapur,+Andhra+Pradesh+515001"
+                href={mapHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block hover:text-kiwi-cyan transition-colors"
@@ -68,7 +68,8 @@ export function Footer() {
             {site.advocate.name}.
           </p>
           <p>
-            {site.advocate.barCouncil} • Enrolled {site.advocate.barCouncilYear}
+            {site.advocate.barCouncil} • Enrolled{" "}
+            {site.advocate.barCouncilYear}
           </p>
         </div>
       </div>

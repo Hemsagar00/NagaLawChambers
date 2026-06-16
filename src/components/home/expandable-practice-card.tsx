@@ -35,7 +35,9 @@ export function ExpandablePracticeCard({
     <motion.div
       layout
       variants={staggerItem}
-      whileHover={reduce ? undefined : { y: -4, transition: { duration: 0.25, ease: EASE } }}
+      whileHover={
+        reduce ? undefined : { y: -4, transition: { duration: 0.25, ease: EASE } }
+      }
       className={cn(
         "portavia-card overflow-hidden group",
         isOpen && "border-cyan-hover",
@@ -47,7 +49,7 @@ export function ExpandablePracticeCard({
         onClick={onToggle}
         aria-expanded={isOpen}
         aria-controls={`${id}-details`}
-        className="w-full text-left p-7 md:p-9"
+        className="w-full text-left p-7 md:p-8"
       >
         <div className="flex items-start gap-5">
           <motion.div
@@ -94,7 +96,7 @@ export function ExpandablePracticeCard({
             transition={{ duration: reduce ? 0.2 : 0.34, ease: EASE }}
             className="overflow-hidden"
           >
-            <div className="px-7 md:px-9 pb-7 md:pb-9 pt-0">
+            <div className="px-7 md:px-8 pb-7 md:pb-8 pt-0">
               <div className="md:pl-[4.25rem] border-t border-gold-faint pt-5">
                 <p className="text-[15px] text-text-secondary leading-relaxed">
                   {details}

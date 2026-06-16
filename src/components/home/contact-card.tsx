@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { EASE, staggerItem } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -12,10 +13,12 @@ function ContactCardBody({
   icon: Icon,
   label,
   value,
+  external,
 }: {
   icon: LucideIcon;
   label: string;
   value: string;
+  external?: boolean;
 }) {
   return (
     <div className="flex items-start gap-4">
@@ -26,10 +29,15 @@ function ContactCardBody({
       >
         <Icon className="w-5 h-5 text-gold" aria-hidden="true" />
       </motion.div>
-      <div>
-        <p className="text-[11px] uppercase tracking-[1.5px] text-text-secondary/70 mb-1.5 font-medium">
-          {label}
-        </p>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2">
+          <p className="text-[11px] uppercase tracking-[1.5px] text-text-secondary/70 mb-1.5 font-medium">
+            {label}
+          </p>
+          {external && (
+            <ExternalLink className="w-3 h-3 text-text-secondary/50" aria-hidden="true" />
+          )}
+        </div>
         <p className="text-text-primary font-medium text-[15px] md:text-[15.5px] tracking-[-0.1px] break-words">
           {value}
         </p>
@@ -50,15 +58,20 @@ export function ContactCard({
   href?: string;
 }) {
   const reduce = useReducedMotion();
-  const body = <ContactCardBody icon={icon} label={label} value={value} />;
+  const isExternal = href?.startsWith("http") ?? false;
+  const body = <ContactCardBody icon={icon} label={label} value={value} external={isExternal} />;
 
   if (href) {
     return (
       <motion.a
         variants={staggerItem}
         href={href}
+        target={isExternal ? "_blank" : undefined}
+        rel={isExternal ? "noopener noreferrer" : undefined}
         className={cn(cardClass, "group")}
-        whileHover={reduce ? undefined : { y: -5, transition: { duration: 0.25, ease: EASE } }}
+        whileHover={
+          reduce ? undefined : { y: -5, transition: { duration: 0.25, ease: EASE } }
+        }
       >
         {body}
       </motion.a>
@@ -69,7 +82,9 @@ export function ContactCard({
     <motion.div
       variants={staggerItem}
       className={cn(cardClass, "cursor-default")}
-      whileHover={reduce ? undefined : { y: -5, transition: { duration: 0.25, ease: EASE } }}
+      whileHover={
+        reduce ? undefined : { y: -5, transition: { duration: 0.25, ease: EASE } }
+      }
     >
       {body}
     </motion.div>

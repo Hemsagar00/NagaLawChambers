@@ -10,7 +10,7 @@ export type StatIcon = "clock" | "book-open" | "map-pin" | "landmark";
 
 export const navLinks = [
   { label: "Practice", href: "#practice" },
-  { label: "Advocate", href: "#about" },
+  { label: "Advocate", href: "#advocate" },
   { label: "Contact", href: "#contact" },
 ] as const;
 
@@ -19,9 +19,9 @@ export const practiceAreas = [
     id: "revenue-land",
     icon: "landmark" as const,
     title: "Revenue & Land",
-    courts: "Tahsildar, RDO, AP High Court",
+    courts: "Tahsildar, RDO, Collector, AP High Court",
     summary:
-      "ROR corrections, mutations, patta disputes, and land acquisition proceedings before revenue authorities.",
+      "ROR corrections, mutations, patta disputes, encumbrance issues, and land acquisition proceedings before revenue authorities.",
     details:
       "Representation before Tahsildar, RDO, and Collector on revenue records, encumbrance disputes, and administrative appeals. Writs and revisions before the Andhra Pradesh High Court for title and acquisition challenges across Anantapur district.",
   },
@@ -31,7 +31,7 @@ export const practiceAreas = [
     title: "Civil & Contract",
     courts: "District Court, AP High Court",
     summary:
-      "Contract enforcement, recovery suits, specific performance, and declaratory relief in civil courts.",
+      "Contract enforcement, recovery suits, specific performance, injunctions, and declaratory relief in civil courts.",
     details:
       "Drafting and contesting civil suits for breach of contract, recovery of dues, injunctions, and specific performance. Appellate representation before the Andhra Pradesh High Court with thorough documentary preparation.",
   },
@@ -51,7 +51,7 @@ export const practiceAreas = [
     title: "Family & Partition",
     courts: "Family Court, District Court",
     summary:
-      "Divorce, maintenance, custody, and property partition suits with clear procedural guidance.",
+      "Divorce, maintenance, custody, domestic violence remedies, and property partition suits with clear procedural guidance.",
     details:
       "Mutual and contested divorce, maintenance and custody proceedings, domestic violence remedies, and partition suits for ancestral and self-acquired property before Family Court and District Court.",
   },
@@ -71,8 +71,8 @@ export const practiceAreaTitles = practiceAreas.map((area) => area.title);
 
 export const stats = [
   {
-    value: String(site.advocate.practisingSince),
-    label: "Practising Since",
+    value: `${new Date().getFullYear() - site.advocate.practisingSince}+`,
+    label: "Years Practising",
     icon: "clock" as const,
   },
   {
@@ -86,14 +86,14 @@ export const stats = [
     icon: "map-pin" as const,
   },
   {
-    value: "AP",
-    label: "Courts & Forums",
+    value: "5",
+    label: "Practice Areas",
     icon: "landmark" as const,
   },
 ] as const;
 
 export const credentials = [
-  `${site.advocate.barCouncil} — ${site.advocate.barCouncilYear}`,
+  `${site.advocate.barCouncil} — Enrolled ${site.advocate.barCouncilYear}`,
   `Anantapur Bar — practising since ${site.advocate.practisingSince}`,
   "Revenue & land record expertise",
   "Urgent bail and interim relief",
@@ -103,6 +103,8 @@ export const hero = {
   eyebrow: `BAR COUNCIL OF ANDHRA PRADESH • ${site.advocate.barCouncilYear}`,
   headline: ["Defending", "Land, Legacy", "& Rights"],
   description: `Advocate ${site.advocate.name} practises at Anantapur Bar since ${site.advocate.practisingSince}, appearing before revenue authorities, district courts, and the Andhra Pradesh High Court.`,
+  ctaPrimary: "Book Consultation",
+  ctaSecondary: "Practice Areas",
 } as const;
 
 export const about = {

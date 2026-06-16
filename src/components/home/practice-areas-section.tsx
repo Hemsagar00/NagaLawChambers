@@ -32,7 +32,7 @@ export function PracticeAreasSection() {
             hidden: { opacity: 0 },
             visible: {
               opacity: 1,
-              transition: { staggerChildren: 0.08 },
+              transition: { staggerChildren: 0.1 },
             },
           }}
           className="grid md:grid-cols-2 gap-5 md:gap-6 max-w-5xl mx-auto"
@@ -42,7 +42,8 @@ export function PracticeAreasSection() {
               key={area.id}
               variants={fadeUp}
               className={
-                index === practiceAreas.length - 1 && practiceAreas.length % 2 !== 0
+                index === practiceAreas.length - 1 &&
+                practiceAreas.length % 2 !== 0
                   ? "md:col-span-2 md:max-w-[calc(50%-0.75rem)] md:mx-auto md:w-full"
                   : undefined
               }

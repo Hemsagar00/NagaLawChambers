@@ -7,7 +7,7 @@ import { ContactCard } from "@/components/home/contact-card";
 import { MagneticButton } from "@/components/motion/magnetic-button";
 import { SectionHeading } from "@/components/home/section-heading";
 import { EASE, staggerItem } from "@/lib/motion";
-import { emailHref, phoneHref, site } from "@/lib/site";
+import { emailHref, mapHref, phoneHref, site } from "@/lib/site";
 
 export function ContactSection() {
   const reduce = useReducedMotion();
@@ -38,6 +38,7 @@ export function ContactSection() {
             icon={MapPin}
             label="Office"
             value={site.contact.office}
+            href={mapHref}
           />
         </div>
 

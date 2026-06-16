@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     template: "%s | NAGA Law Chambers",
   },
   description:
-    "Advocate S. Nagendra Naik — revenue, land, civil, criminal, and family law in Anantapur, Andhra Pradesh. Bar Council of Andhra Pradesh (2019). Practising since 2011.",
+    "Advocate S. Nagendra Naik — revenue, land, civil, criminal, family, and consumer law in Anantapur, Andhra Pradesh. Bar Council of Andhra Pradesh (2019). Practising since 2011.",
   keywords: [
     "Advocate S Nagendra Naik",
     "NAGA Law Chambers",
@@ -42,16 +42,19 @@ export const metadata: Metadata = {
     "civil litigation advocate",
     "family court lawyer Anantapur",
     "Tahsildar RDO land disputes",
+    "consumer forum lawyer Anantapur",
+    "criminal defence Anantapur",
   ],
   authors: [{ name: site.advocate.name, url: baseUrl }],
   creator: site.name,
+  publisher: site.name,
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title: `Advocate ${site.advocate.name} | ${site.name}`,
     description:
-      "Defending land, legacy, and rights. Revenue, civil, criminal, and family matters across Andhra Pradesh courts.",
+      "Defending land, legacy, and rights. Revenue, civil, criminal, family, and consumer matters across Andhra Pradesh courts.",
     type: "website",
     url: baseUrl,
     siteName: site.name,
@@ -61,7 +64,7 @@ export const metadata: Metadata = {
         url: "/advocate.jpg",
         width: 1200,
         height: 900,
-        alt: "Advocate S. Nagendra Naik — NAGA Law Chambers",
+        alt: "Advocate S. Nagendra Naik — NAGA Law Chambers, Anantapur",
       },
     ],
   },
@@ -69,12 +72,22 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Advocate S. Nagendra Naik | NAGA Law Chambers",
     description:
-      "Revenue, land, civil, criminal, and family law — Anantapur, Andhra Pradesh.",
+      "Revenue, land, civil, criminal, family, and consumer law — Anantapur, Andhra Pradesh.",
     images: ["/advocate.jpg"],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
 };
 
@@ -82,6 +95,8 @@ export const viewport: Viewport = {
   themeColor: "#050508",
   width: "device-width",
   initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
 };
 
 export default function RootLayout({
@@ -94,7 +109,7 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${playfair.variable} ${mono.variable} antialiased`}
     >
-      <body>
+      <body className="bg-kiwi-dark text-text-primary">
         <SmoothScrollProvider>
           <ScrollProgress />
           <JsonLd />

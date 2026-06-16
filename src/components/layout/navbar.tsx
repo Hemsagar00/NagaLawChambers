@@ -1,10 +1,10 @@
 "use client";
 
-import { motion, useMotionValueEvent, useScroll, useReducedMotion } from "framer-motion";
+import { motion, useMotionValueEvent, useReducedMotion, useScroll } from "framer-motion";
 import { useState } from "react";
 import { Menu, Phone, Scale, X } from "lucide-react";
 import { navLinks } from "@/lib/content";
-import { phoneHref } from "@/lib/site";
+import { phoneHref, site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { EASE } from "@/lib/motion";
 
@@ -26,7 +26,9 @@ export function Navbar() {
         animate={{ height: scrolled ? 60 : 64 }}
         className={cn(
           "fixed top-0 left-0 right-0 z-50 liquid-glass border-b transition-colors duration-300",
-          scrolled ? "portavia-nav-scrolled border-cyan-subtle" : "border-gold-faint"
+          scrolled
+            ? "portavia-nav-scrolled border-cyan-subtle"
+            : "border-gold-faint"
         )}
       >
         <div className="portavia-container h-full flex items-center justify-between">
@@ -55,7 +57,7 @@ export function Navbar() {
             <a
               href={phoneHref}
               className="inline-flex items-center gap-2 px-3 sm:px-5 py-2 sm:py-2.5 bg-gold text-kiwi-dark font-semibold rounded-xl text-xs sm:text-sm tracking-[0.3px] hover:bg-gold-hover active:scale-[0.985] transition-all"
-              aria-label="Call for consultation"
+              aria-label={`Call ${site.contact.phoneDisplay}`}
             >
               <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4" aria-hidden="true" />
               <span className="hidden sm:inline">Consult</span>
@@ -70,7 +72,11 @@ export function Navbar() {
               aria-controls="mobile-nav"
               aria-label="Toggle navigation"
             >
-              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {mobileOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
             </button>
           </div>
         </div>

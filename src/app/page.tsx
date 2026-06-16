@@ -7,8 +7,16 @@ import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 
 /**
- * Portavia-Kiwi hybrid landing page.
- * Server composition layer — animations live in client islands under components/home/.
+ * NAGA Law Chambers — Portavia-Kiwi hybrid landing page.
+ *
+ * Design system (Kiwi):
+ *   Primary background: #050508
+ *   Accent cyan: #00E5FF
+ *   Gold: #D4AF37
+ *   Style: glassmorphism, subtle scanlines, HUD pulse, stark professional dark UI
+ *
+ * Structure:
+ *   Navbar → Hero → Stats → Practice Areas → Advocate Profile → Contact → Footer
  */
 export default function HomePage() {
   return (

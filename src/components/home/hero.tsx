@@ -1,36 +1,37 @@
 "use client";
 
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, ChevronDown, ShieldCheck } from "lucide-react";
+import { ArrowRight, ChevronDown, Phone, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import { MagneticButton } from "@/components/motion/magnetic-button";
 import { ParticleField } from "@/components/home/particle-field";
 import { hero } from "@/lib/content";
-import { site } from "@/lib/site";
+import { phoneHref, site } from "@/lib/site";
 import { EASE } from "@/lib/motion";
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.15 },
+    transition: { staggerChildren: 0.12, delayChildren: 0.12 },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 36 },
+  hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: EASE },
+    transition: { duration: 0.75, ease: EASE },
   },
 };
 
 export function Hero() {
   const reduce = useReducedMotion();
   const { scrollY } = useScroll();
-  const imageY = useTransform(scrollY, [0, 500], [0, 60]);
-  const opacityY = useTransform(scrollY, [0, 400], [1, 0.65]);
+  const imageY = useTransform(scrollY, [0, 600], [0, 80]);
+  const imageScale = useTransform(scrollY, [0, 600], [1, 1.06]);
+  const opacityY = useTransform(scrollY, [0, 400], [1, 0.55]);
 
   return (
     <section
@@ -48,7 +49,7 @@ export function Hero() {
       <div className="scanline-overlay" aria-hidden="true" />
 
       <motion.div
-        className="relative z-10 portavia-container pt-12 sm:pt-16 pb-24 grid lg:grid-cols-2 gap-x-16 gap-y-14 lg:gap-y-16 items-center w-full"
+        className="relative z-10 portavia-container pt-12 sm:pt-20 pb-24 grid lg:grid-cols-2 gap-x-16 gap-y-14 lg:gap-y-16 items-center w-full"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -72,7 +73,7 @@ export function Hero() {
                   className="block"
                   initial={reduce ? false : { y: "110%" }}
                   animate={{ y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 + i * 0.12, ease: EASE }}
+                  transition={{ duration: 0.85, delay: 0.25 + i * 0.12, ease: EASE }}
                 >
                   {i === hero.headline.length - 1 ? (
                     <span className="gold-gradient-text">{line}</span>
@@ -98,18 +99,19 @@ export function Hero() {
             <MagneticButton
               as="a"
               href="#contact"
-              className="inline-flex justify-center items-center gap-3 px-8 py-4 bg-gold text-kiwi-dark font-semibold rounded-2xl text-[15px] tracking-[0.3px] hover:bg-gold-hover active:scale-[0.985] transition-all"
+              className="inline-flex justify-center items-center gap-3 px-8 py-4 bg-gold text-kiwi-dark font-semibold rounded-2xl text-[15px] tracking-[0.3px] hover:bg-gold-hover active:scale-[0.985] transition-all shadow-[0_12px_40px_-12px_rgba(212,175,55,0.35)]"
             >
-              Book Consultation
+              {hero.ctaPrimary}
               <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </MagneticButton>
 
             <MagneticButton
               as="a"
-              href="#practice"
+              href={phoneHref}
               className="inline-flex justify-center items-center gap-3 px-8 py-4 border border-cyan-subtle hover:bg-cyan-muted rounded-2xl text-[15px] tracking-[0.3px] transition-all"
             >
-              Practice Areas
+              <Phone className="w-4 h-4" aria-hidden="true" />
+              {site.contact.phoneDisplay}
             </MagneticButton>
           </motion.div>
         </div>
@@ -119,15 +121,20 @@ export function Hero() {
           style={reduce ? undefined : { y: imageY, opacity: opacityY }}
           className="relative lg:pl-6"
         >
-          <div className="relative aspect-[4/3.15] max-w-[480px] mx-auto lg:mx-0 rounded-[1.25rem] overflow-hidden border border-gold-subtle shadow-[0_28px_64px_-24px_rgba(0,0,0,0.75)] hud-image-frame group">
-            <Image
-              src="/advocate.jpg"
-              alt={`Advocate ${site.advocate.name}, ${site.name}, Anantapur`}
-              fill
-              sizes="(max-width: 1024px) 90vw, 480px"
-              className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-              priority
-            />
+          <div className="relative aspect-[4/3.15] max-w-[500px] mx-auto lg:mx-0 rounded-[1.25rem] overflow-hidden border border-gold-subtle shadow-[0_32px_72px_-28px_rgba(0,0,0,0.85)] hud-image-frame group">
+            <motion.div
+              style={reduce ? undefined : { scale: imageScale }}
+              className="absolute inset-0"
+            >
+              <Image
+                src="/advocate.jpg"
+                alt={`Advocate ${site.advocate.name}, ${site.name}, Anantapur`}
+                fill
+                sizes="(max-width: 1024px) 90vw, 500px"
+                className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                priority
+              />
+            </motion.div>
             <div className="absolute inset-0 bg-gradient-to-t from-kiwi-dark via-kiwi-dark/50 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-7 sm:p-9">
               <motion.p
