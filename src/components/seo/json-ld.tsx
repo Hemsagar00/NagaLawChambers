@@ -12,7 +12,8 @@ export function JsonLd() {
         telephone: site.contact.phoneTel,
         email: site.contact.email,
         image: `${site.url}/advocate.jpg`,
-        description: `Advocate ${site.advocate.name} — legal representation in revenue, land, civil, criminal, family, and consumer matters across Andhra Pradesh courts and statutory forums.`,
+        logo: `${site.url}/advocate.jpg`,
+        description: `NAGA Law Chambers — Advocate ${site.advocate.name} provides legal representation in revenue, land, civil, criminal, family, and consumer matters across Andhra Pradesh courts and statutory forums.`,
         address: {
           "@type": "PostalAddress",
           streetAddress: "District Court Premises",
@@ -63,6 +64,15 @@ export function JsonLd() {
         url: site.url,
         name: site.name,
         publisher: { "@id": `${site.url}/#organization` },
+      },
+      {
+        "@type": "WebPage",
+        "@id": `${site.url}/#webpage`,
+        url: site.url,
+        name: "NAGA Law Chambers | Advocate S. Nagendra Naik",
+        isPartOf: { "@id": `${site.url}/#website` },
+        about: { "@id": `${site.url}/#organization` },
+        primaryImageOfPage: `${site.url}/advocate.jpg`,
       },
     ],
   };

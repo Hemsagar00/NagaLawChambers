@@ -28,22 +28,25 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase,
   title: {
-    default: "Advocate S. Nagendra Naik | NAGA Law Chambers",
+    default: "NAGA Law Chambers | Advocate S. Nagendra Naik",
     template: "%s | NAGA Law Chambers",
   },
   description:
-    "Advocate S. Nagendra Naik — revenue, land, civil, criminal, family, and consumer law in Anantapur, Andhra Pradesh. Bar Council of Andhra Pradesh (2019). Practising since 2011.",
+    "NAGA Law Chambers — Advocate S. Nagendra Naik practises revenue, land, civil, criminal, family, and consumer law in Anantapur, Andhra Pradesh. Bar Council of Andhra Pradesh (2019). Direct advocacy since 2011.",
   keywords: [
-    "Advocate S Nagendra Naik",
     "NAGA Law Chambers",
+    "Advocate S Nagendra Naik",
+    "Advocate S. Nagendra Naik Anantapur",
     "land revenue lawyer Anantapur",
     "property advocate Andhra Pradesh",
     "bail lawyer Anantapur",
-    "civil litigation advocate",
+    "civil litigation advocate Anantapur",
     "family court lawyer Anantapur",
     "Tahsildar RDO land disputes",
     "consumer forum lawyer Anantapur",
     "criminal defence Anantapur",
+    "partition lawyer Anantapur",
+    "Section 138 cheque bounce Anantapur",
   ],
   authors: [{ name: site.advocate.name, url: baseUrl }],
   creator: site.name,
@@ -52,7 +55,7 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: `Advocate ${site.advocate.name} | ${site.name}`,
+    title: "NAGA Law Chambers | Advocate S. Nagendra Naik",
     description:
       "Defending land, legacy, and rights. Revenue, civil, criminal, family, and consumer matters across Andhra Pradesh courts.",
     type: "website",
@@ -70,7 +73,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Advocate S. Nagendra Naik | NAGA Law Chambers",
+    title: "NAGA Law Chambers | Advocate S. Nagendra Naik",
     description:
       "Revenue, land, civil, criminal, family, and consumer law — Anantapur, Andhra Pradesh.",
     images: ["/advocate.jpg"],
