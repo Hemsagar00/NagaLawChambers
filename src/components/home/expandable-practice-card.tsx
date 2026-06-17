@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import type { PracticeAreaIcon } from "@/lib/content";
 import { getPracticeAreaIcon } from "@/lib/icons";
+import { SpotlightCard } from "@/components/motion/spotlight-card";
 import { EASE, staggerItem } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -32,7 +33,7 @@ export function ExpandablePracticeCard({
   const reduce = useReducedMotion();
 
   return (
-    <motion.div
+    <SpotlightCard
       layout
       variants={staggerItem}
       whileHover={
@@ -106,6 +107,6 @@ export function ExpandablePracticeCard({
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </SpotlightCard>
   );
 }

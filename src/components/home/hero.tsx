@@ -29,9 +29,11 @@ const itemVariants = {
 export function Hero() {
   const reduce = useReducedMotion();
   const { scrollY } = useScroll();
-  const imageY = useTransform(scrollY, [0, 600], [0, 80]);
-  const imageScale = useTransform(scrollY, [0, 600], [1, 1.06]);
-  const opacityY = useTransform(scrollY, [0, 400], [1, 0.55]);
+  const imageY = useTransform(scrollY, [0, 800], [0, 120]);
+  const imageScale = useTransform(scrollY, [0, 800], [1, 1.1]);
+  const imageRotate = useTransform(scrollY, [0, 800], [0, 2]);
+  const opacityY = useTransform(scrollY, [0, 500], [1, 0.5]);
+  const textX = useTransform(scrollY, [0, 500], [0, -30]);
 
   return (
     <section
@@ -54,10 +56,14 @@ export function Hero() {
         initial="hidden"
         animate="visible"
       >
-        <div className="max-w-xl">
+        <motion.div
+          className="max-w-xl"
+          style={reduce ? undefined : { x: textX }}
+        >
           <motion.div
             variants={itemVariants}
-            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-cyan-subtle bg-cyan-muted mb-8 md:mb-10 portavia-eyebrow text-kiwi-cyan"
+            whileHover={reduce ? undefined : { scale: 1.02 }}
+            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-cyan-subtle bg-cyan-muted mb-8 md:mb-10 portavia-eyebrow text-kiwi-cyan cursor-default"
           >
             <ShieldCheck className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
             {hero.eyebrow}
@@ -71,9 +77,13 @@ export function Hero() {
               <div key={i} className="overflow-hidden">
                 <motion.span
                   className="block"
-                  initial={reduce ? false : { y: "110%" }}
-                  animate={{ y: 0 }}
-                  transition={{ duration: 0.85, delay: 0.25 + i * 0.12, ease: EASE }}
+                  initial={reduce ? false : { y: "110%", rotateX: -20 }}
+                  animate={{ y: 0, rotateX: 0 }}
+                  transition={{
+                    duration: 0.9,
+                    delay: 0.25 + i * 0.14,
+                    ease: EASE,
+                  }}
                 >
                   {i === hero.headline.length - 1 ? (
                     <span className="gold-gradient-text">{line}</span>
@@ -114,16 +124,20 @@ export function Hero() {
               {site.contact.phoneDisplay}
             </MagneticButton>
           </motion.div>
-        </div>
+        </motion.div>
 
         <motion.div
           variants={itemVariants}
           style={reduce ? undefined : { y: imageY, opacity: opacityY }}
           className="relative lg:pl-6"
         >
-          <div className="relative aspect-[4/3.15] max-w-[500px] mx-auto lg:mx-0 rounded-[1.25rem] overflow-hidden border border-gold-subtle shadow-[0_32px_72px_-28px_rgba(0,0,0,0.85)] hud-image-frame group">
+          <motion.div
+            className="relative aspect-[4/3.15] max-w-[500px] mx-auto lg:mx-0 rounded-[1.25rem] overflow-hidden border border-gold-subtle shadow-[0_32px_72px_-28px_rgba(0,0,0,0.85)] hud-image-frame group"
+            whileHover={reduce ? undefined : { scale: 1.02 }}
+            transition={{ duration: 0.4, ease: EASE }}
+          >
             <motion.div
-              style={reduce ? undefined : { scale: imageScale }}
+              style={reduce ? undefined : { scale: imageScale, rotate: imageRotate }}
               className="absolute inset-0"
             >
               <Image
@@ -153,7 +167,7 @@ export function Hero() {
                 Anantapur Bar • Practising since {site.advocate.practisingSince}
               </p>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
       </motion.div>
 

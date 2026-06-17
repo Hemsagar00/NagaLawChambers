@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useState } from "react";
 import { AnimatedSection } from "@/components/home/animated-section";
 import { ExpandablePracticeCard } from "@/components/home/expandable-practice-card";
@@ -13,6 +13,8 @@ export function PracticeAreasSection() {
     practiceAreas[0]?.id ?? null
   );
   const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll();
+  const x = useTransform(scrollYProgress, [0.15, 0.35], [0, -20]);
 
   return (
     <AnimatedSection className="portavia-section relative" id="practice">
@@ -32,7 +34,7 @@ export function PracticeAreasSection() {
             hidden: { opacity: 0 },
             visible: {
               opacity: 1,
-              transition: { staggerChildren: 0.1 },
+              transition: { staggerChildren: 0.12, delayChildren: 0.1 },
             },
           }}
           className="grid md:grid-cols-2 gap-5 md:gap-6 max-w-5xl mx-auto"
@@ -41,6 +43,7 @@ export function PracticeAreasSection() {
             <motion.div
               key={area.id}
               variants={fadeUp}
+              style={reduce ? undefined : { x: index % 2 === 1 ? x : undefined }}
               className={
                 index === practiceAreas.length - 1 &&
                 practiceAreas.length % 2 !== 0

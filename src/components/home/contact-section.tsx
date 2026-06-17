@@ -21,7 +21,19 @@ export function ContactSection() {
           subtitle={`Discuss your matter directly with Advocate ${site.advocate.name}.`}
         />
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-6">
+        <motion.div
+          initial={reduce ? false : "hidden"}
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.1, delayChildren: 0.15 },
+            },
+          }}
+          className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-6"
+        >
           <ContactCard
             icon={Phone}
             label="Phone"
@@ -40,7 +52,7 @@ export function ContactSection() {
             value={site.contact.office}
             href={mapHref}
           />
-        </div>
+        </motion.div>
 
         <motion.div
           variants={staggerItem}

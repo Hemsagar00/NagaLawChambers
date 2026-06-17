@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 import { ExternalLink } from "lucide-react";
+import { SpotlightCard } from "@/components/motion/spotlight-card";
 import { EASE, staggerItem } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -20,11 +21,12 @@ function ContactCardBody({
   value: string;
   external?: boolean;
 }) {
+  const reduce = useReducedMotion();
   return (
     <div className="flex items-start gap-4">
       <motion.div
         className="w-11 h-11 rounded-xl bg-gold-muted flex items-center justify-center border border-gold-subtle shrink-0"
-        whileHover={{ scale: 1.08 }}
+        whileHover={reduce ? undefined : { scale: 1.08 }}
         transition={{ duration: 0.25, ease: EASE }}
       >
         <Icon className="w-5 h-5 text-gold" aria-hidden="true" />
@@ -63,23 +65,24 @@ export function ContactCard({
 
   if (href) {
     return (
-      <motion.a
+      <SpotlightCard
         variants={staggerItem}
+        as="a"
         href={href}
         target={isExternal ? "_blank" : undefined}
         rel={isExternal ? "noopener noreferrer" : undefined}
-        className={cn(cardClass, "group")}
+        className={cn(cardClass, "group block")}
         whileHover={
           reduce ? undefined : { y: -5, transition: { duration: 0.25, ease: EASE } }
         }
       >
         {body}
-      </motion.a>
+      </SpotlightCard>
     );
   }
 
   return (
-    <motion.div
+    <SpotlightCard
       variants={staggerItem}
       className={cn(cardClass, "cursor-default")}
       whileHover={
@@ -87,6 +90,6 @@ export function ContactCard({
       }
     >
       {body}
-    </motion.div>
+    </SpotlightCard>
   );
 }

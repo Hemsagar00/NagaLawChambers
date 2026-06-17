@@ -4,11 +4,12 @@ import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import type { StatIcon } from "@/lib/content";
 import { getStatIcon } from "@/lib/icons";
+import { SpotlightCard } from "@/components/motion/spotlight-card";
 import { EASE, staggerItem } from "@/lib/motion";
 
 function useCountUp(
   target: number,
-  duration = 1.6,
+  duration = 1.8,
   enabled = false
 ): number {
   const [count, setCount] = useState(0);
@@ -59,28 +60,38 @@ export function Stat({
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const reduce = useReducedMotion();
   const { numeric, suffix } = parseStatValue(value);
-  const count = useCountUp(numeric, 1.8, isInView && !reduce && numeric > 0);
+  const count = useCountUp(numeric, 2, isInView && !reduce && numeric > 0);
 
   const displayValue = numeric > 0 && !reduce ? `${count}${suffix}` : value;
 
   return (
-    <motion.div
+    <SpotlightCard
       ref={ref}
       variants={staggerItem}
       whileHover={
-        reduce ? undefined : { y: -6, transition: { duration: 0.25, ease: EASE } }
+        reduce ? undefined : { y: -8, scale: 1.02, transition: { duration: 0.25, ease: EASE } }
       }
       className="flex flex-col items-center text-center py-2 group"
     >
-      <div className="mb-3 text-gold transition-transform duration-300 group-hover:scale-110">
+      <motion.div
+        className="mb-3 text-gold"
+        whileHover={reduce ? undefined : { rotate: 5, scale: 1.15 }}
+        transition={{ duration: 0.3 }}
+      >
         <Icon className="w-5 h-5" aria-hidden="true" />
-      </div>
-      <div className="text-3xl sm:text-4xl md:text-[44px] font-bold tracking-[-1.2px] gold-gradient-text font-display-legal tabular-nums">
+      </motion.div>
+      <motion.div
+        className="text-3xl sm:text-4xl md:text-[44px] font-bold tracking-[-1.2px] gold-gradient-text font-display-legal tabular-nums"
+        initial={reduce ? false : { opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: EASE }}
+      >
         {displayValue}
-      </div>
+      </motion.div>
       <div className="text-xs sm:text-sm text-text-secondary mt-1.5 tracking-[0.3px]">
         {label}
       </div>
-    </motion.div>
+    </SpotlightCard>
   );
 }
