@@ -4,6 +4,14 @@ Official website of **Advocate S. Nagendra Naik** — practising at Anantapur Ba
 
 **Live:** [nagalawchamber.com](https://nagalawchamber.com)
 
+### Deployment
+
+- **Hosting:** Vercel (auto-deploy from `master` branch)
+- **Repository:** [Hemsagar00/NagaLawChambers](https://github.com/Hemsagar00/NagaLawChambers)
+- **Output:** Static export (`dist/`) — `output: 'export'` in `next.config.ts`
+- **Cache strategy:** 1-year immutable for `/_next/static/*` and `/advocate.jpg`; `max-age=0, must-revalidate` for HTML
+- **Security:** `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy: strict-origin-when-cross-origin`
+
 ## About
 
 NAGA Law Chambers provides focused legal representation before Andhra Pradesh courts, revenue authorities, and statutory forums. The site is advocate-first and trust-building — no marketing fluff.
