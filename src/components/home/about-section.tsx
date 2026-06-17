@@ -17,9 +17,11 @@ export function AboutSection() {
 
   return (
     <AnimatedSection
-      className="portavia-section border-t border-gold-faint bg-kiwi-dark"
+      className="portavia-section relative bg-kiwi-dark aurora-legal"
       id="advocate"
     >
+      <div className="absolute inset-0 -z-10 pointer-events-none bg-[radial-gradient(circle_at_20%_80%,rgba(0,229,255,0.04),transparent_40%)]" />
+
       <div className="portavia-container">
         <SectionHeading
           eyebrow={about.eyebrow}
@@ -31,9 +33,9 @@ export function AboutSection() {
           <SpotlightCard
             variants={staggerItem}
             whileHover={
-              reduce ? undefined : { y: -6, transition: { duration: 0.35 } }
+              reduce ? undefined : { y: -8, transition: { duration: 0.4 } }
             }
-            className="relative aspect-[3/4] max-w-[380px] mx-auto lg:mx-0 w-full rounded-2xl overflow-hidden border border-gold-subtle shadow-2xl group"
+            className="relative aspect-[3/4] max-w-[380px] mx-auto lg:mx-0 w-full rounded-2xl overflow-hidden premium-frame group"
           >
             <motion.div
               className="absolute inset-0"
@@ -47,10 +49,11 @@ export function AboutSection() {
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               />
             </motion.div>
-            <div className="absolute inset-0 bg-gradient-to-t from-kiwi-dark/90 via-kiwi-dark/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-kiwi-dark via-kiwi-dark/30 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-kiwi-dark/50 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-6">
-              <p className="portavia-eyebrow text-kiwi-cyan/90 mb-1">ADVOCATE</p>
-              <p className="text-xl font-display-legal tracking-[-0.4px]">
+              <p className="label-legal text-kiwi-cyan/90 mb-1.5">ADVOCATE</p>
+              <p className="text-2xl font-display-legal tracking-[-0.5px] text-text-primary">
                 {site.advocate.name}
               </p>
             </div>
@@ -65,7 +68,7 @@ export function AboutSection() {
                 initial={reduce ? false : { opacity: 0, y: 30 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
-                className="text-[15px] md:text-[16px] text-text-secondary leading-relaxed"
+                className="text-[15px] md:text-[16.5px] text-text-secondary/90 leading-[1.75]"
               >
                 {paragraph}
               </motion.p>
@@ -86,13 +89,13 @@ export function AboutSection() {
                   whileHover={
                     reduce ? undefined : { x: 4, transition: { duration: 0.2 } }
                   }
-                  className="flex items-start gap-2.5 text-sm text-text-primary bg-surface/50 border border-gold-faint rounded-xl px-4 py-3"
+                  className="flex items-start gap-2.5 text-sm text-text-primary bg-surface/60 border border-gold-subtle rounded-xl px-4 py-3.5 shadow-sm"
                 >
                   <ShieldCheck
                     className="w-4 h-4 text-gold mt-0.5 shrink-0"
                     aria-hidden="true"
                   />
-                  {item}
+                  <span className="leading-snug">{item}</span>
                 </SpotlightCard>
               ))}
             </motion.ul>

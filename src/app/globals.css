@@ -20,6 +20,11 @@
   --radius-md: 0.5rem;
   --spacing-portavia-section: 7rem;
   --spacing-portavia-hero: 6rem;
+
+  /* Premium legal-agency derived tokens */
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-soft: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @layer base {
@@ -77,6 +82,8 @@
   .bg-gold-muted { background-color: rgba(212, 175, 55, 0.08); }
   .bg-cyan-muted { background-color: rgba(0, 229, 255, 0.06); }
   .bg-cyan-muted-hover { background-color: rgba(0, 229, 255, 0.12); }
+  .bg-legal-dark { background-color: #050508; }
+  .bg-surface-deep { background-color: rgba(8, 12, 22, 0.9); }
 
   .border-gold { border-color: rgba(212, 175, 55, 0.25); }
   .border-gold-subtle { border-color: rgba(212, 175, 55, 0.18); }
@@ -230,6 +237,70 @@
     100% { background-position: -200% 0; }
   }
 
+  /* Premium gold-cyan animated border — for hero/advocate frames */
+  .premium-frame {
+    position: relative;
+    border-radius: 1.25rem;
+  }
+
+  .premium-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      rgba(212, 175, 55, 0.35) 0deg,
+      rgba(0, 229, 255, 0.18) 90deg,
+      rgba(212, 175, 55, 0.1) 180deg,
+      rgba(0, 229, 255, 0.28) 270deg,
+      rgba(212, 175, 55, 0.35) 360deg
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    animation: premium-frame-rotate 8s linear infinite;
+  }
+
+  @keyframes premium-frame-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .premium-frame-static {
+    position: relative;
+    border-radius: 1.25rem;
+    box-shadow:
+      0 0 0 1px rgba(212, 175, 55, 0.18),
+      0 0 60px -20px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Gold-cyan subtle aurora background accents */
+  .aurora-legal {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 229, 255, 0.08), transparent),
+      radial-gradient(ellipse 60% 40% at 80% 50%, rgba(212, 175, 55, 0.06), transparent);
+  }
+
+  /* Cinematic text reveal masks */
+  .mask-reveal {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  }
+
+  .mask-reveal-up {
+    clip-path: inset(0 0 0 0);
+  }
+
+  /* Signature letter-spaced legal labels */
+  .label-legal {
+    font-size: 0.6875rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
   /* Kiwi HUD scanlines */
   .scanline-overlay {
     position: absolute;
@@ -379,5 +450,67 @@
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
+  }
+
+  /* Premium legal-agency elevation layer */
+  .premium-card {
+    background: rgba(8, 12, 22, 0.72);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    border-radius: 1rem;
+    box-shadow:
+      0 24px 60px -24px rgba(0, 0, 0, 0.75),
+      0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+    transition:
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.35s ease,
+      box-shadow 0.45s ease;
+  }
+
+  .premium-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(0, 229, 255, 0.2);
+    box-shadow:
+      0 32px 72px -28px rgba(0, 0, 0, 0.85),
+      0 0 40px -12px rgba(0, 229, 255, 0.1);
+  }
+
+  /* Hero-specific cinematic title scale */
+  .premium-hero-title {
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    line-height: 0.92;
+    letter-spacing: -0.045em;
+    font-weight: 600;
+  }
+
+  /* Subtle floating motion for accent rings */
+  .float-slow {
+    animation: float-slow 6s ease-in-out infinite;
+  }
+
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* Micro-gold underline sweep on hover */
+  .hover-underline {
+    position: relative;
+  }
+
+  .hover-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .hover-underline:hover::after {
+    width: 100%;
   }
 }

@@ -5,7 +5,7 @@ import { stats } from "@/lib/content";
 export function StatsSection() {
   return (
     <AnimatedSection
-      className="py-16 md:py-20 border-y border-gold-faint bg-kiwi-dark scanline-overlay-subtle"
+      className="py-18 md:py-24 border-y border-gold-faint bg-kiwi-dark scanline-overlay-subtle aurora-legal"
       id="stats"
     >
       <div className="portavia-container">

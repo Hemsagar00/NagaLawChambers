@@ -13,7 +13,9 @@ export function ContactSection() {
   const reduce = useReducedMotion();
 
   return (
-    <AnimatedSection className="portavia-section" id="contact">
+    <AnimatedSection className="portavia-section relative aurora-legal" id="contact">
+      <div className="absolute inset-0 -z-10 pointer-events-none bg-[radial-gradient(circle_at_50%_120%,rgba(0,229,255,0.06),transparent_50%)]" />
+
       <div className="portavia-container max-w-4xl">
         <SectionHeading
           eyebrow="NEXT STEP"
@@ -60,16 +62,26 @@ export function ContactSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
-          className="mt-10 text-center"
+          className="mt-12 text-center"
         >
           <MagneticButton
             as="a"
             href={phoneHref}
-            className="inline-flex items-center gap-2.5 px-8 py-4 bg-cyan-muted border border-cyan-subtle text-kiwi-cyan rounded-2xl text-sm font-medium hover:bg-cyan-muted-hover transition-colors"
+            className="inline-flex items-center gap-2.5 px-9 py-4 bg-gold text-kiwi-dark border border-gold-dim font-semibold rounded-2xl text-[15px] tracking-[0.3px] hover:bg-gold-hover transition-colors shadow-[0_14px_44px_-12px_rgba(212,175,55,0.35)]"
           >
             <Phone className="w-4 h-4" aria-hidden="true" />
             Call {site.contact.phoneDisplay}
           </MagneticButton>
+
+          <p className="mt-5 text-sm text-text-secondary/70">
+            Prefer email?{" "}
+            <a
+              href={emailHref}
+              className="text-kiwi-cyan/80 hover:text-kiwi-cyan hover-underline"
+            >
+              {site.contact.email}
+            </a>
+          </p>
         </motion.div>
       </div>
     </AnimatedSection>

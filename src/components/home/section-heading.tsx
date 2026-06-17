@@ -23,7 +23,7 @@ export function SectionHeading({
           whileInView={{ y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: EASE }}
-          className="inline-block px-5 py-1.5 portavia-eyebrow text-kiwi-cyan bg-cyan-muted border border-cyan-subtle rounded-full"
+          className="inline-block px-5 py-1.5 label-legal text-kiwi-cyan bg-cyan-muted border border-cyan-subtle rounded-full"
         >
           {eyebrow}
         </motion.div>
@@ -49,7 +49,7 @@ export function SectionHeading({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.55, delay: 0.16, ease: EASE }}
-          className="max-w-xl mx-auto text-text-secondary text-base md:text-[17px] leading-relaxed"
+          className="max-w-xl mx-auto text-text-secondary/90 text-base md:text-[17px] leading-[1.7]"
         >
           {subtitle}
         </motion.p>

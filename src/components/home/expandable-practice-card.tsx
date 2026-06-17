@@ -40,7 +40,7 @@ export function ExpandablePracticeCard({
         reduce ? undefined : { y: -4, transition: { duration: 0.25, ease: EASE } }
       }
       className={cn(
-        "portavia-card overflow-hidden group",
+        "premium-card overflow-hidden group",
         isOpen && "border-cyan-hover",
         className
       )}
@@ -66,19 +66,19 @@ export function ExpandablePracticeCard({
                 <h3 className="text-xl md:text-[1.35rem] font-semibold text-text-primary font-display-legal tracking-[-0.3px]">
                   {title}
                 </h3>
-                <p className="text-xs md:text-sm text-kiwi-cyan/75 mt-1.5 tracking-[0.2px]">
+                <p className="text-xs md:text-sm text-kiwi-cyan/80 mt-1.5 tracking-[0.22px]">
                   {courts}
                 </p>
               </div>
               <motion.div
                 animate={{ rotate: isOpen ? 180 : 0 }}
                 transition={{ duration: 0.28 }}
-                className="mt-1 text-text-secondary shrink-0"
+                className="mt-1 text-kiwi-cyan/60 shrink-0"
               >
                 <ChevronDown className="w-5 h-5" aria-hidden="true" />
               </motion.div>
             </div>
-            <p className="text-[15px] text-text-secondary leading-relaxed mt-4">
+            <p className="text-[15px] text-text-secondary/90 leading-[1.7] mt-4">
               {summary}
             </p>
           </div>
@@ -98,8 +98,8 @@ export function ExpandablePracticeCard({
             className="overflow-hidden"
           >
             <div className="px-7 md:px-8 pb-7 md:pb-8 pt-0">
-              <div className="md:pl-[4.25rem] border-t border-gold-faint pt-5">
-                <p className="text-[15px] text-text-secondary leading-relaxed">
+              <div className="md:pl-[4.25rem] border-t border-gold-subtle pt-5">
+                <p className="text-[15px] text-text-secondary/90 leading-[1.75]">
                   {details}
                 </p>
               </div>

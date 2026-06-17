@@ -14,10 +14,12 @@ export function PracticeAreasSection() {
   );
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll();
-  const x = useTransform(scrollYProgress, [0.15, 0.35], [0, -20]);
+  const x = useTransform(scrollYProgress, [0.15, 0.35], [0, -16]);
 
   return (
-    <AnimatedSection className="portavia-section relative" id="practice">
+    <AnimatedSection className="portavia-section relative aurora-legal" id="practice">
+      <div className="absolute inset-0 -z-10 pointer-events-none bg-[radial-gradient(circle_at_80%_20%,rgba(212,175,55,0.05),transparent_35%)]" />
+
       <div className="portavia-container">
         <SectionHeading
           eyebrow="AREAS OF FOCUS"

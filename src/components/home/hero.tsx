@@ -51,7 +51,7 @@ export function Hero() {
       <div className="scanline-overlay" aria-hidden="true" />
 
       <motion.div
-        className="relative z-10 portavia-container pt-12 sm:pt-20 pb-24 grid lg:grid-cols-2 gap-x-16 gap-y-14 lg:gap-y-16 items-center w-full"
+        className="relative z-10 portavia-container pt-12 sm:pt-24 pb-28 grid lg:grid-cols-2 gap-x-16 gap-y-16 lg:gap-y-20 items-center w-full"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -63,7 +63,7 @@ export function Hero() {
           <motion.div
             variants={itemVariants}
             whileHover={reduce ? undefined : { scale: 1.02 }}
-            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-cyan-subtle bg-cyan-muted mb-8 md:mb-10 portavia-eyebrow text-kiwi-cyan cursor-default"
+            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-cyan-subtle bg-cyan-muted mb-8 md:mb-10 portavia-eyebrow text-kiwi-cyan cursor-default shadow-[0_0_20px_-8px_rgba(0,229,255,0.25)]"
           >
             <ShieldCheck className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
             {hero.eyebrow}
@@ -71,7 +71,7 @@ export function Hero() {
 
           <h1
             id="hero-heading"
-            className="portavia-hero-title font-display-legal text-text-primary mb-8 md:mb-10"
+            className="premium-hero-title font-display-legal text-text-primary mb-8 md:mb-10"
           >
             {hero.headline.map((line, i) => (
               <div key={i} className="overflow-hidden">
@@ -97,7 +97,7 @@ export function Hero() {
 
           <motion.p
             variants={itemVariants}
-            className="max-w-md text-base md:text-lg text-text-secondary leading-relaxed mb-10 md:mb-12"
+            className="max-w-md text-base md:text-lg text-text-secondary/90 leading-[1.7] mb-10 md:mb-12"
           >
             {hero.description}
           </motion.p>
@@ -129,12 +129,12 @@ export function Hero() {
         <motion.div
           variants={itemVariants}
           style={reduce ? undefined : { y: imageY, opacity: opacityY }}
-          className="relative lg:pl-6"
+          className="relative lg:pl-8"
         >
           <motion.div
-            className="relative aspect-[4/3.15] max-w-[500px] mx-auto lg:mx-0 rounded-[1.25rem] overflow-hidden border border-gold-subtle shadow-[0_32px_72px_-28px_rgba(0,0,0,0.85)] hud-image-frame group"
-            whileHover={reduce ? undefined : { scale: 1.02 }}
-            transition={{ duration: 0.4, ease: EASE }}
+            className="relative aspect-[4/3.15] max-w-[520px] mx-auto lg:mx-0 rounded-[1.25rem] overflow-hidden premium-frame group"
+            whileHover={reduce ? undefined : { scale: 1.015 }}
+            transition={{ duration: 0.5, ease: EASE }}
           >
             <motion.div
               style={reduce ? undefined : { scale: imageScale, rotate: imageRotate }}
@@ -149,7 +149,8 @@ export function Hero() {
                 priority
               />
             </motion.div>
-            <div className="absolute inset-0 bg-gradient-to-t from-kiwi-dark via-kiwi-dark/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-kiwi-dark via-kiwi-dark/55 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-kiwi-dark/40 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-7 sm:p-9">
               <motion.p
                 initial={reduce ? false : { opacity: 0, x: -20 }}
@@ -160,10 +161,10 @@ export function Hero() {
               >
                 ADVOCATE
               </motion.p>
-              <p className="text-2xl sm:text-[2rem] font-display-legal tracking-[-0.6px]">
+              <p className="text-2xl sm:text-[2.15rem] font-display-legal tracking-[-0.6px]">
                 {site.advocate.name}
               </p>
-              <p className="text-sm text-text-secondary mt-1.5">
+              <p className="text-sm text-text-secondary/90 mt-1.5">
                 Anantapur Bar • Practising since {site.advocate.practisingSince}
               </p>
             </div>
@@ -174,7 +175,7 @@ export function Hero() {
       <motion.div
         animate={reduce ? undefined : { y: [0, 8, 0] }}
         transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-text-secondary/35"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-kiwi-cyan/30"
         aria-hidden="true"
       >
         <ChevronDown className="w-5 h-5" />

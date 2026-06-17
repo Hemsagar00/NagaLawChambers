@@ -8,7 +8,7 @@ import { EASE, staggerItem } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 const cardClass =
-  "portavia-card p-7 block hover:border-cyan-hover transition-all duration-300";
+  "premium-card p-7 block hover:border-cyan-hover transition-all duration-300";
 
 function ContactCardBody({
   icon: Icon,
@@ -40,7 +40,7 @@ function ContactCardBody({
             <ExternalLink className="w-3 h-3 text-text-secondary/50" aria-hidden="true" />
           )}
         </div>
-        <p className="text-text-primary font-medium text-[15px] md:text-[15.5px] tracking-[-0.1px] break-words">
+        <p className="text-text-primary font-medium text-[15px] md:text-[15.5px] tracking-[-0.1px] break-words group-hover:text-kiwi-cyan transition-colors">
           {value}
         </p>
       </div>

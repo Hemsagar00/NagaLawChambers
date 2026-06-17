@@ -71,7 +71,7 @@ export function Stat({
       whileHover={
         reduce ? undefined : { y: -8, scale: 1.02, transition: { duration: 0.25, ease: EASE } }
       }
-      className="flex flex-col items-center text-center py-2 group"
+      className="premium-card flex flex-col items-center text-center py-5 px-4 group"
     >
       <motion.div
         className="mb-3 text-gold"
@@ -82,8 +82,8 @@ export function Stat({
       </motion.div>
       <motion.div
         className="text-3xl sm:text-4xl md:text-[44px] font-bold tracking-[-1.2px] gold-gradient-text font-display-legal tabular-nums"
-        initial={reduce ? false : { opacity: 0, scale: 0.8 }}
-        whileInView={{ opacity: 1, scale: 1 }}
+        initial={reduce ? false : { opacity: 0, scale: 0.8, y: 12 }}
+        whileInView={{ opacity: 1, scale: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, ease: EASE }}
       >
