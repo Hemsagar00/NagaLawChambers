@@ -8,7 +8,6 @@ import { PracticeAreasSection } from "@/components/home/practice-areas-section";
 import { StatsSection } from "@/components/home/stats-section";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
-import { EASE, staggerContainerSlow } from "@/lib/motion";
 
 /**
  * NAGA Law Chambers — Premium Cinematic Landing Page.
@@ -54,18 +53,10 @@ export default function HomePage() {
 
       <Hero />
 
+      {/* Each section handles its own scroll reveal via AnimatedSection */}
       <div className="portavia-flow relative z-10">
-        {sections.map((Section, index) => (
-          <motion.div
-            key={Section.name}
-            initial={reduce ? false : "hidden"}
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            variants={staggerContainerSlow}
-            transition={{ delay: index * 0.04 }}
-          >
-            <Section />
-          </motion.div>
+        {sections.map((Section) => (
+          <Section key={Section.name} />
         ))}
       </div>
 

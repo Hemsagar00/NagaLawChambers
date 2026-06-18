@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { useState } from "react";
+import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState } from "react";
 import { AnimatedSection } from "@/components/home/animated-section";
 import { ExpandablePracticeCard } from "@/components/home/expandable-practice-card";
 import { SectionHeading } from "@/components/home/section-heading";
@@ -15,6 +15,8 @@ export function PracticeAreasSection() {
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll();
   const x = useTransform(scrollYProgress, [0.15, 0.35], [0, -16]);
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
     <AnimatedSection className="portavia-section relative aurora-legal" id="practice">
@@ -28,10 +30,10 @@ export function PracticeAreasSection() {
         />
 
         <motion.div
+          ref={ref}
           layout
           initial={reduce ? false : "hidden"}
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
+          animate={isInView ? "visible" : undefined}
           variants={{
             hidden: { opacity: 0 },
             visible: {

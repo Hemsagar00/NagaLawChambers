@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
+import { useRef } from "react";
 import { ShieldCheck } from "lucide-react";
 import { AnimatedSection } from "@/components/home/animated-section";
 import { SectionHeading } from "@/components/home/section-heading";
@@ -14,6 +15,8 @@ export function AboutSection() {
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll();
   const imageY = useTransform(scrollYProgress, [0.25, 0.65], [0, -60]);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(contentRef, { once: true, margin: "-60px" });
 
   return (
     <AnimatedSection
@@ -29,7 +32,7 @@ export function AboutSection() {
           subtitle={about.subtitle}
         />
 
-        <div className="grid lg:grid-cols-[minmax(0,380px)_1fr] gap-12 lg:gap-20 items-start max-w-5xl mx-auto">
+        <div ref={contentRef} className="grid lg:grid-cols-[minmax(0,380px)_1fr] gap-12 lg:gap-20 items-start max-w-5xl mx-auto">
           <SpotlightCard
             variants={staggerItem}
             whileHover={
@@ -63,10 +66,8 @@ export function AboutSection() {
             {about.paragraphs.map((paragraph, i) => (
               <motion.p
                 key={paragraph.slice(0, 32)}
-                variants={staggerItem}
-                whileInView={{ opacity: 1, y: 0 }}
                 initial={reduce ? false : { opacity: 0, y: 30 }}
-                viewport={{ once: true }}
+                animate={isInView ? { opacity: 1, y: 0 } : undefined}
                 transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
                 className="text-[15px] md:text-[16.5px] text-text-secondary/90 leading-[1.75]"
               >
@@ -74,13 +75,12 @@ export function AboutSection() {
               </motion.p>
             ))}
 
-            <motion.ul variants={staggerItem} className="grid sm:grid-cols-2 gap-3">
+            <div className="grid sm:grid-cols-2 gap-3">
               {credentials.map((item, i) => (
                 <SpotlightCard
                   key={item}
                   initial={reduce ? false : { opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
+                  animate={isInView ? { opacity: 1, x: 0 } : undefined}
                   transition={{
                     delay: i * 0.08,
                     duration: 0.4,
@@ -98,7 +98,7 @@ export function AboutSection() {
                   <span className="leading-snug">{item}</span>
                 </SpotlightCard>
               ))}
-            </motion.ul>
+            </div>
           </div>
         </div>
       </div>

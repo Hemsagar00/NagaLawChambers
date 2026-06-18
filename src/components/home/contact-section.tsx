@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useRef } from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { AnimatedSection } from "@/components/home/animated-section";
 import { ContactCard } from "@/components/home/contact-card";
@@ -11,6 +12,8 @@ import { emailHref, mapHref, phoneHref, site } from "@/lib/site";
 
 export function ContactSection() {
   const reduce = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
     <AnimatedSection className="portavia-section relative aurora-legal" id="contact">
@@ -24,9 +27,9 @@ export function ContactSection() {
         />
 
         <motion.div
+          ref={ref}
           initial={reduce ? false : "hidden"}
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
+          animate={isInView ? "visible" : undefined}
           variants={{
             hidden: { opacity: 0 },
             visible: {
@@ -57,10 +60,8 @@ export function ContactSection() {
         </motion.div>
 
         <motion.div
-          variants={staggerItem}
           initial={reduce ? false : { opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={isInView ? { opacity: 1, y: 0 } : undefined}
           transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
           className="mt-12 text-center"
         >
