@@ -2,7 +2,7 @@
 
 Official website of **Advocate S. Nagendra Naik** — practising at Anantapur Bar since 2011. Enrolled with the Bar Council of Andhra Pradesh in 2019.
 
-**Live:** [nagalawchamber.com](https://nagalawchamber.com)
+**Live:** [nagalawchambers.com](https://nagalawchambers.com)
 
 ### Deployment
 
@@ -31,7 +31,7 @@ NAGA Law Chambers provides focused legal representation before Andhra Pradesh co
 | | |
 |---|---|
 | Phone | +91 94400 00417 |
-| Email | contact@nagalawchamber.com |
+| Email | contact@nagalawchambers.com |
 | Office | District Court Premises, Anantapur, Andhra Pradesh 515001 |
 
 ## Tech Stack
@@ -45,7 +45,7 @@ NAGA Law Chambers provides focused legal representation before Andhra Pradesh co
 | Icons | Lucide React |
 | Export | Static (`output: 'export'`) |
 | Hosting | Vercel |
-| Domain | [nagalawchamber.com](https://nagalawchamber.com) |
+| Domain | [nagalawchambers.com](https://nagalawchambers.com) |
 
 ## Design System — Portavia × Kiwi Hybrid
 
@@ -174,7 +174,7 @@ npm run lint
 5. Environment variable (recommended):
 
 ```
-NEXT_PUBLIC_SITE_URL=https://nagalawchamber.com
+NEXT_PUBLIC_SITE_URL=https://nagalawchambers.com
 ```
 
 Deploy from CLI:

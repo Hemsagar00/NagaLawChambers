@@ -1,5 +1,5 @@
 export const baseUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://nagalawchamber.com";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://nagalawchambers.com";
 
 export const metadataBase = new URL(baseUrl);
 
@@ -18,7 +18,7 @@ export const site = {
   contact: {
     phoneDisplay: "+91 94400 00417",
     phoneTel: "+919440000417",
-    email: "contact@nagalawchamber.com",
+    email: "contact@nagalawchambers.com",
     office: "District Court Premises, Anantapur, Andhra Pradesh 515001",
   },
 } as const;
