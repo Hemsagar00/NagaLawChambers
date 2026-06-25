@@ -147,6 +147,42 @@
     max-width: 72rem;
     margin-inline: auto;
     padding-inline: clamp(1rem, 4vw, 1.5rem);
+    box-sizing: border-box;
+  }
+
+  /* Critical layout fallbacks if utility CSS is slow or blocked */
+  main {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #050508;
+    color: #f1f5f9;
+  }
+
+  .nlc-hero-grid {
+    width: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    .nlc-hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 4rem;
+      align-items: center;
+    }
+  }
+
+  .nlc-practice-grid {
+    width: 100%;
+    max-width: 64rem;
+    margin-inline: auto;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .nlc-practice-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   .portavia-section {
@@ -455,7 +491,8 @@
 
   /* Premium legal-agency elevation layer */
   .premium-card {
-    background: rgba(8, 12, 22, 0.72);
+    background: rgba(8, 12, 22, 0.92);
+    color: #f1f5f9;
     backdrop-filter: blur(32px);
     -webkit-backdrop-filter: blur(32px);
     border: 1px solid rgba(212, 175, 55, 0.1);
