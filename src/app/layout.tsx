@@ -28,11 +28,12 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase,
   title: {
-    default: "NAGA Law Chambers | Advocate S. Nagendra Naik",
+    default:
+      "NAGA Law Chambers | Advocate S. Nagendra Naik — Revenue, Land & Civil Lawyer in Anantapur",
     template: "%s | NAGA Law Chambers",
   },
   description:
-    "NAGA Law Chambers — Advocate S. Nagendra Naik practises revenue, land, civil, criminal, family, and consumer law in Anantapur, Andhra Pradesh. Bar Council of Andhra Pradesh (2019). Direct advocacy since 2011.",
+    "NAGA Law Chambers — Advocate S. Nagendra Naik practises revenue, land, civil, criminal, family, and consumer law in Anantapur and Dharmavaram, Andhra Pradesh. Specialising in Tahsildar appeals, RDO proceedings, Adangal corrections, mutations, AP High Court writs, and property partition suits. Bar Council of Andhra Pradesh (2019). Direct advocacy since 2011.",
   keywords: [
     "NAGA Law Chambers",
     "Advocate S Nagendra Naik",
@@ -47,6 +48,13 @@ export const metadata: Metadata = {
     "criminal defence Anantapur",
     "partition lawyer Anantapur",
     "Section 138 cheque bounce Anantapur",
+    "Anantapur Bar Association",
+    "Dharmavaram Revenue Divisional Office RDO",
+    "Tahsildar appeals Anantapur",
+    "Adangal corrections",
+    "mutations land records",
+    "AP High Court writs",
+    "property partition suits Anantapur",
   ],
   authors: [{ name: site.advocate.name, url: baseUrl }],
   creator: site.name,
@@ -55,9 +63,10 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "NAGA Law Chambers | Advocate S. Nagendra Naik",
+    title:
+      "NAGA Law Chambers | Advocate S. Nagendra Naik — Revenue, Land & Civil Lawyer in Anantapur",
     description:
-      "Defending land, legacy, and rights. Revenue, civil, criminal, family, and consumer matters across Andhra Pradesh courts.",
+      "Defending land, legacy, and rights. Revenue & land matters at Tahsildar, RDO, and Collector levels across Anantapur and Dharmavaram. Civil, criminal, family, and consumer representation before Andhra Pradesh courts.",
     type: "website",
     url: baseUrl,
     siteName: site.name,
@@ -73,9 +82,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "NAGA Law Chambers | Advocate S. Nagendra Naik",
+    title:
+      "NAGA Law Chambers | Advocate S. Nagendra Naik — Revenue & Land Lawyer, Anantapur",
     description:
-      "Revenue, land, civil, criminal, family, and consumer law — Anantapur, Andhra Pradesh.",
+      "Revenue, land, civil, criminal, family, and consumer law — Tahsildar appeals, RDO proceedings, AP High Court writs — Anantapur, Andhra Pradesh.",
     images: ["/advocate.jpg"],
   },
   robots: {
@@ -95,7 +105,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050508",
+  themeColor: "#090d16",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -113,8 +123,7 @@ export default function RootLayout({
       className={`${inter.variable} ${playfair.variable} ${mono.variable} antialiased`}
     >
       <body
-        className="bg-kiwi-dark text-text-primary"
-        style={{ backgroundColor: "#050508", color: "#F1F5F9" }}
+        style={{ backgroundColor: "#090d16", color: "#cbd5e1" }}
       >
         <SmoothScrollProvider>
           <ScrollProgress />
