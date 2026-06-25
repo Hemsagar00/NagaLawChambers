@@ -772,3 +772,19 @@
     }
   }
 }
+
+/* Force dark premium cards - highest priority */
+.premium-card,
+button[aria-expanded] {
+  background: #0f172a !important;
+  color: #f1f5f9 !important;
+  border: 1px solid rgba(212, 175, 55, 0.18) !important;
+}
+
+/* Force full-width containers */
+.portavia-container,
+main > div {
+  max-width: 1180px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
