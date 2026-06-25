@@ -30,6 +30,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    background-color: #050508;
   }
 
   body {

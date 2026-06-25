@@ -10,9 +10,12 @@ import { SpotlightCard } from "@/components/motion/spotlight-card";
 import { about, credentials } from "@/lib/content";
 import { EASE, staggerItem } from "@/lib/motion";
 import { site } from "@/lib/site";
+import { useMotionReady } from "@/hooks/use-motion-ready";
 
 export function AboutSection() {
   const reduce = useReducedMotion();
+  const ready = useMotionReady();
+  const motionOn = ready && !reduce;
   const { scrollYProgress } = useScroll();
   const imageY = useTransform(scrollYProgress, [0.25, 0.65], [0, -60]);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -66,8 +69,8 @@ export function AboutSection() {
             {about.paragraphs.map((paragraph, i) => (
               <motion.p
                 key={paragraph.slice(0, 32)}
-                initial={reduce ? false : { opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : undefined}
+                initial={motionOn ? { opacity: 0, y: 30 } : false}
+                animate={motionOn && isInView ? { opacity: 1, y: 0 } : undefined}
                 transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
                 className="text-[15px] md:text-[16.5px] text-text-secondary/90 leading-[1.75]"
               >
@@ -79,8 +82,8 @@ export function AboutSection() {
               {credentials.map((item, i) => (
                 <SpotlightCard
                   key={item}
-                  initial={reduce ? false : { opacity: 0, x: -20 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : undefined}
+                  initial={motionOn ? { opacity: 0, x: -20 } : false}
+                  animate={motionOn && isInView ? { opacity: 1, x: 0 } : undefined}
                   transition={{
                     delay: i * 0.08,
                     duration: 0.4,

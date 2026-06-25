@@ -6,6 +6,7 @@ import type { StatIcon } from "@/lib/content";
 import { getStatIcon } from "@/lib/icons";
 import { SpotlightCard } from "@/components/motion/spotlight-card";
 import { EASE, staggerItem } from "@/lib/motion";
+import { useMotionReady } from "@/hooks/use-motion-ready";
 
 function useCountUp(
   target: number,
@@ -59,6 +60,8 @@ export function Stat({
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const reduce = useReducedMotion();
+  const ready = useMotionReady();
+  const motionOn = ready && !reduce;
   const { numeric, suffix } = parseStatValue(value);
   const shouldAnimate = isInView && !reduce && numeric > 0;
   const count = useCountUp(numeric, 2, shouldAnimate);
@@ -84,8 +87,8 @@ export function Stat({
       </motion.div>
       <motion.div
         className="text-3xl sm:text-4xl md:text-[44px] font-bold tracking-[-1.2px] gold-gradient-text font-display-legal tabular-nums"
-        initial={reduce ? false : { opacity: 0, scale: 0.8, y: 12 }}
-        animate={isInView ? { opacity: 1, scale: 1, y: 0 } : undefined}
+        initial={motionOn ? { opacity: 0, scale: 0.8, y: 12 } : false}
+        animate={motionOn && isInView ? { opacity: 1, scale: 1, y: 0 } : undefined}
         transition={{ duration: 0.6, ease: EASE }}
       >
         {displayValue}

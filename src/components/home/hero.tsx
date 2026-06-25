@@ -8,6 +8,7 @@ import { ParticleField } from "@/components/home/particle-field";
 import { hero } from "@/lib/content";
 import { phoneHref, site } from "@/lib/site";
 import { EASE } from "@/lib/motion";
+import { useMotionReady } from "@/hooks/use-motion-ready";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -28,6 +29,8 @@ const itemVariants = {
 
 export function Hero() {
   const reduce = useReducedMotion();
+  const ready = useMotionReady();
+  const motionOn = ready && !reduce;
   const { scrollY } = useScroll();
   const imageY = useTransform(scrollY, [0, 800], [0, 120]);
   const imageScale = useTransform(scrollY, [0, 800], [1, 1.1]);
@@ -44,7 +47,7 @@ export function Hero() {
       <motion.div
         className="absolute inset-0 bg-[radial-gradient(var(--color-kiwi-cyan)_0.5px,transparent_1px)] bg-[length:6px_6px] opacity-[0.04]"
         aria-hidden="true"
-        initial={reduce ? false : { opacity: 0 }}
+        initial={motionOn ? { opacity: 0 } : false}
         animate={{ opacity: 0.04 }}
         transition={{ duration: 1.2, delay: 0.3 }}
       />
@@ -53,8 +56,8 @@ export function Hero() {
       <motion.div
         className="relative z-10 portavia-container pt-12 sm:pt-24 pb-28 grid lg:grid-cols-2 gap-x-16 gap-y-16 lg:gap-y-20 items-center w-full"
         variants={containerVariants}
-        initial="hidden"
-        animate="visible"
+        initial={motionOn ? "hidden" : false}
+        animate={motionOn ? "visible" : undefined}
       >
         <motion.div
           className="max-w-xl"
@@ -77,8 +80,8 @@ export function Hero() {
               <div key={i} className="overflow-hidden">
                 <motion.span
                   className="block"
-                  initial={reduce ? false : { y: "110%", rotateX: -20 }}
-                  animate={{ y: 0, rotateX: 0 }}
+                  initial={motionOn ? { y: "110%", rotateX: -20 } : false}
+                  animate={motionOn ? { y: 0, rotateX: 0 } : undefined}
                   transition={{
                     duration: 0.9,
                     delay: 0.25 + i * 0.14,
@@ -153,8 +156,8 @@ export function Hero() {
             <div className="absolute inset-0 bg-gradient-to-r from-kiwi-dark/40 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-7 sm:p-9">
               <motion.p
-                initial={reduce ? false : { opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={motionOn ? { opacity: 0, x: -20 } : false}
+                whileInView={motionOn ? { opacity: 1, x: 0 } : undefined}
                 viewport={{ once: true }}
                 transition={{ delay: 0.6, duration: 0.5 }}
                 className="portavia-eyebrow text-kiwi-cyan/90 mb-2"

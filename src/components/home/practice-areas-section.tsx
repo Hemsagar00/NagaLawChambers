@@ -7,12 +7,15 @@ import { ExpandablePracticeCard } from "@/components/home/expandable-practice-ca
 import { SectionHeading } from "@/components/home/section-heading";
 import { practiceAreas } from "@/lib/content";
 import { fadeUp } from "@/lib/motion";
+import { useMotionReady } from "@/hooks/use-motion-ready";
 
 export function PracticeAreasSection() {
   const [openId, setOpenId] = useState<string | null>(
     practiceAreas[0]?.id ?? null
   );
   const reduce = useReducedMotion();
+  const ready = useMotionReady();
+  const motionOn = ready && !reduce;
   const { scrollYProgress } = useScroll();
   const x = useTransform(scrollYProgress, [0.15, 0.35], [0, -16]);
   const ref = useRef<HTMLDivElement>(null);
@@ -32,7 +35,7 @@ export function PracticeAreasSection() {
         <motion.div
           ref={ref}
           layout
-          initial={reduce ? false : "hidden"}
+          initial={motionOn ? "hidden" : false}
           animate={isInView ? "visible" : undefined}
           variants={{
             hidden: { opacity: 0 },

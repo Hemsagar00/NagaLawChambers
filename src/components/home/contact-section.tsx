@@ -9,9 +9,12 @@ import { MagneticButton } from "@/components/motion/magnetic-button";
 import { SectionHeading } from "@/components/home/section-heading";
 import { EASE, staggerItem } from "@/lib/motion";
 import { emailHref, mapHref, phoneHref, site } from "@/lib/site";
+import { useMotionReady } from "@/hooks/use-motion-ready";
 
 export function ContactSection() {
   const reduce = useReducedMotion();
+  const ready = useMotionReady();
+  const motionOn = ready && !reduce;
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
 
@@ -28,7 +31,7 @@ export function ContactSection() {
 
         <motion.div
           ref={ref}
-          initial={reduce ? false : "hidden"}
+          initial={motionOn ? "hidden" : false}
           animate={isInView ? "visible" : undefined}
           variants={{
             hidden: { opacity: 0 },

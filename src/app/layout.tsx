@@ -112,7 +112,10 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${playfair.variable} ${mono.variable} antialiased`}
     >
-      <body className="bg-kiwi-dark text-text-primary">
+      <body
+        className="bg-kiwi-dark text-text-primary"
+        style={{ backgroundColor: "#050508", color: "#F1F5F9" }}
+      >
         <SmoothScrollProvider>
           <ScrollProgress />
           <JsonLd />
