@@ -54,7 +54,7 @@ export function Hero() {
       <div className="scanline-overlay" aria-hidden="true" />
 
       <motion.div
-        className="relative z-10 portavia-container nlc-hero-grid pt-12 sm:pt-24 pb-28 grid lg:grid-cols-2 gap-x-16 gap-y-16 lg:gap-y-20 items-center w-full"
+        className="relative z-10 portavia-container pt-12 sm:pt-24 pb-28 grid lg:grid-cols-2 gap-x-16 gap-y-16 lg:gap-y-20 items-center w-full"
         variants={containerVariants}
         initial={motionOn ? "hidden" : false}
         animate={motionOn ? "visible" : undefined}
