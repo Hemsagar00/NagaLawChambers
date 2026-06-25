@@ -35,13 +35,13 @@ export function AboutSection() {
           subtitle={about.subtitle}
         />
 
-        <div ref={contentRef} className="grid lg:grid-cols-[minmax(0,380px)_1fr] gap-12 lg:gap-20 items-start max-w-5xl mx-auto">
+        <div ref={contentRef} className="grid lg:grid-cols-[minmax(0,420px)_1fr] gap-12 lg:gap-20 items-start max-w-5xl mx-auto">
           <SpotlightCard
             variants={staggerItem}
             whileHover={
               reduce ? undefined : { y: -8, transition: { duration: 0.4 } }
             }
-            className="relative aspect-[3/4] max-w-[380px] mx-auto lg:mx-0 w-full rounded-2xl overflow-hidden premium-frame group"
+            className="relative aspect-[3/4] max-w-[420px] mx-auto lg:mx-0 w-full rounded-2xl overflow-hidden premium-frame group"
           >
             <motion.div
               className="absolute inset-0"
@@ -51,7 +51,7 @@ export function AboutSection() {
                 src="/advocate.jpg"
                 alt={`Advocate ${site.advocate.name} — professional portrait at ${site.name}`}
                 fill
-                sizes="(max-width: 1024px) 80vw, 380px"
+                sizes="(max-width: 1024px) 80vw, 420px"
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               />
             </motion.div>
@@ -78,7 +78,7 @@ export function AboutSection() {
               </motion.p>
             ))}
 
-            <div className="grid sm:grid-cols-2 gap-3">
+            <div className="grid sm:grid-cols-2 gap-4">
               {credentials.map((item, i) => (
                 <SpotlightCard
                   key={item}
@@ -92,10 +92,10 @@ export function AboutSection() {
                   whileHover={
                     reduce ? undefined : { x: 4, transition: { duration: 0.2 } }
                   }
-                  className="flex items-start gap-2.5 text-sm text-text-primary bg-surface/60 border border-gold-subtle rounded-xl px-4 py-3.5 shadow-sm"
+                  className="flex items-start gap-3 text-sm text-text-primary bg-surface border border-gold-subtle rounded-xl px-4 py-4 shadow-sm"
                 >
                   <ShieldCheck
-                    className="w-4 h-4 text-gold mt-0.5 shrink-0"
+                    className="w-4 h-4 text-gold shrink-0"
                     aria-hidden="true"
                   />
                   <span className="leading-snug">{item}</span>

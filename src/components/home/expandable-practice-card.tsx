@@ -50,7 +50,7 @@ export function ExpandablePracticeCard({
         onClick={onToggle}
         aria-expanded={isOpen}
         aria-controls={`${id}-details`}
-        className="w-full text-left p-7 md:p-8"
+        className="w-full text-left p-6 sm:p-7"
       >
         <div className="flex items-start gap-5">
           <motion.div
@@ -97,8 +97,8 @@ export function ExpandablePracticeCard({
             transition={{ duration: reduce ? 0.2 : 0.34, ease: EASE }}
             className="overflow-hidden"
           >
-            <div className="px-7 md:px-8 pb-7 md:pb-8 pt-0">
-              <div className="md:pl-[4.25rem] border-t border-gold-subtle pt-5">
+            <div className="px-6 sm:px-7 pb-6 sm:pb-7 pt-0">
+              <div className="sm:pl-[4.25rem] border-t border-gold-subtle pt-5">
                 <p className="text-[15px] text-text-secondary/90 leading-[1.75]">
                   {details}
                 </p>

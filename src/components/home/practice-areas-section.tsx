@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef, useState } from "react";
 import { AnimatedSection } from "@/components/home/animated-section";
 import { ExpandablePracticeCard } from "@/components/home/expandable-practice-card";
@@ -16,8 +16,6 @@ export function PracticeAreasSection() {
   const reduce = useReducedMotion();
   const ready = useMotionReady();
   const motionOn = ready && !reduce;
-  const { scrollYProgress } = useScroll();
-  const x = useTransform(scrollYProgress, [0.15, 0.35], [0, -16]);
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
 
@@ -34,7 +32,6 @@ export function PracticeAreasSection() {
 
         <motion.div
           ref={ref}
-          layout
           initial={motionOn ? "hidden" : false}
           animate={isInView ? "visible" : undefined}
           variants={{
@@ -46,18 +43,8 @@ export function PracticeAreasSection() {
           }}
           className="grid md:grid-cols-2 gap-5 md:gap-6 max-w-5xl mx-auto"
         >
-          {practiceAreas.map((area, index) => (
-            <motion.div
-              key={area.id}
-              variants={fadeUp}
-              style={reduce ? undefined : { x: index % 2 === 1 ? x : undefined }}
-              className={
-                index === practiceAreas.length - 1 &&
-                practiceAreas.length % 2 !== 0
-                  ? "md:col-span-2 md:max-w-[calc(50%-0.75rem)] md:mx-auto md:w-full"
-                  : undefined
-              }
-            >
+          {practiceAreas.map((area) => (
+            <motion.div key={area.id} variants={fadeUp}>
               <ExpandablePracticeCard
                 {...area}
                 isOpen={openId === area.id}

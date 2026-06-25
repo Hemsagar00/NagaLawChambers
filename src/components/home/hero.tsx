@@ -54,7 +54,7 @@ export function Hero() {
       <div className="scanline-overlay" aria-hidden="true" />
 
       <motion.div
-        className="relative z-10 portavia-container pt-12 sm:pt-24 pb-28 grid lg:grid-cols-2 gap-x-16 gap-y-16 lg:gap-y-20 items-center w-full"
+        className="relative z-10 portavia-container pt-16 sm:pt-20 pb-28 grid lg:grid-cols-2 gap-x-16 gap-y-16 lg:gap-y-20 items-center w-full"
         variants={containerVariants}
         initial={motionOn ? "hidden" : false}
         animate={motionOn ? "visible" : undefined}
@@ -74,7 +74,7 @@ export function Hero() {
 
           <h1
             id="hero-heading"
-            className="premium-hero-title font-display-legal text-text-primary mb-8 md:mb-10"
+            className="premium-hero-title font-display-legal text-text-primary mb-4 md:mb-6"
           >
             {hero.headline.map((line, i) => (
               <div key={i} className="overflow-hidden">
