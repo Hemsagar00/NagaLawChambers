@@ -60,9 +60,11 @@ export function Stat({
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const reduce = useReducedMotion();
   const { numeric, suffix } = parseStatValue(value);
-  const count = useCountUp(numeric, 2, isInView && !reduce && numeric > 0);
+  const shouldAnimate = isInView && !reduce && numeric > 0;
+  const count = useCountUp(numeric, 2, shouldAnimate);
 
-  const displayValue = numeric > 0 && !reduce ? `${count}${suffix}` : value;
+  // Show final values until the stat is in view; avoids stuck "0+" when IO never fires.
+  const displayValue = shouldAnimate ? `${count}${suffix}` : value;
 
   return (
     <SpotlightCard
