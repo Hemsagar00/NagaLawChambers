@@ -29,28 +29,24 @@ import {
   stats,
   courtMatrix,
   processSteps,
+  navLinks,
 } from "@/lib/content";
 import { getPracticeAreaIcon } from "@/lib/icons";
+import { site, phoneHref, emailHref, mapHref } from "@/lib/site";
 
 /* ============================================
    Constants
    ============================================ */
 
-const PHONE_DISPLAY = "+91 94400 00417";
-const PHONE_HREF = "tel:+919440000417";
-const EMAIL = "contact@nagalawchambers.com";
-const EMAIL_HREF = `mailto:${EMAIL}`;
-const MAP_HREF =
-  "https://www.google.com/maps/search/?api=1&query=District+Court+Premises,+Anantapur,+Andhra+Pradesh+515001";
+const PHONE_DISPLAY = site.contact.phoneDisplay;
+const PHONE_HREF = phoneHref;
+const EMAIL = site.contact.email;
+const EMAIL_HREF = emailHref;
+const MAP_HREF = mapHref;
 
 const easing = [0.22, 1, 0.36, 1] as const;
 
-const navItems = [
-  { label: "Practice", href: "#practice" },
-  { label: "Advocate", href: "#advocate" },
-  { label: "Courts", href: "#courts" },
-  { label: "Contact", href: "#contact" },
-] as const;
+
 
 const practiceAreas = contentPracticeAreas.map((area) => ({
   id: area.id,
@@ -151,7 +147,7 @@ function Navbar() {
         </a>
 
         <div className="hidden items-center gap-8 md:flex">
-          {navItems.map((item) => (
+          {navLinks.map((item) => (
             <a key={item.href} href={item.href} className="naga-nav-link">
               {item.label}
             </a>
@@ -184,13 +180,15 @@ function Navbar() {
       <AnimatePresence>
         {open ? (
           <motion.div
+            role="dialog"
+            aria-label="Navigation menu"
             initial={{ opacity: 0, y: -12, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -12, scale: 0.98 }}
             transition={{ duration: 0.3, ease: easing }}
             className="naga-mobile-panel mx-auto mt-3 max-w-6xl rounded-2xl p-4 md:hidden"
           >
-            {navItems.map((item, index) => (
+            {navLinks.map((item, index) => (
               <motion.a
                 key={item.href}
                 href={item.href}
@@ -670,9 +668,9 @@ function ContactSection() {
                   {
                     icon: MapPin,
                     label: "Office",
-                    value:
-                      "District Court Premises, Anantapur, Andhra Pradesh 515001",
+                    value: site.contact.office,
                     href: MAP_HREF,
+                    external: true,
                   },
                 ].map((item) => {
                   const ContactIcon = item.icon as LucideIcon;
@@ -680,6 +678,7 @@ function ContactSection() {
                     <a
                       key={item.label}
                       href={item.href}
+                      {...((item as { external?: boolean }).external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                       className="naga-contact-row"
                     >
                       <span className="naga-icon-shell">

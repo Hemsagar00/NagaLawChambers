@@ -18,7 +18,7 @@ export const site = {
   contact: {
     phoneDisplay: "+91 94400 00417",
     phoneTel: "+919440000417",
-    email: "contact@nagalawchambers.com",
+    email: "nagalawchambers@gmail.com",
     office: "District Court Premises, Anantapur, Andhra Pradesh 515001",
   },
 } as const;

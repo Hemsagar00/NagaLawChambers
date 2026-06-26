@@ -109,10 +109,21 @@ export function JsonLd() {
             serviceUrl: `mailto:${site.contact.email}`,
           },
         ],
-        priceRange: "$$",
+        openingHoursSpecification: {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+          ],
+          opens: "09:30",
+          closes: "18:00",
+        },
         founder: { "@id": `${site.url}/#person` },
         employee: { "@id": `${site.url}/#person` },
-        sameAs: [],
       },
       {
         "@type": "Person",
@@ -123,7 +134,10 @@ export function JsonLd() {
         telephone: site.contact.phoneTel,
         email: site.contact.email,
         worksFor: { "@id": `${site.url}/#organization` },
-        alumniOf: site.advocate.barCouncil,
+        alumniOf: {
+          "@type": "EducationalOrganization",
+          name: site.advocate.barCouncil,
+        },
         memberOf: {
           "@type": "Organization",
           name: "Anantapur Bar Association",

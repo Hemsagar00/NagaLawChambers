@@ -11,6 +11,7 @@ export type StatIcon = "clock" | "book-open" | "map-pin" | "landmark";
 export const navLinks = [
   { label: "Practice", href: "#practice" },
   { label: "Advocate", href: "#advocate" },
+  { label: "Courts", href: "#courts" },
   { label: "Contact", href: "#contact" },
 ] as const;
 
