@@ -114,20 +114,3 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${playfair.variable} ${mono.variable} antialiased`}
-    >
-      <body
-        style={{ backgroundColor: "#090d16", color: "#cbd5e1" }}
-      >
-        <SmoothScrollProvider>
-          <ScrollProgress />
-          <JsonLd />
-          {children}
-          <WhatsappFab />
-          <StickyCta />
-        </SmoothScrollProvider>
-        <GoogleAnalytics />
-      </body>
-    </html>
-  );
-}
