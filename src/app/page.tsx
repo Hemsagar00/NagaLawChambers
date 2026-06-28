@@ -33,6 +33,16 @@ import {
 } from "@/lib/content";
 import { getPracticeAreaIcon } from "@/lib/icons";
 import { site, phoneHref, emailHref, mapHref } from "@/lib/site";
+import Link from "next/link";
+import { buildWhatsappHref } from "@/lib/whatsapp";
+import { trackEvent } from "@/lib/analytics";
+import { IntakeForm } from "@/components/conversion/intake-form";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { Testimonials } from "@/components/testimonials";
+import { MapEmbed } from "@/components/map-embed";
+import { practicePages } from "@/lib/local-seo";
+
+const WHATSAPP_HREF = buildWhatsappHref();
 
 /* ============================================
    Constants
@@ -95,15 +105,21 @@ function EditorialButton({
   children,
   variant = "primary",
   className = "",
+  onClick,
+  external = false,
 }: {
   href: string;
   children: React.ReactNode;
   variant?: "primary" | "secondary";
   className?: string;
+  onClick?: () => void;
+  external?: boolean;
 }) {
   return (
     <motion.a
       href={href}
+      onClick={onClick}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       whileHover={{ y: -2 }}
       whileTap={{ scale: 0.985 }}
       transition={{ duration: 0.35, ease: easing }}
@@ -157,6 +173,7 @@ function Navbar() {
         <div className="flex items-center gap-3">
           <a
             href={PHONE_HREF}
+            onClick={() => trackEvent("call_click", { location: "navbar" })}
             className="hidden rounded-full border border-[rgb(212_175_55_/_0.3)] bg-[rgb(212_175_55_/_0.08)] px-5 py-2 text-xs font-medium tracking-[0.1em] uppercase text-[var(--naga-gold)] transition-all duration-300 hover:bg-[rgb(212_175_55_/_0.14)] hover:-translate-y-0.5 sm:inline-flex"
           >
             Consult
@@ -294,7 +311,11 @@ function Hero() {
             <EditorialButton href="#contact">
               Book consultation
             </EditorialButton>
-            <EditorialButton href={PHONE_HREF} variant="secondary">
+            <EditorialButton
+              href={PHONE_HREF}
+              variant="secondary"
+              onClick={() => trackEvent("call_click", { location: "hero" })}
+            >
               {PHONE_DISPLAY}
             </EditorialButton>
           </motion.div>
@@ -458,6 +479,20 @@ function PracticeCard({
             <div className="px-6 pb-7 sm:px-7">
               <div className="ml-0 border-t border-[var(--naga-line)] pt-5 text-sm leading-[1.85] text-[var(--naga-linen)] sm:ml-[64px]">
                 {area.detail}
+                {(() => {
+                  const seo = practicePages.find(
+                    (p) => p.practiceId === area.id
+                  );
+                  return seo ? (
+                    <Link
+                      href={`/practice/${seo.slug}`}
+                      className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-[var(--naga-gold)] transition-opacity hover:opacity-80"
+                    >
+                      Learn more about {area.title}
+                      <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    </Link>
+                  ) : null;
+                })()}
               </div>
             </div>
           </motion.div>
@@ -642,103 +677,88 @@ function ContactSection() {
                   AP High Court writs.
                 </p>
                 <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-                  <EditorialButton href={PHONE_HREF}>
+                  <EditorialButton
+                    href={PHONE_HREF}
+                    onClick={() => trackEvent("call_click", { location: "contact" })}
+                  >
                     Call {PHONE_DISPLAY}
                   </EditorialButton>
-                  <EditorialButton href={EMAIL_HREF} variant="secondary">
-                    Email chamber
+                  <EditorialButton
+                    href={WHATSAPP_HREF}
+                    variant="secondary"
+                    external
+                    onClick={() => trackEvent("whatsapp_click", { location: "contact" })}
+                  >
+                    WhatsApp us
                   </EditorialButton>
+                </div>
+
+                <div className="mt-8 grid gap-4">
+                  {[
+                    {
+                      icon: Phone,
+                      label: "Phone",
+                      value: PHONE_DISPLAY,
+                      href: PHONE_HREF,
+                      event: "call_click",
+                    },
+                    {
+                      icon: Mail,
+                      label: "Email",
+                      value: EMAIL,
+                      href: EMAIL_HREF,
+                      event: "email_click",
+                    },
+                    {
+                      icon: MapPin,
+                      label: "Office",
+                      value: site.contact.office,
+                      href: MAP_HREF,
+                      event: "map_click",
+                      external: true,
+                    },
+                  ].map((item) => {
+                    const ContactIcon = item.icon as LucideIcon;
+                    return (
+                      <a
+                        key={item.label}
+                        href={item.href}
+                        onClick={() =>
+                          trackEvent(item.event, { location: "contact_row" })
+                        }
+                        {...((item as { external?: boolean }).external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                        className="naga-contact-row"
+                      >
+                        <span className="naga-icon-shell">
+                          <ContactIcon
+                            className="h-4.5 w-4.5"
+                            aria-hidden="true"
+                          />
+                        </span>
+                        <span>
+                          <span className="block text-[10px] font-medium tracking-[0.2em] uppercase text-[var(--naga-muted)]">
+                            {item.label}
+                          </span>
+                          <span className="mt-1 block text-sm leading-6 text-[var(--naga-ivory)]">
+                            {item.value}
+                          </span>
+                        </span>
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
 
-              <div className="grid gap-4">
-                {[
-                  {
-                    icon: Phone,
-                    label: "Phone",
-                    value: PHONE_DISPLAY,
-                    href: PHONE_HREF,
-                  },
-                  {
-                    icon: Mail,
-                    label: "Email",
-                    value: EMAIL,
-                    href: EMAIL_HREF,
-                  },
-                  {
-                    icon: MapPin,
-                    label: "Office",
-                    value: site.contact.office,
-                    href: MAP_HREF,
-                    external: true,
-                  },
-                ].map((item) => {
-                  const ContactIcon = item.icon as LucideIcon;
-                  return (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      {...((item as { external?: boolean }).external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                      className="naga-contact-row"
-                    >
-                      <span className="naga-icon-shell">
-                        <ContactIcon
-                          className="h-4.5 w-4.5"
-                          aria-hidden="true"
-                        />
-                      </span>
-                      <span>
-                        <span className="block text-[10px] font-medium tracking-[0.2em] uppercase text-[var(--naga-muted)]">
-                          {item.label}
-                        </span>
-                        <span className="mt-1 block text-sm leading-6 text-[var(--naga-ivory)]">
-                          {item.value}
-                        </span>
-                      </span>
-                    </a>
-                  );
-                })}
-              </div>
+              <IntakeForm />
+            </div>
+
+            <div className="mt-8 h-[20rem] sm:h-[22rem]">
+              <MapEmbed className="h-full" />
             </div>
           </div>
         </Reveal>
       </div>
     </section>
-  );
-}
-
-/* ============================================
-   Footer
-   ============================================ */
-
-function Footer() {
-  return (
-    <footer className="px-4 pb-10 pt-6">
-      <div className="naga-container">
-        <div className="naga-divider mb-8" />
-        <div className="flex flex-col gap-6 text-sm md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="text-xs font-medium tracking-[0.2em] uppercase text-[var(--naga-ivory)]">
-              NAGA Law Chambers
-            </p>
-            <p className="mt-2 text-[var(--naga-muted)] font-light">
-              Advocate S. Nagendra Naik • Anantapur, Andhra Pradesh
-            </p>
-          </div>
-          <div className="flex flex-col gap-2 md:items-end">
-            <a
-              href={PHONE_HREF}
-              className="text-[var(--naga-ivory)] transition-colors duration-300 hover:text-[var(--naga-gold)]"
-            >
-              {PHONE_DISPLAY}
-            </a>
-            <p className="text-[var(--naga-muted)] font-light">
-              Revenue, civil, criminal, family & consumer representation.
-            </p>
-          </div>
-        </div>
-      </div>
-    </footer>
   );
 }
 
@@ -774,8 +794,9 @@ export default function HomePage() {
       <PracticeSection />
       <AdvocateSection />
       <CourtsSection />
+      <Testimonials />
       <ContactSection />
-      <Footer />
+      <SiteFooter />
     </main>
   );
 }

@@ -1,6 +1,37 @@
-import { site } from "@/lib/site";
+import { site, mapHref } from "@/lib/site";
+import { testimonials } from "@/lib/content";
 
 export function JsonLd() {
+  const sameAs = [site.gbp.profileUrl].filter(Boolean);
+
+  const rated = testimonials.filter((t) => typeof t.rating === "number");
+  const aggregateRating =
+    rated.length > 0
+      ? {
+          "@type": "AggregateRating",
+          ratingValue: (
+            rated.reduce((sum, t) => sum + (t.rating ?? 0), 0) / rated.length
+          ).toFixed(1),
+          reviewCount: String(rated.length),
+          bestRating: "5",
+        }
+      : null;
+
+  const reviewNodes = testimonials.map((t) => ({
+    "@type": "Review",
+    reviewBody: t.quote,
+    author: { "@type": "Person", name: t.author },
+    ...(t.rating
+      ? {
+          reviewRating: {
+            "@type": "Rating",
+            ratingValue: String(t.rating),
+            bestRating: "5",
+          },
+        }
+      : {}),
+  }));
+
   const schema = {
     "@context": "https://schema.org",
     "@graph": [
@@ -24,9 +55,13 @@ export function JsonLd() {
         },
         geo: {
           "@type": "GeoCoordinates",
-          latitude: "14.6819",
-          longitude: "77.6006",
+          latitude: site.geo.latitude,
+          longitude: site.geo.longitude,
         },
+        hasMap: mapHref,
+        ...(sameAs.length > 0 ? { sameAs } : {}),
+        ...(aggregateRating ? { aggregateRating } : {}),
+        ...(reviewNodes.length > 0 ? { review: reviewNodes } : {}),
         areaServed: [
           {
             "@type": "AdministrativeArea",

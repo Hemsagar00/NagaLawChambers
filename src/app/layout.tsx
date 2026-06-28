@@ -3,6 +3,9 @@ import { Inter, Playfair_Display, JetBrains_Mono } from "next/font/google";
 import { JsonLd } from "@/components/seo/json-ld";
 import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { SmoothScrollProvider } from "@/components/motion/smooth-scroll";
+import { GoogleAnalytics } from "@/components/analytics/google-analytics";
+import { WhatsappFab } from "@/components/conversion/whatsapp-fab";
+import { StickyCta } from "@/components/conversion/sticky-cta";
 import { baseUrl, metadataBase, site } from "@/lib/site";
 import "./globals.css";
 
@@ -71,14 +74,6 @@ export const metadata: Metadata = {
     url: baseUrl,
     siteName: site.name,
     locale: "en_IN",
-    images: [
-      {
-        url: "/advocate.jpg",
-        width: 1200,
-        height: 900,
-        alt: "Advocate S. Nagendra Naik — NAGA Law Chambers, Anantapur",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -86,7 +81,6 @@ export const metadata: Metadata = {
       "NAGA Law Chambers | Advocate S. Nagendra Naik — Revenue & Land Lawyer, Anantapur",
     description:
       "Revenue, land, civil, criminal, family, and consumer law — Tahsildar appeals, RDO proceedings, AP High Court writs — Anantapur, Andhra Pradesh.",
-    images: ["/advocate.jpg"],
   },
   robots: {
     index: true,
@@ -129,7 +123,10 @@ export default function RootLayout({
           <ScrollProgress />
           <JsonLd />
           {children}
+          <WhatsappFab />
+          <StickyCta />
         </SmoothScrollProvider>
+        <GoogleAnalytics />
       </body>
     </html>
   );

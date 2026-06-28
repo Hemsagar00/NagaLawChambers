@@ -158,3 +158,18 @@ export const processSteps = [
 ] as const;
 
 export const footerBlurb = `Advocate ${site.advocate.name} — focused representation in revenue, civil, criminal, family, and consumer matters before Andhra Pradesh courts and statutory forums.`;
+
+export type Testimonial = {
+  quote: string;
+  author: string;
+  matter?: string;
+  /** 1–5, only if the client actually gave a star rating. */
+  rating?: number;
+};
+
+/**
+ * REAL, consented client testimonials only. Each entry renders on-page and
+ * emits Review schema. Leave this array empty to hide the section entirely —
+ * never add invented reviews (it breaks trust and Google's review policy).
+ */
+export const testimonials: Testimonial[] = [];

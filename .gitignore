@@ -3,3 +3,8 @@ dist/
 .next/
 *.log
 .vercel
+
+# build artifacts & local-only files
+tsconfig.tsbuildinfo
+public/advocate-original.jpg
+.claude/
