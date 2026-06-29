@@ -286,7 +286,7 @@ export const locationPages: LocationPage[] = [
     metaDescription:
       "Advocate S. Nagendra Naik in Anantapur — revenue & land, civil, criminal bail, family, partition, and consumer matters before the District Court, revenue offices, and AP High Court.",
     h1: "Advocate in Anantapur",
-    lead: "Practising at the Anantapur Bar since 2011 — revenue & land, civil, criminal, family, and consumer representation before the district's courts, revenue offices, and the AP High Court.",
+    lead: "Practising at the Anantapur Bar since 2018, with over 8 years of experience — revenue & land, civil, criminal, family, and consumer representation before the district's courts, revenue offices, and the AP High Court.",
     body: [
       `Advocate ${advocate} practises before the District Court at Anantapur, the Tahsildar, RDO and Collector offices for revenue and land matters, the Family Court, the Consumer Commission, and the Sessions and Magistrate courts — with appeals and writs before the Andhra Pradesh High Court at Amaravati.`,
       "Clients across Anantapur town and the surrounding mandals work directly with the advocate, from the first document review through filing, hearing, and compliance. The chamber is located at the District Court premises, Anantapur.",

@@ -11,7 +11,7 @@ export const site = {
   advocate: {
     name: "S. Nagendra Naik",
     title: "Advocate",
-    practisingSince: 2011,
+    practisingSince: 2018,
     barCouncilYear: 2019,
     barCouncil: "Bar Council of Andhra Pradesh",
   },

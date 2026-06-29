@@ -83,7 +83,7 @@ export const practiceAreaTitles = practiceAreas.map((area) => area.title);
 export const stats = [
   {
     value: `${new Date().getFullYear() - site.advocate.practisingSince}+`,
-    label: "Years Practising",
+    label: "Years Experience",
     icon: "clock" as const,
   },
   {

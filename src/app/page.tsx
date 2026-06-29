@@ -43,6 +43,7 @@ import { MapEmbed } from "@/components/map-embed";
 import { practicePages } from "@/lib/local-seo";
 
 const WHATSAPP_HREF = buildWhatsappHref();
+const YEARS_EXPERIENCE = new Date().getFullYear() - site.advocate.practisingSince;
 
 /* ============================================
    Constants
@@ -538,18 +539,50 @@ function PracticeSection() {
 function AdvocateSection() {
   return (
     <section id="advocate" className="naga-section relative">
-      <div className="naga-container grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+      <div className="naga-container grid items-center gap-14 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
         <Reveal>
-          <div className="naga-profile-frame">
-            <div className="naga-profile-inner aspect-[3/4]">
-              <Image
-                src="/advocate.jpg"
-                alt="Advocate S. Nagendra Naik — Anantapur Bar, Andhra Pradesh"
-                fill
-                sizes="(max-width: 1024px) 92vw, 440px"
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[var(--naga-dark)] via-transparent to-transparent" />
+          <div className="naga-card p-7 sm:p-9">
+            <p className="naga-sub-header mb-7 text-[var(--naga-gold)]">
+              At a glance
+            </p>
+            <div className="grid grid-cols-2 gap-6">
+              {[
+                { value: `${YEARS_EXPERIENCE}+`, label: "Years of Experience" },
+                {
+                  value: String(site.advocate.barCouncilYear),
+                  label: "Bar Council Enrolled",
+                },
+                { value: "Anantapur", label: "Bar Association" },
+                { value: "Direct", label: "Advocate Access" },
+              ].map((item) => (
+                <div key={item.label}>
+                  <p className="font-[var(--font-display)] text-3xl font-semibold tracking-[-0.02em] text-[var(--naga-ivory)] sm:text-4xl">
+                    {item.value}
+                  </p>
+                  <p className="mt-2 text-[10px] font-medium tracking-[0.18em] uppercase text-[var(--naga-muted)]">
+                    {item.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="naga-divider my-8" />
+
+            <div className="grid gap-3">
+              {[
+                "B.A., LL.B.",
+                "Bar Council of Andhra Pradesh",
+                "Revenue & land record disputes — Tahsildar, RDO",
+                "Civil, criminal, family & consumer matters",
+              ].map((item) => (
+                <div key={item} className="naga-proof-row">
+                  <CircleDot
+                    className="h-3.5 w-3.5 shrink-0 mt-0.5 text-[var(--naga-gold)]"
+                    aria-hidden="true"
+                  />
+                  <span>{item}</span>
+                </div>
+              ))}
             </div>
           </div>
         </Reveal>
@@ -561,28 +594,17 @@ function AdvocateSection() {
           </h2>
           <p className="mt-7 text-base leading-[1.85] text-[var(--naga-linen)]">
             A practice rooted in Anantapur courts, revenue offices, and Andhra
-            Pradesh procedure since 2011. Enrolled with the Bar Council of
-            Andhra Pradesh in 2019. Clients work directly with the advocate from
-            first assessment through filing, hearing, and compliance — with
-            thorough preparation on revenue records, title documents, and
-            procedural filings before every court or administrative proceeding.
+            Pradesh procedure since 2018 — over {YEARS_EXPERIENCE} years of
+            direct advocacy. Enrolled with the Bar Council of Andhra Pradesh in
+            2019, Adv. S. Nagendra Naik appears regularly before the Tahsildar,
+            RDO, District Courts, and the Andhra Pradesh High Court.
           </p>
-          <div className="mt-8 grid gap-3 sm:grid-cols-2">
-            {[
-              "B.A., LL.B.",
-              "Bar Council of Andhra Pradesh",
-              "Revenue & land record disputes — Tahsildar, RDO",
-              "Civil, criminal, family & consumer matters",
-            ].map((item) => (
-              <div key={item} className="naga-proof-row">
-                <CircleDot
-                  className="h-3.5 w-3.5 shrink-0 mt-0.5 text-[var(--naga-gold)]"
-                  aria-hidden="true"
-                />
-                <span>{item}</span>
-              </div>
-            ))}
-          </div>
+          <p className="mt-5 text-base leading-[1.85] text-[var(--naga-linen)]">
+            Clients work directly with the advocate from first assessment
+            through filing, hearing, and compliance — with thorough preparation
+            on revenue records, title documents, and procedural filings before
+            every court or administrative proceeding.
+          </p>
         </Reveal>
       </div>
     </section>
