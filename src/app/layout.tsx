@@ -4,6 +4,10 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { SmoothScrollProvider } from "@/components/motion/smooth-scroll";
 import { GoogleAnalytics } from "@/components/analytics/google-analytics";
+import {
+  GoogleTagManager,
+  GoogleTagManagerNoscript,
+} from "@/components/analytics/google-tag-manager";
 import { WhatsappFab } from "@/components/conversion/whatsapp-fab";
 import { StickyCta } from "@/components/conversion/sticky-cta";
 import { baseUrl, metadataBase, site } from "@/lib/site";
@@ -114,3 +118,22 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      className={`${inter.variable} ${playfair.variable} ${mono.variable} antialiased`}
+    >
+      <body
+        style={{ backgroundColor: "#090d16", color: "#cbd5e1" }}
+      >
+        <GoogleTagManagerNoscript />
+        <SmoothScrollProvider>
+          <ScrollProgress />
+          <JsonLd />
+          {children}
+          <WhatsappFab />
+          <StickyCta />
+        </SmoothScrollProvider>
+        <GoogleTagManager />
+        <GoogleAnalytics />
+      </body>
+    </html>
+  );
+}

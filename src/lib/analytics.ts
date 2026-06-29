@@ -1,18 +1,27 @@
 /**
- * Lightweight GA4 event wrapper. SSR-safe no-op until gtag is present
- * (i.e. until NEXT_PUBLIC_GA_ID is set and the GA script has loaded).
+ * Event wrapper that fires to both Google Analytics (gtag) AND Google Tag
+ * Manager (dataLayer.push). SSR-safe; silently no-ops on the server or before
+ * the loaders attach. One call → both destinations, so GTM triggers like
+ * "Custom Event = lead_submit" work without changing call sites.
  */
 
-type GtagEventParams = Record<string, string | number | boolean | undefined>;
+type EventParams = Record<string, string | number | boolean | undefined>;
 
 declare global {
   interface Window {
     gtag?: (...args: unknown[]) => void;
-    dataLayer?: unknown[];
+    dataLayer?: Array<Record<string, unknown>>;
   }
 }
 
-export function trackEvent(name: string, params: GtagEventParams = {}): void {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-  window.gtag("event", name, params);
+export function trackEvent(name: string, params: EventParams = {}): void {
+  if (typeof window === "undefined") return;
+
+  if (typeof window.gtag === "function") {
+    window.gtag("event", name, params);
+  }
+
+  if (Array.isArray(window.dataLayer)) {
+    window.dataLayer.push({ event: name, ...params });
+  }
 }

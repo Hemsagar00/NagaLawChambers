@@ -25,6 +25,8 @@ export const site = {
   analytics: {
     // GA4 Measurement ID (public by design). Override per-env with NEXT_PUBLIC_GA_ID.
     gaId: "G-3151ZCBVJM",
+    // Google Tag Manager container. Override per-env with NEXT_PUBLIC_GTM_ID.
+    gtmId: "GTM-PHNQXPGP",
   },
   geo: { latitude: "14.6819", longitude: "77.6006" },
   // Google Business Profile. Paste these to activate the map link, the
