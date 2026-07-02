@@ -1,223 +1,114 @@
 # NAGA Law Chambers
 
-Official website of **Advocate S. Nagendra Naik** — practising at Anantapur Bar since 2011. Enrolled with the Bar Council of Andhra Pradesh in 2019.
+Official website of **Advocate S. Nagendra Naik** — Anantapur Bar, enrolled with the Bar Council of Andhra Pradesh (2019). 8+ years of direct advocacy in revenue, land, civil, criminal, family, and consumer matters.
 
 **Live:** [nagalawchambers.com](https://nagalawchambers.com)
-
-### Deployment
-
-- **Hosting:** Vercel (auto-deploy from `master` branch)
-- **Repository:** [Hemsagar00/NagaLawChambers](https://github.com/Hemsagar00/NagaLawChambers)
-- **Output:** Static export (`dist/`) — `output: 'export'` in `next.config.ts`
-- **Cache strategy:** 1-year immutable for `/_next/static/*` and `/advocate.jpg`; `max-age=0, must-revalidate` for HTML
-- **Security:** `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy: strict-origin-when-cross-origin`
-
-## About
-
-NAGA Law Chambers provides focused legal representation before Andhra Pradesh courts, revenue authorities, and statutory forums. The site is advocate-first and trust-building — no marketing fluff.
-
-### Practice Areas
-
-| Area | Courts / Forums |
-|---|---|
-| **Revenue & Land** | Tahsildar, RDO, Collector, AP High Court |
-| **Civil & Contract** | District Court, AP High Court |
-| **Bail & Criminal** | Sessions & Magistrate Courts |
-| **Family & Partition** | Family Court, District Court |
-| **Consumer Forums** | District & State Consumer Forum |
-
-### Contact
-
-| | |
-|---|---|
-| Phone | +91 94400 00417 |
-| Email | contact@nagalawchambers.com |
-| Office | District Court Premises, Anantapur, Andhra Pradesh 515001 |
 
 ## Tech Stack
 
 | Layer | Technology |
 |---|---|
-| Framework | Next.js 16 (App Router) |
+| Framework | Next.js 16 (App Router, Turbopack) |
 | Language | TypeScript |
 | UI | React 19 + Tailwind CSS v4 |
 | Motion | Framer Motion 12 |
 | Icons | Lucide React |
-| Export | Static (`output: 'export'`) |
-| Hosting | Vercel |
-| Domain | [nagalawchambers.com](https://nagalawchambers.com) |
+| Hosting | Vercel (auto-deploy from `master`) |
 
-## Design System — Portavia × Kiwi Hybrid
+## Design System — "Direction A"
 
-A refined blend of **Portavia** minimal elegance and **Kiwi** legal-tech authority.
+Cinematic dark professional legal UI: premium glassmorphism, micro-grid + scanline texture, HUD-pulse accents.
 
 | Token | Value | Usage |
 |---|---|---|
-| Primary dark | `#050508` | Page background, stark professional base |
-| Accent cyan | `#00E5FF` | HUD highlights, interactive accents |
-| Legal gold | `#D4AF37` | Authority, CTAs, headings |
-| Glass | Frosted dark cards | Practice area & contact cards |
-| Effects | Scanlines, HUD-pulse | Hero particle field, section overlays |
+| Base dark | `#050508` | Page background |
+| Legal gold | `#d4af37` | Authority, primary CTAs, headings |
+| HUD cyan | `#00e5ff` | Interactive accents, icon shells, hovers |
+| Sapphire | `#1e3a8a` | Ambient glows |
+| WhatsApp green | `#25d366` | WhatsApp CTAs only |
 
-### Portavia-inspired traits
+Tokens and utilities (`.naga-*`) live in `src/app/globals.css`. Typography: Playfair Display (display) + Inter (body).
 
-- Bold, large hero typography with strong hierarchy
-- Generous section spacing and minimal layout
-- Refined sticky navigation (scroll-aware glass)
-- Clean card/grid design for practice areas
-- Smooth scroll-triggered section reveals
+## Routes
 
-### Kiwi legal aesthetic
+| Route | Purpose |
+|---|---|
+| `/` | Homepage — hero, practice areas, advocate profile, courts, contact + intake form |
+| `/practice/[slug]` | 5 practice-area landing pages (local SEO) |
+| `/locations/[slug]` | Anantapur & Dharmavaram location pages |
+| `/sitemap.xml`, `/robots.txt`, `/opengraph-image` | Generated at build |
 
-- Glassmorphism on nav and cards
-- HUD-pulse particle field in hero
-- Subtle scanline overlays
-- Gold accents for legal authority
+## Lead Generation & Analytics
 
-Theme tokens and Portavia utilities live in `src/app/globals.css`:
-
-- `--color-kiwi-dark`, `--color-kiwi-cyan`, `--color-gold`
-- `.portavia-container`, `.portavia-section`, `.portavia-card`
-- `.portavia-hero-title`, `.portavia-nav-scrolled`
-
-## Site Sections
-
-1. **Hero** — advocate photo `/advocate.jpg`, credentials badge, HUD particles
-2. **Stats** — years practising, Bar Council enrolment, Anantapur Bar, practice areas
-3. **Practice Areas** — five expandable cards with smooth layout animations
-4. **Advocate Profile** — dedicated section featuring `/advocate.jpg`
-5. **Contact** — phone, email, office with Google Maps link
+- **WhatsApp**: floating FAB, sticky mobile Call/WhatsApp bar, intake form → `wa.me` click-to-chat (no backend)
+- **GA4** (`G-3151ZCBVJM`) + **GTM** (`GTM-PHNQXPGP`) — events: `call_click`, `whatsapp_click`, `email_click`, `map_click`, `lead_submit`
+- **SEO**: LegalService/Person/FAQPage/Breadcrumb JSON-LD, per-page metadata + canonicals, keyless Google Maps embed
 
 ## Project Structure
 
 ```
 src/
 ├── app/
-│   ├── page.tsx          # Server Component — Portavia-Kiwi composition
-│   ├── layout.tsx        # Root layout, metadata, JSON-LD
-│   ├── globals.css       # Kiwi tokens + Portavia utilities
-│   ├── sitemap.ts
-│   └── robots.ts
+│   ├── page.tsx                  # Homepage (client component)
+│   ├── layout.tsx                # Metadata, fonts, analytics, JSON-LD
+│   ├── globals.css               # Design tokens + .naga-* utilities
+│   ├── practice/[slug]/page.tsx  # Practice-area pages (SSG)
+│   ├── locations/[slug]/page.tsx # Location pages (SSG)
+│   ├── opengraph-image.tsx       # 1200x630 social card
+│   ├── icon.tsx                  # Favicon
+│   ├── sitemap.ts / robots.ts
 ├── components/
-│   ├── home/             # Hero, practice areas, about, contact, particles
-│   ├── layout/           # Navbar (sticky scroll), Footer
-│   ├── motion/           # Magnetic buttons, scroll progress, smooth scroll
-│   └── seo/              # JSON-LD structured data
+│   ├── analytics/                # GA4 + GTM loaders
+│   ├── conversion/               # WhatsApp FAB, sticky CTA, intake form, inline CTA
+│   ├── layout/                   # SiteHeader, SiteFooter
+│   ├── motion/                   # Scroll progress, smooth scroll
+│   ├── seo/                      # JSON-LD, FAQ, page schema
+│   ├── map-embed.tsx             # Keyless Google Maps embed
+│   └── testimonials.tsx          # Renders only when real testimonials exist
 └── lib/
-    ├── site.ts           # Contact info, advocate credentials, base URL
-    ├── content.ts        # Practice areas, stats, copy (single source of truth)
-    ├── motion.ts         # Shared Framer Motion variants
-    ├── icons.ts          # Icon mapping for content data
-    └── utils.ts          # cn() helper (clsx + tailwind-merge)
+    ├── site.ts                   # Contact, advocate, analytics IDs, GBP config
+    ├── content.ts                # Practice areas, stats, copy, testimonials
+    ├── local-seo.ts              # Practice/location page content
+    ├── whatsapp.ts               # wa.me helpers
+    ├── analytics.ts              # trackEvent → gtag + dataLayer
+    └── icons.ts                  # Icon mapping
 ```
-
-### Architecture
-
-- **Server Components** by default — `page.tsx`, `Footer`, `StatsSection`, `AboutSection`, `JsonLd`
-- **Client islands** for interactivity — `Hero`, `Navbar`, `PracticeAreasSection`, `ContactSection`, particles, animations
-- **Centralized content** — edit phone, practice areas, and copy in `lib/site.ts` + `lib/content.ts`
-- **Hydration-safe** — static constants, seeded particles, no `new Date()` in render
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- npm
-
-### Install & run locally
-
-```bash
-git clone https://github.com/Hemsagar00/NagaLawChambers.git
-cd NagaLawChambers
-npm install
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000).
-
-### Production build (static export)
-
-```bash
-# macOS / Linux
-rm -rf .next dist
-
-# Windows PowerShell
-Remove-Item -Recurse -Force .next, dist -ErrorAction SilentlyContinue
-
-npm install
-npm run build
-```
-
-Output is written to `dist/` (configured in `next.config.ts`).
-
-### Preview static export
-
-```bash
-npx serve dist
-```
-
-### Lint
-
-```bash
-npm run lint
-```
-
-## Deployment
-
-### Vercel (recommended)
-
-1. Import the repo at [vercel.com/new](https://vercel.com/new)
-2. Framework preset: **Next.js**
-3. Build command: `npm run build`
-4. Output directory: `dist`
-5. Environment variable (recommended):
-
-```
-NEXT_PUBLIC_SITE_URL=https://nagalawchambers.com
-```
-
-Deploy from CLI:
-
-```bash
-npx vercel --prod
-```
-
-### Windows — clean build & deploy
-
-```powershell
-Set-Location D:\Websites\NagaLawChambers
-Remove-Item -Recurse -Force .next, dist -ErrorAction SilentlyContinue
-npm install
-npm run build
-npx vercel --prod
-```
-
-### Manual static hosting
-
-After `npm run build`, upload the contents of `dist/` to any static host (Netlify, S3, Cloudflare Pages, etc.).
-
-## SEO
-
-- Next.js `metadata` in `layout.tsx` with title `"NAGA Law Chambers | Advocate S. Nagendra Naik"`, description, keywords, Open Graph, Twitter card, canonical
-- JSON-LD structured data: `LegalService` (firm) + `Person` (advocate) + `WebSite` + `WebPage`
-- `robots.txt` and `sitemap.xml` generated at build time
-- Semantic HTML with accessible landmarks and ARIA on interactive cards
 
 ## Editing Content
 
 | What to change | File |
 |---|---|
-| Phone, email, office, advocate name | `src/lib/site.ts` |
-| Practice areas, stats, hero/about copy | `src/lib/content.ts` |
-| Page metadata / SEO title | `src/app/layout.tsx` |
-| Portavia spacing / Kiwi tokens | `src/app/globals.css` |
+| Phone, email, office, GBP links, analytics IDs | `src/lib/site.ts` |
+| Practice areas, stats, hero/about copy, testimonials | `src/lib/content.ts` |
+| Practice/location page copy + FAQs | `src/lib/local-seo.ts` |
+| Design tokens | `src/app/globals.css` |
 | Advocate photo | `public/advocate.jpg` (do not rename) |
+
+## Development
+
+```bash
+npm install
+npm run dev     # http://localhost:3000
+npm run build   # production build (14 static routes)
+npm run lint
+```
+
+## Deployment
+
+Vercel auto-deploys from `master`. Optional env vars:
+
+```
+NEXT_PUBLIC_SITE_URL=https://nagalawchambers.com
+NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=<GSC token>
+NEXT_PUBLIC_GA_ID=<override GA4 id>
+NEXT_PUBLIC_GTM_ID=<override GTM id>
+```
+
+Manual deploy: `npx vercel --prod`
 
 ## Repository
 
-- **GitHub:** [Hemsagar00/NagaLawChambers](https://github.com/Hemsagar00/NagaLawChambers)
-- **Branch:** `master`
+- **GitHub:** [Hemsagar00/NagaLawChambers](https://github.com/Hemsagar00/NagaLawChambers) · branch `master`
 - **Maintained by:** HemSagar Kasi
 
 ## License

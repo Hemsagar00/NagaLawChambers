@@ -12,12 +12,14 @@ import {
   BadgeCheck,
   ChevronDown,
   CircleDot,
+  Clock,
   Landmark,
   Mail,
   MapPin,
   Menu,
   Phone,
   Scale,
+  ShieldCheck,
   X,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -101,6 +103,12 @@ function Reveal({
    Button Component
    ============================================ */
 
+const BUTTON_VARIANT_CLASS = {
+  primary: "naga-button-primary",
+  secondary: "naga-button-secondary",
+  whatsapp: "naga-button-whatsapp",
+} as const;
+
 function EditorialButton({
   href,
   children,
@@ -111,7 +119,7 @@ function EditorialButton({
 }: {
   href: string;
   children: React.ReactNode;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "whatsapp";
   className?: string;
   onClick?: () => void;
   external?: boolean;
@@ -124,7 +132,7 @@ function EditorialButton({
       whileHover={{ y: -2 }}
       whileTap={{ scale: 0.985 }}
       transition={{ duration: 0.35, ease: easing }}
-      className={`naga-button ${variant === "primary" ? "naga-button-primary" : "naga-button-secondary"} ${className}`}
+      className={`naga-button ${BUTTON_VARIANT_CLASS[variant]} ${className}`}
     >
       <span>{children}</span>
       <span className="naga-button-orb" aria-hidden="true">
@@ -251,7 +259,7 @@ function Hero() {
         aria-hidden="true"
       />
       <div
-        className="naga-ambient absolute bottom-[15%] left-[3%] h-[18rem] w-[18rem] naga-ambient-gold"
+        className="naga-ambient absolute bottom-[15%] left-[3%] h-[18rem] w-[18rem] naga-ambient-cyan"
         aria-hidden="true"
       />
 
@@ -459,10 +467,6 @@ function PracticeCard({
           <span className="mt-3 block text-sm leading-[1.75] text-[var(--naga-linen)]">
             {area.summary}
           </span>
-          {/* Hover detail reveal */}
-          <span className="naga-hover-detail block text-xs tracking-[0.05em] text-[var(--naga-gold)] font-medium italic">
-            {area.hoverDetail}
-          </span>
         </span>
       </button>
 
@@ -480,6 +484,9 @@ function PracticeCard({
             <div className="px-6 pb-7 sm:px-7">
               <div className="ml-0 border-t border-[var(--naga-line)] pt-5 text-sm leading-[1.85] text-[var(--naga-linen)] sm:ml-[64px]">
                 {area.detail}
+                <span className="mt-3 block text-xs font-medium italic tracking-[0.03em] text-[var(--naga-cyan)]">
+                  {area.hoverDetail}
+                </span>
                 {(() => {
                   const seo = practicePages.find(
                     (p) => p.practiceId === area.id
@@ -683,6 +690,21 @@ function ContactSection() {
       <div className="naga-container">
         <Reveal>
           <div className="naga-contact-panel overflow-hidden rounded-2xl p-6 sm:p-8 lg:p-10">
+            <div className="mb-9 flex flex-wrap gap-2.5">
+              <span className="naga-trust-badge">
+                <BadgeCheck className="h-3.5 w-3.5 text-[var(--naga-gold)]" aria-hidden="true" />
+                Direct advocate access
+              </span>
+              <span className="naga-trust-badge">
+                <Clock className="h-3.5 w-3.5 text-[var(--naga-cyan)]" aria-hidden="true" />
+                Same-day response
+              </span>
+              <span className="naga-trust-badge">
+                <ShieldCheck className="h-3.5 w-3.5 text-[var(--naga-gold)]" aria-hidden="true" />
+                Confidential consultation
+              </span>
+            </div>
+
             <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
               <div>
                 <p className="naga-eyebrow mb-6 inline-flex">
@@ -707,7 +729,7 @@ function ContactSection() {
                   </EditorialButton>
                   <EditorialButton
                     href={WHATSAPP_HREF}
-                    variant="secondary"
+                    variant="whatsapp"
                     external
                     onClick={() => trackEvent("whatsapp_click", { location: "contact" })}
                   >

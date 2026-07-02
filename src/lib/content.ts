@@ -97,8 +97,8 @@ export const stats = [
     icon: "map-pin" as const,
   },
   {
-    value: "5",
-    label: "Practice Areas",
+    value: "Direct",
+    label: "Advocate Access",
     icon: "landmark" as const,
   },
 ] as const;

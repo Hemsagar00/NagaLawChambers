@@ -19,7 +19,7 @@ export default function OpengraphImage() {
           justifyContent: "space-between",
           padding: "72px 80px",
           background:
-            "radial-gradient(ellipse at 15% 0%, rgba(30,58,138,0.22), transparent 55%), radial-gradient(ellipse at 95% 100%, rgba(212,175,55,0.16), transparent 55%), linear-gradient(135deg, #090d16 0%, #0c1120 55%, #090d16 100%)",
+            "radial-gradient(ellipse at 15% 0%, rgba(30,58,138,0.22), transparent 55%), radial-gradient(ellipse at 95% 100%, rgba(0,229,255,0.14), transparent 55%), linear-gradient(135deg, #050508 0%, #0a0f1c 55%, #050508 100%)",
           color: "#f8fafc",
           fontFamily: "sans-serif",
         }}

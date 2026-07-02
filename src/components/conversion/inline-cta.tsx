@@ -56,7 +56,7 @@ export function InlineCta({
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.985 }}
               transition={{ duration: 0.35, ease: easing }}
-              className="naga-button naga-button-secondary"
+              className="naga-button naga-button-whatsapp"
             >
               <span>WhatsApp us</span>
               <span className="naga-button-orb" aria-hidden="true">

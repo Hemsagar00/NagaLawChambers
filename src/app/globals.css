@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-naga-dark: #090d16;
+  --color-naga-dark: #050508;
   --color-naga-surface: rgb(14 18 32 / 0.55);
   --color-naga-panel: rgb(10 15 28 / 0.72);
   --color-naga-panel-strong: rgb(10 15 28 / 0.88);
@@ -12,6 +12,7 @@
 
   --color-naga-sapphire: #1e3a8a;
   --color-naga-sapphire-light: #2563eb;
+  --color-naga-cyan: #00e5ff;
   --color-naga-gold: #d4af37;
   --color-naga-gold-warm: #b45309;
   --color-naga-gold-leaf: rgb(212 175 55 / 0.08);
@@ -22,18 +23,21 @@
 }
 
 :root {
-  --naga-dark: #090d16;
+  --naga-dark: #050508;
   --naga-ivory: #f8fafc;
   --naga-linen: #cbd5e1;
   --naga-muted: #94a3b8;
   --naga-sapphire: #1e3a8a;
   --naga-sapphire-light: #2563eb;
+  --naga-cyan: #00e5ff;
   --naga-gold: #d4af37;
   --naga-gold-warm: #b45309;
   --naga-panel: rgb(10 15 28 / 0.72);
   --naga-panel-strong: rgb(10 15 28 / 0.88);
   --naga-line: rgb(212 175 55 / 0.08);
   --naga-line-hover: rgb(212 175 55 / 0.22);
+  --naga-cyan-line: rgb(0 229 255 / 0.25);
+  --naga-cyan-soft: rgb(0 229 255 / 0.08);
   --naga-sapphire-line: rgb(30 58 138 / 0.3);
   --naga-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -67,7 +71,7 @@
   }
 
   ::selection {
-    background: rgb(30 58 138 / 0.35);
+    background: rgb(0 229 255 / 0.25);
     color: #ffffff;
   }
 
@@ -138,19 +142,27 @@
   .naga-page-bg {
     background:
       radial-gradient(ellipse at 15% 5%, rgb(30 58 138 / 0.08), transparent 38rem),
-      radial-gradient(ellipse at 85% 15%, rgb(212 175 55 / 0.05), transparent 34rem),
-      linear-gradient(180deg, #090d16 0%, #0c1120 52%, #090d16 100%);
+      radial-gradient(ellipse at 85% 15%, rgb(0 229 255 / 0.045), transparent 34rem),
+      linear-gradient(180deg, #050508 0%, #0a0f1c 52%, #050508 100%);
     isolation: isolate;
   }
 
-  /* Ultra-subtle micro-grid SVG pattern */
+  /* Ultra-subtle micro-grid + scanline overlay (cinematic HUD texture) */
   .naga-grid-texture {
     position: fixed;
     inset: 0;
     pointer-events: none;
     opacity: 0.04;
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 0H0v60' fill='none' stroke='%23cbd5e1' stroke-width='0.5'/%3E%3C/svg%3E");
-    background-size: 60px 60px;
+    background-image:
+      repeating-linear-gradient(
+        to bottom,
+        rgb(203 213 225 / 0.5) 0px,
+        rgb(203 213 225 / 0.5) 1px,
+        transparent 1px,
+        transparent 4px
+      ),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 0H0v60' fill='none' stroke='%23cbd5e1' stroke-width='0.5'/%3E%3C/svg%3E");
+    background-size: 100% 4px, 60px 60px;
   }
 
   /* ---- Glassmorphism Navigation ---- */
@@ -188,7 +200,7 @@
   }
 
   .naga-nav-link:hover {
-    color: var(--naga-gold);
+    color: var(--naga-cyan);
     transform: translateY(-1px);
   }
 
@@ -278,15 +290,32 @@
   }
 
   .naga-button-secondary {
-    border: 1px solid rgb(212 175 55 / 0.12);
-    background: rgb(255 255 255 / 0.03);
+    border: 1px solid rgb(0 229 255 / 0.3);
+    background: rgb(0 229 255 / 0.04);
     color: var(--naga-ivory);
   }
 
   .naga-button-secondary:hover {
-    border-color: rgb(212 175 55 / 0.25);
-    background: rgb(212 175 55 / 0.05);
+    border-color: rgb(0 229 255 / 0.5);
+    background: rgb(0 229 255 / 0.07);
     transform: translateY(-2px);
+  }
+
+  /* WhatsApp CTA — brand green (Direction A) */
+  .naga-button-whatsapp {
+    border: 1px solid rgb(37 211 102 / 0.5);
+    background: #25d366;
+    color: #06281a;
+  }
+
+  .naga-button-whatsapp:hover {
+    background: #2ee06f;
+    transform: translateY(-2px);
+  }
+
+  .naga-button-whatsapp .naga-button-orb {
+    background: rgb(6 40 26 / 0.18);
+    color: #06281a;
   }
 
   .naga-button-orb {
@@ -302,8 +331,8 @@
   }
 
   .naga-button-secondary .naga-button-orb {
-    background: rgb(212 175 55 / 0.08);
-    color: var(--naga-gold);
+    background: rgb(0 229 255 / 0.12);
+    color: var(--naga-cyan);
   }
 
   .naga-button:hover .naga-button-orb {
@@ -342,10 +371,10 @@
 
   .naga-card:hover,
   .naga-card-open {
-    border-color: var(--naga-line-hover);
+    border-color: var(--naga-cyan-line);
     box-shadow:
-      0 28px 90px rgb(0 0 0 / 0.38),
-      0 0 40px rgb(212 175 55 / 0.04);
+      0 28px 90px rgb(0 0 0 / 0.4),
+      0 0 44px rgb(0 229 255 / 0.06);
   }
 
   /* ---- Icon Shell ---- */
@@ -356,10 +385,10 @@
     width: 2.75rem;
     flex: 0 0 auto;
     place-items: center;
-    border: 1px solid rgb(30 58 138 / 0.3);
+    border: 1px solid rgb(0 229 255 / 0.3);
     border-radius: 0.75rem;
-    background: rgb(30 58 138 / 0.1);
-    color: var(--naga-sapphire-light);
+    background: rgb(0 229 255 / 0.08);
+    color: var(--naga-cyan);
   }
 
   /* ---- Profile Frame — Asymmetric Offset ---- */
@@ -447,8 +476,8 @@
 
   .naga-contact-row:hover {
     transform: translateY(-2px);
-    border-color: var(--naga-line-hover);
-    background: rgb(212 175 55 / 0.03);
+    border-color: var(--naga-cyan-line);
+    background: rgb(0 229 255 / 0.04);
   }
 
   /* ---- Hover Detail Reveal ---- */
@@ -494,6 +523,11 @@
 
   .naga-ambient-gold {
     background: rgb(212 175 55 / 0.15);
+  }
+
+  .naga-ambient-cyan {
+    background: rgb(0 229 255 / 0.12);
+    opacity: 0.5;
   }
 
   /* ---- Animations ---- */
@@ -602,8 +636,8 @@
   }
 
   .naga-input:focus {
-    border-color: rgb(212 175 55 / 0.45);
-    background: rgb(9 13 22 / 0.82);
+    border-color: rgb(0 229 255 / 0.5);
+    background: rgb(9 13 22 / 0.85);
   }
 
   .naga-select {
@@ -738,7 +772,7 @@
 
   .naga-faq[open],
   .naga-faq:hover {
-    border-color: var(--naga-line-hover);
+    border-color: var(--naga-cyan-line);
   }
 
   .naga-faq-summary {
@@ -799,5 +833,19 @@
     color: var(--naga-gold);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* ---- Trust strip (contact panel) ---- */
+
+  .naga-trust-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid rgb(212 175 55 / 0.18);
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.02);
+    padding: 0.5rem 0.9rem;
+    font-size: 0.72rem;
+    color: var(--naga-linen);
   }
 }

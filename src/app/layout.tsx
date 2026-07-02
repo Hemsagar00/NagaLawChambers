@@ -103,7 +103,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#090d16",
+  themeColor: "#050508",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -121,7 +121,7 @@ export default function RootLayout({
       className={`${inter.variable} ${playfair.variable} ${mono.variable} antialiased`}
     >
       <body
-        style={{ backgroundColor: "#090d16", color: "#cbd5e1" }}
+        style={{ backgroundColor: "#050508", color: "#cbd5e1" }}
       >
         <GoogleTagManagerNoscript />
         <SmoothScrollProvider>
