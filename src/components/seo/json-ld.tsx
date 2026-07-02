@@ -44,7 +44,7 @@ export function JsonLd() {
         email: site.contact.email,
         image: `${site.url}/advocate.jpg`,
         logo: `${site.url}/advocate.jpg`,
-        description: `NAGA Law Chambers — Advocate ${site.advocate.name} provides legal representation in revenue, land, civil, criminal, family, and consumer matters across Andhra Pradesh courts and statutory forums. Specialising in Tahsildar appeals, RDO proceedings, Adangal corrections, mutations, and AP High Court writs in the Anantapur and Dharmavaram jurisdictions.`,
+        description: `NAGA Law Chambers — Advocate ${site.advocate.name} provides legal representation in revenue, land, civil, criminal, family, and consumer matters across Andhra Pradesh courts and statutory forums. Specialising in Tahsildar appeals, RDO proceedings, Adangal corrections, mutations, and AP High Court writs across Anantapur district.`,
         address: {
           "@type": "PostalAddress",
           streetAddress: "District Court Premises",

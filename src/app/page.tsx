@@ -308,7 +308,7 @@ function Hero() {
             Advocate S. Nagendra Naik provides direct, prepared representation
             in revenue & land matters before Tahsildar, RDO, and Collector
             offices, alongside civil, criminal, family, and consumer proceedings
-            across Anantapur and Dharmavaram courts.
+            across Anantapur district courts.
           </motion.p>
 
           <motion.div
@@ -518,7 +518,7 @@ function PracticeSection() {
       <div className="naga-container">
         <SectionTitle
           kicker="Practice areas"
-          title="Serious legal work across Anantapur and Dharmavaram forums."
+          title="Serious legal work across Anantapur district forums."
           body="Revenue & land disputes before Tahsildar, RDO, and Collector. Civil, criminal bail, family partition, and consumer forum representation with clear strategy and direct advocate communication."
         />
         <div className="grid gap-5 lg:grid-cols-2">
@@ -629,7 +629,7 @@ function CourtsSection() {
         <SectionTitle
           kicker="Courts & process"
           title="Built for the forums where your case is actually decided."
-          body="Covering revenue authorities across Anantapur and Dharmavaram, civil courts, criminal courts, family forums, consumer commissions, and AP High Court proceedings."
+          body="Covering revenue authorities across Anantapur district, civil courts, criminal courts, family forums, consumer commissions, and AP High Court proceedings."
         />
 
         <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">

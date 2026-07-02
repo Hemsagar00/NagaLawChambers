@@ -130,7 +130,7 @@ export const about = {
 } as const;
 
 export const courtMatrix = [
-  "Tahsildar and MRO offices — Anantapur & Dharmavaram",
+  "Tahsildar and MRO offices across Anantapur district",
   "Revenue Divisional Office (RDO) proceedings",
   "District Court, Anantapur",
   "Family Court and Consumer Commissions",

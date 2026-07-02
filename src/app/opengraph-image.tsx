@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { site } from "@/lib/site";
 
 export const alt =
-  "NAGA Law Chambers — Advocate S. Nagendra Naik, Anantapur & Dharmavaram";
+  "NAGA Law Chambers — Advocate S. Nagendra Naik, Anantapur, Andhra Pradesh";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -80,7 +80,7 @@ export default function OpengraphImage() {
             color: "#cbd5e1",
           }}
         >
-          <div style={{ display: "flex" }}>Anantapur &amp; Dharmavaram, Andhra Pradesh</div>
+          <div style={{ display: "flex" }}>Anantapur, Andhra Pradesh</div>
           <div style={{ display: "flex", color: "#d4af37" }}>{site.contact.phoneDisplay}</div>
         </div>
       </div>

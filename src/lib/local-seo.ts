@@ -11,7 +11,7 @@ export const ogImage = {
   url: "/opengraph-image",
   width: 1200,
   height: 630,
-  alt: "NAGA Law Chambers — Advocate S. Nagendra Naik, Anantapur & Dharmavaram",
+  alt: "NAGA Law Chambers — Advocate S. Nagendra Naik, Anantapur, Andhra Pradesh",
 };
 
 export type FaqItem = { q: string; a: string };
@@ -52,9 +52,9 @@ export const practicePages: PracticePage[] = [
     navLabel: "Revenue & Land",
     metaTitle: "Revenue & Land Lawyer in Anantapur",
     metaDescription:
-      "Revenue and land dispute advocate in Anantapur & Dharmavaram — ROR corrections, Adangal, mutations, patta disputes, Tahsildar & RDO appeals, AP High Court writs. Call Adv. S. Nagendra Naik.",
+      "Revenue and land dispute advocate in Anantapur district — ROR corrections, Adangal, mutations, patta disputes, Tahsildar & RDO appeals, AP High Court writs. Call Adv. S. Nagendra Naik.",
     h1: "Revenue & Land Dispute Lawyer in Anantapur",
-    lead: "Direct representation in land and revenue matters before the Tahsildar, RDO, Collector, and the Andhra Pradesh High Court — across Anantapur and Dharmavaram.",
+    lead: "Direct representation in land and revenue matters before the Tahsildar, RDO, Collector, and the Andhra Pradesh High Court — across Anantapur district.",
     body: [
       `Land and revenue record disputes turn on documents and on filing in the correct forum at the correct stage. Advocate ${advocate} handles ROR (Record of Rights) corrections, Adangal/Pahani entries, mutation appeals, patta and title disputes, encumbrance issues, and land acquisition proceedings — with preparation on the underlying records before any appeal or writ is filed.`,
       "Many revenue matters are lost not on merits but on procedure — appealing to the wrong authority, missing limitation, or filing without the supporting record. Cases are assessed first for the right route: a revision before the RDO or Collector, an administrative appeal, or a writ before the High Court at Amaravati.",
@@ -69,7 +69,7 @@ export const practicePages: PracticePage[] = [
       "Writs and revisions before the AP High Court on title and acquisition",
     ],
     forums: [
-      "Tahsildar / MRO offices — Anantapur & Dharmavaram",
+      "Tahsildar / MRO offices across Anantapur district",
       "Revenue Divisional Office (RDO)",
       "District Collector, Anantapur",
       "Andhra Pradesh High Court, Amaravati",
