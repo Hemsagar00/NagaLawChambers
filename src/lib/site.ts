@@ -19,7 +19,7 @@ export const site = {
     phoneDisplay: "+91 94400 00417",
     phoneTel: "+919440000417",
     whatsapp: "919440000417",
-    email: "advocatenaik56@gmail.com",
+    email: "nagalawchambers@gmail.com",
     office: "Sub Registrar Office, Revenue Colony, Kovur Nagar, Opp. Ramnagar Park, Anantapur, Andhra Pradesh 515004",
   },
   analytics: {
