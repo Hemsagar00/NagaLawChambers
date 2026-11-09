@@ -1,6 +1,6 @@
 # NAGA Law Chambers
 
-Official website of **Advocate S. Nagendra Naik** — Anantapur Bar, enrolled with the Bar Council of Andhra Pradesh (2019). 8+ years of direct advocacy in revenue, land, civil, criminal, family, and consumer matters.
+Official website of **Advocate S. Nagendra Naik** — Anantapur Bar, enrolled with the Bar Council of Andhra Pradesh (2019). Direct advocacy since 2019 in revenue, land, civil, criminal, family, and consumer matters.
 
 **Live:** [nagalawchambers.com](https://nagalawchambers.com)
 

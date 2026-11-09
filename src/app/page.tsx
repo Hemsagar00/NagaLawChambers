@@ -607,7 +607,7 @@ function AdvocateSection() {
           </h2>
           <p className="mt-7 text-base leading-[1.85] text-[var(--naga-linen)]">
             A practice rooted in Anantapur courts, revenue offices, and Andhra
-            Pradesh procedure since 2018 — over {YEARS_EXPERIENCE} years of
+            Pradesh procedure since {site.advocate.practisingSince} — over {YEARS_EXPERIENCE} years of
             direct advocacy. Enrolled with the Bar Council of Andhra Pradesh in
             2019, Adv. S. Nagendra Naik appears regularly before the Tahsildar,
             RDO, District Courts, and the Andhra Pradesh High Court.

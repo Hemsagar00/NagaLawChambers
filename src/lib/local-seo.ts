@@ -286,10 +286,10 @@ export const locationPages: LocationPage[] = [
     metaDescription:
       "Advocate S. Nagendra Naik in Anantapur — revenue & land, civil, criminal bail, family, partition, and consumer matters before the District Court, revenue offices, and AP High Court.",
     h1: "Advocate in Anantapur",
-    lead: "Practising at the Anantapur Bar since 2018, with over 8 years of experience — revenue & land, civil, criminal, family, and consumer representation before the district's courts, revenue offices, and the AP High Court.",
+    lead: `Practising at the Anantapur Bar since ${site.advocate.practisingSince}, with over ${new Date().getFullYear() - site.advocate.practisingSince} years of experience — revenue & land, civil, criminal, family, and consumer representation before the district's courts, revenue offices, and the AP High Court.`,
     body: [
       `Advocate ${advocate} practises before the District Court at Anantapur, the Tahsildar, RDO and Collector offices for revenue and land matters, the Family Court, the Consumer Commission, and the Sessions and Magistrate courts — with appeals and writs before the Andhra Pradesh High Court at Amaravati.`,
-      "Clients across Anantapur town and the surrounding mandals work directly with the advocate, from the first document review through filing, hearing, and compliance. The chamber is located at the District Court premises, Anantapur.",
+      "Clients across Anantapur town and the surrounding mandals work directly with the advocate, from the first document review through filing, hearing, and compliance. The chamber is at Kovur Nagar, opposite Ramnagar Park, near the Sub Registrar Office, Anantapur.",
     ],
     forums: [
       "District Court, Anantapur",
@@ -301,7 +301,7 @@ export const locationPages: LocationPage[] = [
     faqs: [
       {
         q: "Where is the chamber located in Anantapur?",
-        a: `The chamber is at the District Court premises, Anantapur, Andhra Pradesh 515001. Call ${site.contact.phoneDisplay} to fix a time.`,
+        a: `The chamber is at Sub Registrar Office, Revenue Colony, Kovur Nagar, Opp. Ramnagar Park, Anantapur, Andhra Pradesh 515004. Call ${site.contact.phoneDisplay} to fix a time.`,
       },
       {
         q: "What types of cases are handled in Anantapur?",
