@@ -1,8 +1,10 @@
 import { ImageResponse } from "next/og";
+import { brandColors } from "@/lib/brand-colors";
 
 export const size = { width: 32, height: 32 };
 export const contentType = "image/png";
 
+/** Favicon: the scales in paper on ink (colours are literals because the image renderer cannot read CSS tokens). */
 export default function Icon() {
   return new ImageResponse(
     (
@@ -14,7 +16,7 @@ export default function Icon() {
           alignItems: "center",
           justifyContent: "center",
           borderRadius: 6,
-          background: "linear-gradient(135deg, #050508, #0f172a)",
+          background: brandColors.ink,
         }}
       >
         <svg
@@ -23,10 +25,11 @@ export default function Icon() {
           height="20"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#d4af37"
+          stroke={brandColors.paper}
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          aria-hidden="true"
         >
           <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
           <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />

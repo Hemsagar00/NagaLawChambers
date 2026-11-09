@@ -31,39 +31,38 @@ export function Testimonials() {
   };
 
   return (
-    <section id="testimonials" className="naga-section relative">
+    <section id="testimonials" className="naga-section border-t border-ink">
       <div className="naga-container">
-        <p className="naga-eyebrow mb-6 inline-flex">Client voices</p>
-        <h2 className="naga-section-title mb-10 max-w-3xl text-balance">
+        <h2 className="naga-section-title mb-10">
           What clients say about working with the chamber.
         </h2>
 
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((t) => (
             <figure key={t.author + t.quote.slice(0, 16)} className="naga-card p-6 sm:p-7">
-              <Quote className="h-6 w-6 text-[var(--naga-gold)] opacity-60" aria-hidden="true" />
+              <Quote className="h-6 w-6 text-ink opacity-60" aria-hidden="true" />
               {t.rating ? (
                 <div className="mt-3 flex gap-1" aria-label={`${t.rating} out of 5`}>
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
                       key={i}
                       className={`h-3.5 w-3.5 ${
-                        i < t.rating! ? "fill-[var(--naga-gold)] text-[var(--naga-gold)]" : "text-[var(--naga-muted)]"
+                        i < t.rating! ? "fill-accent text-ink" : "text-muted"
                       }`}
                       aria-hidden="true"
                     />
                   ))}
                 </div>
               ) : null}
-              <blockquote className="mt-4 text-sm leading-[1.8] text-[var(--naga-linen)]">
+              <blockquote className="mt-4 text-sm leading-[1.8] text-ink-2">
                 {t.quote}
               </blockquote>
               <figcaption className="mt-5 border-t border-[var(--naga-line)] pt-4">
-                <span className="block text-sm font-semibold text-[var(--naga-ivory)]">
+                <span className="block text-sm font-semibold text-ink">
                   {t.author}
                 </span>
                 {t.matter ? (
-                  <span className="mt-0.5 block text-xs text-[var(--naga-muted)]">
+                  <span className="mt-0.5 block text-xs text-muted">
                     {t.matter}
                   </span>
                 ) : null}

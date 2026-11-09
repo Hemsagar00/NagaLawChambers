@@ -1,8 +1,8 @@
 # NAGA Law Chambers
 
-Official website of **Advocate S. Nagendra Naik** — Anantapur Bar, enrolled with the Bar Council of Andhra Pradesh (2019). 8+ years of direct advocacy in revenue, land, civil, criminal, family, and consumer matters.
+Official website of **Advocate S. Nagendra Naik** — Anantapur Bar, enrolled with the Bar Council of Andhra Pradesh (2019). Direct advocacy since 2019 in revenue, land, civil, criminal, family, and consumer matters.
 
-**Live:** [nagalawchambers.com](https://nagalawchambers.com)
+**Live:** [www.nagalawchambers.com](https://www.nagalawchambers.com)
 
 ## Tech Stack
 
@@ -11,29 +11,32 @@ Official website of **Advocate S. Nagendra Naik** — Anantapur Bar, enrolled wi
 | Framework | Next.js 16 (App Router, Turbopack) |
 | Language | TypeScript |
 | UI | React 19 + Tailwind CSS v4 |
-| Motion | Framer Motion 12 |
+| Motion | Framer Motion 12 (scroll progress, count-up), CSS transitions |
 | Icons | Lucide React |
-| Hosting | Vercel (auto-deploy from `master`) |
+| Hosting | Cloudflare (deployed from `master`) |
 
-## Design System — "Direction A"
+## Design System
 
-Cinematic dark professional legal UI: premium glassmorphism, micro-grid + scanline texture, HUD-pulse accents.
+Calm, professional and editorial: a pale blue-grey page, deep navy text, a large serif headline over a clean sans-serif body, white rounded cards and pill buttons. The layout follows the consulting-template pattern (hero, who we are, expertise cards, process steps, closing call to action) as a reference only; all code, copy and assets here are original.
 
 | Token | Value | Usage |
 |---|---|---|
-| Base dark | `#050508` | Page background |
-| Legal gold | `#d4af37` | Authority, primary CTAs, headings |
-| HUD cyan | `#00e5ff` | Interactive accents, icon shells, hovers |
-| Sapphire | `#1e3a8a` | Ambient glows |
-| WhatsApp green | `#25d366` | WhatsApp CTAs only |
+| Paper | `oklch(95% 0.01 253)` (`#EAEFF5`) | Page background |
+| Ink | `oklch(26.9% 0.121 270)` (`#121B60`) | Text, primary buttons, the navy panels |
+| Card | white | Cards and forms |
+| WhatsApp green | `oklch(72% 0.19 150)` | The WhatsApp buttons only |
 
-Tokens and utilities (`.naga-*`) live in `src/app/globals.css`. Typography: Playfair Display (display) + Inter (body).
+- **Type:** Instrument Serif (headings, one italic phrase in the hero) and Inter (body), loaded with `next/font`.
+- **Tokens and components:** `src/app/tokens.css` and `src/app/globals.css`. The home page is `src/components/home/landing.tsx`; scroll-in fades are `reveal.tsx` (fully visible with scripting off or reduced motion).
+- **Textures:** `public/contours-light.svg` and `public/contours-navy.svg` are contour maps drawn in code. Regenerate with `npx tsx scripts/make-contours.ts` (generator: `src/lib/contours.ts`).
+- **Photo:** the advocate's photograph is the only photo. Nothing is stock or invented.
 
 ## Routes
 
 | Route | Purpose |
 |---|---|
-| `/` | Homepage — hero, practice areas, advocate profile, courts, contact + intake form |
+| `/` | Homepage — hero, practice areas, advocate profile, courts, FAQ, contact + intake form |
+| `/te` | Telugu homepage (same layout, Telugu text from `src/lib/home-copy.ts`). Hidden until `teluguEnabled` in `src/lib/features.ts` is set to `true` |
 | `/practice/[slug]` | 5 practice-area landing pages (local SEO) |
 | `/locations/[slug]` | Anantapur & Dharmavaram location pages |
 | `/sitemap.xml`, `/robots.txt`, `/opengraph-image` | Generated at build |
@@ -41,7 +44,7 @@ Tokens and utilities (`.naga-*`) live in `src/app/globals.css`. Typography: Play
 ## Lead Generation & Analytics
 
 - **WhatsApp**: floating FAB, sticky mobile Call/WhatsApp bar, intake form → `wa.me` click-to-chat (no backend)
-- **GA4** (`G-3151ZCBVJM`) + **GTM** (`GTM-PHNQXPGP`) — events: `call_click`, `whatsapp_click`, `email_click`, `map_click`, `lead_submit`
+- **GA4** (`G-3151ZCBVJM`) + **GTM** (`GTM-PHNQXPGP`) — events: `call_click`, `whatsapp_click`, `email_click`, `map_click`, `consult_click`, `lead_submit`
 - **SEO**: LegalService/Person/FAQPage/Breadcrumb JSON-LD, per-page metadata + canonicals, keyless Google Maps embed
 
 ## Project Structure
@@ -61,7 +64,8 @@ src/
 │   ├── analytics/                # GA4 + GTM loaders
 │   ├── conversion/               # WhatsApp FAB, sticky CTA, intake form, inline CTA
 │   ├── layout/                   # SiteHeader, SiteFooter
-│   ├── motion/                   # Scroll progress, smooth scroll
+│   ├── home/                     # Home page sections and scroll-in fade
+│   ├── motion/                   # Scroll progress, smooth scroll, count-up
 │   ├── seo/                      # JSON-LD, FAQ, page schema
 │   ├── map-embed.tsx             # Keyless Google Maps embed
 │   └── testimonials.tsx          # Renders only when real testimonials exist
@@ -80,9 +84,12 @@ src/
 |---|---|
 | Phone, email, office, GBP links, analytics IDs | `src/lib/site.ts` |
 | Practice areas, stats, hero/about copy, testimonials | `src/lib/content.ts` |
+| Telugu text for the home page | `src/lib/home-copy.ts` (have a Telugu speaker check changes) |
+| WhatsApp channel and Instagram links (footer + schema) | `socialProfiles` in `src/lib/site.ts` |
 | Practice/location page copy + FAQs | `src/lib/local-seo.ts` |
 | Design tokens | `src/app/globals.css` |
 | Advocate photo | `public/advocate.jpg` (do not rename) |
+| Facts for AI assistants (`/llms.txt`) | `public/llms.txt` (keep in sync with `src/lib/site.ts` and `src/lib/content.ts`) |
 
 ## Development
 
@@ -95,16 +102,22 @@ npm run lint
 
 ## Deployment
 
-Vercel auto-deploys from `master`. Optional env vars:
+Hosted on **Cloudflare**, deployed from `master`. Build and deploy settings live in the Cloudflare dashboard, not in this repo.
+
+Optional env vars (set them in the Cloudflare project settings):
 
 ```
-NEXT_PUBLIC_SITE_URL=https://nagalawchambers.com
+NEXT_PUBLIC_SITE_URL=https://www.nagalawchambers.com
 NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=<GSC token>
 NEXT_PUBLIC_GA_ID=<override GA4 id>
 NEXT_PUBLIC_GTM_ID=<override GTM id>
 ```
 
-Manual deploy: `npx vercel --prod`
+Notes:
+
+- `NEXT_PUBLIC_SITE_URL` drives the canonical URL, sitemap and `llms.txt` links. It defaults to `https://www.nagalawchambers.com`. If you set this variable in Cloudflare, it overrides that default, so keep it on `www` (the apex redirects to `www`).
+- `vercel.json` is left over from the earlier Vercel setup. Cloudflare ignores it, so its redirects and security headers (`X-Frame-Options`, `nosniff`, `Referrer-Policy`) do not apply there. Recreate them in Cloudflare (Rules, or a `_headers` file) if you want them.
+- A Vercel project is still connected to this repo and comments on pull requests. Disconnect it if it is no longer used.
 
 ## Repository
 

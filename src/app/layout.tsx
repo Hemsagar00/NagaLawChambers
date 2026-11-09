@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Playfair_Display, JetBrains_Mono } from "next/font/google";
+import { Instrument_Serif, Inter } from "next/font/google";
 import { JsonLd } from "@/components/seo/json-ld";
 import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { SmoothScrollProvider } from "@/components/motion/smooth-scroll";
@@ -11,23 +11,19 @@ import {
 import { WhatsappFab } from "@/components/conversion/whatsapp-fab";
 import { StickyCta } from "@/components/conversion/sticky-cta";
 import { baseUrl, metadataBase, site } from "@/lib/site";
+import { teluguEnabled } from "@/lib/features";
 import "./globals.css";
 
-const inter = Inter({
+const serif = Instrument_Serif({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const sans = Inter({
   variable: "--font-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const playfair = Playfair_Display({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-  display: "swap",
-});
-
-const mono = JetBrains_Mono({
-  variable: "--font-mono",
   subsets: ["latin"],
   display: "swap",
 });
@@ -35,12 +31,11 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase,
   title: {
-    default:
-      "NAGA Law Chambers | Advocate S. Nagendra Naik — Revenue, Land & Civil Lawyer in Anantapur",
+    default: "NAGA Law Chambers: Land & Revenue Lawyer in Andhra Pradesh",
     template: "%s | NAGA Law Chambers",
   },
   description:
-    "NAGA Law Chambers — Advocate S. Nagendra Naik practises revenue, land, civil, criminal, family, and consumer law across Anantapur district, Andhra Pradesh. Specialising in Tahsildar appeals, RDO proceedings, Adangal corrections, mutations, AP High Court writs, and property partition suits. Bar Council of Andhra Pradesh (2019). Over 8 years of direct advocacy.",
+    "Advocate S. Nagendra Naik handles land, revenue, civil, criminal and family cases across Andhra Pradesh. Chambers in Anantapur. Call +91 94400 00417.",
   keywords: [
     "NAGA Law Chambers",
     "Advocate S Nagendra Naik",
@@ -68,12 +63,12 @@ export const metadata: Metadata = {
   publisher: site.name,
   alternates: {
     canonical: "/",
+    ...(teluguEnabled ? { languages: { en: "/", te: "/te", "x-default": "/" } } : {}),
   },
   openGraph: {
-    title:
-      "NAGA Law Chambers | Advocate S. Nagendra Naik — Revenue, Land & Civil Lawyer in Anantapur",
+    title: "NAGA Law Chambers: Land & Revenue Lawyer in Andhra Pradesh",
     description:
-      "Defending land, legacy, and rights. Revenue & land matters at Tahsildar, RDO, and Collector levels across Anantapur district. Civil, criminal, family, and consumer representation before Andhra Pradesh courts.",
+      "Advocate S. Nagendra Naik: land, revenue, civil, criminal and family cases across Andhra Pradesh. Chambers in Anantapur. Call +91 94400 00417.",
     type: "website",
     url: baseUrl,
     siteName: site.name,
@@ -81,10 +76,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title:
-      "NAGA Law Chambers | Advocate S. Nagendra Naik — Revenue & Land Lawyer, Anantapur",
+    title: "NAGA Law Chambers: Land & Revenue Lawyer in Andhra Pradesh",
     description:
-      "Revenue, land, civil, criminal, family, and consumer law — Tahsildar appeals, RDO proceedings, AP High Court writs — Anantapur, Andhra Pradesh.",
+      "Advocate S. Nagendra Naik: land, revenue, civil, criminal and family cases across Andhra Pradesh. Chambers in Anantapur.",
   },
   robots: {
     index: true,
@@ -103,7 +97,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050508",
+  themeColor: "#eaeff5",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -118,12 +112,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${playfair.variable} ${mono.variable} antialiased`}
+      className={`${serif.variable} ${sans.variable} antialiased`}
     >
-      <body
-        style={{ backgroundColor: "#050508", color: "#cbd5e1" }}
-      >
+      <head>
+        <noscript>
+          <style>{`[style*="opacity:0"]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
+      </head>
+      <body>
         <GoogleTagManagerNoscript />
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
         <SmoothScrollProvider>
           <ScrollProgress />
           <JsonLd />

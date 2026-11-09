@@ -60,22 +60,21 @@ export default async function LocationPage({
   if (!page) notFound();
 
   return (
-    <main className="naga-page-bg relative min-h-[100dvh] overflow-x-hidden">
-      <div className="naga-grid-texture" aria-hidden="true" />
+    <main id="main" className="relative min-h-[100dvh]">
       <SiteHeader />
 
       {/* Hero */}
-      <section className="relative px-4 pb-10 pt-36 sm:pt-40">
+      <section className="pb-10 pt-12 sm:pt-16">
         <div className="naga-container">
           <nav aria-label="Breadcrumb" className="mb-8">
-            <ol className="flex flex-wrap items-center gap-2 text-xs text-[var(--naga-muted)]">
+            <ol className="flex flex-wrap items-center gap-2 text-xs text-muted">
               <li>
-                <Link href="/" className="hover:text-[var(--naga-gold)]">
+                <Link href="/" className="hover:text-ink">
                   Home
                 </Link>
               </li>
               <li aria-hidden="true">/</li>
-              <li className="text-[var(--naga-linen)]">{page.city}</li>
+              <li className="text-ink-2">{page.city}</li>
             </ol>
           </nav>
 
@@ -84,7 +83,7 @@ export default async function LocationPage({
           </span>
 
           <h1 className="naga-hero-title max-w-4xl text-balance">{page.h1}</h1>
-          <p className="mt-7 max-w-2xl text-lg leading-[1.8] text-[var(--naga-linen)]">
+          <p className="mt-7 max-w-2xl text-lg leading-[1.8] text-ink-2">
             {page.lead}
           </p>
         </div>
@@ -97,14 +96,14 @@ export default async function LocationPage({
             {page.body.map((para) => (
               <p
                 key={para.slice(0, 36)}
-                className="text-base leading-[1.85] text-[var(--naga-linen)]"
+                className="text-base leading-[1.85] text-ink-2"
               >
                 {para}
               </p>
             ))}
 
             <div className="mt-2">
-              <h2 className="mb-5 text-xl font-semibold tracking-[-0.01em] text-[var(--naga-ivory)]">
+              <h2 className="mb-5 text-xl font-semibold tracking-[-0.01em] text-ink">
                 Explore practice areas
               </h2>
               <ul className="grid gap-3 sm:grid-cols-2">
@@ -115,7 +114,7 @@ export default async function LocationPage({
                       className="group flex items-center justify-between gap-3 naga-proof-row transition-colors hover:border-[var(--naga-line-hover)]"
                     >
                       <span>{pp.navLabel}</span>
-                      <ArrowUpRight className="h-4 w-4 shrink-0 text-[var(--naga-gold)] opacity-60 transition-opacity group-hover:opacity-100" />
+                      <ArrowUpRight className="h-4 w-4 shrink-0 text-ink opacity-60 transition-opacity group-hover:opacity-100" />
                     </Link>
                   </li>
                 ))}
@@ -125,14 +124,14 @@ export default async function LocationPage({
 
           <aside className="lg:sticky lg:top-28 lg:self-start">
             <div className="naga-card p-6 sm:p-8">
-              <h2 className="mb-5 text-lg font-semibold tracking-[-0.01em] text-[var(--naga-ivory)]">
+              <h2 className="mb-5 text-lg font-semibold tracking-[-0.01em] text-ink">
                 Forums covered
               </h2>
               <div className="grid gap-3">
                 {page.forums.map((forum) => (
                   <div key={forum} className="naga-proof-row">
                     <BadgeCheck
-                      className="h-3.5 w-3.5 shrink-0 mt-0.5 text-[var(--naga-gold)]"
+                      className="h-3.5 w-3.5 shrink-0 mt-0.5 text-ink"
                       aria-hidden="true"
                     />
                     <span>{forum}</span>
@@ -144,7 +143,7 @@ export default async function LocationPage({
         </div>
       </section>
 
-      <section className="relative px-4 pb-4">
+      <section className="pb-4">
         <div className="naga-container h-[20rem] sm:h-[22rem]">
           <MapEmbed className="h-full" />
         </div>

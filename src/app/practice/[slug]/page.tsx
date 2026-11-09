@@ -60,28 +60,27 @@ export default async function PracticeAreaPage({
   const Icon = area ? getPracticeAreaIcon(area.icon as PracticeAreaIcon) : null;
 
   return (
-    <main className="naga-page-bg relative min-h-[100dvh] overflow-x-hidden">
-      <div className="naga-grid-texture" aria-hidden="true" />
+    <main id="main" className="relative min-h-[100dvh]">
       <SiteHeader />
 
       {/* Hero */}
-      <section className="relative px-4 pb-10 pt-36 sm:pt-40">
+      <section className="pb-10 pt-12 sm:pt-16">
         <div className="naga-container">
           <nav aria-label="Breadcrumb" className="mb-8">
-            <ol className="flex flex-wrap items-center gap-2 text-xs text-[var(--naga-muted)]">
+            <ol className="flex flex-wrap items-center gap-2 text-xs text-muted">
               <li>
-                <Link href="/" className="hover:text-[var(--naga-gold)]">
+                <Link href="/" className="hover:text-ink">
                   Home
                 </Link>
               </li>
               <li aria-hidden="true">/</li>
               <li>
-                <Link href="/#practice" className="hover:text-[var(--naga-gold)]">
+                <Link href="/#practice" className="hover:text-ink">
                   Practice
                 </Link>
               </li>
               <li aria-hidden="true">/</li>
-              <li className="text-[var(--naga-linen)]">{page.navLabel}</li>
+              <li className="text-ink-2">{page.navLabel}</li>
             </ol>
           </nav>
 
@@ -92,7 +91,7 @@ export default async function PracticeAreaPage({
           ) : null}
 
           <h1 className="naga-hero-title max-w-4xl text-balance">{page.h1}</h1>
-          <p className="mt-7 max-w-2xl text-lg leading-[1.8] text-[var(--naga-linen)]">
+          <p className="mt-7 max-w-2xl text-lg leading-[1.8] text-ink-2">
             {page.lead}
           </p>
         </div>
@@ -105,21 +104,21 @@ export default async function PracticeAreaPage({
             {page.body.map((para) => (
               <p
                 key={para.slice(0, 36)}
-                className="text-base leading-[1.85] text-[var(--naga-linen)]"
+                className="text-base leading-[1.85] text-ink-2"
               >
                 {para}
               </p>
             ))}
 
             <div className="mt-2">
-              <h2 className="mb-5 text-xl font-semibold tracking-[-0.01em] text-[var(--naga-ivory)]">
+              <h2 className="mb-5 text-xl font-semibold tracking-[-0.01em] text-ink">
                 What we handle
               </h2>
               <div className="grid gap-3">
                 {page.handles.map((item) => (
                   <div key={item} className="naga-proof-row">
                     <BadgeCheck
-                      className="h-3.5 w-3.5 shrink-0 mt-0.5 text-[var(--naga-gold)]"
+                      className="h-3.5 w-3.5 shrink-0 mt-0.5 text-ink"
                       aria-hidden="true"
                     />
                     <span>{item}</span>
@@ -131,14 +130,14 @@ export default async function PracticeAreaPage({
 
           <aside className="lg:sticky lg:top-28 lg:self-start">
             <div className="naga-card p-6 sm:p-8">
-              <h2 className="mb-5 text-lg font-semibold tracking-[-0.01em] text-[var(--naga-ivory)]">
+              <h2 className="mb-5 text-lg font-semibold tracking-[-0.01em] text-ink">
                 Forums & courts
               </h2>
               <div className="grid gap-3">
                 {page.forums.map((forum) => (
                   <div key={forum} className="naga-proof-row">
                     <CircleDot
-                      className="h-3.5 w-3.5 shrink-0 mt-0.5 text-[var(--naga-gold)]"
+                      className="h-3.5 w-3.5 shrink-0 mt-0.5 text-ink"
                       aria-hidden="true"
                     />
                     <span>{forum}</span>
@@ -149,7 +148,7 @@ export default async function PracticeAreaPage({
 
             {page.related.length ? (
               <div className="mt-5 naga-card p-6 sm:p-8">
-                <h2 className="mb-4 text-sm font-semibold tracking-[0.1em] uppercase text-[var(--naga-sapphire-light)]">
+                <h2 className="mb-4 text-sm font-semibold text-ink">
                   Related practice areas
                 </h2>
                 <ul className="grid gap-3">
@@ -160,10 +159,10 @@ export default async function PracticeAreaPage({
                       <li key={relSlug}>
                         <Link
                           href={`/practice/${rel.slug}`}
-                          className="group flex items-center justify-between gap-3 text-sm text-[var(--naga-linen)] transition-colors hover:text-[var(--naga-gold)]"
+                          className="group flex items-center justify-between gap-3 text-sm text-ink-2 transition-colors hover:text-ink"
                         >
                           <span>{rel.navLabel}</span>
-                          <ArrowUpRight className="h-4 w-4 shrink-0 text-[var(--naga-gold)] opacity-60 transition-opacity group-hover:opacity-100" />
+                          <ArrowUpRight className="h-4 w-4 shrink-0 text-ink opacity-60 transition-opacity group-hover:opacity-100" />
                         </Link>
                       </li>
                     );
@@ -186,7 +185,7 @@ export default async function PracticeAreaPage({
       <div className="naga-container pb-8">
         <Link
           href="/#practice"
-          className="inline-flex items-center gap-2 text-sm text-[var(--naga-gold)] hover:underline"
+          className="inline-flex items-center gap-2 text-sm text-ink hover:underline"
         >
           <ArrowRight className="h-4 w-4 rotate-180" aria-hidden="true" />
           All practice areas

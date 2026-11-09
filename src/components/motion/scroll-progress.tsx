@@ -1,9 +1,9 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 
+/** Reading progress. Hidden for reduced motion by CSS, so server and client markup always match. */
 export function ScrollProgress() {
-  const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -11,17 +11,5 @@ export function ScrollProgress() {
     restDelta: 0.001,
   });
 
-  if (reduce) return null;
-
-  return (
-    <motion.div
-      className="fixed top-0 left-0 right-0 h-[2px] origin-left z-[60]"
-      style={{
-        scaleX,
-        background:
-          "linear-gradient(to right, #1e3a8a, #d4af37, #1e3a8a)",
-      }}
-      aria-hidden="true"
-    />
-  );
+  return <motion.div className="naga-progress" style={{ scaleX }} aria-hidden="true" />;
 }

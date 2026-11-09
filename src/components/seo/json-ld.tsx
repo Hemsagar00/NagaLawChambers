@@ -1,8 +1,8 @@
-import { site, mapHref } from "@/lib/site";
+import { site, mapHref, socialProfiles } from "@/lib/site";
 import { testimonials } from "@/lib/content";
 
 export function JsonLd() {
-  const sameAs = [site.gbp.profileUrl].filter(Boolean);
+  const sameAs = [site.gbp.profileUrl, ...socialProfiles.map((p) => p.url)].filter(Boolean);
 
   const rated = testimonials.filter((t) => typeof t.rating === "number");
   const aggregateRating =
@@ -47,10 +47,11 @@ export function JsonLd() {
         description: `NAGA Law Chambers — Advocate ${site.advocate.name} provides legal representation in revenue, land, civil, criminal, family, and consumer matters across Andhra Pradesh courts and statutory forums. Specialising in Tahsildar appeals, RDO proceedings, Adangal corrections, mutations, and AP High Court writs across Anantapur district.`,
         address: {
           "@type": "PostalAddress",
-          streetAddress: "District Court Premises",
+          streetAddress:
+            "Sub Registrar Office, Revenue Colony, Kovur Nagar, Opp. Ramnagar Park",
           addressLocality: "Anantapur",
           addressRegion: "Andhra Pradesh",
-          postalCode: "515001",
+          postalCode: "515004",
           addressCountry: "IN",
         },
         geo: {
@@ -63,6 +64,10 @@ export function JsonLd() {
         ...(aggregateRating ? { aggregateRating } : {}),
         ...(reviewNodes.length > 0 ? { review: reviewNodes } : {}),
         areaServed: [
+          {
+            "@type": "AdministrativeArea",
+            name: "Andhra Pradesh, India",
+          },
           {
             "@type": "AdministrativeArea",
             name: "Anantapur, Andhra Pradesh, India",
@@ -144,19 +149,34 @@ export function JsonLd() {
             serviceUrl: `mailto:${site.contact.email}`,
           },
         ],
-        openingHoursSpecification: {
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-          ],
-          opens: "09:30",
-          closes: "18:00",
-        },
+        openingHoursSpecification: [
+          {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+            ],
+            opens: "10:00",
+            closes: "14:00",
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+            ],
+            opens: "18:00",
+            closes: "20:00",
+          },
+        ],
         founder: { "@id": `${site.url}/#person` },
         employee: { "@id": `${site.url}/#person` },
       },
