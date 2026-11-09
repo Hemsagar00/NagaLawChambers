@@ -13,7 +13,7 @@ Official website of **Advocate S. Nagendra Naik** — Anantapur Bar, enrolled wi
 | UI | React 19 + Tailwind CSS v4 |
 | Motion | Framer Motion 12 |
 | Icons | Lucide React |
-| Hosting | Vercel (auto-deploy from `master`) |
+| Hosting | Cloudflare (deployed from `master`) |
 
 ## Design System — "Direction A"
 
@@ -61,7 +61,7 @@ src/
 │   ├── analytics/                # GA4 + GTM loaders
 │   ├── conversion/               # WhatsApp FAB, sticky CTA, intake form, inline CTA
 │   ├── layout/                   # SiteHeader, SiteFooter
-│   ├── motion/                   # Scroll progress, smooth scroll
+│   ├── motion/                   # Scroll progress, smooth scroll, survey outline, forum route, count-up
 │   ├── seo/                      # JSON-LD, FAQ, page schema
 │   ├── map-embed.tsx             # Keyless Google Maps embed
 │   └── testimonials.tsx          # Renders only when real testimonials exist
@@ -83,6 +83,7 @@ src/
 | Practice/location page copy + FAQs | `src/lib/local-seo.ts` |
 | Design tokens | `src/app/globals.css` |
 | Advocate photo | `public/advocate.jpg` (do not rename) |
+| Facts for AI assistants (`/llms.txt`) | `public/llms.txt` (keep in sync with `src/lib/site.ts` and `src/lib/content.ts`) |
 
 ## Development
 
@@ -95,7 +96,9 @@ npm run lint
 
 ## Deployment
 
-Vercel auto-deploys from `master`. Optional env vars:
+Hosted on **Cloudflare**, deployed from `master`. Build and deploy settings live in the Cloudflare dashboard, not in this repo.
+
+Optional env vars (set them in the Cloudflare project settings):
 
 ```
 NEXT_PUBLIC_SITE_URL=https://nagalawchambers.com
@@ -104,7 +107,11 @@ NEXT_PUBLIC_GA_ID=<override GA4 id>
 NEXT_PUBLIC_GTM_ID=<override GTM id>
 ```
 
-Manual deploy: `npx vercel --prod`
+Notes:
+
+- `NEXT_PUBLIC_SITE_URL` drives the canonical URL, sitemap and `llms.txt` links. Set it to the host you actually serve (apex or `www`), and redirect the other host to it.
+- `vercel.json` is left over from the earlier Vercel setup. Cloudflare ignores it, so its redirects and security headers (`X-Frame-Options`, `nosniff`, `Referrer-Policy`) do not apply there. Recreate them in Cloudflare (Rules, or a `_headers` file) if you want them.
+- A Vercel project is still connected to this repo and comments on pull requests. Disconnect it if it is no longer used.
 
 ## Repository
 
