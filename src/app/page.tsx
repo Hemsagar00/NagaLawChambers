@@ -219,6 +219,7 @@ function Hero() {
             <EditorialButton
               href={PHONE_HREF}
               variant="secondary"
+              className="hidden sm:inline-flex"
               onClick={() => trackEvent("call_click", { location: "hero" })}
             >
               {PHONE_DISPLAY}
