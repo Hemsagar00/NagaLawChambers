@@ -66,6 +66,10 @@ export function JsonLd() {
         areaServed: [
           {
             "@type": "AdministrativeArea",
+            name: "Andhra Pradesh, India",
+          },
+          {
+            "@type": "AdministrativeArea",
             name: "Anantapur, Andhra Pradesh, India",
           },
           {

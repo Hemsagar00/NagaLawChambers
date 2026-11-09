@@ -116,7 +116,7 @@ function Hero() {
             Defending land, <em className="italic">legacy &amp; rights.</em>
           </h1>
           <p className="naga-lead mt-6 max-w-[34ch] !text-lg md:!text-xl">
-            Direct representation before revenue offices and Anantapur district courts.
+            Direct representation before revenue offices and courts across Andhra Pradesh.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
@@ -173,8 +173,11 @@ function About() {
       <Reveal>
         <p className="mb-4 text-sm font-medium text-muted md:text-base">Who we are</p>
         <h2 className="font-display text-[clamp(2rem,4.6vw,3.75rem)] leading-[1.05] tracking-[var(--tracking-display)] text-ink !max-w-[26ch]">
-          A practice built on land records, revenue procedure and the courts of Anantapur district.
+          A practice built on land records, revenue procedure and the courts of Andhra Pradesh.
         </h2>
+        <p className="mt-5 max-w-[52ch] text-base text-muted md:text-lg">
+          Based in Anantapur and serving clients across Andhra Pradesh.
+        </p>
       </Reveal>
       <Reveal delay={80}>
         <dl className="mt-10 grid grid-cols-2 gap-3 md:mt-14 md:grid-cols-4 md:gap-4">

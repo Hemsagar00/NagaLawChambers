@@ -24,7 +24,7 @@ export const practiceAreas = [
     summary:
       "ROR corrections, mutations, patta disputes, encumbrance issues, and land acquisition proceedings before revenue authorities.",
     details:
-      "Representation before Tahsildar, RDO, and Collector on revenue records, encumbrance disputes, and administrative appeals. Writs and revisions before the Andhra Pradesh High Court for title and acquisition challenges across Anantapur district.",
+      "Representation before Tahsildar, RDO, and Collector on revenue records, encumbrance disputes, and administrative appeals. Writs and revisions before the Andhra Pradesh High Court for title and acquisition challenges across Andhra Pradesh.",
     hoverDetail:
       "ROR updates, Adangal corrections, mutation appeals, patta transfers",
   },
@@ -130,7 +130,7 @@ export const about = {
 } as const;
 
 export const courtMatrix = [
-  "Tahsildar and MRO offices across Anantapur district",
+  "Tahsildar and MRO offices across Andhra Pradesh",
   "Revenue Divisional Office (RDO) proceedings",
   "District Court, Anantapur",
   "Family Court and Consumer Commissions",

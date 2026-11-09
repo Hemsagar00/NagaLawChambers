@@ -46,6 +46,7 @@ export function SiteFooter() {
             <p className="naga-sub-header mb-4 text-ink">
               Areas served
             </p>
+            <p className="mb-3 text-sm text-ink-2">All districts of Andhra Pradesh</p>
             <ul className="grid gap-2.5">
               {locationPages.map((page) => (
                 <li key={page.slug}>

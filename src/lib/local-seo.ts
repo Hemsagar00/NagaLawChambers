@@ -54,7 +54,7 @@ export const practicePages: PracticePage[] = [
     metaDescription:
       "Revenue and land dispute advocate in Anantapur district — ROR corrections, Adangal, mutations, patta disputes, Tahsildar & RDO appeals, AP High Court writs. Call Adv. S. Nagendra Naik.",
     h1: "Revenue & Land Dispute Lawyer in Anantapur",
-    lead: "Direct representation in land and revenue matters before the Tahsildar, RDO, Collector, and the Andhra Pradesh High Court — across Anantapur district.",
+    lead: "Direct representation in land and revenue matters before the Tahsildar, RDO, Collector, and the Andhra Pradesh High Court, across Andhra Pradesh, from chambers in Anantapur.",
     body: [
       `Land and revenue record disputes turn on documents and on filing in the correct forum at the correct stage. Advocate ${advocate} handles ROR (Record of Rights) corrections, Adangal/Pahani entries, mutation appeals, patta and title disputes, encumbrance issues, and land acquisition proceedings — with preparation on the underlying records before any appeal or writ is filed.`,
       "Many revenue matters are lost not on merits but on procedure — appealing to the wrong authority, missing limitation, or filing without the supporting record. Cases are assessed first for the right route: a revision before the RDO or Collector, an administrative appeal, or a writ before the High Court at Amaravati.",
@@ -69,7 +69,7 @@ export const practicePages: PracticePage[] = [
       "Writs and revisions before the AP High Court on title and acquisition",
     ],
     forums: [
-      "Tahsildar / MRO offices across Anantapur district",
+      "Tahsildar / MRO offices across Andhra Pradesh",
       "Revenue Divisional Office (RDO)",
       "District Collector, Anantapur",
       "Andhra Pradesh High Court, Amaravati",
@@ -85,7 +85,7 @@ export const practicePages: PracticePage[] = [
       },
       {
         q: "Do you handle land matters outside Anantapur town?",
-        a: `Yes. Advocate ${advocate} appears in revenue and land matters across Anantapur district, including Dharmavaram, before the relevant Tahsildar, RDO, and the AP High Court.`,
+        a: `Yes. Advocate ${advocate} appears in revenue and land matters across Andhra Pradesh, including Anantapur district and Dharmavaram, before the relevant Tahsildar, RDO, and the AP High Court.`,
       },
       {
         q: "Can a revenue order be challenged in the High Court?",
