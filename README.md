@@ -11,19 +11,25 @@ Official website of **Advocate S. Nagendra Naik** — Anantapur Bar, enrolled wi
 | Framework | Next.js 16 (App Router, Turbopack) |
 | Language | TypeScript |
 | UI | React 19 + Tailwind CSS v4 |
-| Motion | Framer Motion 12 (scroll progress, count-up) and CSS transitions |
+| Motion | Framer Motion 12 (scroll progress, count-up), CSS transitions |
 | Icons | Lucide React |
 | Hosting | Cloudflare (deployed from `master`) |
 
 ## Design System
 
-Black, white and translucent glass on a seamless mosaic of rounded cards, set in Open Sauce One. Built from a "masked card" spec: a section's cards are windows onto one shared background image (`src/components/home/masked.tsx`), so the image continues across the gaps between them.
+Calm, professional and editorial: a pale blue-grey page, deep navy text, a large serif headline over a clean sans-serif body, white rounded cards and pill buttons. The layout follows the consulting-template pattern (hero, who we are, expertise cards, process steps, closing call to action) as a reference only; all code, copy and assets here are original.
 
-- **Shared images:** `public/mosaic-light.svg` (hero) and `public/mosaic-dark.svg` (practice areas) are contour maps drawn in code. Regenerate with `npx tsx scripts/make-mosaic.ts`; the generator is `src/lib/contours.ts`.
-- **Home page:** `src/components/home/landing.tsx` holds the splash counter, fixed navbar, hero, practice areas, courts and process, and the advocate and contact section.
-- **Tokens:** `src/app/tokens.css` (pure black and white, neutral greys) and component styles in `src/app/globals.css`, used by the sub-pages, footer and forms.
-- **Font:** Open Sauce One, loaded from onlinewebfonts.com in `src/app/layout.tsx`.
-- **Motion:** the splash counter, a one-time staggered reveal per section, and a count-up on the years figure. Reduced motion skips the splash and shortens transitions; with scripting off, every section is visible.
+| Token | Value | Usage |
+|---|---|---|
+| Paper | `oklch(95% 0.01 253)` (`#EAEFF5`) | Page background |
+| Ink | `oklch(26.9% 0.121 270)` (`#121B60`) | Text, primary buttons, the navy panels |
+| Card | white | Cards and forms |
+| WhatsApp green | `oklch(72% 0.19 150)` | The WhatsApp buttons only |
+
+- **Type:** Instrument Serif (headings, one italic phrase in the hero) and Inter (body), loaded with `next/font`.
+- **Tokens and components:** `src/app/tokens.css` and `src/app/globals.css`. The home page is `src/components/home/landing.tsx`; scroll-in fades are `reveal.tsx` (fully visible with scripting off or reduced motion).
+- **Textures:** `public/contours-light.svg` and `public/contours-navy.svg` are contour maps drawn in code. Regenerate with `npx tsx scripts/make-contours.ts` (generator: `src/lib/contours.ts`).
+- **Photo:** the advocate's photograph is the only photo. Nothing is stock or invented.
 
 ## Routes
 
@@ -37,7 +43,7 @@ Black, white and translucent glass on a seamless mosaic of rounded cards, set in
 ## Lead Generation & Analytics
 
 - **WhatsApp**: floating FAB, sticky mobile Call/WhatsApp bar, intake form → `wa.me` click-to-chat (no backend)
-- **GA4** (`G-3151ZCBVJM`) + **GTM** (`GTM-PHNQXPGP`) — events: `call_click`, `whatsapp_click`, `email_click`, `map_click`, `lead_submit`
+- **GA4** (`G-3151ZCBVJM`) + **GTM** (`GTM-PHNQXPGP`) — events: `call_click`, `whatsapp_click`, `email_click`, `map_click`, `consult_click`, `lead_submit`
 - **SEO**: LegalService/Person/FAQPage/Breadcrumb JSON-LD, per-page metadata + canonicals, keyless Google Maps embed
 
 ## Project Structure
@@ -57,7 +63,7 @@ src/
 │   ├── analytics/                # GA4 + GTM loaders
 │   ├── conversion/               # WhatsApp FAB, sticky CTA, intake form, inline CTA
 │   ├── layout/                   # SiteHeader, SiteFooter
-│   ├── home/                     # Home page: masked-card mosaic, splash, sections
+│   ├── home/                     # Home page sections and scroll-in fade
 │   ├── motion/                   # Scroll progress, smooth scroll, count-up
 │   ├── seo/                      # JSON-LD, FAQ, page schema
 │   ├── map-embed.tsx             # Keyless Google Maps embed
