@@ -2,7 +2,7 @@
 
 Official website of **Advocate S. Nagendra Naik** — Anantapur Bar, enrolled with the Bar Council of Andhra Pradesh (2019). Direct advocacy since 2019 in revenue, land, civil, criminal, family, and consumer matters.
 
-**Live:** [nagalawchambers.com](https://nagalawchambers.com)
+**Live:** [www.nagalawchambers.com](https://www.nagalawchambers.com)
 
 ## Tech Stack
 
@@ -101,7 +101,7 @@ Hosted on **Cloudflare**, deployed from `master`. Build and deploy settings live
 Optional env vars (set them in the Cloudflare project settings):
 
 ```
-NEXT_PUBLIC_SITE_URL=https://nagalawchambers.com
+NEXT_PUBLIC_SITE_URL=https://www.nagalawchambers.com
 NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=<GSC token>
 NEXT_PUBLIC_GA_ID=<override GA4 id>
 NEXT_PUBLIC_GTM_ID=<override GTM id>
@@ -109,7 +109,7 @@ NEXT_PUBLIC_GTM_ID=<override GTM id>
 
 Notes:
 
-- `NEXT_PUBLIC_SITE_URL` drives the canonical URL, sitemap and `llms.txt` links. Set it to the host you actually serve (apex or `www`), and redirect the other host to it.
+- `NEXT_PUBLIC_SITE_URL` drives the canonical URL, sitemap and `llms.txt` links. It defaults to `https://www.nagalawchambers.com`. If you set this variable in Cloudflare, it overrides that default, so keep it on `www` (the apex redirects to `www`).
 - `vercel.json` is left over from the earlier Vercel setup. Cloudflare ignores it, so its redirects and security headers (`X-Frame-Options`, `nosniff`, `Referrer-Policy`) do not apply there. Recreate them in Cloudflare (Rules, or a `_headers` file) if you want them.
 - A Vercel project is still connected to this repo and comments on pull requests. Disconnect it if it is no longer used.
 
