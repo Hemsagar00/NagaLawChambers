@@ -1,851 +1,141 @@
+/* Hallmark · shape: Field Record · genre: modern-minimal · theme: Furrow (deal 1/3, seed law-chambers-revenue-land-e98e·ebb7a144·2026-11-09·r0) · redesign: full
+ * hero: Stage (survey map, advocate entry card) · nav: ruled sticky bar · footer: ruled columns · imagery: generated survey map and the advocate's own photograph · signature: a matter's route up the forums, drawn on a survey map
+ * axes: light/grotesk-sans/warm · posture: committed · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: E, many pages share one stylesheet so state styles were checked by the linter rather than by eye; fixed by running sloplint on every page */
+/* Hallmark · answered F4 · the two WhatsApp keys carry the channel's own colour and every other key is tangerine or quiet */
+/* Hallmark · dismissed 23 · .naga-progress is a 2px scroll indicator, far under 5% of the viewport */
 @import "tailwindcss";
-
-@theme {
-  --color-naga-dark: #050508;
-  --color-naga-surface: rgb(14 18 32 / 0.55);
-  --color-naga-panel: rgb(10 15 28 / 0.72);
-  --color-naga-panel-strong: rgb(10 15 28 / 0.88);
-
-  --color-naga-ivory: #f8fafc;
-  --color-naga-linen: #cbd5e1;
-  --color-naga-muted: #94a3b8;
-
-  --color-naga-sapphire: #1e3a8a;
-  --color-naga-sapphire-light: #2563eb;
-  --color-naga-cyan: #00e5ff;
-  --color-naga-gold: #d4af37;
-  --color-naga-gold-warm: #b45309;
-  --color-naga-gold-leaf: rgb(212 175 55 / 0.08);
-
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-display: "Playfair Display", "Georgia", serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
-}
+@import "./tokens.css";
+@import "./base.css" layer(base);
 
 :root {
-  --naga-dark: #050508;
-  --naga-ivory: #f8fafc;
-  --naga-linen: #cbd5e1;
-  --naga-muted: #94a3b8;
-  --naga-sapphire: #1e3a8a;
-  --naga-sapphire-light: #2563eb;
-  --naga-cyan: #00e5ff;
-  --naga-gold: #d4af37;
-  --naga-gold-warm: #b45309;
-  --naga-panel: rgb(10 15 28 / 0.72);
-  --naga-panel-strong: rgb(10 15 28 / 0.88);
-  --naga-line: rgb(212 175 55 / 0.08);
-  --naga-line-hover: rgb(212 175 55 / 0.22);
-  --naga-cyan-line: rgb(0 229 255 / 0.25);
-  --naga-cyan-soft: rgb(0 229 255 / 0.08);
-  --naga-sapphire-line: rgb(30 58 138 / 0.3);
-  --naga-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --color-whatsapp: oklch(72% 0.19 150);
+  --color-whatsapp-ink: oklch(22% 0.05 150);
+  --color-wash: oklch(96% 0.011 85 / 0.86);
+  --color-ink-soft: oklch(18% 0.006 60 / 0.55);
 }
 
-/* ============================================
-   BASE LAYER — Editorial Foundation
-   ============================================ */
-
-@layer base {
-  * {
-    box-sizing: border-box;
-  }
-
-  html {
-    scroll-behavior: smooth;
-    background: var(--naga-dark);
-  }
-
-  body {
-    min-height: 100dvh;
-    margin: 0;
-    overflow-x: hidden;
-    background: var(--naga-dark);
-    color: var(--naga-linen);
-    font-family: var(--font-sans);
-    font-weight: 300;
-    font-variant-numeric: tabular-nums;
-    line-height: 1.85;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  ::selection {
-    background: rgb(0 229 255 / 0.25);
-    color: #ffffff;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 0;
-    color: var(--naga-ivory);
-    font-family: var(--font-display);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 0.95;
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  button,
-  a {
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  :focus-visible {
-    outline: 2px solid var(--naga-gold);
-    outline-offset: 4px;
-  }
-
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #060a12;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    border-radius: 999px;
-    background: linear-gradient(180deg, var(--naga-sapphire), var(--naga-gold));
-  }
-}
-
-/* ============================================
-   UTILITIES — Editorial Design System
-   ============================================ */
-
-@layer utilities {
-
+@layer components {
   /* ---- Layout ---- */
-
-  .naga-container {
-    width: min(100%, 1180px);
-    margin-inline: auto;
-    padding-inline: clamp(1.25rem, 4vw, 1.75rem);
-  }
-
-  .naga-section {
-    padding-block: clamp(6rem, 12vw, 9rem);
-  }
-
-  /* ---- Background Textures ---- */
-
-  .naga-page-bg {
-    background:
-      radial-gradient(ellipse at 15% 5%, rgb(30 58 138 / 0.08), transparent 38rem),
-      radial-gradient(ellipse at 85% 15%, rgb(0 229 255 / 0.045), transparent 34rem),
-      linear-gradient(180deg, #050508 0%, #0a0f1c 52%, #050508 100%);
-    isolation: isolate;
-  }
-
-  /* Ultra-subtle micro-grid + scanline overlay (cinematic HUD texture) */
-  .naga-grid-texture {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.04;
-    background-image:
-      repeating-linear-gradient(
-        to bottom,
-        rgb(203 213 225 / 0.5) 0px,
-        rgb(203 213 225 / 0.5) 1px,
-        transparent 1px,
-        transparent 4px
-      ),
-      url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 0H0v60' fill='none' stroke='%23cbd5e1' stroke-width='0.5'/%3E%3C/svg%3E");
-    background-size: 100% 4px, 60px 60px;
-  }
-
-  /* ---- Glassmorphism Navigation ---- */
-
-  .naga-glass-nav {
-    border: 1px solid rgb(212 175 55 / 0.1);
-    background:
-      linear-gradient(135deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.015)),
-      rgb(9 13 22 / 0.82);
-    box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.06),
-      0 24px 80px rgb(0 0 0 / 0.5);
-    backdrop-filter: blur(24px) saturate(140%);
-    -webkit-backdrop-filter: blur(24px) saturate(140%);
-    border-radius: 999px;
-  }
-
-  .naga-mobile-panel {
-    border: 1px solid rgb(212 175 55 / 0.08);
-    background: rgb(9 13 22 / 0.95);
-    box-shadow: 0 24px 80px rgb(0 0 0 / 0.6);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-  }
-
-  .naga-nav-link {
-    color: rgb(203 213 225 / 0.7);
-    font-size: 0.8125rem;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transition:
-      color 380ms var(--naga-ease),
-      transform 380ms var(--naga-ease);
-  }
-
-  .naga-nav-link:hover {
-    color: var(--naga-cyan);
-    transform: translateY(-1px);
-  }
-
-  /* ---- Typography Components ---- */
-
-  .naga-eyebrow {
-    width: fit-content;
-    align-items: center;
-    border: 1px solid rgb(212 175 55 / 0.15);
-    border-radius: 999px;
-    background: rgb(212 175 55 / 0.04);
-    padding: 0.45rem 0.9rem;
-    color: var(--naga-gold);
-    font-family: var(--font-sans);
-    font-size: 0.625rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    line-height: 1;
-    text-transform: uppercase;
-  }
-
-  .naga-hero-title {
-    color: var(--naga-ivory);
-    font-family: var(--font-display);
-    font-size: clamp(3rem, 8vw, 6.5rem);
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    line-height: 0.92;
-  }
-
-  .naga-section-title {
-    color: var(--naga-ivory);
-    font-family: var(--font-display);
-    font-size: clamp(2.2rem, 5.2vw, 4.5rem);
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    line-height: 0.96;
-  }
-
-  .naga-sub-header {
-    font-family: var(--font-sans);
-    font-size: 0.6875rem;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--naga-muted);
-  }
-
-  .naga-gradient-text {
-    background: linear-gradient(118deg, var(--naga-ivory) 0%, var(--naga-gold) 45%, var(--naga-gold-warm) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  /* ---- Buttons ---- */
-
-  .naga-button {
-    display: inline-flex;
-    min-height: 3.25rem;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    border-radius: 999px;
-    padding: 0.5rem 0.5rem 0.5rem 1.5rem;
-    font-family: var(--font-sans);
-    font-size: 0.875rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    transition:
-      transform 380ms var(--naga-ease),
-      border-color 380ms var(--naga-ease),
-      background 380ms var(--naga-ease),
-      box-shadow 380ms var(--naga-ease);
-  }
-
-  .naga-button-primary {
-    border: 1px solid rgb(212 175 55 / 0.5);
-    background: linear-gradient(135deg, #e8c96a, var(--naga-gold));
-    color: var(--naga-dark);
-    box-shadow: 0 16px 48px rgb(212 175 55 / 0.15);
-  }
-
-  .naga-button-primary:hover {
-    box-shadow: 0 20px 56px rgb(212 175 55 / 0.22);
-    transform: translateY(-2px);
-  }
-
-  .naga-button-secondary {
-    border: 1px solid rgb(0 229 255 / 0.3);
-    background: rgb(0 229 255 / 0.04);
-    color: var(--naga-ivory);
-  }
-
-  .naga-button-secondary:hover {
-    border-color: rgb(0 229 255 / 0.5);
-    background: rgb(0 229 255 / 0.07);
-    transform: translateY(-2px);
-  }
-
-  /* WhatsApp CTA — brand green (Direction A) */
-  .naga-button-whatsapp {
-    border: 1px solid rgb(37 211 102 / 0.5);
-    background: #25d366;
-    color: #06281a;
-  }
-
-  .naga-button-whatsapp:hover {
-    background: #2ee06f;
-    transform: translateY(-2px);
-  }
-
-  .naga-button-whatsapp .naga-button-orb {
-    background: rgb(6 40 26 / 0.18);
-    color: #06281a;
-  }
-
-  .naga-button-orb {
-    display: grid;
-    height: 2.2rem;
-    width: 2.2rem;
-    place-items: center;
-    border-radius: 999px;
-    background: rgb(9 13 22 / 0.2);
-    transition:
-      transform 380ms var(--naga-ease),
-      background 380ms var(--naga-ease);
-  }
-
-  .naga-button-secondary .naga-button-orb {
-    background: rgb(0 229 255 / 0.12);
-    color: var(--naga-cyan);
-  }
-
-  .naga-button:hover .naga-button-orb {
-    transform: translateX(3px);
-  }
-
-  /* ---- Stat Cards ---- */
-
-  .naga-mini-stat {
-    min-height: 6.5rem;
-    border: 1px solid var(--naga-line);
-    border-radius: 1rem;
-    background:
-      linear-gradient(145deg, rgb(255 255 255 / 0.03), rgb(255 255 255 / 0.008)),
-      var(--naga-panel);
-    padding: 1rem;
-  }
-
-  /* ---- Content Cards ---- */
-
-  .naga-card {
-    position: relative;
-    overflow: hidden;
-    border: 1px solid var(--naga-line);
-    border-radius: 1.25rem;
-    background:
-      linear-gradient(145deg, rgb(255 255 255 / 0.035), rgb(255 255 255 / 0.008)),
-      var(--naga-panel);
-    box-shadow:
-      0 24px 80px rgb(0 0 0 / 0.3);
-    transition:
-      transform 450ms var(--naga-ease),
-      border-color 450ms var(--naga-ease),
-      box-shadow 450ms var(--naga-ease);
-  }
-
-  .naga-card:hover,
-  .naga-card-open {
-    border-color: var(--naga-cyan-line);
-    box-shadow:
-      0 28px 90px rgb(0 0 0 / 0.4),
-      0 0 44px rgb(0 229 255 / 0.06);
-  }
-
-  /* ---- Icon Shell ---- */
-
-  .naga-icon-shell {
-    display: grid;
-    height: 2.75rem;
-    width: 2.75rem;
-    flex: 0 0 auto;
-    place-items: center;
-    border: 1px solid rgb(0 229 255 / 0.3);
-    border-radius: 0.75rem;
-    background: rgb(0 229 255 / 0.08);
-    color: var(--naga-cyan);
-  }
-
-  /* ---- Profile Frame — Asymmetric Offset ---- */
-
-  .naga-profile-frame {
-    position: relative;
-    padding: 3px;
-  }
-
-  .naga-profile-frame::before {
-    content: "";
-    position: absolute;
-    inset: -8px -6px -6px -8px;
-    z-index: -1;
-    border: 1px solid rgb(212 175 55 / 0.12);
-    border-radius: 1.75rem;
-    pointer-events: none;
-    transition: border-color 600ms var(--naga-ease);
-  }
-
-  .naga-profile-frame:hover::before {
-    border-color: rgb(212 175 55 / 0.25);
-  }
-
-  .naga-profile-frame .naga-profile-inner {
-    position: relative;
-    overflow: hidden;
-    border: 1px solid rgb(255 255 255 / 0.06);
-    border-radius: 1.5rem;
-    box-shadow:
-      0 30px 100px rgb(0 0 0 / 0.5);
-  }
-
-  .naga-profile-frame .naga-profile-inner img {
-    filter: grayscale(40%) contrast(1.05);
-    transition: filter 800ms var(--naga-ease);
-  }
-
-  .naga-profile-frame:hover .naga-profile-inner img {
-    filter: grayscale(0%) contrast(1);
-  }
-
-  /* ---- Proof Rows ---- */
-
-  .naga-proof-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    border: 1px solid var(--naga-line);
-    border-radius: 0.75rem;
-    background: rgb(255 255 255 / 0.02);
-    padding: 0.85rem 1rem;
-    color: var(--naga-linen);
-    font-size: 0.875rem;
-    font-weight: 400;
-    line-height: 1.5;
-  }
-
-  /* ---- Contact Panel ---- */
-
-  .naga-contact-panel {
-    border: 1px solid rgb(212 175 55 / 0.1);
-    background:
-      radial-gradient(ellipse at 0% 0%, rgb(30 58 138 / 0.08), transparent 28rem),
-      radial-gradient(ellipse at 100% 100%, rgb(212 175 55 / 0.06), transparent 28rem),
-      linear-gradient(145deg, rgb(255 255 255 / 0.03), rgb(255 255 255 / 0.008)),
-      var(--naga-panel-strong);
-    box-shadow:
-      0 30px 100px rgb(0 0 0 / 0.45);
-  }
-
-  .naga-contact-row {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    border: 1px solid var(--naga-line);
-    border-radius: 1rem;
-    background: rgb(9 13 22 / 0.5);
-    padding: 1rem;
-    transition:
-      transform 380ms var(--naga-ease),
-      border-color 380ms var(--naga-ease),
-      background 380ms var(--naga-ease);
-  }
-
-  .naga-contact-row:hover {
-    transform: translateY(-2px);
-    border-color: var(--naga-cyan-line);
-    background: rgb(0 229 255 / 0.04);
-  }
-
-  /* ---- Hover Detail Reveal ---- */
-
-  .naga-hover-detail {
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition:
-      max-height 500ms var(--naga-ease),
-      opacity 400ms var(--naga-ease),
-      margin-top 400ms var(--naga-ease);
-    margin-top: 0;
-  }
-
-  .naga-card:hover .naga-hover-detail {
-    max-height: 3rem;
-    opacity: 1;
-    margin-top: 0.5rem;
-  }
-
-  /* ---- Gold Divider ---- */
-
-  .naga-divider {
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--naga-gold), transparent);
-    opacity: 0.2;
-  }
-
-  /* ---- Ambient Glow (subtle) ---- */
-
-  .naga-ambient {
-    position: absolute;
-    pointer-events: none;
-    filter: blur(100px);
-    opacity: 0.25;
-    border-radius: 999px;
-  }
-
-  .naga-ambient-sapphire {
-    background: rgb(30 58 138 / 0.25);
-  }
-
-  .naga-ambient-gold {
-    background: rgb(212 175 55 / 0.15);
-  }
-
-  .naga-ambient-cyan {
-    background: rgb(0 229 255 / 0.12);
-    opacity: 0.5;
-  }
-
-  /* ---- Animations ---- */
-
-  @keyframes naga-frame-shimmer {
-    0%,
-    100% {
-      border-color: rgb(212 175 55 / 0.1);
-    }
-
-    50% {
-      border-color: rgb(212 175 55 / 0.22);
-    }
-  }
-
-  /* ---- Responsive ---- */
-
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.001ms !important;
-      animation-iteration-count: 1 !important;
-      scroll-behavior: auto !important;
-      transition-duration: 0.001ms !important;
-    }
-  }
-
-  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .naga-glass-nav,
-    .naga-mobile-panel {
-      background: rgb(9 13 22 / 0.98);
-    }
-  }
-
-  @media (max-width: 767px) {
-    .naga-section {
-      padding-block: 4.5rem;
-    }
-
-    .naga-hero-title {
-      font-size: clamp(2.75rem, 14vw, 4rem);
-    }
-
-    .naga-section-title {
-      font-size: clamp(2rem, 10vw, 3rem);
-    }
-
-    .naga-button {
-      width: 100%;
-    }
-
-    /* Clearance so the sticky mobile CTA bar never covers the footer */
-    body {
-      padding-bottom: calc(4.75rem + env(safe-area-inset-bottom));
-    }
-  }
-}
-
-/* ============================================
-   CONVERSION LAYER — Lead capture & contact
-   ============================================ */
-
-@layer utilities {
-
-  /* ---- Intake Form ---- */
-
-  .naga-form-card {
-    border: 1px solid rgb(212 175 55 / 0.12);
-    border-radius: 1.25rem;
-    background:
-      linear-gradient(145deg, rgb(255 255 255 / 0.035), rgb(255 255 255 / 0.008)),
-      var(--naga-panel-strong);
-    box-shadow: 0 24px 80px rgb(0 0 0 / 0.35);
-    padding: clamp(1.5rem, 4vw, 2rem);
-  }
-
-  .naga-field-label {
-    display: block;
-    margin-bottom: 0.45rem;
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    color: var(--naga-muted);
-  }
-
-  .naga-input {
-    width: 100%;
-    border: 1px solid rgb(255 255 255 / 0.08);
-    border-radius: 0.75rem;
-    background: rgb(9 13 22 / 0.6);
-    padding: 0.75rem 0.9rem;
-    font-family: var(--font-sans);
-    font-size: 0.95rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: var(--naga-ivory);
-    transition:
-      border-color 300ms var(--naga-ease),
-      background 300ms var(--naga-ease);
-  }
-
-  .naga-input::placeholder {
-    color: rgb(148 163 184 / 0.55);
-  }
-
-  .naga-input:focus {
-    border-color: rgb(0 229 255 / 0.5);
-    background: rgb(9 13 22 / 0.85);
-  }
-
-  .naga-select {
-    appearance: none;
-    -webkit-appearance: none;
-    padding-right: 2.5rem;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 0.9rem center;
-  }
-
-  .naga-select option {
-    background: #0c1120;
-    color: var(--naga-ivory);
-  }
-
-  .naga-textarea {
-    min-height: 5.5rem;
-    line-height: 1.6;
-    resize: vertical;
-  }
-
-  /* ---- Floating WhatsApp Button ---- */
-
-  .naga-whatsapp-fab {
-    position: fixed;
-    right: 1.25rem;
-    bottom: calc(5.25rem + env(safe-area-inset-bottom));
-    z-index: 50;
-    display: grid;
-    place-items: center;
-    height: 3.5rem;
-    width: 3.5rem;
-    border-radius: 999px;
-    background: #25d366;
-    color: #ffffff;
-    box-shadow:
-      0 12px 32px rgb(37 211 102 / 0.35),
-      0 4px 12px rgb(0 0 0 / 0.45);
-  }
-
-  .naga-whatsapp-pulse {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    border-radius: 999px;
-    background: #25d366;
-    animation: naga-wa-pulse 2.6s var(--naga-ease) infinite;
-  }
-
-  @keyframes naga-wa-pulse {
-    0% {
-      transform: scale(1);
-      opacity: 0.5;
-    }
-    70%,
-    100% {
-      transform: scale(1.7);
-      opacity: 0;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .naga-whatsapp-fab {
-      right: 1.75rem;
-      bottom: 1.75rem;
-      height: 3.75rem;
-      width: 3.75rem;
-    }
-  }
-
-  /* ---- Sticky Mobile CTA Bar ---- */
-
-  .naga-sticky-cta {
-    position: fixed;
-    inset-inline: 0;
-    bottom: 0;
-    z-index: 45;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.625rem;
-    padding: 0.625rem 0.875rem calc(0.625rem + env(safe-area-inset-bottom));
-    border-top: 1px solid rgb(212 175 55 / 0.12);
-    background: rgb(9 13 22 / 0.92);
-    backdrop-filter: blur(16px) saturate(140%);
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
-    box-shadow: 0 -12px 40px rgb(0 0 0 / 0.4);
-  }
-
-  .naga-sticky-btn {
-    display: inline-flex;
-    min-height: 3rem;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    border-radius: 0.85rem;
-    font-family: var(--font-sans);
-    font-size: 0.875rem;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-  }
-
-  .naga-sticky-btn-call {
-    border: 1px solid rgb(212 175 55 / 0.5);
-    background: linear-gradient(135deg, #e8c96a, var(--naga-gold));
-    color: var(--naga-dark);
-  }
-
-  .naga-sticky-btn-wa {
-    border: 1px solid rgb(37 211 102 / 0.5);
-    background: #25d366;
-    color: #06281a;
-  }
-
-  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .naga-sticky-cta {
-      background: rgb(9 13 22 / 0.98);
-    }
-  }
-
-  /* ---- FAQ (native details/summary) ---- */
-
-  .naga-faq {
-    overflow: hidden;
-    border: 1px solid var(--naga-line);
-    border-radius: 1rem;
-    background:
-      linear-gradient(145deg, rgb(255 255 255 / 0.025), rgb(255 255 255 / 0.006)),
-      var(--naga-panel);
-    transition: border-color 380ms var(--naga-ease);
-  }
-
-  .naga-faq[open],
-  .naga-faq:hover {
-    border-color: var(--naga-cyan-line);
-  }
-
-  .naga-faq-summary {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    cursor: pointer;
-    list-style: none;
-    padding: 1.15rem 1.4rem;
-    font-family: var(--font-sans);
-    font-size: 0.975rem;
-    font-weight: 500;
-    color: var(--naga-ivory);
-  }
-
-  .naga-faq-summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .naga-faq-answer {
-    margin: 0;
-    padding: 0 1.4rem 1.3rem;
-    font-size: 0.9rem;
-    line-height: 1.8;
-    color: var(--naga-linen);
-  }
+  .naga-container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); }
+  .naga-section { padding-block: var(--section-gap-s); }
+  .naga-section-title { font-family: var(--font-display); font-weight: var(--display-weight); font-size: var(--text-section); line-height: 1.05; letter-spacing: var(--tracking-display); max-width: 22ch; }
+  .naga-hero-title { font-family: var(--font-display); font-weight: var(--display-weight); font-size: var(--text-display); line-height: 1; letter-spacing: var(--tracking-display); max-width: 11ch; }
+  .naga-lead { font-size: var(--text-lead); line-height: 1.45; color: var(--color-muted); max-width: 40ch; }
+  .naga-label { font-size: var(--text-sm); font-weight: 500; color: var(--color-muted); }
+  .naga-sub-header { font-size: var(--text-sm); font-weight: 500; color: var(--color-muted); }
+  .naga-divider { height: 1px; background: var(--color-ink); }
+  .naga-ruled { border-top: 1px solid var(--color-ink); }
+  .naga-ruled > * { border-bottom: 1px solid var(--color-rule); }
+
+  .skip-link { position: fixed; left: var(--space-md); top: var(--space-md); z-index: var(--z-toast); padding: var(--space-sm) var(--space-md); border-radius: var(--radius-pill); background: var(--color-ink); color: var(--color-paper-2); font-weight: 500; text-decoration: none; transform: translateY(-200%); }
+  .skip-link:focus-visible { transform: none; }
+
+  /* ---- Header ---- */
+  .site-header { position: sticky; top: 0; z-index: var(--z-sticky-nav); background: var(--color-paper); border-bottom: 1px solid var(--color-ink); }
+  .site-header__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); min-height: 64px; }
+  .wordmark { display: inline-flex; align-items: center; gap: var(--space-xs); font-family: var(--font-display); font-weight: var(--display-weight); font-size: var(--text-lg); letter-spacing: var(--tracking-display); line-height: 1; color: var(--color-ink); text-decoration: none; min-width: 0; }
+  .naga-nav-link { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--text-sm); font-weight: 500; color: var(--color-ink-2); text-decoration: none; transition: color var(--dur-short) var(--ease-out); }
+  .naga-nav-link:hover { color: var(--color-ink); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.35em; }
+  .naga-mobile-panel { background: var(--color-paper-2); border: 1px solid var(--color-ink); border-radius: var(--radius-card); }
+  .naga-menu-btn { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--color-rule); border-radius: var(--radius-pill); background: var(--color-paper-2); color: var(--color-ink); cursor: pointer; }
+
+  /* ---- Keys (buttons) ---- */
+  .naga-button { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-xs); min-height: 48px; padding: 0 var(--space-lg); border: 1px solid var(--color-rule); border-radius: var(--radius-pill); background: var(--color-paper-2); color: var(--color-ink); font-family: var(--font-body); font-size: var(--text-md); font-weight: 500; line-height: 1; white-space: nowrap; text-decoration: none; cursor: pointer; box-shadow: inset 0 1px 0 var(--color-sheet), 0 1px 1px var(--color-rule); transition: background-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out); }
+  .naga-button:hover { background: var(--color-paper-3); }
+  .naga-button:active { transform: translateY(1px); }
+  .naga-button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+  .naga-button:disabled, .naga-button[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; transform: none; }
+  .naga-button-primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: color-mix(in oklab, var(--color-accent) 78%, var(--color-ink)); box-shadow: inset 0 1px 0 color-mix(in oklab, var(--color-sheet) 32%, transparent), inset 0 -1px 0 color-mix(in oklab, var(--color-ink) 10%, transparent); }
+  .naga-button-primary:hover { background: color-mix(in oklab, var(--color-accent) 90%, var(--color-ink)); }
+  .naga-button-secondary { background: var(--color-paper-2); }
+  .naga-button-whatsapp { background: var(--color-whatsapp); color: var(--color-whatsapp-ink); border-color: color-mix(in oklab, var(--color-whatsapp) 78%, var(--color-ink)); box-shadow: inset 0 1px 0 color-mix(in oklab, var(--color-sheet) 32%, transparent), inset 0 -1px 0 color-mix(in oklab, var(--color-ink) 10%, transparent); }
+  .naga-button-whatsapp:hover { background: color-mix(in oklab, var(--color-whatsapp) 90%, var(--color-ink)); }
+
+  /* ---- Hero: survey map ---- */
+  .hero { padding-block: var(--space-2xl) var(--section-gap-s); }
+  .hero__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--gap-columns); align-items: center; }
+  .map { position: relative; aspect-ratio: 3 / 2; overflow: hidden; border: 1px solid var(--color-ink); border-radius: var(--radius-card); background: var(--color-paper-3); box-shadow: var(--shadow-card); }
+  .map__svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .map__pins { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; }
+  .pin { position: absolute; width: 0; height: 0; animation: pin-land 420ms var(--ease-out) calc(700ms + var(--i, 0) * 280ms) backwards; }
+  .route { animation: route-draw 1900ms var(--ease-out) 500ms backwards; }
+  .pin__mark { position: absolute; left: -9px; top: -9px; width: 18px; height: 18px; background: var(--color-ink); border: 2px solid var(--color-paper-2); box-shadow: 0 0 0 1px var(--color-ink); }
+  .pin__mark--disc { border-radius: 50%; }
+  .pin__mark--diamond { transform: rotate(45deg) scale(0.82); }
+  .pin__mark--triangle { clip-path: polygon(50% 0, 100% 100%, 0 100%); border: 0; box-shadow: none; }
+  .pin--open .pin__mark { background: var(--color-accent); }
+  .pin__tag { position: absolute; left: 16px; top: -14px; display: inline-flex; align-items: baseline; gap: var(--space-xs); padding: var(--space-2xs) var(--space-xs); border-radius: var(--radius-pill); background: var(--color-ink); color: var(--color-paper-2); font-size: var(--text-xs); font-weight: 500; line-height: 1.2; white-space: nowrap; }
+  .pin__tag--left { left: auto; right: 16px; }
+  .pin__num { font-family: var(--font-outlier); font-variant-numeric: tabular-nums; font-size: var(--text-xs); }
+  .map__caption { margin-top: var(--space-sm); font-size: var(--text-sm); color: var(--color-muted); max-width: 60ch; }
+
+  /* ---- Notebook entry card (the advocate) ---- */
+  .entry { overflow: hidden; border-radius: var(--radius-entry); background: var(--color-paper-2); box-shadow: 0 0 0 1px var(--color-ink), var(--shadow-lift); }
+  .entry__head { display: flex; justify-content: space-between; gap: var(--space-sm); padding: var(--space-xs) var(--space-sm); background: var(--color-ink); color: var(--color-paper-2); font-size: var(--text-xs); font-weight: 500; white-space: nowrap; }
+  .entry__photo { position: relative; aspect-ratio: 4 / 5; background: var(--color-paper-3); }
+  .entry__body { padding: var(--space-sm); border-top: 1px solid var(--color-ink); background: linear-gradient(var(--color-grid) 1px, transparent 1px) 0 0 / 8px 8px, linear-gradient(90deg, var(--color-grid) 1px, transparent 1px) 0 0 / 8px 8px, var(--color-paper-2); }
+  .hero__entry { position: absolute; right: var(--space-md); bottom: var(--space-md); width: clamp(190px, 28%, 250px); }
+
+  /* ---- Cards, rows, stats ---- */
+  .naga-card { border-radius: var(--radius-card); background: var(--color-paper-2); box-shadow: 0 0 0 1px var(--color-rule); transition: box-shadow var(--dur-short) var(--ease-out); }
+  .naga-card:hover { box-shadow: 0 0 0 1px var(--color-ink-soft); }
+  .naga-card-open { box-shadow: 0 0 0 1px var(--color-ink), var(--shadow-card); }
+  .naga-mini-stat { padding-block: var(--space-sm); border-top: 1px solid var(--color-ink); }
+  .naga-icon-shell { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border-radius: var(--radius-pill); background: var(--color-accent-soft); color: var(--color-ink); }
+  .naga-proof-row { display: flex; align-items: flex-start; gap: var(--space-sm); padding: var(--space-sm) 0; border-bottom: 1px solid var(--color-rule); font-size: var(--text-md); color: var(--color-ink-2); }
+  .naga-trust-badge { display: inline-flex; align-items: center; gap: var(--space-xs); min-height: 36px; padding: 0 var(--space-sm); border: 1px solid var(--color-rule); border-radius: var(--radius-pill); background: var(--color-paper-2); font-size: var(--text-sm); font-weight: 500; color: var(--color-ink-2); }
+  .naga-contact-panel { border: 1px solid var(--color-ink); border-radius: var(--radius-entry); background: var(--color-sheet); box-shadow: var(--shadow-card); }
+  .naga-contact-row { display: flex; align-items: center; gap: var(--space-sm); padding: var(--space-sm) 0; border-bottom: 1px solid var(--color-rule); text-decoration: none; color: inherit; transition: background-color var(--dur-short) var(--ease-out); }
+  .naga-contact-row:hover { background: var(--color-paper); }
+
+  /* ---- Forms ---- */
+  .naga-form-card { border-radius: var(--radius-entry); background: var(--color-paper-2); box-shadow: 0 0 0 1px var(--color-ink), var(--shadow-lift); padding: clamp(var(--space-lg), 4vw, var(--space-xl)); }
+  .naga-field-label { display: block; margin-bottom: var(--space-2xs); font-size: var(--text-sm); font-weight: 500; color: var(--color-muted); }
+  .naga-input { width: 100%; min-height: 52px; border: 1px solid var(--color-muted); border-radius: var(--radius-pill); background: var(--color-sheet); padding: var(--space-sm) var(--space-md); font-size: var(--text-md); color: var(--color-ink); transition: border-color var(--dur-short) var(--ease-out); }
+  .naga-input::placeholder { color: var(--color-muted); opacity: 0.8; }
+  .naga-input:hover { border-color: var(--color-ink); }
+  .naga-input:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; border-color: var(--color-ink); }
+  .naga-select { appearance: none; padding-right: var(--space-2xl); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right var(--space-md) center; }
+  .naga-textarea { min-height: 112px; line-height: 1.6; resize: vertical; }
+
+  /* ---- FAQ ---- */
+  .naga-faq { border-bottom: 1px solid var(--color-rule); }
+  .naga-faq-summary { display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); min-height: 56px; padding: var(--space-sm) 0; cursor: pointer; list-style: none; font-size: var(--text-lg); font-weight: 500; color: var(--color-ink); }
+  .naga-faq-summary::-webkit-details-marker { display: none; }
+  .naga-faq-answer { margin: 0; padding: 0 0 var(--space-md); max-width: 65ch; color: var(--color-ink-2); }
 
   /* ---- Map embed ---- */
+  .naga-map-frame { position: relative; overflow: hidden; border: 1px solid var(--color-ink); border-radius: var(--radius-card); background: var(--color-paper-3); }
+  .naga-map-frame iframe { display: block; width: 100%; height: 100%; min-height: 288px; border: 0; }
+  .naga-map-link { position: absolute; right: var(--space-sm); bottom: var(--space-sm); display: inline-flex; align-items: center; min-height: 40px; padding: 0 var(--space-md); border: 1px solid var(--color-ink); border-radius: var(--radius-pill); background: var(--color-paper-2); font-size: var(--text-sm); font-weight: 500; color: var(--color-ink); text-decoration: none; }
 
-  .naga-map-frame {
-    position: relative;
-    overflow: hidden;
-    border: 1px solid var(--naga-line);
-    border-radius: 1.25rem;
-    background: var(--naga-panel);
-  }
+  /* ---- Conversion layer ---- */
+  .naga-whatsapp-fab { position: fixed; right: var(--space-md); bottom: calc(88px + env(safe-area-inset-bottom)); z-index: var(--z-sticky); display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--color-whatsapp); color: var(--color-whatsapp-ink); box-shadow: 0 0 0 1px var(--color-ink), var(--shadow-lift); }
+  .naga-whatsapp-fab:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+  .naga-sticky-cta { position: fixed; inset-inline: 0; bottom: 0; z-index: var(--z-sticky); display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xs); padding: var(--space-xs) var(--space-sm) calc(var(--space-xs) + env(safe-area-inset-bottom)); border-top: 1px solid var(--color-ink); background: var(--color-paper); }
+  .naga-sticky-btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-xs); min-height: 48px; border: 1px solid var(--color-rule); border-radius: var(--radius-pill); font-size: var(--text-md); font-weight: 500; text-decoration: none; }
+  .naga-sticky-btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+  .naga-sticky-btn-call { background: var(--color-accent); border-color: color-mix(in oklab, var(--color-accent) 78%, var(--color-ink)); color: var(--color-accent-ink); }
+  .naga-sticky-btn-wa { background: var(--color-whatsapp); border-color: color-mix(in oklab, var(--color-whatsapp) 78%, var(--color-ink)); color: var(--color-whatsapp-ink); }
 
-  .naga-map-frame iframe {
-    display: block;
-    width: 100%;
-    height: 100%;
-    min-height: 18rem;
-    border: 0;
-    filter: grayscale(35%) invert(0.92) hue-rotate(180deg) contrast(0.9);
-  }
-
-  .naga-map-link {
-    position: absolute;
-    right: 0.85rem;
-    bottom: 0.85rem;
-    border: 1px solid rgb(212 175 55 / 0.3);
-    border-radius: 999px;
-    background: rgb(9 13 22 / 0.86);
-    padding: 0.5rem 0.9rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--naga-gold);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-
-  /* ---- Trust strip (contact panel) ---- */
-
-  .naga-trust-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    border: 1px solid rgb(212 175 55 / 0.18);
-    border-radius: 999px;
-    background: rgb(255 255 255 / 0.02);
-    padding: 0.5rem 0.9rem;
-    font-size: 0.72rem;
-    color: var(--naga-linen);
-  }
+  /* ---- Scroll progress ---- */
+  .naga-progress { position: fixed; inset: 0 0 auto 0; z-index: var(--z-toast); height: 2px; transform-origin: left; background: var(--color-accent); }
 }
+
+@media (max-width: 60rem) {
+  .hero { padding-block: var(--space-xl) var(--space-2xl); }
+  .hero__grid { grid-template-columns: minmax(0, 1fr); }
+  .hero__entry { position: static; width: 100%; margin-top: var(--space-md); }
+}
+@media (max-width: 47.9375rem) {
+  .naga-button { width: 100%; }
+  .pin__name { display: none; }
+  .pin__tag { padding-inline: var(--space-xs); }
+  /* clearance so the sticky action bar never covers the footer */
+  body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
+}
+
+@media (prefers-reduced-motion: reduce) { .naga-progress { display: none; } }
+@keyframes route-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes pin-land { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }

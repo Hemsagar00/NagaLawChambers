@@ -34,13 +34,8 @@ export function WhatsappFab() {
       initial={reduce ? false : { opacity: 0, scale: 0.6 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, delay: 0.9, ease: easing }}
-      whileHover={{ y: -3 }}
-      whileTap={{ scale: 0.94 }}
-      className="naga-whatsapp-fab"
+            className="naga-whatsapp-fab"
     >
-      {!reduce ? (
-        <span className="naga-whatsapp-pulse" aria-hidden="true" />
-      ) : null}
       <WhatsappGlyph />
     </motion.a>
   );

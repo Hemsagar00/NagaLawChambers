@@ -25,18 +25,17 @@ export function Faq({
   };
 
   return (
-    <section id={id} className="naga-section relative">
+    <section id={id} className="naga-section border-t border-ink">
       <div className="naga-container">
-        <p className="naga-eyebrow mb-6 inline-flex">FAQ</p>
-        <h2 className="naga-section-title mb-10 max-w-3xl text-balance">{heading}</h2>
+        <h2 className="naga-section-title mb-10">{heading}</h2>
 
-        <div className="grid gap-4">
+        <div className="naga-ruled">
           {items.map((item) => (
             <details key={item.q} className="naga-faq group">
               <summary className="naga-faq-summary">
                 <span>{item.q}</span>
                 <ChevronDown
-                  className="h-4 w-4 shrink-0 text-[var(--naga-gold)] transition-transform duration-300 group-open:rotate-180"
+                  className="h-4 w-4 shrink-0 text-ink transition-transform duration-300 group-open:rotate-180"
                   aria-hidden="true"
                 />
               </summary>

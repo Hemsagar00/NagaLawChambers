@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Playfair_Display, JetBrains_Mono } from "next/font/google";
+import { Red_Hat_Display, Red_Hat_Text, Red_Hat_Mono } from "next/font/google";
 import { JsonLd } from "@/components/seo/json-ld";
 import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { SmoothScrollProvider } from "@/components/motion/smooth-scroll";
@@ -13,21 +13,20 @@ import { StickyCta } from "@/components/conversion/sticky-cta";
 import { baseUrl, metadataBase, site } from "@/lib/site";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-sans",
+const display = Red_Hat_Display({
+  variable: "--font-rh-display",
   subsets: ["latin"],
   display: "swap",
 });
 
-const playfair = Playfair_Display({
-  variable: "--font-display",
+const text = Red_Hat_Text({
+  variable: "--font-rh-text",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
-const mono = JetBrains_Mono({
-  variable: "--font-mono",
+const mono = Red_Hat_Mono({
+  variable: "--font-rh-mono",
   subsets: ["latin"],
   display: "swap",
 });
@@ -103,7 +102,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050508",
+  themeColor: "#f6f2ea",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -118,12 +117,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${playfair.variable} ${mono.variable} antialiased`}
+      className={`${display.variable} ${text.variable} ${mono.variable} antialiased`}
     >
-      <body
-        style={{ backgroundColor: "#050508", color: "#cbd5e1" }}
-      >
+      <body>
         <GoogleTagManagerNoscript />
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
         <SmoothScrollProvider>
           <ScrollProgress />
           <JsonLd />

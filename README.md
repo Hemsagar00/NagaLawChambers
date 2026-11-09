@@ -11,23 +11,26 @@ Official website of **Advocate S. Nagendra Naik** — Anantapur Bar, enrolled wi
 | Framework | Next.js 16 (App Router, Turbopack) |
 | Language | TypeScript |
 | UI | React 19 + Tailwind CSS v4 |
-| Motion | Framer Motion 12 |
+| Motion | Framer Motion 12, plus CSS animation for the map |
 | Icons | Lucide React |
 | Hosting | Cloudflare (deployed from `master`) |
 
-## Design System — "Direction A"
+## Design System: "Furrow"
 
-Cinematic dark professional legal UI: premium glassmorphism, micro-grid + scanline texture, HUD-pulse accents.
+Warm, light and editorial. Manila paper, near-black ink, one tangerine signal, and a generated survey map as the hero. Built from the Furrow theme in [Hallmark](https://github.com/Nutlope/hallmark) (MIT) and checked with its linter.
 
 | Token | Value | Usage |
 |---|---|---|
-| Base dark | `#050508` | Page background |
-| Legal gold | `#d4af37` | Authority, primary CTAs, headings |
-| HUD cyan | `#00e5ff` | Interactive accents, icon shells, hovers |
-| Sapphire | `#1e3a8a` | Ambient glows |
-| WhatsApp green | `#25d366` | WhatsApp CTAs only |
+| Paper | `oklch(96% 0.011 85)` | Page background |
+| Ink | `oklch(18% 0.006 60)` | Text, rules, the entry-card head |
+| Tangerine | `oklch(70% 0.19 40)` | The primary key, the open pin, the holding's edge. A fill with ink on it, never text |
+| WhatsApp green | `oklch(72% 0.19 150)` | The two WhatsApp keys only |
 
-Tokens and utilities (`.naga-*`) live in `src/app/globals.css`. Typography: Playfair Display (display) + Inter (body).
+Tokens live in `src/app/tokens.css`; component styles (`.naga-*`, `.hero`, `.map`, `.entry`) in `src/app/globals.css`. Type is Red Hat Display (headings), Red Hat Text (body) and Red Hat Mono (figures), loaded with `next/font`. The social card and favicon read their colours from `src/lib/brand-colors.ts`, because their renderer cannot use CSS variables.
+
+Motion is small and plays once: the hero map's route draws and its pins land, the forum list draws as you scroll, and the years figure counts up. All of it is off under `prefers-reduced-motion`, and the page works with scripting off.
+
+To re-check the design: `node <hallmark>/skills/hallmark/scripts/sloplint.mjs src/app src/components`.
 
 ## Routes
 
@@ -61,7 +64,8 @@ src/
 │   ├── analytics/                # GA4 + GTM loaders
 │   ├── conversion/               # WhatsApp FAB, sticky CTA, intake form, inline CTA
 │   ├── layout/                   # SiteHeader, SiteFooter
-│   ├── motion/                   # Scroll progress, smooth scroll, survey outline, forum route, count-up
+│   ├── map/                      # Generated survey map (hero)
+│   ├── motion/                   # Scroll progress, smooth scroll, forum route, count-up
 │   ├── seo/                      # JSON-LD, FAQ, page schema
 │   ├── map-embed.tsx             # Keyless Google Maps embed
 │   └── testimonials.tsx          # Renders only when real testimonials exist

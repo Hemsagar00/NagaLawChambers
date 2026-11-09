@@ -1,17 +1,9 @@
 "use client";
 
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
-  AnimatePresence,
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
-import {
-  ArrowRight,
   BadgeCheck,
   ChevronDown,
-  CircleDot,
   Clock,
   Landmark,
   Mail,
@@ -45,7 +37,7 @@ import { MapEmbed } from "@/components/map-embed";
 import { practicePages } from "@/lib/local-seo";
 import { CountUp } from "@/components/motion/count-up";
 import { ForumRoute } from "@/components/motion/forum-route";
-import { PlotSurvey } from "@/components/motion/plot-survey";
+import { SurveyMap } from "@/components/map/survey-map";
 
 const WHATSAPP_HREF = buildWhatsappHref();
 const YEARS_EXPERIENCE = new Date().getFullYear() - site.advocate.practisingSince;
@@ -75,31 +67,19 @@ const practiceAreas = contentPracticeAreas.map((area) => ({
 }));
 
 /* ============================================
-   Reveal Animation Wrapper
+   Layout helpers
    ============================================ */
 
+/** Plain wrapper kept for call sites; the page uses no scroll-in reveals. */
 function Reveal({
   children,
   className = "",
-  delay = 0,
 }: {
   children: React.ReactNode;
   className?: string;
   delay?: number;
 }) {
-  const reduce = useReducedMotion();
-
-  return (
-    <motion.div
-      initial={reduce ? false : { opacity: 0, y: 16 }}
-      whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6, delay, ease: easing }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
+  return <div className={className}>{children}</div>;
 }
 
 /* ============================================
@@ -128,20 +108,14 @@ function EditorialButton({
   external?: boolean;
 }) {
   return (
-    <motion.a
+    <a
       href={href}
       onClick={onClick}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      whileHover={{ y: -2 }}
-      whileTap={{ scale: 0.985 }}
-      transition={{ duration: 0.35, ease: easing }}
       className={`naga-button ${BUTTON_VARIANT_CLASS[variant]} ${className}`}
     >
-      <span>{children}</span>
-      <span className="naga-button-orb" aria-hidden="true">
-        <ArrowRight className="h-4 w-4" />
-      </span>
-    </motion.a>
+      {children}
+    </a>
   );
 }
 
@@ -153,90 +127,75 @@ function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40 px-4 pt-4">
-      <nav
-        className="naga-glass-nav mx-auto flex h-14 max-w-6xl items-center justify-between px-5 sm:px-6"
-        aria-label="Primary"
-      >
-        <a
-          href="#top"
-          className="flex min-w-0 items-center gap-3"
-          aria-label="NAGA Law Chambers home"
-        >
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-[rgb(212_175_55_/_0.15)] bg-[rgb(212_175_55_/_0.06)]">
-            <Scale
-              className="h-4.5 w-4.5 text-[var(--naga-gold)]"
-              aria-hidden="true"
-            />
-          </span>
-          <span className="truncate text-xs font-medium tracking-[0.2em] uppercase text-[var(--naga-ivory)]">
-            NAGA LAW
-          </span>
-        </a>
-
-        <div className="hidden items-center gap-8 md:flex">
-          {navLinks.map((item) => (
-            <a key={item.href} href={item.href} className="naga-nav-link">
-              {item.label}
-            </a>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-3">
+    <header className="site-header">
+      <div className="naga-container">
+        <nav className="site-header__bar" aria-label="Primary">
           <a
-            href={PHONE_HREF}
-            onClick={() => trackEvent("call_click", { location: "navbar" })}
-            className="hidden rounded-full border border-[rgb(212_175_55_/_0.3)] bg-[rgb(212_175_55_/_0.08)] px-5 py-2 text-xs font-medium tracking-[0.1em] uppercase text-[var(--naga-gold)] transition-all duration-300 hover:bg-[rgb(212_175_55_/_0.14)] hover:-translate-y-0.5 sm:inline-flex"
+            href="#top"
+            className="wordmark"
+            aria-label="NAGA Law Chambers home"
           >
-            Consult
+            <Scale className="h-5 w-5 shrink-0" aria-hidden="true" />
+            <span className="truncate">Naga Law Chambers</span>
           </a>
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            className="grid h-10 w-10 place-items-center rounded-full border border-[rgb(255_255_255_/_0.08)] text-[var(--naga-linen)] md:hidden"
-            aria-label="Toggle navigation"
-            aria-expanded={open}
-          >
-            {open ? (
-              <X className="h-5 w-5" />
-            ) : (
-              <Menu className="h-5 w-5" />
-            )}
-          </button>
-        </div>
-      </nav>
 
-      <AnimatePresence>
-        {open ? (
-          <motion.div
-            role="dialog"
-            aria-label="Navigation menu"
-            initial={{ opacity: 0, y: -12, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -12, scale: 0.98 }}
-            transition={{ duration: 0.3, ease: easing }}
-            className="naga-mobile-panel mx-auto mt-3 max-w-6xl rounded-2xl p-4 md:hidden"
-          >
-            {navLinks.map((item, index) => (
-              <motion.a
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  delay: index * 0.06,
-                  duration: 0.35,
-                  ease: easing,
-                }}
-                className="block rounded-xl px-4 py-3 text-sm text-[var(--naga-linen)]"
-              >
+          <div className="hidden items-center gap-8 md:flex">
+            {navLinks.map((item) => (
+              <a key={item.href} href={item.href} className="naga-nav-link">
                 {item.label}
-              </motion.a>
+              </a>
             ))}
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <a
+              href={PHONE_HREF}
+              onClick={() => trackEvent("call_click", { location: "navbar" })}
+              className="naga-button naga-button-secondary hidden !min-h-11 sm:inline-flex"
+            >
+              Consult
+            </a>
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              className="naga-menu-btn md:hidden"
+              aria-label="Toggle navigation"
+              aria-expanded={open}
+            >
+              {open ? (
+                <X className="h-5 w-5" aria-hidden="true" />
+              ) : (
+                <Menu className="h-5 w-5" aria-hidden="true" />
+              )}
+            </button>
+          </div>
+        </nav>
+
+        <AnimatePresence>
+          {open ? (
+            <motion.div
+              role="dialog"
+              aria-label="Navigation menu"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.22, ease: easing }}
+              className="naga-mobile-panel mb-3 p-2 md:hidden"
+            >
+              {navLinks.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className="naga-nav-link !flex w-full px-3 !text-base"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+      </div>
     </header>
   );
 }
@@ -246,83 +205,17 @@ function Navbar() {
    ============================================ */
 
 function Hero() {
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll();
-  const portraitY = useTransform(scrollYProgress, [0, 0.32], [0, reduce ? 0 : 60]);
-  const titleX = useTransform(scrollYProgress, [0, 0.26], [0, reduce ? 0 : -20]);
-
   return (
-    <section
-      id="top"
-      className="relative isolate flex min-h-[100dvh] items-center overflow-hidden px-4 pb-24 pt-28 sm:pt-32"
-    >
-      {/* Subtle ambient glows */}
-      <div
-        className="naga-ambient absolute top-[10%] right-[5%] h-[22rem] w-[22rem] naga-ambient-sapphire"
-        aria-hidden="true"
-      />
-      <div
-        className="naga-ambient absolute bottom-[15%] left-[3%] h-[18rem] w-[18rem] naga-ambient-cyan"
-        aria-hidden="true"
-      />
-
-      <div className="naga-container relative z-10 grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
-        {/* Text Column */}
-        <motion.div style={{ x: titleX }} className="max-w-3xl">
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: easing }}
-            className="naga-eyebrow mb-8 inline-flex items-center gap-2"
-          >
-            <BadgeCheck className="h-3 w-3" aria-hidden="true" />
-            Bar Council of Andhra Pradesh • Anantapur Bar Association
-          </motion.div>
-
-          <h1 className="naga-hero-title max-w-4xl text-balance">
-            <span className="block overflow-hidden">
-              <motion.span
-                className="block"
-                initial={reduce ? false : { y: "110%", rotateX: -18 }}
-                animate={{ y: 0, rotateX: 0 }}
-                transition={{ duration: 1.1, delay: 0.1, ease: easing }}
-              >
-                Defending land,
-              </motion.span>
-            </span>
-            <span className="block overflow-hidden">
-              <motion.span
-                className="naga-gradient-text block"
-                initial={reduce ? false : { y: "110%", rotateX: -18 }}
-                animate={{ y: 0, rotateX: 0 }}
-                transition={{ duration: 1.1, delay: 0.24, ease: easing }}
-              >
-                legacy & rights.
-              </motion.span>
-            </span>
-          </h1>
-
-          <motion.p
-            initial={reduce ? false : { opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.95, delay: 0.4, ease: easing }}
-            className="mt-9 max-w-2xl text-base leading-[1.85] text-[var(--naga-linen)]"
-          >
-            Advocate S. Nagendra Naik provides direct, prepared representation
-            in revenue & land matters before Tahsildar, RDO, and Collector
-            offices, alongside civil, criminal, family, and consumer proceedings
-            across Anantapur district courts.
-          </motion.p>
-
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.95, delay: 0.52, ease: easing }}
-            className="mt-10 flex flex-col gap-4 sm:flex-row"
-          >
-            <EditorialButton href="#contact">
-              Book consultation
-            </EditorialButton>
+    <section id="top" className="hero">
+      <div className="naga-container hero__grid">
+        <div>
+          <h1 className="naga-hero-title">Defending land, legacy &amp; rights.</h1>
+          <p className="naga-lead mt-6">
+            Direct representation before revenue offices and Anantapur district
+            courts.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <EditorialButton href="#contact">Book consultation</EditorialButton>
             <EditorialButton
               href={PHONE_HREF}
               variant="secondary"
@@ -330,57 +223,65 @@ function Hero() {
             >
               {PHONE_DISPLAY}
             </EditorialButton>
-          </motion.div>
+          </div>
+        </div>
 
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.95, delay: 0.64, ease: easing }}
-            className="mt-14 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4"
-          >
-            {stats.map((metric) => (
-              <div key={metric.label} className="naga-mini-stat">
-                <p className="text-xl font-semibold text-[var(--naga-ivory)]">
-                  <CountUp value={metric.value} />
-                </p>
-                <p className="mt-1.5 text-[10px] font-medium tracking-[0.15em] uppercase text-[var(--naga-muted)]">
-                  {metric.label}
-                </p>
+        <div>
+          <div className="relative">
+            <SurveyMap />
+            <aside className="entry hero__entry" aria-label="The advocate">
+              <div className="entry__head">
+                <span>Advocate</span>
+                <span>Anantapur Bar</span>
               </div>
-            ))}
-          </motion.div>
-        </motion.div>
-
-        {/* Profile Photo Column */}
-        <Reveal className="relative mx-auto w-full max-w-[520px] lg:mr-0" delay={0.25}>
-          <motion.div style={{ y: portraitY }} className="relative">
-            <PlotSurvey />
-            <div className="naga-profile-frame">
-            <div className="naga-profile-inner aspect-[4/5]">
-              <Image
-                src="/advocate.jpg"
-                alt="Advocate S. Nagendra Naik — NAGA Law Chambers, Anantapur Bar Association"
-                fill
-                priority
-                sizes="(max-width: 1024px) 92vw, 520px"
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[var(--naga-dark)] via-[rgb(9_13_22_/_0.3)] to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
-                <p className="naga-sub-header text-[var(--naga-gold)]">
-                  Advocate
-                </p>
-                <p className="mt-2 font-[var(--font-display)] text-2xl font-semibold tracking-[-0.02em] text-[var(--naga-ivory)] sm:text-3xl">
+              <div className="entry__photo">
+                <Image
+                  src="/advocate.jpg"
+                  alt="Advocate S. Nagendra Naik — NAGA Law Chambers, Anantapur Bar Association"
+                  fill
+                  priority
+                  sizes="(max-width: 960px) 92vw, 250px"
+                  className="object-cover object-[72%_25%]"
+                />
+              </div>
+              <div className="entry__body">
+                <p className="font-[family-name:var(--font-display)] text-lg font-semibold leading-tight tracking-[var(--tracking-display)] text-ink">
                   S. Nagendra Naik
                 </p>
-                <p className="mt-2 text-xs text-[rgb(255_255_255_/_0.6)] font-light">
-                  B.A., LL.B. • Anantapur Bar • Direct consultation
+                <p className="mt-1 text-sm text-muted">
+                  B.A., LL.B. Direct consultation
                 </p>
               </div>
+            </aside>
+          </div>
+          <p className="map__caption">
+            Schematic. A revenue matter moves up through these forums, from the
+            Tahsildar to the High Court.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================
+   At a glance strip
+   ============================================ */
+
+function GlanceStrip() {
+  return (
+    <section aria-label="At a glance" className="pb-[var(--section-gap-s)]">
+      <div className="naga-container">
+        <dl className="grid grid-cols-2 gap-x-[var(--gap-columns)] gap-y-6 lg:grid-cols-4">
+          {stats.map((metric) => (
+            <div key={metric.label} className="naga-mini-stat flex flex-col">
+              <dt className="order-2 mt-1 text-sm text-muted">{metric.label}</dt>
+              <dd className="m-0 font-[family-name:var(--font-display)] text-3xl font-semibold tracking-[var(--tracking-display)] text-ink">
+                <CountUp value={metric.value} />
+              </dd>
             </div>
-            </div>
-          </motion.div>
-        </Reveal>
+          ))}
+        </dl>
       </div>
     </section>
   );
@@ -391,34 +292,29 @@ function Hero() {
    ============================================ */
 
 function SectionTitle({
-  kicker,
   title,
   body,
 }: {
-  kicker: string;
+  kicker?: string;
   title: string;
   body: string;
 }) {
   return (
-    <Reveal className="mx-auto mb-14 max-w-3xl text-center">
-      <p className="naga-eyebrow mx-auto mb-6 inline-flex">{kicker}</p>
-      <h2 className="naga-section-title text-balance">{title}</h2>
-      <p className="mx-auto mt-6 max-w-2xl text-base leading-[1.85] text-[var(--naga-linen)]">
-        {body}
-      </p>
-    </Reveal>
+    <div className="mb-12 grid gap-6 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-[var(--gap-columns)]">
+      <h2 className="naga-section-title">{title}</h2>
+      <p className="max-w-[52ch] text-lg text-muted">{body}</p>
+    </div>
   );
 }
 
 /* ============================================
-   Practice Area Cards
+   Practice Area Rows
    ============================================ */
 
 function PracticeCard({
   area,
   open,
   onToggle,
-  index,
 }: {
   area: (typeof practiceAreas)[number];
   open: boolean;
@@ -429,68 +325,50 @@ function PracticeCard({
   const reduce = useReducedMotion();
 
   return (
-    <motion.article
-      layout
-      initial={reduce ? false : { opacity: 0, y: 16 }}
-      whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{
-        duration: 0.6,
-        delay: index * 0.06,
-        ease: easing,
-        layout: { duration: 0.4, ease: easing },
-      }}
+    <article
       className={`naga-card ${open ? "naga-card-open" : ""}`}
     >
-      <button
-        type="button"
-        onClick={onToggle}
-        aria-expanded={open}
-        aria-controls={`${area.id}-panel`}
-        className="flex w-full items-start gap-5 p-6 text-left sm:p-7"
-      >
+      <div className="grid items-start gap-4 p-5 sm:grid-cols-[44px_minmax(0,5fr)_minmax(0,7fr)] sm:gap-6 sm:p-6">
         <span className="naga-icon-shell">
           <Icon className="h-5 w-5" aria-hidden="true" />
         </span>
-        <span className="min-w-0 flex-1">
-          <span className="flex items-start justify-between gap-4">
-            <span>
-              <span className="block text-lg font-semibold tracking-[-0.01em] text-[var(--naga-ivory)]">
-                {area.title}
-              </span>
-              <span className="mt-1.5 block text-xs font-medium tracking-[0.1em] uppercase text-[var(--naga-sapphire-light)]">
-                {area.courts}
-              </span>
-            </span>
-            <motion.span
-              animate={{ rotate: open ? 180 : 0 }}
-              transition={{ duration: 0.35, ease: easing }}
-              className="mt-1 text-[var(--naga-gold)]"
+        <div className="min-w-0">
+          <h3 className="max-w-none text-xl font-semibold leading-tight text-ink">
+            <button
+              type="button"
+              onClick={onToggle}
+              aria-expanded={open}
+              aria-controls={`${area.id}-panel`}
+              className="inline-flex min-h-11 cursor-pointer items-center gap-2 text-left"
             >
-              <ChevronDown className="h-4 w-4" />
-            </motion.span>
-          </span>
-          <span className="mt-3 block text-sm leading-[1.75] text-[var(--naga-linen)]">
-            {area.summary}
-          </span>
-        </span>
-      </button>
+              {area.title}
+              <motion.span
+                animate={{ rotate: open ? 180 : 0 }}
+                transition={{ duration: 0.22, ease: easing }}
+                aria-hidden="true"
+              >
+                <ChevronDown className="h-5 w-5" />
+              </motion.span>
+            </button>
+          </h3>
+          <p className="text-sm text-muted">{area.courts}</p>
+        </div>
+        <p className="text-base text-ink-2">{area.summary}</p>
+      </div>
 
       <AnimatePresence initial={false}>
         {open ? (
           <motion.div
             id={`${area.id}-panel`}
-            layout
-            initial={reduce ? { opacity: 1 } : { opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={reduce ? { opacity: 0 } : { opacity: 0, height: 0 }}
-            transition={{ duration: 0.4, ease: easing }}
-            className="overflow-hidden"
+            initial={reduce ? { opacity: 1 } : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22, ease: easing }}
           >
-            <div className="px-6 pb-7 sm:px-7">
-              <div className="ml-0 border-t border-[var(--naga-line)] pt-5 text-sm leading-[1.85] text-[var(--naga-linen)] sm:ml-[64px]">
+            <div className="px-5 pb-6 sm:px-6 sm:pl-[calc(44px+1.5rem+1.5rem)]">
+              <div className="max-w-[65ch] border-t border-ink pt-4 text-base text-ink-2">
                 {area.detail}
-                <span className="mt-3 block text-xs font-medium italic tracking-[0.03em] text-[var(--naga-cyan)]">
+                <span className="mt-3 block text-sm font-medium text-ink">
                   {area.hoverDetail}
                 </span>
                 {(() => {
@@ -500,10 +378,10 @@ function PracticeCard({
                   return seo ? (
                     <Link
                       href={`/practice/${seo.slug}`}
-                      className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-[var(--naga-gold)] transition-opacity hover:opacity-80"
+                      className="mt-4 inline-flex min-h-11 items-center gap-2 font-medium text-ink underline underline-offset-4 decoration-accent decoration-2"
                     >
-                      Learn more about {area.title}
-                      <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                      Learn more
+                      <span className="sr-only"> about {area.title}</span>
                     </Link>
                   ) : null;
                 })()}
@@ -512,7 +390,7 @@ function PracticeCard({
           </motion.div>
         ) : null}
       </AnimatePresence>
-    </motion.article>
+    </article>
   );
 }
 
@@ -520,14 +398,13 @@ function PracticeSection() {
   const [openId, setOpenId] = useState<string>(practiceAreas[0].id);
 
   return (
-    <section id="practice" className="naga-section relative">
+    <section id="practice" className="naga-section border-t border-ink">
       <div className="naga-container">
         <SectionTitle
-          kicker="Practice areas"
           title="Serious legal work across Anantapur district forums."
           body="Revenue & land disputes before Tahsildar, RDO, and Collector. Civil, criminal bail, family partition, and consumer forum representation with clear strategy and direct advocate communication."
         />
-        <div className="grid gap-5 lg:grid-cols-2">
+        <div className="grid gap-3">
           {practiceAreas.map((area, index) => (
             <PracticeCard
               key={area.id}
@@ -551,74 +428,69 @@ function PracticeSection() {
 
 function AdvocateSection() {
   return (
-    <section id="advocate" className="naga-section relative">
-      <div className="naga-container grid items-center gap-14 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
-        <Reveal>
-          <div className="naga-card p-7 sm:p-9">
-            <p className="naga-sub-header mb-7 text-[var(--naga-gold)]">
-              At a glance
-            </p>
-            <div className="grid grid-cols-2 gap-6">
-              {[
-                { value: `${YEARS_EXPERIENCE}+`, label: "Years of Experience" },
-                {
-                  value: String(site.advocate.barCouncilYear),
-                  label: "Bar Council Enrolled",
-                },
-                { value: "Anantapur", label: "Bar Association" },
-                { value: "Direct", label: "Advocate Access" },
-              ].map((item) => (
-                <div key={item.label}>
-                  <p className="font-[var(--font-display)] text-3xl font-semibold tracking-[-0.02em] text-[var(--naga-ivory)] sm:text-4xl">
-                    <CountUp value={item.value} />
-                  </p>
-                  <p className="mt-2 text-[10px] font-medium tracking-[0.18em] uppercase text-[var(--naga-muted)]">
-                    {item.label}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <div className="naga-divider my-8" />
-
-            <div className="grid gap-3">
-              {[
-                "B.A., LL.B.",
-                "Bar Council of Andhra Pradesh",
-                "Revenue & land record disputes — Tahsildar, RDO",
-                "Civil, criminal, family & consumer matters",
-              ].map((item) => (
-                <div key={item} className="naga-proof-row">
-                  <CircleDot
-                    className="h-3.5 w-3.5 shrink-0 mt-0.5 text-[var(--naga-gold)]"
-                    aria-hidden="true"
-                  />
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
+    <section id="advocate" className="naga-section border-t border-ink">
+      <div className="naga-container grid items-start gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-[var(--gap-columns)]">
+        <div className="entry">
+          <div className="entry__head">
+            <span>At a glance</span>
+            <span>Anantapur Bar</span>
           </div>
-        </Reveal>
+          <div className="grid grid-cols-2 border-b border-ink">
+            {[
+              { value: `${YEARS_EXPERIENCE}+`, label: "Years of experience" },
+              {
+                value: String(site.advocate.barCouncilYear),
+                label: "Bar Council enrolled",
+              },
+              { value: "Anantapur", label: "Bar Association" },
+              { value: "Direct", label: "Advocate access" },
+            ].map((item, i) => (
+              <div
+                key={item.label}
+                className={`entry__body !border-t-0 ${i % 2 === 0 ? "border-r border-ink" : ""} ${i > 1 ? "border-t border-ink" : ""}`}
+              >
+                <p className="font-[family-name:var(--font-display)] text-2xl font-semibold tracking-[var(--tracking-display)] text-ink">
+                  <CountUp value={item.value} />
+                </p>
+                <p className="mt-1 text-sm text-muted">{item.label}</p>
+              </div>
+            ))}
+          </div>
+          <div className="p-5">
+            {[
+              "B.A., LL.B.",
+              "Bar Council of Andhra Pradesh",
+              "Revenue & land record disputes before Tahsildar, RDO",
+              "Civil, criminal, family & consumer matters",
+            ].map((item) => (
+              <div key={item} className="naga-proof-row">
+                <BadgeCheck
+                  className="mt-0.5 h-4 w-4 shrink-0 text-ink"
+                  aria-hidden="true"
+                />
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
 
-        <Reveal delay={0.1}>
-          <p className="naga-eyebrow mb-6 inline-flex">Advocate profile</p>
-          <h2 className="naga-section-title text-balance">
-            Adv. S. Nagendra Naik
-          </h2>
-          <p className="mt-7 text-base leading-[1.85] text-[var(--naga-linen)]">
+        <div>
+          <h2 className="naga-section-title">Adv. S. Nagendra Naik</h2>
+          <p className="mt-7 max-w-[65ch] text-lg text-ink-2">
             A practice rooted in Anantapur courts, revenue offices, and Andhra
-            Pradesh procedure since {site.advocate.practisingSince} — over {YEARS_EXPERIENCE} years of
-            direct advocacy. Enrolled with the Bar Council of Andhra Pradesh in
-            2019, Adv. S. Nagendra Naik appears regularly before the Tahsildar,
-            RDO, District Courts, and the Andhra Pradesh High Court.
+            Pradesh procedure since {site.advocate.practisingSince}, over{" "}
+            {YEARS_EXPERIENCE} years of direct advocacy. Enrolled with the Bar
+            Council of Andhra Pradesh in {site.advocate.barCouncilYear}, Adv. S.
+            Nagendra Naik appears regularly before the Tahsildar, RDO, District
+            Courts, and the Andhra Pradesh High Court.
           </p>
-          <p className="mt-5 text-base leading-[1.85] text-[var(--naga-linen)]">
+          <p className="mt-5 max-w-[65ch] text-lg text-ink-2">
             Clients work directly with the advocate from first assessment
-            through filing, hearing, and compliance — with thorough preparation
+            through filing, hearing, and compliance, with thorough preparation
             on revenue records, title documents, and procedural filings before
             every court or administrative proceeding.
           </p>
-        </Reveal>
+        </div>
       </div>
     </section>
   );
@@ -630,46 +502,42 @@ function AdvocateSection() {
 
 function CourtsSection() {
   return (
-    <section id="courts" className="naga-section relative">
+    <section id="courts" className="naga-section border-t border-ink">
       <div className="naga-container">
         <SectionTitle
-          kicker="Courts & process"
           title="Built for the forums where your case is actually decided."
           body="Covering revenue authorities across Anantapur district, civil courts, criminal courts, family forums, consumer commissions, and AP High Court proceedings."
         />
 
-        <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-          <Reveal>
-            <div className="naga-card h-full p-6 sm:p-8">
-              <div className="mb-7 flex items-center gap-3">
-                <span className="naga-icon-shell">
-                  <Landmark className="h-5 w-5" aria-hidden="true" />
-                </span>
-                <h3 className="text-xl font-semibold tracking-[-0.02em] text-[var(--naga-ivory)]">
-                  Forum coverage
-                </h3>
-              </div>
-              <ForumRoute items={courtMatrix} />
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-[var(--gap-columns)]">
+          <div>
+            <div className="mb-6 flex items-center gap-3">
+              <span className="naga-icon-shell">
+                <Landmark className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <h3 className="text-xl font-semibold text-ink">Forum coverage</h3>
             </div>
-          </Reveal>
+            <ForumRoute items={courtMatrix} />
+          </div>
 
-          <div className="grid gap-5 sm:grid-cols-2">
+          <ol className="naga-ruled m-0 list-none p-0">
             {processSteps.map((step, index) => (
-              <Reveal key={step.title} delay={index * 0.06}>
-                <div className="naga-card h-full p-6">
-                  <p className="mb-3 text-xs font-semibold tracking-[0.15em] text-[var(--naga-sapphire-light)]">
-                    {String(index + 1).padStart(2, "0")}
-                  </p>
-                  <h3 className="text-lg font-semibold tracking-[-0.01em] text-[var(--naga-ivory)]">
-                    {step.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-[1.8] text-[var(--naga-linen)]">
+              <li
+                key={step.title}
+                className="grid gap-2 py-5 sm:grid-cols-[56px_minmax(0,1fr)] sm:gap-4"
+              >
+                <span className="num text-sm text-muted">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h3 className="text-xl font-semibold text-ink">{step.title}</h3>
+                  <p className="mt-2 max-w-[60ch] text-base text-ink-2">
                     {step.body}
                   </p>
                 </div>
-              </Reveal>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </div>
     </section>
@@ -682,41 +550,38 @@ function CourtsSection() {
 
 function ContactSection() {
   return (
-    <section id="contact" className="naga-section relative pb-20">
+    <section id="contact" className="naga-section border-t border-ink">
       <div className="naga-container">
         <Reveal>
-          <div className="naga-contact-panel overflow-hidden rounded-2xl p-6 sm:p-8 lg:p-10">
+          <div className="naga-contact-panel overflow-hidden p-6 sm:p-8 lg:p-10">
             <div className="mb-9 flex flex-wrap gap-2.5">
               <span className="naga-trust-badge">
-                <BadgeCheck className="h-3.5 w-3.5 text-[var(--naga-gold)]" aria-hidden="true" />
+                <BadgeCheck className="h-4 w-4" aria-hidden="true" />
                 Direct advocate access
               </span>
               <span className="naga-trust-badge">
-                <Clock className="h-3.5 w-3.5 text-[var(--naga-cyan)]" aria-hidden="true" />
+                <Clock className="h-4 w-4" aria-hidden="true" />
                 Same-day response
               </span>
               <span className="naga-trust-badge">
-                <ShieldCheck className="h-3.5 w-3.5 text-[var(--naga-gold)]" aria-hidden="true" />
+                <ShieldCheck className="h-4 w-4" aria-hidden="true" />
                 Confidential consultation
               </span>
             </div>
 
-            <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+            <div className="grid gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-start">
               <div>
-                <p className="naga-eyebrow mb-6 inline-flex">
-                  Book consultation
-                </p>
-                <h2 className="naga-section-title text-balance">
+                <h2 className="naga-section-title">
                   Discuss documents, forum strategy & next steps.
                 </h2>
-                <p className="mt-7 max-w-2xl text-base leading-[1.85] text-[var(--naga-linen)]">
+                <p className="mt-7 max-w-[60ch] text-lg text-ink-2">
                   Share the facts directly with Adv. S. Nagendra Naik.
                   Get a clear assessment of court route, document gaps,
                   urgency, and expected next steps for Tahsildar appeals,
                   RDO proceedings, Adangal corrections, mutations, and
                   AP High Court writs.
                 </p>
-                <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <EditorialButton
                     href={PHONE_HREF}
                     onClick={() => trackEvent("call_click", { location: "contact" })}
@@ -733,7 +598,7 @@ function ContactSection() {
                   </EditorialButton>
                 </div>
 
-                <div className="mt-8 grid gap-4">
+                <div className="naga-ruled mt-8">
                   {[
                     {
                       icon: Phone,
@@ -771,15 +636,15 @@ function ContactSection() {
                       >
                         <span className="naga-icon-shell">
                           <ContactIcon
-                            className="h-4.5 w-4.5"
+                            className="h-5 w-5"
                             aria-hidden="true"
                           />
                         </span>
                         <span>
-                          <span className="block text-[10px] font-medium tracking-[0.2em] uppercase text-[var(--naga-muted)]">
+                          <span className="block text-sm text-muted">
                             {item.label}
                           </span>
-                          <span className="mt-1 block text-sm leading-6 text-[var(--naga-ivory)]">
+                          <span className="block text-base text-ink">
                             {item.value}
                           </span>
                         </span>
@@ -807,30 +672,11 @@ function ContactSection() {
    ============================================ */
 
 export default function HomePage() {
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll();
-  const backgroundOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.65, 1],
-    [0.95, 0.7, 0.5]
-  );
-
   return (
-    <main className="naga-page-bg relative min-h-[100dvh] overflow-x-hidden">
-      {/* Fixed background gradient layer */}
-      <motion.div
-        className="pointer-events-none fixed inset-0 -z-10"
-        style={{ opacity: backgroundOpacity }}
-        aria-hidden="true"
-      >
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgb(30_58_138_/_0.06),transparent_40%),radial-gradient(ellipse_at_85%_20%,rgb(212_175_55_/_0.04),transparent_35%),linear-gradient(180deg,#090d16_0%,#0c1120_48%,#090d16_100%)]" />
-      </motion.div>
-
-      {/* Micro-grid texture overlay */}
-      <div className="naga-grid-texture" aria-hidden="true" />
-
+    <main id="main" className="relative min-h-[100dvh]">
       <Navbar />
       <Hero />
+      <GlanceStrip />
       <PracticeSection />
       <AdvocateSection />
       <CourtsSection />

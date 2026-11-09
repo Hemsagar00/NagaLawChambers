@@ -17,7 +17,7 @@ export function MapEmbed({ className = "" }: { className?: string }) {
         rel="noopener noreferrer"
         className="naga-map-link"
       >
-        Open in Google Maps →
+        Open in Google Maps
       </a>
     </div>
   );

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { practiceAreaTitles } from "@/lib/content";
 import { buildIntakeMessage, buildWhatsappHref } from "@/lib/whatsapp";
 import { trackEvent } from "@/lib/analytics";
@@ -47,20 +47,20 @@ export function IntakeForm() {
   if (sent) {
     return (
       <div className="naga-form-card flex flex-col items-center justify-center gap-4 text-center">
-        <span className="grid h-14 w-14 place-items-center rounded-full border border-[rgb(212_175_55_/_0.3)] bg-[rgb(212_175_55_/_0.08)]">
-          <CheckCircle2 className="h-7 w-7 text-[var(--naga-gold)]" aria-hidden="true" />
+        <span className="naga-icon-shell !h-14 !w-14 !rounded-full">
+          <CheckCircle2 className="h-7 w-7 text-ink" aria-hidden="true" />
         </span>
-        <p className="text-lg font-semibold text-[var(--naga-ivory)]">
+        <p className="text-lg font-semibold text-ink">
           Opening WhatsApp…
         </p>
-        <p className="max-w-xs text-sm leading-relaxed text-[var(--naga-linen)]">
+        <p className="max-w-xs text-sm leading-relaxed text-ink-2">
           Send the pre-filled message to reach Adv. S. Nagendra Naik directly.
           If WhatsApp didn&apos;t open, please call us instead.
         </p>
         <button
           type="button"
           onClick={() => setSent(false)}
-          className="text-xs font-medium tracking-[0.1em] uppercase text-[var(--naga-gold)] underline-offset-4 hover:underline"
+          className="text-sm font-medium text-ink underline underline-offset-4"
         >
           Send another request
         </button>
@@ -70,10 +70,10 @@ export function IntakeForm() {
 
   return (
     <form onSubmit={handleSubmit} className="naga-form-card" noValidate>
-      <p className="naga-sub-header mb-1 text-[var(--naga-gold)]">
+      <p className="naga-sub-header mb-1 text-ink">
         Request a callback
       </p>
-      <h3 className="mb-5 text-xl font-semibold tracking-[-0.01em] text-[var(--naga-ivory)]">
+      <h3 className="mb-5 text-xl font-semibold tracking-[-0.01em] text-ink">
         Send your case details
       </h3>
 
@@ -131,7 +131,7 @@ export function IntakeForm() {
 
         <div>
           <label htmlFor="lead-message" className="naga-field-label">
-            Brief details <span className="text-[var(--naga-muted)]">(optional)</span>
+            Brief details <span className="text-muted">(optional)</span>
           </label>
           <textarea
             id="lead-message"
@@ -144,7 +144,7 @@ export function IntakeForm() {
         </div>
 
         {error ? (
-          <p role="alert" className="text-sm text-[#f0a3a3]">
+          <p role="alert" className="text-sm font-medium text-[var(--color-error)]">
             {error}
           </p>
         ) : null}
@@ -154,15 +154,12 @@ export function IntakeForm() {
           whileHover={reduce ? undefined : { y: -2 }}
           whileTap={{ scale: 0.985 }}
           transition={{ duration: 0.35, ease: easing }}
-          className="naga-button naga-button-primary w-full"
+          className="naga-button naga-button-whatsapp w-full"
         >
           <span>Send on WhatsApp</span>
-          <span className="naga-button-orb" aria-hidden="true">
-            <ArrowRight className="h-4 w-4" />
-          </span>
         </motion.button>
 
-        <p className="text-center text-[11px] leading-relaxed text-[var(--naga-muted)]">
+        <p className="text-center text-sm leading-relaxed text-muted">
           Goes straight to the advocate&apos;s WhatsApp — no account or sign-up needed.
         </p>
       </div>
