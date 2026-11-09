@@ -78,7 +78,7 @@ export function SiteFooter({ locale = "en" }: { locale?: Locale }) {
                 Leave a Google review
               </a>
             ) : null}
-            <p className="naga-sub-header mb-2 mt-5 text-ink">{T ? T.footer.follow : "Follow"}</p>
+            <p className="naga-sub-header mb-2 mt-5 text-ink">{T ? T.footer.follow : "Follow the chambers"}</p>
             <ul className="m-0 flex list-none flex-wrap gap-x-4 gap-y-2 p-0">
               {socialProfiles.map((p) => (
                 <li key={p.url}>

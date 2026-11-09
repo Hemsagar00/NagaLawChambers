@@ -40,11 +40,10 @@ export const site = {
   },
 } as const;
 
-/** Public profiles that belong to the chambers and the advocate. */
+/** The chambers' only social channels. Keep this list to accounts the chambers owns. */
 export const socialProfiles = [
+  { name: "WhatsApp channel", url: "https://whatsapp.com/channel/0029VbCkToDDDmFNwXqDAr3q" },
   { name: "Instagram", url: "https://www.instagram.com/nagalawchambers/" },
-  { name: "Instagram (advocate)", url: "https://www.instagram.com/advocate_nagendranaik/" },
-  { name: "LinkedIn", url: "https://in.linkedin.com/in/nagendra-naik-a7aa6853" },
 ] as const;
 
 export const phoneHref = `tel:${site.contact.phoneTel}`;

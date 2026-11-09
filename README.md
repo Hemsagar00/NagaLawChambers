@@ -85,7 +85,7 @@ src/
 | Phone, email, office, GBP links, analytics IDs | `src/lib/site.ts` |
 | Practice areas, stats, hero/about copy, testimonials | `src/lib/content.ts` |
 | Telugu text for the home page | `src/lib/home-copy.ts` (have a Telugu speaker check changes) |
-| Instagram / LinkedIn links (footer + schema) | `socialProfiles` in `src/lib/site.ts` |
+| WhatsApp channel and Instagram links (footer + schema) | `socialProfiles` in `src/lib/site.ts` |
 | Practice/location page copy + FAQs | `src/lib/local-seo.ts` |
 | Design tokens | `src/app/globals.css` |
 | Advocate photo | `public/advocate.jpg` (do not rename) |

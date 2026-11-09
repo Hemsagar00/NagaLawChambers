@@ -29,8 +29,10 @@ name, address and phone everywhere.
 - 3 to 5 short, plain-language guides in English and Telugu, for example how to correct an Adangal entry,
   how mutation works, what to bring to a land-dispute consultation. Claude can draft them; the advocate must
   review before publishing. Do not publish unreviewed legal content.
-- Share each guide on Instagram and LinkedIn, and add the page link to the Google profile as a post.
+- Share each guide on the WhatsApp channel and Instagram, and add the page link to the Google profile as a post.
 
-## Check the social links
-`socialProfiles` in `src/lib/site.ts` lists two Instagram accounts and one LinkedIn profile found by search.
-Confirm they are yours; remove any that are not.
+## Social channels
+The site links only the chambers' two channels: the WhatsApp channel and the Instagram account
+(`socialProfiles` in `src/lib/site.ts`). Post each new guide and judgment summary there, and mention
+the WhatsApp channel on the Google profile and on printed cards. Add a channel to the list only if the
+chambers owns it.
