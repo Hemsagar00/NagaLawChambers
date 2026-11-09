@@ -11,26 +11,19 @@ Official website of **Advocate S. Nagendra Naik** — Anantapur Bar, enrolled wi
 | Framework | Next.js 16 (App Router, Turbopack) |
 | Language | TypeScript |
 | UI | React 19 + Tailwind CSS v4 |
-| Motion | Framer Motion 12, plus CSS animation for the map |
+| Motion | Framer Motion 12 (scroll progress, count-up) and CSS transitions |
 | Icons | Lucide React |
 | Hosting | Cloudflare (deployed from `master`) |
 
-## Design System: "Furrow"
+## Design System
 
-Warm, light and editorial. Manila paper, near-black ink, one tangerine signal, and a generated survey map as the hero. Built from the Furrow theme in [Hallmark](https://github.com/Nutlope/hallmark) (MIT) and checked with its linter.
+Black, white and translucent glass on a seamless mosaic of rounded cards, set in Open Sauce One. Built from a "masked card" spec: a section's cards are windows onto one shared background image (`src/components/home/masked.tsx`), so the image continues across the gaps between them.
 
-| Token | Value | Usage |
-|---|---|---|
-| Paper | `oklch(96% 0.011 85)` | Page background |
-| Ink | `oklch(18% 0.006 60)` | Text, rules, the entry-card head |
-| Tangerine | `oklch(70% 0.19 40)` | The primary key, the open pin, the holding's edge. A fill with ink on it, never text |
-| WhatsApp green | `oklch(72% 0.19 150)` | The two WhatsApp keys only |
-
-Tokens live in `src/app/tokens.css`; component styles (`.naga-*`, `.hero`, `.map`, `.entry`) in `src/app/globals.css`. Type is Red Hat Display (headings), Red Hat Text (body) and Red Hat Mono (figures), loaded with `next/font`. The social card and favicon read their colours from `src/lib/brand-colors.ts`, because their renderer cannot use CSS variables.
-
-Motion is small and plays once: the hero map's route draws and its pins land, the forum list draws as you scroll, and the years figure counts up. All of it is off under `prefers-reduced-motion`, and the page works with scripting off.
-
-To re-check the design: `node <hallmark>/skills/hallmark/scripts/sloplint.mjs src/app src/components`.
+- **Shared images:** `public/mosaic-light.svg` (hero) and `public/mosaic-dark.svg` (practice areas) are contour maps drawn in code. Regenerate with `npx tsx scripts/make-mosaic.ts`; the generator is `src/lib/contours.ts`.
+- **Home page:** `src/components/home/landing.tsx` holds the splash counter, fixed navbar, hero, practice areas, courts and process, and the advocate and contact section.
+- **Tokens:** `src/app/tokens.css` (pure black and white, neutral greys) and component styles in `src/app/globals.css`, used by the sub-pages, footer and forms.
+- **Font:** Open Sauce One, loaded from onlinewebfonts.com in `src/app/layout.tsx`.
+- **Motion:** the splash counter, a one-time staggered reveal per section, and a count-up on the years figure. Reduced motion skips the splash and shortens transitions; with scripting off, every section is visible.
 
 ## Routes
 
@@ -64,8 +57,8 @@ src/
 │   ├── analytics/                # GA4 + GTM loaders
 │   ├── conversion/               # WhatsApp FAB, sticky CTA, intake form, inline CTA
 │   ├── layout/                   # SiteHeader, SiteFooter
-│   ├── map/                      # Generated survey map (hero)
-│   ├── motion/                   # Scroll progress, smooth scroll, forum route, count-up
+│   ├── home/                     # Home page: masked-card mosaic, splash, sections
+│   ├── motion/                   # Scroll progress, smooth scroll, count-up
 │   ├── seo/                      # JSON-LD, FAQ, page schema
 │   ├── map-embed.tsx             # Keyless Google Maps embed
 │   └── testimonials.tsx          # Renders only when real testimonials exist

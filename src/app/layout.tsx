@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Red_Hat_Display, Red_Hat_Text, Red_Hat_Mono } from "next/font/google";
 import { JsonLd } from "@/components/seo/json-ld";
 import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { SmoothScrollProvider } from "@/components/motion/smooth-scroll";
@@ -12,24 +11,6 @@ import { WhatsappFab } from "@/components/conversion/whatsapp-fab";
 import { StickyCta } from "@/components/conversion/sticky-cta";
 import { baseUrl, metadataBase, site } from "@/lib/site";
 import "./globals.css";
-
-const display = Red_Hat_Display({
-  variable: "--font-rh-display",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const text = Red_Hat_Text({
-  variable: "--font-rh-text",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const mono = Red_Hat_Mono({
-  variable: "--font-rh-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase,
@@ -102,7 +83,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f6f2ea",
+  themeColor: "#ffffff",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -117,8 +98,21 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${display.variable} ${text.variable} ${mono.variable} antialiased`}
+      className="antialiased"
     >
+      <head>
+        <link
+          href="https://db.onlinewebfonts.com/c/1cd1e7d71e048159076fd90b39846902?family=Open+Sauce+One"
+          rel="stylesheet"
+        />
+        <link
+          href="https://db.onlinewebfonts.com/c/42acf9aa4a6dc2f2886a3f682e337ead?family=Open+Sauce+One+Bold"
+          rel="stylesheet"
+        />
+        <noscript>
+          <style>{`[style*="opacity:0"]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
+      </head>
       <body>
         <GoogleTagManagerNoscript />
         <a href="#main" className="skip-link">
