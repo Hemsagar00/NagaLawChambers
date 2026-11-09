@@ -1,8 +1,8 @@
-import { site, mapHref } from "@/lib/site";
+import { site, mapHref, socialProfiles } from "@/lib/site";
 import { testimonials } from "@/lib/content";
 
 export function JsonLd() {
-  const sameAs = [site.gbp.profileUrl].filter(Boolean);
+  const sameAs = [site.gbp.profileUrl, ...socialProfiles.map((p) => p.url)].filter(Boolean);
 
   const rated = testimonials.filter((t) => typeof t.rating === "number");
   const aggregateRating =

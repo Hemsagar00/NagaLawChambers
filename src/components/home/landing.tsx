@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { BadgeCheck, FileSearch, FileText, Gavel, Mail, MapPin, Menu, Phone, Route, X } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -13,6 +13,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { Testimonials } from "@/components/testimonials";
 import { Reveal } from "@/components/home/reveal";
 import { courtMatrix, navLinks, practiceAreas, processSteps } from "@/lib/content";
+import { te, teAreas, teCourts, teSteps, type Locale } from "@/lib/home-copy";
 import { getPracticeAreaIcon } from "@/lib/icons";
 import { practicePages } from "@/lib/local-seo";
 import { trackEvent } from "@/lib/analytics";
@@ -23,12 +24,18 @@ const YEARS = new Date().getFullYear() - site.advocate.practisingSince;
 const WHATSAPP_HREF = buildWhatsappHref();
 const processIcons: LucideIcon[] = [FileSearch, Route, FileText, Gavel];
 
+/** Telugu strings when the page is /te; null for English. */
+const TeContext = createContext<typeof te | null>(null);
+const useT = () => useContext(TeContext);
+
 /* ============================================
    Header
    ============================================ */
 
 function Header() {
+  const T = useT();
   const [open, setOpen] = useState(false);
+  const nav = T ? T.nav : navLinks;
 
   useEffect(() => {
     if (!open) return;
@@ -40,25 +47,37 @@ function Header() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-rule/70 bg-paper/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-[1240px] items-center justify-between px-5 md:h-[72px] md:px-8">
-        <a href="#top" className="font-display text-2xl leading-none tracking-[var(--tracking-display)] text-ink md:text-[28px]" aria-label="NAGA Law Chambers home">
-          Naga Law Chambers
+        <a
+          href="#top"
+          className="font-display text-2xl leading-none tracking-[var(--tracking-display)] text-ink md:text-[28px]"
+          aria-label={T ? T.home : "NAGA Law Chambers home"}
+        >
+          {T ? "నాగ లా ఛాంబర్స్" : "Naga Law Chambers"}
         </a>
 
         <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
-          {navLinks.map((item) => (
+          {nav.map((item) => (
             <a key={item.href} href={item.href} className="naga-nav-link">
               {item.label}
             </a>
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
+          <Link
+            href={T ? "/" : "/te"}
+            hrefLang={T ? "en" : "te"}
+            lang={T ? "en" : "te"}
+            className="naga-nav-link px-2 text-base font-semibold"
+          >
+            {T ? "English" : "తెలుగు"}
+          </Link>
           <a
             href="#contact"
             className="naga-button naga-button-primary hidden !min-h-11 !w-auto sm:inline-flex"
             onClick={() => trackEvent("consult_click", { location: "header" })}
           >
-            Book a consultation
+            {T ? T.book : "Book a consultation"}
           </a>
           <button
             type="button"
@@ -75,7 +94,7 @@ function Header() {
 
       {open ? (
         <div id="mobile-menu" className="border-t border-rule/70 bg-paper px-5 pb-5 pt-2 md:hidden">
-          {navLinks.map((item) => (
+          {nav.map((item) => (
             <a
               key={item.href}
               href={item.href}
@@ -96,6 +115,7 @@ function Header() {
    ============================================ */
 
 function Hero() {
+  const T = useT();
   return (
     <section id="top" className="relative overflow-hidden pt-24 md:pt-32">
       <div
@@ -110,13 +130,21 @@ function Hero() {
       <div className="relative mx-auto grid max-w-[1240px] gap-10 px-5 pb-14 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] md:items-center md:gap-12 md:px-8 md:pb-24">
         <div>
           <p className="mb-5 text-sm font-medium text-muted md:text-base">
-            Advocate S. Nagendra Naik, Anantapur Bar
+            {T ? T.hero.eyebrow : "Advocate S. Nagendra Naik, Anantapur Bar"}
           </p>
           <h1 className="font-display text-[clamp(3rem,8.4vw,6.75rem)] leading-[0.98] tracking-[var(--tracking-display)] text-ink">
-            Defending land, <em className="italic">legacy &amp; rights.</em>
+            {T ? (
+              <>
+                {T.hero.h1a} <em className="italic">{T.hero.h1b}</em>
+              </>
+            ) : (
+              <>
+                Defending land, <em className="italic">legacy &amp; rights.</em>
+              </>
+            )}
           </h1>
           <p className="naga-lead mt-6 max-w-[34ch] !text-lg md:!text-xl">
-            Direct representation before revenue offices and courts across Andhra Pradesh.
+            {T ? T.hero.sentence : "Direct representation before revenue offices and courts across Andhra Pradesh."}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
@@ -124,14 +152,14 @@ function Hero() {
               className="naga-button naga-button-primary"
               onClick={() => trackEvent("consult_click", { location: "hero" })}
             >
-              Book a consultation
+              {T ? T.book : "Book a consultation"}
             </a>
             <a
               href={phoneHref}
               className="naga-button naga-button-secondary hidden sm:inline-flex"
               onClick={() => trackEvent("call_click", { location: "hero" })}
             >
-              Call {site.contact.phoneDisplay}
+              {T ? T.call : "Call"} {site.contact.phoneDisplay}
             </a>
           </div>
         </div>
@@ -148,8 +176,10 @@ function Hero() {
             />
           </div>
           <div className="mt-3 rounded-2xl bg-paper-2 px-4 py-3 md:absolute md:bottom-5 md:left-5 md:right-auto md:mt-0 md:min-w-[260px] md:bg-paper-2/90 md:backdrop-blur-md">
-            <p className="font-display text-2xl leading-none text-ink">S. Nagendra Naik</p>
-            <p className="mt-1.5 text-sm text-muted">B.A., LL.B. Anantapur Bar, enrolled {site.advocate.barCouncilYear}</p>
+            <p className="font-display text-2xl leading-none text-ink">{T ? T.hero.cardName : "S. Nagendra Naik"}</p>
+            <p className="mt-1.5 text-sm text-muted">
+              {T ? T.hero.card : `B.A., LL.B. Anantapur Bar, enrolled ${site.advocate.barCouncilYear}`}
+            </p>
           </div>
         </div>
       </div>
@@ -162,21 +192,22 @@ function Hero() {
    ============================================ */
 
 function About() {
+  const T = useT();
   const stats = [
-    { value: `${YEARS}+`, label: "Years of practice at the Anantapur Bar" },
-    { value: String(practiceAreas.length), label: "Practice areas" },
-    { value: String(courtMatrix.length), label: "Forums covered, from the Tahsildar to the High Court" },
-    { value: String(site.advocate.barCouncilYear), label: "Enrolled with the Bar Council of Andhra Pradesh" },
+    { value: `${YEARS}+`, label: T ? T.about.years : "Years of practice at the Anantapur Bar" },
+    { value: String(practiceAreas.length), label: T ? T.about.areas : "Practice areas" },
+    { value: String(courtMatrix.length), label: T ? T.about.forums : "Forums covered, from the Tahsildar to the High Court" },
+    { value: String(site.advocate.barCouncilYear), label: T ? T.about.enrolled : "Enrolled with the Bar Council of Andhra Pradesh" },
   ];
   return (
     <section id="about" className="mx-auto max-w-[1240px] px-5 py-16 md:px-8 md:py-24">
       <Reveal>
-        <p className="mb-4 text-sm font-medium text-muted md:text-base">Who we are</p>
+        <p className="mb-4 text-sm font-medium text-muted md:text-base">{T ? T.about.label : "Who we are"}</p>
         <h2 className="font-display text-[clamp(2rem,4.6vw,3.75rem)] leading-[1.05] tracking-[var(--tracking-display)] text-ink !max-w-[26ch]">
-          A practice built on land records, revenue procedure and the courts of Andhra Pradesh.
+          {T ? T.about.heading : "A practice built on land records, revenue procedure and the courts of Andhra Pradesh."}
         </h2>
         <p className="mt-5 max-w-[52ch] text-base text-muted md:text-lg">
-          Based in Anantapur and serving clients across Andhra Pradesh.
+          {T ? T.about.sub : "Based in Anantapur and serving clients across Andhra Pradesh."}
         </p>
       </Reveal>
       <Reveal delay={80}>
@@ -200,15 +231,17 @@ function About() {
    ============================================ */
 
 function Expertise() {
+  const T = useT();
   return (
     <section id="practice" className="mx-auto max-w-[1240px] px-5 pb-16 md:px-8 md:pb-24">
       <Reveal>
         <h2 className="font-display text-[clamp(2.25rem,5vw,4rem)] leading-[1.02] tracking-[var(--tracking-display)] text-ink">
-          Our expertise
+          {T ? T.expertise.heading : "Our expertise"}
         </h2>
         <p className="mt-4 max-w-[52ch] text-base text-muted md:text-lg">
-          Revenue and land disputes before Tahsildar, RDO and Collector. Civil, criminal bail, family partition and
-          consumer forum representation, with clear strategy and direct advocate communication.
+          {T
+            ? T.expertise.intro
+            : "Revenue and land disputes before Tahsildar, RDO and Collector. Civil, criminal bail, family partition and consumer forum representation, with clear strategy and direct advocate communication."}
         </p>
       </Reveal>
 
@@ -216,17 +249,20 @@ function Expertise() {
         {practiceAreas.map((area, i) => {
           const Icon = getPracticeAreaIcon(area.icon);
           const page = practicePages.find((p) => p.practiceId === area.id);
+          const loc = T ? teAreas[area.id] : undefined;
+          const title = loc?.title ?? area.title;
           const body = (
             <>
               <span className="naga-icon-shell !h-14 !w-14">
                 <Icon className="h-6 w-6" aria-hidden="true" />
               </span>
-              <span className="mt-6 block font-display text-3xl leading-tight text-ink">{area.title}</span>
-              <span className="mt-1 block text-sm text-muted">{area.courts}</span>
-              <span className="mt-4 block text-base leading-6 text-ink-2">{area.summary}</span>
+              <span className="mt-6 block font-display text-3xl leading-tight text-ink">{title}</span>
+              <span className="mt-1 block text-sm text-muted">{loc?.courts ?? area.courts}</span>
+              <span className="mt-4 block text-base leading-6 text-ink-2">{loc?.summary ?? area.summary}</span>
               {page ? (
                 <span className="mt-6 inline-flex min-h-11 items-center text-sm font-semibold text-ink underline underline-offset-4">
-                  Learn more<span className="sr-only"> about {area.title}</span>
+                  {T ? T.expertise.more : "Learn more"}
+                  <span className="sr-only"> {title}</span>
                 </span>
               ) : null}
             </>
@@ -250,17 +286,19 @@ function Expertise() {
           className="relative flex min-h-[260px] flex-col justify-between overflow-hidden rounded-3xl bg-ink bg-cover bg-center p-6 text-white md:p-7"
           style={{ backgroundImage: "url(/contours-navy.svg)" }}
         >
-          <h3 className="font-display text-3xl leading-tight text-white !max-w-[16ch]">Start with your documents.</h3>
+          <h3 className="font-display text-3xl leading-tight text-white !max-w-[16ch]">
+            {T ? T.expertise.ctaTitle : "Start with your documents."}
+          </h3>
           <div>
             <p className="mb-5 text-base leading-6 text-white/80">
-              Share the facts directly with the advocate and get a clear view of the court route.
+              {T ? T.expertise.ctaBody : "Share the facts directly with the advocate and get a clear view of the court route."}
             </p>
             <a
               href="#contact"
               className="naga-button !bg-white !text-ink"
               onClick={() => trackEvent("consult_click", { location: "expertise_card" })}
             >
-              Get in touch
+              {T ? T.expertise.ctaButton : "Get in touch"}
             </a>
           </div>
         </div>
@@ -274,27 +312,31 @@ function Expertise() {
    ============================================ */
 
 function Advocate() {
+  const T = useT();
+  const courts = T ? teCourts : courtMatrix;
+  const bullets = T
+    ? T.advocate.bullets
+    : ["B.A., LL.B.", "Bar Council of Andhra Pradesh", "Revenue & land record disputes before Tahsildar, RDO", "Civil, criminal, family & consumer matters"];
   return (
     <section id="advocate" className="mx-auto max-w-[1240px] px-5 pb-16 md:px-8 md:pb-24">
       <div className="grid gap-10 md:grid-cols-2 md:gap-14">
         <Reveal>
-          <p className="mb-4 text-sm font-medium text-muted md:text-base">The advocate</p>
+          <p className="mb-4 text-sm font-medium text-muted md:text-base">{T ? T.advocate.label : "The advocate"}</p>
           <h2 className="font-display text-[clamp(2.25rem,5vw,4rem)] leading-[1.02] tracking-[var(--tracking-display)] text-ink !max-w-[14ch]">
-            Adv. S. Nagendra Naik
+            {T ? T.advocate.name : "Adv. S. Nagendra Naik"}
           </h2>
           <p className="mt-6 max-w-[60ch] text-base leading-7 text-ink-2 md:text-lg md:leading-8">
-            A practice rooted in Anantapur courts, revenue offices, and Andhra Pradesh procedure since{" "}
-            {site.advocate.practisingSince}, over {YEARS} years of direct advocacy. Enrolled with the Bar Council of
-            Andhra Pradesh in {site.advocate.barCouncilYear}, Adv. S. Nagendra Naik appears regularly before the
-            Tahsildar, RDO, District Courts, and the Andhra Pradesh High Court.
+            {T
+              ? T.advocate.p1(site.advocate.practisingSince, YEARS, site.advocate.barCouncilYear)
+              : `A practice rooted in Anantapur courts, revenue offices, and Andhra Pradesh procedure since ${site.advocate.practisingSince}, over ${YEARS} years of direct advocacy. Enrolled with the Bar Council of Andhra Pradesh in ${site.advocate.barCouncilYear}, Adv. S. Nagendra Naik appears regularly before the Tahsildar, RDO, District Courts, and the Andhra Pradesh High Court.`}
           </p>
           <p className="mt-4 max-w-[60ch] text-base leading-7 text-ink-2 md:text-lg md:leading-8">
-            Clients work directly with the advocate from first assessment through filing, hearing, and compliance, with
-            thorough preparation on revenue records, title documents, and procedural filings before every court or
-            administrative proceeding.
+            {T
+              ? T.advocate.p2
+              : "Clients work directly with the advocate from first assessment through filing, hearing, and compliance, with thorough preparation on revenue records, title documents, and procedural filings before every court or administrative proceeding."}
           </p>
           <ul className="m-0 mt-6 grid list-none gap-2.5 p-0">
-            {["B.A., LL.B.", "Bar Council of Andhra Pradesh", "Revenue & land record disputes before Tahsildar, RDO", "Civil, criminal, family & consumer matters"].map((item) => (
+            {bullets.map((item) => (
               <li key={item} className="flex items-start gap-2.5 text-base text-ink-2">
                 <BadgeCheck className="mt-0.5 h-5 w-5 shrink-0 text-ink" aria-hidden="true" />
                 {item}
@@ -305,12 +347,14 @@ function Advocate() {
 
         <Reveal delay={80}>
           <div id="courts" className="rounded-3xl bg-paper-2 p-6 md:p-8">
-            <h2 className="font-display text-3xl leading-tight text-ink md:text-4xl">Forums we appear before</h2>
+            <h2 className="font-display text-3xl leading-tight text-ink md:text-4xl">
+              {T ? T.advocate.forumsTitle : "Forums we appear before"}
+            </h2>
             <p className="mt-3 text-base text-muted">
-              Where your case is actually decided, from revenue offices to the High Court.
+              {T ? T.advocate.forumsSub : "Where your case is actually decided, from revenue offices to the High Court."}
             </p>
             <ol className="m-0 mt-6 list-none border-t border-ink p-0">
-              {courtMatrix.map((court, i) => (
+              {courts.map((court, i) => (
                 <li key={court} className="flex items-baseline gap-4 border-b border-rule py-3.5 text-base text-ink-2">
                   <span className="w-7 shrink-0 text-sm text-muted tabular-nums">{String(i + 1).padStart(2, "0")}</span>
                   {court}
@@ -329,15 +373,17 @@ function Advocate() {
    ============================================ */
 
 function Process() {
+  const T = useT();
+  const steps = T ? teSteps : processSteps;
   return (
     <section id="process" className="mx-auto max-w-[1240px] px-5 pb-16 md:px-8 md:pb-24">
       <Reveal>
         <h2 className="font-display text-[clamp(2.25rem,5vw,4rem)] leading-[1.02] tracking-[var(--tracking-display)] text-ink !max-w-[18ch]">
-          A structured approach, from first document to hearing.
+          {T ? T.process.heading : "A structured approach, from first document to hearing."}
         </h2>
       </Reveal>
       <ol className="m-0 mt-10 grid list-none gap-3 p-0 sm:grid-cols-2 md:gap-4 lg:grid-cols-4">
-        {processSteps.map((step, i) => {
+        {steps.map((step, i) => {
           const Icon = processIcons[i] ?? FileText;
           return (
             <li key={step.title} className="contents">
@@ -364,10 +410,11 @@ function Process() {
    ============================================ */
 
 function Contact() {
+  const T = useT();
   const rows: { icon: LucideIcon; label: string; value: string; href: string; event: string; external?: boolean }[] = [
-    { icon: Phone, label: "Phone", value: site.contact.phoneDisplay, href: phoneHref, event: "call_click" },
-    { icon: Mail, label: "Email", value: site.contact.email, href: emailHref, event: "email_click" },
-    { icon: MapPin, label: "Office", value: site.contact.office, href: mapHref, event: "map_click", external: true },
+    { icon: Phone, label: T ? T.contact.phone : "Phone", value: site.contact.phoneDisplay, href: phoneHref, event: "call_click" },
+    { icon: Mail, label: T ? T.contact.email : "Email", value: site.contact.email, href: emailHref, event: "email_click" },
+    { icon: MapPin, label: T ? T.contact.office : "Office", value: site.contact.office, href: mapHref, event: "map_click", external: true },
   ];
 
   return (
@@ -378,12 +425,12 @@ function Contact() {
           style={{ backgroundImage: "url(/contours-navy.svg)" }}
         >
           <h2 className="font-display text-[clamp(2.25rem,5.4vw,4.5rem)] leading-[1.02] tracking-[var(--tracking-display)] text-white !max-w-[18ch]">
-            Discuss documents, forum strategy &amp; next steps.
+            {T ? T.contact.heading : "Discuss documents, forum strategy & next steps."}
           </h2>
           <p className="mt-5 max-w-[56ch] text-base leading-7 text-white/80 md:text-lg">
-            Share the facts directly with Adv. S. Nagendra Naik. Get a clear assessment of court route, document gaps,
-            urgency, and expected next steps for Tahsildar appeals, RDO proceedings, Adangal corrections, mutations,
-            and AP High Court writs.
+            {T
+              ? T.contact.body
+              : "Share the facts directly with Adv. S. Nagendra Naik. Get a clear assessment of court route, document gaps, urgency, and expected next steps for Tahsildar appeals, RDO proceedings, Adangal corrections, mutations, and AP High Court writs."}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
@@ -391,7 +438,7 @@ function Contact() {
               className="naga-button !bg-white !text-ink"
               onClick={() => trackEvent("call_click", { location: "contact" })}
             >
-              Call {site.contact.phoneDisplay}
+              {T ? T.call : "Call"} {site.contact.phoneDisplay}
             </a>
             <a
               href={WHATSAPP_HREF}
@@ -400,7 +447,7 @@ function Contact() {
               className="naga-button naga-button-whatsapp"
               onClick={() => trackEvent("whatsapp_click", { location: "contact" })}
             >
-              WhatsApp us
+              {T ? T.contact.whatsapp : "WhatsApp us"}
             </a>
           </div>
         </div>
@@ -409,13 +456,15 @@ function Contact() {
       <div className="mt-3 grid gap-3 md:mt-4 md:grid-cols-2 md:gap-4">
         <Reveal className="flex flex-col gap-3 md:gap-4">
           <div className="rounded-3xl bg-paper-2 p-6 md:p-8">
-            <h3 className="font-display text-3xl leading-tight text-ink md:text-4xl">Contact the chambers</h3>
+            <h3 className="font-display text-3xl leading-tight text-ink md:text-4xl">
+              {T ? T.contact.chambers : "Contact the chambers"}
+            </h3>
             <div className="mt-5 border-t border-ink">
               {rows.map((row) => {
                 const Icon = row.icon;
                 return (
                   <a
-                    key={row.label}
+                    key={row.event}
                     href={row.href}
                     onClick={() => trackEvent(row.event, { location: "contact_row" })}
                     {...(row.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
@@ -437,7 +486,7 @@ function Contact() {
         </Reveal>
 
         <Reveal delay={80}>
-          <IntakeForm />
+          <IntakeForm copy={T?.form} />
         </Reveal>
       </div>
     </section>
@@ -448,20 +497,31 @@ function Contact() {
    Page
    ============================================ */
 
-export function Landing() {
+export function Landing({
+  locale = "en",
+  children,
+}: {
+  locale?: Locale;
+  /** Extra sections for English, placed before the contact section (e.g. FAQ). */
+  children?: React.ReactNode;
+}) {
+  const T = locale === "te" ? te : null;
   return (
-    <div className="bg-paper">
-      <Header />
-      <main id="main">
-        <Hero />
-        <About />
-        <Expertise />
-        <Advocate />
-        <Process />
-        <Testimonials />
-        <Contact />
-      </main>
-      <SiteFooter />
-    </div>
+    <TeContext.Provider value={T}>
+      <div className="bg-paper" lang={locale}>
+        <Header />
+        <main id="main">
+          <Hero />
+          <About />
+          <Expertise />
+          <Advocate />
+          <Process />
+          <Testimonials />
+          {children}
+          <Contact />
+        </main>
+        <SiteFooter locale={locale} />
+      </div>
+    </TeContext.Provider>
   );
 }

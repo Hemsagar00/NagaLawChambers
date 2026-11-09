@@ -3,14 +3,15 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
-import { practiceAreaTitles } from "@/lib/content";
+import { practiceAreas, practiceAreaTitles } from "@/lib/content";
+import { teAreas, te } from "@/lib/home-copy";
 import { buildIntakeMessage, buildWhatsappHref } from "@/lib/whatsapp";
 import { trackEvent } from "@/lib/analytics";
 
 const easing = [0.22, 1, 0.36, 1] as const;
 const caseTypes = [...practiceAreaTitles, "Other matter"] as const;
 
-export function IntakeForm() {
+export function IntakeForm({ copy }: { copy?: typeof te.form }) {
   const reduce = useReducedMotion();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -26,7 +27,7 @@ export function IntakeForm() {
     const trimmedPhone = phone.trim();
 
     if (!trimmedName || trimmedPhone.replace(/\D/g, "").length < 7) {
-      setError("Please add your name and a valid phone number.");
+      setError(copy?.error ?? "Please add your name and a valid phone number.");
       return;
     }
     setError("");
@@ -51,18 +52,18 @@ export function IntakeForm() {
           <CheckCircle2 className="h-7 w-7 text-ink" aria-hidden="true" />
         </span>
         <p className="text-lg font-semibold text-ink">
-          Opening WhatsApp…
+          {copy?.opening ?? "Opening WhatsApp…"}
         </p>
         <p className="max-w-xs text-sm leading-relaxed text-ink-2">
-          Send the pre-filled message to reach Adv. S. Nagendra Naik directly.
-          If WhatsApp didn&apos;t open, please call us instead.
+          {copy?.openingBody ??
+            "Send the pre-filled message to reach Adv. S. Nagendra Naik directly. If WhatsApp didn't open, please call us instead."}
         </p>
         <button
           type="button"
           onClick={() => setSent(false)}
           className="text-sm font-medium text-ink underline underline-offset-4"
         >
-          Send another request
+          {copy?.again ?? "Send another request"}
         </button>
       </div>
     );
@@ -71,16 +72,16 @@ export function IntakeForm() {
   return (
     <form onSubmit={handleSubmit} className="naga-form-card" noValidate>
       <p className="naga-sub-header mb-1 text-ink">
-        Request a callback
+        {copy?.kicker ?? "Request a callback"}
       </p>
       <h3 className="mb-5 text-xl font-semibold tracking-[-0.01em] text-ink">
-        Send your case details
+        {copy?.title ?? "Send your case details"}
       </h3>
 
       <div className="grid gap-4">
         <div>
           <label htmlFor="lead-name" className="naga-field-label">
-            Full name
+            {copy?.name ?? "Full name"}
           </label>
           <input
             id="lead-name"
@@ -88,7 +89,7 @@ export function IntakeForm() {
             autoComplete="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Your name"
+            placeholder={copy?.namePh ?? "Your name"}
             required
             className="naga-input"
           />
@@ -96,7 +97,7 @@ export function IntakeForm() {
 
         <div>
           <label htmlFor="lead-phone" className="naga-field-label">
-            Phone / WhatsApp number
+            {copy?.phone ?? "Phone / WhatsApp number"}
           </label>
           <input
             id="lead-phone"
@@ -113,7 +114,7 @@ export function IntakeForm() {
 
         <div>
           <label htmlFor="lead-case" className="naga-field-label">
-            Matter type
+            {copy?.matter ?? "Matter type"}
           </label>
           <select
             id="lead-case"
@@ -121,9 +122,13 @@ export function IntakeForm() {
             onChange={(e) => setCaseType(e.target.value)}
             className="naga-input naga-select"
           >
-            {caseTypes.map((type) => (
+            {caseTypes.map((type, i) => (
               <option key={type} value={type}>
-                {type}
+                {copy
+                  ? i < practiceAreas.length
+                    ? teAreas[practiceAreas[i].id]?.title ?? type
+                    : copy.other
+                  : type}
               </option>
             ))}
           </select>
@@ -131,13 +136,13 @@ export function IntakeForm() {
 
         <div>
           <label htmlFor="lead-message" className="naga-field-label">
-            Brief details <span className="text-muted">(optional)</span>
+            {copy?.details ?? "Brief details"} <span className="text-muted">{copy?.optional ?? "(optional)"}</span>
           </label>
           <textarea
             id="lead-message"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="A few lines about your situation, court, or documents."
+            placeholder={copy?.detailsPh ?? "A few lines about your situation, court, or documents."}
             rows={3}
             className="naga-input naga-textarea"
           />
@@ -156,12 +161,11 @@ export function IntakeForm() {
           transition={{ duration: 0.35, ease: easing }}
           className="naga-button naga-button-whatsapp w-full"
         >
-          <span>Send on WhatsApp</span>
+          <span>{copy?.send ?? "Send on WhatsApp"}</span>
         </motion.button>
 
         <p className="text-center text-sm leading-relaxed text-muted">
-          Goes straight to the advocate&apos;s WhatsApp — no account or sign-up needed.
-        </p>
+          {copy?.note ?? "Goes straight to the advocate's WhatsApp, no account or sign-up needed."}</p>
       </div>
     </form>
   );

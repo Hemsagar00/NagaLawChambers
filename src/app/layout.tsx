@@ -30,12 +30,11 @@ const sans = Inter({
 export const metadata: Metadata = {
   metadataBase,
   title: {
-    default:
-      "NAGA Law Chambers | Advocate S. Nagendra Naik — Revenue, Land & Civil Lawyer in Anantapur",
+    default: "NAGA Law Chambers: Land & Revenue Lawyer in Andhra Pradesh",
     template: "%s | NAGA Law Chambers",
   },
   description:
-    "NAGA Law Chambers — Advocate S. Nagendra Naik practises revenue, land, civil, criminal, family, and consumer law across Andhra Pradesh, from chambers in Anantapur. Specialising in Tahsildar appeals, RDO proceedings, Adangal corrections, mutations, AP High Court writs, and property partition suits. Bar Council of Andhra Pradesh (2019). Over " + (new Date().getFullYear() - site.advocate.practisingSince) + " years of direct advocacy.",
+    "Advocate S. Nagendra Naik handles land, revenue, civil, criminal and family cases across Andhra Pradesh. Chambers in Anantapur. Call +91 94400 00417.",
   keywords: [
     "NAGA Law Chambers",
     "Advocate S Nagendra Naik",
@@ -63,12 +62,12 @@ export const metadata: Metadata = {
   publisher: site.name,
   alternates: {
     canonical: "/",
+    languages: { en: "/", te: "/te", "x-default": "/" },
   },
   openGraph: {
-    title:
-      "NAGA Law Chambers | Advocate S. Nagendra Naik — Revenue, Land & Civil Lawyer in Anantapur",
+    title: "NAGA Law Chambers: Land & Revenue Lawyer in Andhra Pradesh",
     description:
-      "Defending land, legacy, and rights. Revenue & land matters at Tahsildar, RDO, and Collector levels across Andhra Pradesh. Civil, criminal, family, and consumer representation before Andhra Pradesh courts.",
+      "Advocate S. Nagendra Naik: land, revenue, civil, criminal and family cases across Andhra Pradesh. Chambers in Anantapur. Call +91 94400 00417.",
     type: "website",
     url: baseUrl,
     siteName: site.name,
@@ -76,10 +75,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title:
-      "NAGA Law Chambers | Advocate S. Nagendra Naik — Revenue & Land Lawyer, Anantapur",
+    title: "NAGA Law Chambers: Land & Revenue Lawyer in Andhra Pradesh",
     description:
-      "Revenue, land, civil, criminal, family, and consumer law — Tahsildar appeals, RDO proceedings, AP High Court writs — Anantapur, Andhra Pradesh.",
+      "Advocate S. Nagendra Naik: land, revenue, civil, criminal and family cases across Andhra Pradesh. Chambers in Anantapur.",
   },
   robots: {
     index: true,

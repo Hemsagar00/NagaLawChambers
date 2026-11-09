@@ -40,6 +40,13 @@ export const site = {
   },
 } as const;
 
+/** Public profiles that belong to the chambers and the advocate. */
+export const socialProfiles = [
+  { name: "Instagram", url: "https://www.instagram.com/nagalawchambers/" },
+  { name: "Instagram (advocate)", url: "https://www.instagram.com/advocate_nagendranaik/" },
+  { name: "LinkedIn", url: "https://in.linkedin.com/in/nagendra-naik-a7aa6853" },
+] as const;
+
 export const phoneHref = `tel:${site.contact.phoneTel}`;
 export const emailHref = `mailto:${site.contact.email}`;
 export const mapHref =

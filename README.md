@@ -35,7 +35,8 @@ Calm, professional and editorial: a pale blue-grey page, deep navy text, a large
 
 | Route | Purpose |
 |---|---|
-| `/` | Homepage — hero, practice areas, advocate profile, courts, contact + intake form |
+| `/` | Homepage — hero, practice areas, advocate profile, courts, FAQ, contact + intake form |
+| `/te` | Telugu homepage (same layout, Telugu text from `src/lib/home-copy.ts`) |
 | `/practice/[slug]` | 5 practice-area landing pages (local SEO) |
 | `/locations/[slug]` | Anantapur & Dharmavaram location pages |
 | `/sitemap.xml`, `/robots.txt`, `/opengraph-image` | Generated at build |
@@ -83,6 +84,8 @@ src/
 |---|---|
 | Phone, email, office, GBP links, analytics IDs | `src/lib/site.ts` |
 | Practice areas, stats, hero/about copy, testimonials | `src/lib/content.ts` |
+| Telugu text for the home page | `src/lib/home-copy.ts` (have a Telugu speaker check changes) |
+| Instagram / LinkedIn links (footer + schema) | `socialProfiles` in `src/lib/site.ts` |
 | Practice/location page copy + FAQs | `src/lib/local-seo.ts` |
 | Design tokens | `src/app/globals.css` |
 | Advocate photo | `public/advocate.jpg` (do not rename) |
