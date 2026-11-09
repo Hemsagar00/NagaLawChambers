@@ -43,6 +43,9 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { Testimonials } from "@/components/testimonials";
 import { MapEmbed } from "@/components/map-embed";
 import { practicePages } from "@/lib/local-seo";
+import { CountUp } from "@/components/motion/count-up";
+import { ForumRoute } from "@/components/motion/forum-route";
+import { PlotSurvey } from "@/components/motion/plot-survey";
 
 const WHATSAPP_HREF = buildWhatsappHref();
 const YEARS_EXPERIENCE = new Date().getFullYear() - site.advocate.practisingSince;
@@ -88,10 +91,10 @@ function Reveal({
 
   return (
     <motion.div
-      initial={reduce ? false : { opacity: 0, y: 44 }}
+      initial={reduce ? false : { opacity: 0, y: 16 }}
       whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 1.0, delay, ease: easing }}
+      transition={{ duration: 0.6, delay, ease: easing }}
       className={className}
     >
       {children}
@@ -338,7 +341,7 @@ function Hero() {
             {stats.map((metric) => (
               <div key={metric.label} className="naga-mini-stat">
                 <p className="text-xl font-semibold text-[var(--naga-ivory)]">
-                  {metric.value}
+                  <CountUp value={metric.value} />
                 </p>
                 <p className="mt-1.5 text-[10px] font-medium tracking-[0.15em] uppercase text-[var(--naga-muted)]">
                   {metric.label}
@@ -350,7 +353,9 @@ function Hero() {
 
         {/* Profile Photo Column */}
         <Reveal className="relative mx-auto w-full max-w-[520px] lg:mr-0" delay={0.25}>
-          <motion.div style={{ y: portraitY }} className="naga-profile-frame">
+          <motion.div style={{ y: portraitY }} className="relative">
+            <PlotSurvey />
+            <div className="naga-profile-frame">
             <div className="naga-profile-inner aspect-[4/5]">
               <Image
                 src="/advocate.jpg"
@@ -372,6 +377,7 @@ function Hero() {
                   B.A., LL.B. • Anantapur Bar • Direct consultation
                 </p>
               </div>
+            </div>
             </div>
           </motion.div>
         </Reveal>
@@ -425,12 +431,12 @@ function PracticeCard({
   return (
     <motion.article
       layout
-      initial={reduce ? false : { opacity: 0, y: 44 }}
+      initial={reduce ? false : { opacity: 0, y: 16 }}
       whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{
-        duration: 0.9,
-        delay: index * 0.08,
+        duration: 0.6,
+        delay: index * 0.06,
         ease: easing,
         layout: { duration: 0.4, ease: easing },
       }}
@@ -564,7 +570,7 @@ function AdvocateSection() {
               ].map((item) => (
                 <div key={item.label}>
                   <p className="font-[var(--font-display)] text-3xl font-semibold tracking-[-0.02em] text-[var(--naga-ivory)] sm:text-4xl">
-                    {item.value}
+                    <CountUp value={item.value} />
                   </p>
                   <p className="mt-2 text-[10px] font-medium tracking-[0.18em] uppercase text-[var(--naga-muted)]">
                     {item.label}
@@ -643,17 +649,7 @@ function CourtsSection() {
                   Forum coverage
                 </h3>
               </div>
-              <div className="grid gap-3">
-                {courtMatrix.map((court) => (
-                  <div key={court} className="naga-proof-row">
-                    <BadgeCheck
-                      className="h-3.5 w-3.5 shrink-0 mt-0.5 text-[var(--naga-gold)]"
-                      aria-hidden="true"
-                    />
-                    <span>{court}</span>
-                  </div>
-                ))}
-              </div>
+              <ForumRoute items={courtMatrix} />
             </div>
           </Reveal>
 
