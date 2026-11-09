@@ -14,6 +14,7 @@ import { Testimonials } from "@/components/testimonials";
 import { Reveal } from "@/components/home/reveal";
 import { courtMatrix, navLinks, practiceAreas, processSteps } from "@/lib/content";
 import { te, teAreas, teCourts, teSteps, type Locale } from "@/lib/home-copy";
+import { teluguEnabled } from "@/lib/features";
 import { getPracticeAreaIcon } from "@/lib/icons";
 import { practicePages } from "@/lib/local-seo";
 import { trackEvent } from "@/lib/analytics";
@@ -64,14 +65,16 @@ function Header() {
         </nav>
 
         <div className="flex items-center gap-1 sm:gap-2">
-          <Link
-            href={T ? "/" : "/te"}
-            hrefLang={T ? "en" : "te"}
-            lang={T ? "en" : "te"}
-            className="naga-nav-link px-2 text-base font-semibold"
-          >
-            {T ? "English" : "తెలుగు"}
-          </Link>
+          {teluguEnabled ? (
+            <Link
+              href={T ? "/" : "/te"}
+              hrefLang={T ? "en" : "te"}
+              lang={T ? "en" : "te"}
+              className="naga-nav-link px-2 text-base font-semibold"
+            >
+              {T ? "English" : "తెలుగు"}
+            </Link>
+          ) : null}
           <a
             href="#contact"
             className="naga-button naga-button-primary hidden !min-h-11 !w-auto sm:inline-flex"

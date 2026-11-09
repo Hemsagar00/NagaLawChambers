@@ -7,7 +7,9 @@ steps need the owner.
 ## Do first (a few days)
 1. **Deploy this branch** and confirm Cloudflare redeploys `master`. Until then the live site is old.
 2. **Set `NEXT_PUBLIC_SITE_URL=https://www.nagalawchambers.com`** in Cloudflare, or delete it.
-3. **Have a Telugu speaker read `/te`** (source: `src/lib/home-copy.ts`), mainly legal terms, before merging.
+3. **Have a Telugu speaker read `/te`** (source: `src/lib/home-copy.ts`), mainly legal terms. The page is hidden
+   until you set `teluguEnabled = true` in `src/lib/features.ts`, which also turns on the language link, the
+   sitemap entry and the hreflang tags.
 4. **Google Search Console**: add the `www` site, submit `https://www.nagalawchambers.com/sitemap.xml`,
    and request indexing for `/` and `/te`. Set `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` if asked for a token.
 5. **Bing Webmaster Tools**: import from Search Console. Bing also feeds several AI assistants.

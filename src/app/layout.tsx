@@ -11,6 +11,7 @@ import {
 import { WhatsappFab } from "@/components/conversion/whatsapp-fab";
 import { StickyCta } from "@/components/conversion/sticky-cta";
 import { baseUrl, metadataBase, site } from "@/lib/site";
+import { teluguEnabled } from "@/lib/features";
 import "./globals.css";
 
 const serif = Instrument_Serif({
@@ -62,7 +63,7 @@ export const metadata: Metadata = {
   publisher: site.name,
   alternates: {
     canonical: "/",
-    languages: { en: "/", te: "/te", "x-default": "/" },
+    ...(teluguEnabled ? { languages: { en: "/", te: "/te", "x-default": "/" } } : {}),
   },
   openGraph: {
     title: "NAGA Law Chambers: Land & Revenue Lawyer in Andhra Pradesh",

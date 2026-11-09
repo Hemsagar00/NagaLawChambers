@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { baseUrl } from "@/lib/site";
 import { practicePages, locationPages } from "@/lib/local-seo";
+import { teluguEnabled } from "@/lib/features";
 
 export const dynamic = "force-static";
 
@@ -28,12 +29,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
-    {
-      url: `${baseUrl}/te`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
+    ...(teluguEnabled
+      ? [
+          {
+            url: `${baseUrl}/te`,
+            lastModified: now,
+            changeFrequency: "weekly" as const,
+            priority: 0.9,
+          },
+        ]
+      : []),
     ...practiceEntries,
     ...locationEntries,
   ];

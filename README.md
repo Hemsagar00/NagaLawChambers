@@ -36,7 +36,7 @@ Calm, professional and editorial: a pale blue-grey page, deep navy text, a large
 | Route | Purpose |
 |---|---|
 | `/` | Homepage — hero, practice areas, advocate profile, courts, FAQ, contact + intake form |
-| `/te` | Telugu homepage (same layout, Telugu text from `src/lib/home-copy.ts`) |
+| `/te` | Telugu homepage (same layout, Telugu text from `src/lib/home-copy.ts`). Hidden until `teluguEnabled` in `src/lib/features.ts` is set to `true` |
 | `/practice/[slug]` | 5 practice-area landing pages (local SEO) |
 | `/locations/[slug]` | Anantapur & Dharmavaram location pages |
 | `/sitemap.xml`, `/robots.txt`, `/opengraph-image` | Generated at build |
