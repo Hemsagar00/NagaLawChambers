@@ -28,6 +28,7 @@ Calm, professional and editorial: a pale blue-grey page, deep navy text, a large
 
 - **Type:** Instrument Serif (headings, one italic phrase in the hero) and Inter (body), loaded with `next/font`.
 - **Tokens and components:** `src/app/tokens.css` and `src/app/globals.css`. The home page is `src/components/home/landing.tsx`; scroll-in fades are `reveal.tsx` (fully visible with scripting off or reduced motion).
+- **Animation:** page-load rise and photo reveal (CSS, `.anim-rise`, `.line-mask`, `.anim-photo` in `globals.css`), slow background drift on scroll (`parallax-bg.tsx`), a forum list whose line draws as you scroll (`forum-list.tsx`), rules that draw across cards, card and button hover, count-up figures, an animated phone menu and a header shadow on scroll. Only transform and opacity animate. Reduced motion shows everything at once; scripting off shows everything too.
 - **Textures:** `public/contours-light.svg` and `public/contours-navy.svg` are contour maps drawn in code. Regenerate with `npx tsx scripts/make-contours.ts` (generator: `src/lib/contours.ts`).
 - **Photo:** the advocate's photograph is the only photo. Nothing is stock or invented.
 

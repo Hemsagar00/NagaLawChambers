@@ -2,11 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, type CSSProperties } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { BadgeCheck, FileSearch, FileText, Gavel, Mail, MapPin, Menu, Phone, Route, X } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import { CountUp } from "@/components/motion/count-up";
+import { ForumList } from "@/components/motion/forum-list";
+import { ParallaxBg } from "@/components/motion/parallax-bg";
 import { IntakeForm } from "@/components/conversion/intake-form";
 import { MapEmbed } from "@/components/map-embed";
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -25,6 +28,9 @@ const YEARS = new Date().getFullYear() - site.advocate.practisingSince;
 const WHATSAPP_HREF = buildWhatsappHref();
 const processIcons: LucideIcon[] = [FileSearch, Route, FileText, Gavel];
 
+/** Sets the entrance delay (read by the .anim-rise and .line-mask CSS). */
+const delay = (ms: number) => ({ ["--d" as string]: `${ms}ms` }) as CSSProperties;
+
 /** Telugu strings when the page is /te; null for English. */
 const TeContext = createContext<typeof te | null>(null);
 const useT = () => useContext(TeContext);
@@ -37,6 +43,14 @@ function Header() {
   const T = useT();
   const [open, setOpen] = useState(false);
   const nav = T ? T.nav : navLinks;
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -46,7 +60,9 @@ function Header() {
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-rule/70 bg-paper/85 backdrop-blur-md">
+    <header
+      className={`fixed inset-x-0 top-0 z-50 border-b border-rule/70 bg-paper/85 backdrop-blur-md transition-shadow duration-300 ${scrolled ? "shadow-[0_10px_30px_-20px_oklch(26.9%_0.121_270/0.55)]" : ""}`}
+    >
       <div className="mx-auto flex h-16 max-w-[1240px] items-center justify-between px-5 md:h-[72px] md:px-8">
         <a
           href="#top"
@@ -95,20 +111,34 @@ function Header() {
         </div>
       </div>
 
-      {open ? (
-        <div id="mobile-menu" className="border-t border-rule/70 bg-paper px-5 pb-5 pt-2 md:hidden">
-          {nav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className="flex min-h-12 items-center border-b border-rule/70 font-display text-3xl text-ink"
-            >
-              {item.label}
-            </a>
-          ))}
-        </div>
-      ) : null}
+      <AnimatePresence>
+        {open ? (
+          <motion.div
+            id="mobile-menu"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden border-t border-rule/70 bg-paper md:hidden"
+          >
+            <div className="px-5 pb-5 pt-2">
+              {nav.map((item, i) => (
+                <motion.a
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.35, delay: 0.08 + i * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex min-h-12 items-center border-b border-rule/70 font-display text-3xl text-ink"
+                >
+                  {item.label}
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </header>
   );
 }
@@ -121,35 +151,32 @@ function Hero() {
   const T = useT();
   return (
     <section id="top" className="relative overflow-hidden pt-24 md:pt-32">
-      <div
-        className="pointer-events-none absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: "url(/contours-light.svg)",
+      <ParallaxBg
+        src="/contours-light.svg"
+        outerStyle={{
           maskImage: "linear-gradient(to bottom, black 60%, transparent)",
           WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent)",
         }}
-        aria-hidden="true"
       />
       <div className="relative mx-auto grid max-w-[1240px] gap-10 px-5 pb-14 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] md:items-center md:gap-12 md:px-8 md:pb-24">
         <div>
-          <p className="mb-5 text-sm font-medium text-muted md:text-base">
+          <p className="anim-rise mb-5 text-sm font-medium text-muted md:text-base" style={delay(0)}>
             {T ? T.hero.eyebrow : "Advocate S. Nagendra Naik, Anantapur Bar"}
           </p>
           <h1 className="font-display text-[clamp(3rem,8.4vw,6.75rem)] leading-[0.98] tracking-[var(--tracking-display)] text-ink">
-            {T ? (
-              <>
-                {T.hero.h1a} <em className="italic">{T.hero.h1b}</em>
-              </>
-            ) : (
-              <>
-                Defending land, <em className="italic">legacy &amp; rights.</em>
-              </>
-            )}
+            <span className="line-mask">
+              <span style={delay(120)}>{T ? T.hero.h1a : "Defending land,"}</span>
+            </span>
+            <span className="line-mask">
+              <span style={delay(260)}>
+                <em className="italic">{T ? T.hero.h1b : <>legacy &amp; rights.</>}</em>
+              </span>
+            </span>
           </h1>
-          <p className="naga-lead mt-6 max-w-[34ch] !text-lg md:!text-xl">
+          <p className="naga-lead anim-rise mt-6 max-w-[34ch] !text-lg md:!text-xl" style={delay(520)}>
             {T ? T.hero.sentence : "Direct representation before revenue offices and courts across Andhra Pradesh."}
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="anim-rise mt-8 flex flex-col gap-3 sm:flex-row" style={delay(680)}>
             <a
               href="#contact"
               className="naga-button naga-button-primary"
@@ -168,7 +195,7 @@ function Hero() {
         </div>
 
         <div className="relative mx-auto w-full max-w-[520px] md:max-w-none">
-          <div className="relative aspect-[5/4] overflow-hidden rounded-[28px] bg-paper-3 shadow-[0_24px_60px_-28px_oklch(26.9%_0.121_270/0.45)] md:aspect-[4/5]">
+          <div className="anim-photo relative aspect-[5/4] overflow-hidden rounded-[28px] bg-paper-3 shadow-[0_24px_60px_-28px_oklch(26.9%_0.121_270/0.45)] md:aspect-[4/5]">
             <Image
               src="/advocate.jpg"
               alt="Advocate S. Nagendra Naik, NAGA Law Chambers, Anantapur Bar"
@@ -178,7 +205,7 @@ function Hero() {
               className="object-cover object-[72%_25%]"
             />
           </div>
-          <div className="mt-3 rounded-2xl bg-paper-2 px-4 py-3 md:absolute md:bottom-5 md:left-5 md:right-auto md:mt-0 md:min-w-[260px] md:bg-paper-2/90 md:backdrop-blur-md">
+          <div className="anim-rise mt-3 rounded-2xl bg-paper-2 px-4 py-3 md:absolute md:bottom-5 md:left-5 md:right-auto md:mt-0 md:min-w-[260px] md:bg-paper-2/90 md:backdrop-blur-md" style={delay(950)}>
             <p className="font-display text-2xl leading-none text-ink">{T ? T.hero.cardName : "S. Nagendra Naik"}</p>
             <p className="mt-1.5 text-sm text-muted">
               {T ? T.hero.card : `B.A., LL.B. Anantapur Bar, enrolled ${site.advocate.barCouncilYear}`}
@@ -213,18 +240,21 @@ function About() {
           {T ? T.about.sub : "Based in Anantapur and serving clients across Andhra Pradesh."}
         </p>
       </Reveal>
-      <Reveal delay={80}>
+      <div>
         <dl className="mt-10 grid grid-cols-2 gap-3 md:mt-14 md:grid-cols-4 md:gap-4">
-          {stats.map((s) => (
-            <div key={s.label} className="flex flex-col rounded-3xl bg-paper-2 p-5 md:p-7">
-              <dt className="order-2 mt-3 text-sm leading-5 text-muted">{s.label}</dt>
-              <dd className="m-0 font-display text-5xl leading-none text-ink md:text-6xl">
-                <CountUp value={s.value} />
-              </dd>
-            </div>
+          {stats.map((s, i) => (
+            <Reveal key={s.label} delay={i * 90} className="contents">
+              <div className="lift relative flex flex-col overflow-hidden rounded-3xl bg-paper-2 p-5 md:p-7">
+                <span className="draw-line absolute left-0 top-0 h-0.5 w-full bg-ink" aria-hidden="true" />
+                <dt className="order-2 mt-3 text-sm leading-5 text-muted">{s.label}</dt>
+                <dd className="m-0 font-display text-5xl leading-none text-ink md:text-6xl">
+                  <CountUp value={s.value} />
+                </dd>
+              </div>
+            </Reveal>
           ))}
         </dl>
-      </Reveal>
+      </div>
     </section>
   );
 }
@@ -271,7 +301,7 @@ function Expertise() {
             </>
           );
           const cls =
-            "flex flex-col rounded-3xl bg-paper-2 p-6 transition-shadow duration-200 hover:shadow-[0_18px_40px_-24px_oklch(26.9%_0.121_270/0.5)] md:p-7";
+            "lift flex flex-col rounded-3xl bg-paper-2 p-6 md:p-7";
           return (
             <Reveal key={area.id} delay={i * 60} className="contents">
               {page ? (
@@ -285,14 +315,12 @@ function Expertise() {
           );
         })}
 
-        <div
-          className="relative flex min-h-[260px] flex-col justify-between overflow-hidden rounded-3xl bg-ink bg-cover bg-center p-6 text-white md:p-7"
-          style={{ backgroundImage: "url(/contours-navy.svg)" }}
-        >
-          <h3 className="font-display text-3xl leading-tight text-white !max-w-[16ch]">
+        <div className="relative flex min-h-[260px] flex-col justify-between overflow-hidden rounded-3xl bg-ink p-6 text-white md:p-7">
+          <ParallaxBg src="/contours-navy.svg" strength={10} />
+          <h3 className="relative font-display text-3xl leading-tight text-white !max-w-[16ch]">
             {T ? T.expertise.ctaTitle : "Start with your documents."}
           </h3>
-          <div>
+          <div className="relative">
             <p className="mb-5 text-base leading-6 text-white/80">
               {T ? T.expertise.ctaBody : "Share the facts directly with the advocate and get a clear view of the court route."}
             </p>
@@ -356,14 +384,9 @@ function Advocate() {
             <p className="mt-3 text-base text-muted">
               {T ? T.advocate.forumsSub : "Where your case is actually decided, from revenue offices to the High Court."}
             </p>
-            <ol className="m-0 mt-6 list-none border-t border-ink p-0">
-              {courts.map((court, i) => (
-                <li key={court} className="flex items-baseline gap-4 border-b border-rule py-3.5 text-base text-ink-2">
-                  <span className="w-7 shrink-0 text-sm text-muted tabular-nums">{String(i + 1).padStart(2, "0")}</span>
-                  {court}
-                </li>
-              ))}
-            </ol>
+            <div className="mt-6">
+              <ForumList items={courts} />
+            </div>
           </div>
         </Reveal>
       </div>
@@ -390,7 +413,8 @@ function Process() {
           const Icon = processIcons[i] ?? FileText;
           return (
             <li key={step.title} className="contents">
-              <Reveal delay={i * 70} className="flex flex-col rounded-3xl bg-paper-2 p-6 md:p-7">
+              <Reveal delay={i * 70} className="lift relative flex flex-col overflow-hidden rounded-3xl bg-paper-2 p-6 md:p-7">
+                <span className="draw-line absolute left-0 top-0 h-0.5 w-full bg-ink" aria-hidden="true" />
                 <div className="flex items-center justify-between">
                   <span className="naga-icon-shell !h-14 !w-14">
                     <Icon className="h-6 w-6" aria-hidden="true" />
@@ -423,10 +447,9 @@ function Contact() {
   return (
     <section id="contact" className="mx-auto max-w-[1240px] px-5 pb-16 md:px-8 md:pb-24">
       <Reveal>
-        <div
-          className="overflow-hidden rounded-[28px] bg-ink bg-cover bg-center px-6 py-12 text-white md:px-14 md:py-20"
-          style={{ backgroundImage: "url(/contours-navy.svg)" }}
-        >
+        <div className="relative overflow-hidden rounded-[28px] bg-ink px-6 py-12 text-white md:px-14 md:py-20">
+          <ParallaxBg src="/contours-navy.svg" strength={9} />
+          <div className="relative">
           <h2 className="font-display text-[clamp(2.25rem,5.4vw,4.5rem)] leading-[1.02] tracking-[var(--tracking-display)] text-white !max-w-[18ch]">
             {T ? T.contact.heading : "Discuss documents, forum strategy & next steps."}
           </h2>
@@ -452,6 +475,7 @@ function Contact() {
             >
               {T ? T.contact.whatsapp : "WhatsApp us"}
             </a>
+          </div>
           </div>
         </div>
       </Reveal>

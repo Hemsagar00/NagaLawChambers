@@ -41,6 +41,7 @@ export function Reveal({
   return (
     <div
       ref={ref}
+      data-state={state}
       className={className}
       style={
         state === "hidden"
