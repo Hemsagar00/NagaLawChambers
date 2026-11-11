@@ -3,11 +3,7 @@ import { Instrument_Serif, Inter } from "next/font/google";
 import { JsonLd } from "@/components/seo/json-ld";
 import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { SmoothScrollProvider } from "@/components/motion/smooth-scroll";
-import { GoogleAnalytics } from "@/components/analytics/google-analytics";
-import {
-  GoogleTagManager,
-  GoogleTagManagerNoscript,
-} from "@/components/analytics/google-tag-manager";
+import { ConsentAndAnalytics } from "@/components/analytics/consent";
 import { WhatsappFab } from "@/components/conversion/whatsapp-fab";
 import { StickyCta } from "@/components/conversion/sticky-cta";
 import { baseUrl, metadataBase, site } from "@/lib/site";
@@ -119,8 +115,7 @@ export default function RootLayout({
           <style>{`[style*="opacity:0"]{opacity:1!important;transform:none!important}`}</style>
         </noscript>
       </head>
-      <body>
-        <GoogleTagManagerNoscript />
+      <body style={{ backgroundColor: "#EAEFF5", color: "#121B60" }}>
         <a href="#main" className="skip-link">
           Skip to content
         </a>
@@ -131,8 +126,7 @@ export default function RootLayout({
           <WhatsappFab />
           <StickyCta />
         </SmoothScrollProvider>
-        <GoogleTagManager />
-        <GoogleAnalytics />
+        <ConsentAndAnalytics />
       </body>
     </html>
   );

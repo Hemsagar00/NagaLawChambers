@@ -97,9 +97,14 @@ export function SiteFooter({ locale = "en" }: { locale?: Locale }) {
         </div>
 
         <div className="naga-divider my-8" />
-        <p className="text-sm text-muted">
-          © {site.copyrightYear} NAGA Law Chambers. Advocate {site.advocate.name}.
-        </p>
+        <div className="flex flex-wrap items-center justify-between gap-x-6">
+          <p className="text-sm text-muted">
+            © {site.copyrightYear} NAGA Law Chambers. Advocate {site.advocate.name}.
+          </p>
+          <Link href="/privacy" className="inline-flex min-h-11 items-center text-sm text-ink-2 underline underline-offset-4 hover:text-ink">
+            Privacy policy
+          </Link>
+        </div>
       </div>
     </footer>
   );
