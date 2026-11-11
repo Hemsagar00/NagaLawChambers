@@ -66,7 +66,7 @@ function Header() {
       <div className="mx-auto flex h-16 max-w-[1240px] items-center justify-between px-5 md:h-[72px] md:px-8">
         <a
           href="#top"
-          className="font-display text-2xl leading-none tracking-[var(--tracking-display)] text-ink md:text-[28px]"
+          className="inline-flex min-h-11 items-center font-display text-2xl leading-none tracking-[var(--tracking-display)] text-ink md:text-[28px]"
           aria-label={T ? T.home : "NAGA Law Chambers home"}
         >
           {T ? "నాగ లా ఛాంబర్స్" : "Naga Law Chambers"}
@@ -192,6 +192,14 @@ function Hero() {
               {T ? T.call : "Call"} {site.contact.phoneDisplay}
             </a>
           </div>
+          <ul className="anim-rise mt-7 flex list-none flex-wrap gap-x-6 gap-y-2 p-0 text-sm text-ink-2" style={delay(820)}>
+            {(T ? T.hero.trust : [`Enrolled ${site.advocate.barCouncilYear}`, "Bar Council of Andhra Pradesh", "Direct access to the advocate"]).map((t: string) => (
+              <li key={t} className="flex items-center gap-2">
+                <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-ink" />
+                {t}
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="relative mx-auto w-full max-w-[520px] md:max-w-none">

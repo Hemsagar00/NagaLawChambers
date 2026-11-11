@@ -17,19 +17,19 @@ export function SiteFooter({ locale = "en" }: { locale?: Locale }) {
                 ? T.footer.blurb
                 : `Advocate ${site.advocate.name}: direct representation before Andhra Pradesh courts, revenue authorities, and statutory forums.`}
             </p>
-            <a href={phoneHref} className="mt-4 inline-block text-sm text-ink">
+            <a href={phoneHref} className="mt-2 inline-flex min-h-11 items-center text-sm text-ink">
               {site.contact.phoneDisplay}
             </a>
           </div>
 
           <div>
             <p className="naga-sub-header mb-4 text-ink">{T ? T.footer.practice : "Practice areas"}</p>
-            <ul className="grid gap-2.5">
+            <ul className="grid gap-0">
               {practicePages.map((page) => (
                 <li key={page.slug}>
                   <Link
                     href={`/practice/${page.slug}`}
-                    className="text-sm text-ink-2 transition-colors duration-300 hover:text-ink"
+                    className="inline-flex min-h-11 items-center text-sm text-ink-2 transition-colors duration-300 hover:text-ink"
                   >
                     {T ? teAreas[page.practiceId]?.title ?? page.navLabel : page.navLabel}
                   </Link>
@@ -41,12 +41,12 @@ export function SiteFooter({ locale = "en" }: { locale?: Locale }) {
           <div>
             <p className="naga-sub-header mb-4 text-ink">{T ? T.footer.areas : "Areas served"}</p>
             <p className="mb-3 text-sm text-ink-2">{T ? T.footer.all : "All districts of Andhra Pradesh"}</p>
-            <ul className="grid gap-2.5">
+            <ul className="grid gap-0">
               {locationPages.map((page) => (
                 <li key={page.slug}>
                   <Link
                     href={`/locations/${page.slug}`}
-                    className="text-sm text-ink-2 transition-colors duration-300 hover:text-ink"
+                    className="inline-flex min-h-11 items-center text-sm text-ink-2 transition-colors duration-300 hover:text-ink"
                   >
                     {page.city}
                   </Link>
@@ -63,7 +63,7 @@ export function SiteFooter({ locale = "en" }: { locale?: Locale }) {
                 href={site.gbp.profileUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 inline-block text-sm text-ink-2 transition-colors hover:text-ink"
+                className="mt-1 inline-flex min-h-11 items-center text-sm text-ink-2 transition-colors hover:text-ink"
               >
                 {T ? T.footer.google : "View on Google"}
               </a>
@@ -73,7 +73,7 @@ export function SiteFooter({ locale = "en" }: { locale?: Locale }) {
                 href={site.gbp.reviewUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 inline-block text-sm font-medium text-ink transition-opacity hover:opacity-80"
+                className="inline-flex min-h-11 items-center text-sm font-medium text-ink transition-opacity hover:opacity-80"
               >
                 Leave a Google review
               </a>
@@ -86,7 +86,7 @@ export function SiteFooter({ locale = "en" }: { locale?: Locale }) {
                     href={p.url}
                     target="_blank"
                     rel="noopener noreferrer me"
-                    className="text-sm text-ink-2 underline underline-offset-4 transition-colors hover:text-ink"
+                    className="inline-flex min-h-11 items-center text-sm text-ink-2 underline underline-offset-4 transition-colors hover:text-ink"
                   >
                     {p.name}
                   </a>
