@@ -78,7 +78,7 @@
   /* ---- Map embed ---- */
   .naga-map-frame { position: relative; overflow: hidden; border: 1px solid var(--color-ink); border-radius: var(--radius-card); background: var(--color-paper-3); }
   .naga-map-frame iframe { display: block; width: 100%; height: 100%; min-height: 288px; border: 0; }
-  .naga-map-link { position: absolute; right: var(--space-sm); bottom: var(--space-sm); display: inline-flex; align-items: center; min-height: 40px; padding: 0 var(--space-md); border: 1px solid var(--color-ink); border-radius: var(--radius-pill); background: var(--color-paper-2); font-size: var(--text-sm); font-weight: 500; color: var(--color-ink); text-decoration: none; }
+  .naga-map-link { position: absolute; right: var(--space-sm); bottom: var(--space-sm); display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--space-md); border: 1px solid var(--color-ink); border-radius: var(--radius-pill); background: var(--color-paper-2); font-size: var(--text-sm); font-weight: 500; color: var(--color-ink); text-decoration: none; }
 
   /* ---- Conversion layer ---- */
   .naga-whatsapp-fab { position: fixed; right: var(--space-md); bottom: calc(88px + env(safe-area-inset-bottom)); z-index: var(--z-sticky); display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--color-whatsapp); color: var(--color-whatsapp-ink); box-shadow: 0 0 0 1px var(--color-ink), var(--shadow-lift); }

@@ -66,7 +66,7 @@ function Header() {
       <div className="mx-auto flex h-16 max-w-[1240px] items-center justify-between px-5 md:h-[72px] md:px-8">
         <a
           href="#top"
-          className="font-display text-2xl leading-none tracking-[var(--tracking-display)] text-ink md:text-[28px]"
+          className="inline-flex min-h-11 items-center font-display text-2xl leading-none tracking-[var(--tracking-display)] text-ink md:text-[28px]"
           aria-label={T ? T.home : "NAGA Law Chambers home"}
         >
           {T ? "నాగ లా ఛాంబర్స్" : "Naga Law Chambers"}
@@ -192,6 +192,14 @@ function Hero() {
               {T ? T.call : "Call"} {site.contact.phoneDisplay}
             </a>
           </div>
+          <ul className="anim-rise mt-7 flex list-none flex-wrap gap-x-6 gap-y-2 p-0 text-sm text-ink-2" style={delay(820)}>
+            {(T ? T.hero.trust : [`Enrolled ${site.advocate.barCouncilYear}`, "Bar Council of Andhra Pradesh", "Direct access to the advocate"]).map((t: string) => (
+              <li key={t} className="flex items-center gap-2">
+                <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-ink" />
+                {t}
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="relative mx-auto w-full max-w-[520px] md:max-w-none">
@@ -286,14 +294,14 @@ function Expertise() {
           const title = loc?.title ?? area.title;
           const body = (
             <>
-              <span className="naga-icon-shell !h-14 !w-14">
-                <Icon className="h-6 w-6" aria-hidden="true" />
+              <span className="naga-icon-shell !h-11 !w-11 md:!h-14 md:!w-14">
+                <Icon className="h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
               </span>
-              <span className="mt-6 block font-display text-3xl leading-tight text-ink">{title}</span>
+              <span className="mt-4 block font-display text-2xl leading-tight text-ink md:mt-6 md:text-3xl">{title}</span>
               <span className="mt-1 block text-sm text-muted">{loc?.courts ?? area.courts}</span>
-              <span className="mt-4 block text-base leading-6 text-ink-2">{loc?.summary ?? area.summary}</span>
+              <span className="mt-3 block text-base leading-6 text-ink-2 md:mt-4">{loc?.summary ?? area.summary}</span>
               {page ? (
-                <span className="mt-6 inline-flex min-h-11 items-center text-sm font-semibold text-ink underline underline-offset-4">
+                <span className="mt-3 inline-flex min-h-11 items-center text-sm font-semibold md:mt-6 text-ink underline underline-offset-4">
                   {T ? T.expertise.more : "Learn more"}
                   <span className="sr-only"> {title}</span>
                 </span>
@@ -301,7 +309,7 @@ function Expertise() {
             </>
           );
           const cls =
-            "lift flex flex-col rounded-3xl bg-paper-2 p-6 md:p-7";
+            "lift flex flex-col rounded-3xl bg-paper-2 p-5 md:p-7";
           return (
             <Reveal key={area.id} delay={i * 60} className="contents">
               {page ? (
@@ -315,7 +323,7 @@ function Expertise() {
           );
         })}
 
-        <div className="relative flex min-h-[260px] flex-col justify-between overflow-hidden rounded-3xl bg-ink p-6 text-white md:p-7">
+        <div className="relative flex min-h-[200px] flex-col gap-6 md:min-h-[260px] justify-between overflow-hidden rounded-3xl bg-ink p-6 text-white md:p-7">
           <ParallaxBg src="/contours-navy.svg" strength={10} />
           <h3 className="relative font-display text-3xl leading-tight text-white !max-w-[16ch]">
             {T ? T.expertise.ctaTitle : "Start with your documents."}
