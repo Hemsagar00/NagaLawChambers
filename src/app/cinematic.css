@@ -1388,4 +1388,185 @@
         text-align: center;
       }
     }
+
+    /* ==========================================================================
+       MARCUS VANE MOTION SYSTEM: LENIS, TEXT REVEALS & LIQUID SHIELD
+       ========================================================================== */
+
+    /* Lenis Smooth Scroll Integration */
+    html.lenis, html.lenis body {
+      height: auto;
+    }
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+
+    /* Hero Letter-by-Letter Spring Reveal */
+    .reveal-letter-slot {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+    }
+    .reveal-letter {
+      display: inline-block;
+      transform: translateY(115%);
+      opacity: 0;
+      transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1), opacity 900ms cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+    }
+    .reveal-letter.revealed {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Hero Role Words Line-by-Line Slide-Up */
+    .hero-roles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .hero-role-line {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+    }
+    .hero-role-text {
+      display: inline-block;
+      transform: translateY(115%);
+      opacity: 0;
+      transition: transform 760ms cubic-bezier(0.16, 1, 0.3, 1), opacity 760ms cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+    }
+    .hero-role-text.revealed {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Hero Description & Scroll Cue Entrance */
+    .hero-desc {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 520ms cubic-bezier(0.16, 1, 0.3, 1), transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hero-desc.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .hero-scroll-cue {
+      opacity: 0;
+      transition: opacity 600ms ease;
+    }
+    .hero-scroll-cue.revealed {
+      opacity: 1;
+    }
+
+    /* Section Headings Line-by-Line Reveal */
+    .line-reveal-wrap {
+      display: block;
+      overflow: hidden;
+    }
+    .line-reveal-inner {
+      display: block;
+      transform: translateY(115%);
+      opacity: 0;
+      transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1), opacity 900ms cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+    }
+    .line-reveal-inner.revealed,
+    .revealed .line-reveal-inner {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Client Voices Word-by-Word Quote Reveal */
+    .word-slot {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+      margin-right: 0.28em;
+    }
+    .word-inner {
+      display: inline-block;
+      transform: translateY(18px);
+      opacity: 0;
+      transition: transform 520ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 520ms cubic-bezier(0.165, 0.84, 0.44, 1);
+      will-change: transform, opacity;
+    }
+    .word-inner.revealed {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Liquid Distortion Overlays */
+    .liquid-image-container {
+      position: relative;
+      overflow: hidden;
+      background: var(--surface-2);
+    }
+    .liquid-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+      filter: url(#liquid-filter);
+    }
+    .liquid-veil {
+      position: absolute;
+      inset: 0;
+      background: var(--bg);
+      mix-blend-mode: color;
+      opacity: 0.88;
+      pointer-events: none;
+      transition: opacity 380ms ease-out;
+      z-index: 3;
+    }
+    .liquid-glow {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 30%, rgba(255, 59, 29, 0.35) 50%, transparent 70%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 340ms ease-out;
+      z-index: 4;
+    }
+    .venture-card:hover .liquid-veil {
+      opacity: 0;
+    }
+    .venture-card:hover .liquid-glow {
+      opacity: 1;
+    }
+    .venture-card:hover .liquid-image {
+      transform: scale(1.04);
+    }
+
+    /* Interactive Hover Springs */
+    .stat-figure {
+      transition: color 340ms ease;
+    }
+    .stat-card:hover .stat-figure {
+      color: var(--accent);
+    }
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      bottom: -0.25rem;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
   

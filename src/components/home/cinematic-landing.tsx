@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Lenis from "lenis";
 import { site, phoneHref, emailHref, mapHref } from "@/lib/site";
 
 const voicesData = [
@@ -34,8 +35,59 @@ export function CinematicLanding() {
   const [activeVoice, setActiveVoice] = useState(0);
   const [preloaderLoaded, setPreloaderLoaded] = useState(false);
   const [preloaderHidden, setPreloaderHidden] = useState(false);
+  const [heroRevealed, setHeroRevealed] = useState(false);
+  const [voiceWordsRevealed, setVoiceWordsRevealed] = useState(true);
+
+  const handleVoiceChange = (idx: number) => {
+    if (activeVoice === idx) return;
+    setVoiceWordsRevealed(false);
+    setActiveVoice(idx);
+    setTimeout(() => {
+      setVoiceWordsRevealed(true);
+    }, 40);
+  };
 
   useEffect(() => {
+    // 0) Lenis Smooth Scroll
+    let lenis: Lenis | null = null;
+    let lenisRafId: number;
+
+    try {
+      lenis = new Lenis({
+        smoothWheel: true,
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+      });
+      // @ts-expect-error attach lenis to window
+      window.lenis = lenis;
+
+      const lenisRaf = (time: number) => {
+        lenis?.raf(time);
+        lenisRafId = requestAnimationFrame(lenisRaf);
+      };
+      lenisRafId = requestAnimationFrame(lenisRaf);
+    } catch {
+      // Lenis fallback
+    }
+
+    const handleAnchorClick = (e: MouseEvent) => {
+      const anchor = (e.target as HTMLElement).closest('a[href^="#"]');
+      if (!anchor) return;
+      const href = anchor.getAttribute("href");
+      if (!href || href === "#") return;
+      const targetEl = document.querySelector(href);
+      if (targetEl) {
+        e.preventDefault();
+        setDrawerOpen(false);
+        if (lenis) {
+          lenis.scrollTo(targetEl as HTMLElement, { offset: 0, duration: 1.2 });
+        } else {
+          targetEl.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    };
+    document.addEventListener("click", handleAnchorClick);
+
     // 1) Preloader Animation (0 -> 100% counter + bar + curtain wipe)
     const countEl = document.getElementById("preloader-num");
     const barEl = document.getElementById("preloader-bar");
@@ -48,6 +100,7 @@ export function CinematicLanding() {
     if (prefersReducedMotion) {
       setPreloaderLoaded(true);
       setPreloaderHidden(true);
+      setHeroRevealed(true);
       if (preloaderEl) {
         preloaderEl.classList.add("loaded");
         preloaderEl.style.display = "none";
@@ -69,6 +122,7 @@ export function CinematicLanding() {
         } else {
           setTimeout(() => {
             setPreloaderLoaded(true);
+            setHeroRevealed(true);
             if (preloaderEl) preloaderEl.classList.add("loaded");
             setTimeout(() => {
               setPreloaderHidden(true);
@@ -83,6 +137,7 @@ export function CinematicLanding() {
       // Absolute safety fallback: guarantee preloader dismissal after 2.5s
       safetyTimer = setTimeout(() => {
         setPreloaderLoaded(true);
+        setHeroRevealed(true);
         if (preloaderEl) {
           preloaderEl.classList.add("loaded");
           setTimeout(() => {
@@ -93,12 +148,20 @@ export function CinematicLanding() {
       }, 2500);
     }
 
-    // 2) Intersection Observer for scroll reveal items
+    // 2) Intersection Observer for scroll reveal items & heading line-by-line
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("revealed");
+
+            const innerLines = entry.target.querySelectorAll(".line-reveal-inner");
+            innerLines.forEach((line, idx) => {
+              setTimeout(() => {
+                line.classList.add("revealed");
+              }, idx * 90);
+            });
+
             const counterEl = entry.target.querySelector("[data-count]");
             if (counterEl && !counterEl.getAttribute("data-animated")) {
               counterEl.setAttribute("data-animated", "true");
@@ -130,145 +193,249 @@ export function CinematicLanding() {
       { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
     );
 
-    document.querySelectorAll(".reveal-item").forEach((el) => observer.observe(el));
+    document.querySelectorAll(".reveal-item, .section, .contact-section").forEach((el) => observer.observe(el));
+
+    // 3) Liquid displacement spring physics on practice cards
+    const turb = document.getElementById("turb-filter");
+    const disp = document.getElementById("disp-filter");
+
+    let springRaf: number | null = null;
+    if (turb && disp && window.innerWidth > 768) {
+      let curScale = 1;
+      let curFreq = 0.009;
+      let targetScale = 1;
+      let targetFreq = 0.009;
+      let scaleVel = 0;
+      let freqVel = 0;
+
+      const stepLiquid = () => {
+        const dt = 0.016;
+        const k = 140;
+        const d = 13;
+
+        const fScale = -k * (curScale - targetScale) - d * scaleVel;
+        scaleVel += fScale * dt;
+        curScale += scaleVel * dt;
+
+        const fFreq = -k * (curFreq - targetFreq) - d * freqVel;
+        freqVel += fFreq * dt;
+        curFreq += freqVel * dt;
+
+        disp.setAttribute("scale", curScale.toFixed(2));
+        turb.setAttribute("baseFrequency", curFreq.toFixed(4));
+
+        if (Math.abs(curScale - targetScale) > 0.02 || Math.abs(scaleVel) > 0.02) {
+          springRaf = requestAnimationFrame(stepLiquid);
+        } else {
+          curScale = targetScale;
+          curFreq = targetFreq;
+          disp.setAttribute("scale", curScale.toString());
+          turb.setAttribute("baseFrequency", curFreq.toString());
+          springRaf = null;
+        }
+      };
+
+      const cards = document.querySelectorAll(".venture-card");
+      const onEnter = () => {
+        targetScale = 28;
+        targetFreq = 0.022;
+        if (!springRaf) springRaf = requestAnimationFrame(stepLiquid);
+      };
+      const onLeave = () => {
+        targetScale = 1;
+        targetFreq = 0.009;
+        if (!springRaf) springRaf = requestAnimationFrame(stepLiquid);
+      };
+
+      cards.forEach((card) => {
+        card.addEventListener("mouseenter", onEnter);
+        card.addEventListener("mouseleave", onLeave);
+      });
+    }
 
     return () => {
       cancelAnimationFrame(frameId);
       clearTimeout(safetyTimer);
+      if (lenisRafId) cancelAnimationFrame(lenisRafId);
+      if (springRaf) cancelAnimationFrame(springRaf);
+      document.removeEventListener("click", handleAnchorClick);
       observer.disconnect();
+      lenis?.destroy();
     };
   }, []);
 
   return (
     <div className="cinematic-root">
+      <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
+        <defs>
+          <filter id="liquid-filter" x="-10%" y="-10%" width="120%" height="120%">
+            <feTurbulence id="turb-filter" type="fractalNoise" baseFrequency="0.009" numOctaves="2" result="noise" />
+            <feDisplacementMap id="disp-filter" in="SourceGraphic" in2="noise" scale="1" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </defs>
+      </svg>
+
       <div
         id="preloader"
         className={preloaderLoaded ? "loaded" : ""}
         style={preloaderHidden ? { display: "none" } : undefined}
         aria-hidden={preloaderLoaded ? "true" : "false"}
       >
-    <div className="preloader-header">
-      <div className="preloader-badge">
-        <span className="preloader-dot"></span>
-        <span>Anantapur Bar · Chambers Active</span>
-      </div>
-      <div>Advocate S. Nagendra Naik</div>
-    </div>
-
-    <div className="preloader-center">
-      <div className="preloader-title">NAGA LAW CHAMBERS</div>
-      <div className="preloader-count-wrap">
-        <span id="preloader-num">0</span><span className="preloader-percent">%</span>
-      </div>
-      <div className="preloader-bar-wrap">
-        <div className="preloader-bar-fill" id="preloader-bar"></div>
-      </div>
-    </div>
-
-    <div className="preloader-footer">
-      <span>Revenue · Civil · Criminal · Writs</span>
-      <span>Authentic Statutory Advocacy</span>
-    </div>
-  </div>
-
-  <header className="site-nav">
-    <div className="nav-inner">
-      <a href="#top" className="brand-mark" aria-label="Naga Law Chambers Home">
-        <div className="monogram-badge">NN</div>
-        <div>
-          <div className="brand-text">NAGA LAW CHAMBERS</div>
-          <span className="brand-sub">Advocate S. Nagendra Naik</span>
-        </div>
-      </a>
-
-      <nav className="nav-links" aria-label="Main Navigation">
-        <a href="#story" className="nav-link">Story</a>
-        <a href="#ventures" className="nav-link">Practice</a>
-        <a href="#impact" className="nav-link">Impact</a>
-        <a href="#voices" className="nav-link">Voices</a>
-        <a href="#contact" className="nav-link">Contact</a>
-      </nav>
-
-      <a href="#contact" className="nav-cta">
-        <span>Consult in Chambers</span>
-        <span>↗</span>
-      </a>
-
-      <button className="burger-btn" id="burger-toggle" aria-label="Toggle mobile menu">
-        <span className="burger-line"></span>
-        <span className="burger-line"></span>
-        <span className="burger-line"></span>
-      </button>
-    </div>
-  </header>
-
-  <div className={`mobile-drawer ${drawerOpen ? "open" : ""}`} id="mobile-drawer">
-    <nav className="mobile-nav-links">
-      <a href="#story" className="mobile-nav-link">Story</a>
-      <a href="#ventures" className="mobile-nav-link">Practice</a>
-      <a href="#impact" className="mobile-nav-link">Impact</a>
-      <a href="#voices" className="mobile-nav-link">Voices</a>
-      <a href="#contact" className="mobile-nav-link">Contact</a>
-    </nav>
-    <div className="mobile-drawer-footer">
-      <p style={{ color: "var(--fg)", fontWeight: 600 }}>NAGA LAW CHAMBERS</p>
-      <p style={{ marginTop: "0.4rem" }}>Opp. District Court Complex, Anantapur</p>
-      <p style={{ marginTop: "0.2rem", color: "var(--accent)" }}>+91 94400 00417</p>
-    </div>
-  </div>
-
-  <section className="hero revealed" id="hero">
-    <div className="container" style={{ display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between" }}>
-      
-      <div className="hero-meta-row">
-        <div className="hero-roles">
-          <span>Advocate</span>
-          <span>Revenue Counsel</span>
-          <span>Trial Litigator</span>
-          <span>Strategist</span>
-        </div>
-        <div className="hero-location">
-          Anantapur Bar · High Court of Andhra Pradesh
-        </div>
-      </div>
-
-      <div className="hero-stage">
-        
-        <div className="hero-name-wrap">
-          <div className="hero-name-line" id="hero-line-1">NAGENDRA</div>
-          <div className="hero-name-line" id="hero-line-2">NAIK</div>
+        <div className="preloader-header">
+          <div className="preloader-badge">
+            <span className="preloader-dot"></span>
+            <span>Anantapur Bar · Chambers Active</span>
+          </div>
+          <div>Advocate S. Nagendra Naik</div>
         </div>
 
-        <div className="hero-portrait-wrap">
-          <Image
-            src="/advocate.jpg"
-            alt="Advocate S. Nagendra Naik, Anantapur Bar"
-            width={600}
-            height={800}
-            priority
-            className="hero-portrait"
-          />
-          
-          <div className="hero-badge-overlay">
-            <div className="hero-badge-title">S. Nagendra Naik</div>
-            <div className="hero-badge-sub">B.A., LL.B. · Enrolled Bar Council of Andhra Pradesh. Standing advocate for land titles and trial disputes.</div>
+        <div className="preloader-center">
+          <div className="preloader-title">NAGA LAW CHAMBERS</div>
+          <div className="preloader-count-wrap">
+            <span id="preloader-num">0</span><span className="preloader-percent">%</span>
+          </div>
+          <div className="preloader-bar-wrap">
+            <div className="preloader-bar-fill" id="preloader-bar"></div>
           </div>
         </div>
 
+        <div className="preloader-footer">
+          <span>Revenue · Civil · Criminal · Writs</span>
+          <span>Authentic Statutory Advocacy</span>
+        </div>
       </div>
 
-      <div className="hero-bottom-row">
-        <p className="hero-desc">
-          Decisive trial advocacy and courtroom strategy across Anantapur and Andhra Pradesh courts. Built on exhaustive ground-level title auditing, statutory mastery, and direct counsel communication.
-        </p>
-        <a href="#story" className="hero-scroll-cue">
-          <span>Scroll to explore</span>
-          <div className="scroll-arrow">↓</div>
-        </a>
+      <header className="site-nav">
+        <div className="nav-inner">
+          <a href="#top" className="brand-mark" aria-label="Naga Law Chambers Home">
+            <div className="monogram-badge">NN</div>
+            <div>
+              <div className="brand-text">NAGA LAW CHAMBERS</div>
+              <span className="brand-sub">Advocate S. Nagendra Naik</span>
+            </div>
+          </a>
+
+          <nav className="nav-links" aria-label="Main Navigation">
+            <a href="#story" className="nav-link">Story</a>
+            <a href="#ventures" className="nav-link">Practice</a>
+            <a href="#impact" className="nav-link">Impact</a>
+            <a href="#voices" className="nav-link">Voices</a>
+            <a href="#contact" className="nav-link">Contact</a>
+          </nav>
+
+          <a href="#contact" className="nav-cta">
+            <span>Consult in Chambers</span>
+            <span>↗</span>
+          </a>
+
+          <button
+            className="burger-btn"
+            id="burger-toggle"
+            aria-label="Toggle mobile menu"
+            onClick={() => setDrawerOpen(!drawerOpen)}
+          >
+            <span className="burger-line"></span>
+            <span className="burger-line"></span>
+            <span className="burger-line"></span>
+          </button>
+        </div>
+      </header>
+
+      <div className={`mobile-drawer ${drawerOpen ? "open" : ""}`} id="mobile-drawer">
+        <nav className="mobile-nav-links">
+          <a href="#story" className="mobile-nav-link" onClick={() => setDrawerOpen(false)}>Story</a>
+          <a href="#ventures" className="mobile-nav-link" onClick={() => setDrawerOpen(false)}>Practice</a>
+          <a href="#impact" className="mobile-nav-link" onClick={() => setDrawerOpen(false)}>Impact</a>
+          <a href="#voices" className="mobile-nav-link" onClick={() => setDrawerOpen(false)}>Voices</a>
+          <a href="#contact" className="mobile-nav-link" onClick={() => setDrawerOpen(false)}>Contact</a>
+        </nav>
+        <div className="mobile-drawer-footer">
+          <p style={{ color: "var(--fg)", fontWeight: 600 }}>NAGA LAW CHAMBERS</p>
+          <p style={{ marginTop: "0.4rem" }}>Opp. District Court Complex, Anantapur</p>
+          <p style={{ marginTop: "0.2rem", color: "var(--accent)" }}>+91 94400 00417</p>
+        </div>
       </div>
 
-    </div>
-  </section>
+      <section className={`hero ${heroRevealed ? "revealed" : ""}`} id="hero">
+        <div className="container" style={{ display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between" }}>
+          
+          <div className="hero-meta-row">
+            <div className="hero-roles">
+              {["Advocate", "Revenue Counsel", "Trial Litigator", "Strategist"].map((role, i) => (
+                <div key={role} className="hero-role-line">
+                  <span
+                    className={`hero-role-text ${heroRevealed ? "revealed" : ""}`}
+                    style={{ transitionDelay: `${200 + i * 80}ms` }}
+                  >
+                    {role}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div className="hero-location">
+              Anantapur Bar · High Court of Andhra Pradesh
+            </div>
+          </div>
+
+          <div className="hero-stage">
+            
+            <div className="hero-name-wrap" aria-label="NAGENDRA NAIK">
+              <div className="hero-name-line" id="hero-line-1">
+                {"NAGENDRA".split("").map((char, i) => (
+                  <span key={i} className="reveal-letter-slot">
+                    <span
+                      className={`reveal-letter ${heroRevealed ? "revealed" : ""}`}
+                      style={{ transitionDelay: `${i * 52}ms` }}
+                    >
+                      {char}
+                    </span>
+                  </span>
+                ))}
+              </div>
+              <div className="hero-name-line" id="hero-line-2">
+                {"NAIK".split("").map((char, i) => (
+                  <span key={i} className="reveal-letter-slot">
+                    <span
+                      className={`reveal-letter ${heroRevealed ? "revealed" : ""}`}
+                      style={{ transitionDelay: `${240 + i * 52}ms` }}
+                    >
+                      {char}
+                    </span>
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="hero-portrait-wrap">
+              <Image
+                src="/advocate.jpg"
+                alt="Advocate S. Nagendra Naik, Anantapur Bar"
+                width={600}
+                height={800}
+                priority
+                className="hero-portrait"
+              />
+              
+              <div className="hero-badge-overlay">
+                <div className="hero-badge-title">S. Nagendra Naik</div>
+                <div className="hero-badge-sub">B.A., LL.B. · Enrolled Bar Council of Andhra Pradesh. Standing advocate for land titles and trial disputes.</div>
+              </div>
+            </div>
+
+          </div>
+
+          <div className="hero-bottom-row">
+            <p className={`hero-desc ${heroRevealed ? "revealed" : ""}`}>
+              Decisive trial advocacy and courtroom strategy across Anantapur and Andhra Pradesh courts. Built on exhaustive ground-level title auditing, statutory mastery, and direct counsel communication.
+            </p>
+            <a href="#story" className={`hero-scroll-cue ${heroRevealed ? "revealed" : ""}`}>
+              <span>Scroll to explore</span>
+              <div className="scroll-arrow">↓</div>
+            </a>
+          </div>
+
+        </div>
+      </section>
 
   <section className="marquee-section" aria-hidden="true">
     <div className="marquee-track">
@@ -301,7 +468,10 @@ export function CinematicLanding() {
         
         <div className="story-left reveal-item">
           <div className="section-eyebrow">// 01 — THE PHILOSOPHY</div>
-          <h2 className="section-heading">COURTROOM RIGOR BUILT ON GROUND-LEVEL STATUTORY TRUTH.</h2>
+          <h2 className="section-heading">
+            <span className="line-reveal-wrap"><span className="line-reveal-inner">COURTROOM RIGOR BUILT ON</span></span>
+            <span className="line-reveal-wrap"><span className="line-reveal-inner">GROUND-LEVEL STATUTORY TRUTH.</span></span>
+          </h2>
           <p className="story-lead">
             At NAGA Law Chambers, advocacy is not treated as boilerplate paperwork. It is an adversarial discipline grounded in the forensic inspection of village revenue records, title deeds, and procedural timing.
           </p>
@@ -367,7 +537,10 @@ export function CinematicLanding() {
       <div className="ventures-header reveal-item">
         <div>
           <div className="section-eyebrow">// 02 — PRACTICE AREAS & PRECEDENTS</div>
-          <h2 className="section-heading">STRATEGIC ADVOCACY ACROSS CRITICAL JURISDICTIONS</h2>
+          <h2 className="section-heading">
+            <span className="line-reveal-wrap"><span className="line-reveal-inner">STRATEGIC ADVOCACY ACROSS</span></span>
+            <span className="line-reveal-wrap"><span className="line-reveal-inner">CRITICAL JURISDICTIONS</span></span>
+          </h2>
         </div>
         <p className="ventures-desc">
           Focused representation in high-stakes property battles, administrative writ challenges, partition suits, and criminal liberty defense.
@@ -385,6 +558,8 @@ export function CinematicLanding() {
               height={400}
               className="liquid-image"
             />
+            <div className="liquid-veil"></div>
+            <div className="liquid-glow"></div>
           </div>
           <div className="venture-card-body">
             <div className="venture-tag-row">
@@ -411,6 +586,8 @@ export function CinematicLanding() {
               height={400}
               className="liquid-image"
             />
+            <div className="liquid-veil"></div>
+            <div className="liquid-glow"></div>
           </div>
           <div className="venture-card-body">
             <div className="venture-tag-row">
@@ -437,6 +614,8 @@ export function CinematicLanding() {
               height={400}
               className="liquid-image"
             />
+            <div className="liquid-veil"></div>
+            <div className="liquid-glow"></div>
           </div>
           <div className="venture-card-body">
             <div className="venture-tag-row">
@@ -463,6 +642,8 @@ export function CinematicLanding() {
               height={400}
               className="liquid-image"
             />
+            <div className="liquid-veil"></div>
+            <div className="liquid-glow"></div>
           </div>
           <div className="venture-card-body">
             <div className="venture-tag-row">
@@ -490,7 +671,10 @@ export function CinematicLanding() {
       
       <div className="reveal-item">
         <div className="section-eyebrow">// 03 — BY THE NUMBERS</div>
-        <h2 className="section-heading">PERSISTENCE MEASURED IN RESULTS</h2>
+        <h2 className="section-heading">
+          <span className="line-reveal-wrap"><span className="line-reveal-inner">PERSISTENCE MEASURED</span></span>
+          <span className="line-reveal-wrap"><span className="line-reveal-inner">IN RESULTS</span></span>
+        </h2>
       </div>
 
       <div className="impact-grid">
@@ -537,7 +721,10 @@ export function CinematicLanding() {
       
       <div className="reveal-item">
         <div className="section-eyebrow">// 04 — TESTIMONIALS & REPUTATION</div>
-        <h2 className="section-heading">TESTED IN CONFLICT. PROVEN IN JUDGMENTS.</h2>
+        <h2 className="section-heading">
+          <span className="line-reveal-wrap"><span className="line-reveal-inner">TESTED IN CONFLICT.</span></span>
+          <span className="line-reveal-wrap"><span className="line-reveal-inner">PROVEN IN JUDGMENTS.</span></span>
+        </h2>
       </div>
 
       <div className="voices-wrap">
@@ -547,7 +734,7 @@ export function CinematicLanding() {
             <button
               key={item.author}
               className={`voice-btn ${activeVoice === idx ? 'active' : ''}`}
-              onClick={() => setActiveVoice(idx)}
+              onClick={() => handleVoiceChange(idx)}
               type="button"
             >
               <div className="voice-btn-name">{item.author}</div>
@@ -557,8 +744,18 @@ export function CinematicLanding() {
         </div>
 
         <div className="voice-display-card reveal-item">
-          <div className="voice-quote-text revealed" key={activeVoice}>
-            "{voicesData[activeVoice].quote}"
+          <div className="voice-quote-text revealed" key={activeVoice} id="voice-quote-p">
+            “{voicesData[activeVoice].quote.split(" ").map((word, i) => (
+              <span key={i} className="word-slot">
+                <span
+                  className={`word-inner ${voiceWordsRevealed ? "revealed" : ""}`}
+                  style={{ transitionDelay: `${i * 22}ms` }}
+                >
+                  {word}
+                </span>
+                {" "}
+              </span>
+            ))}”
           </div>
 
           <div className="voice-footer-info">
@@ -581,7 +778,10 @@ export function CinematicLanding() {
       
       <div className="contact-hero reveal-item">
         <div className="section-eyebrow">// 05 — CONSULTATION & CHAMBERS</div>
-        <h2 className="contact-huge-title">INITIATE DIRECT <span>COUNSEL.</span></h2>
+        <h2 className="contact-huge-title">
+          <span className="line-reveal-wrap"><span className="line-reveal-inner">INITIATE DIRECT</span></span>
+          <span className="line-reveal-wrap"><span className="line-reveal-inner"><span>COUNSEL.</span></span></span>
+        </h2>
       </div>
 
       <div className="contact-grid">
