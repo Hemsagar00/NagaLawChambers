@@ -32,9 +32,68 @@ const voicesData = [
 export function CinematicLanding() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [activeVoice, setActiveVoice] = useState(0);
+  const [preloaderLoaded, setPreloaderLoaded] = useState(false);
+  const [preloaderHidden, setPreloaderHidden] = useState(false);
 
   useEffect(() => {
-    // Intersection Observer for scroll reveal items
+    // 1) Preloader Animation (0 -> 100% counter + bar + curtain wipe)
+    const countEl = document.getElementById("preloader-num");
+    const barEl = document.getElementById("preloader-bar");
+    const preloaderEl = document.getElementById("preloader");
+
+    let frameId: number;
+    let safetyTimer: ReturnType<typeof setTimeout>;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      setPreloaderLoaded(true);
+      setPreloaderHidden(true);
+      if (preloaderEl) {
+        preloaderEl.classList.add("loaded");
+        preloaderEl.style.display = "none";
+      }
+    } else {
+      const start = performance.now();
+      const duration = 1300; // 1.3s smooth load
+
+      const stepPreloader = (now: number) => {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const count = Math.floor(progress * 100);
+
+        if (countEl) countEl.textContent = String(count);
+        if (barEl) barEl.style.width = `${count}%`;
+
+        if (progress < 1) {
+          frameId = requestAnimationFrame(stepPreloader);
+        } else {
+          setTimeout(() => {
+            setPreloaderLoaded(true);
+            if (preloaderEl) preloaderEl.classList.add("loaded");
+            setTimeout(() => {
+              setPreloaderHidden(true);
+              if (preloaderEl) preloaderEl.style.display = "none";
+            }, 950);
+          }, 150);
+        }
+      };
+
+      frameId = requestAnimationFrame(stepPreloader);
+
+      // Absolute safety fallback: guarantee preloader dismissal after 2.5s
+      safetyTimer = setTimeout(() => {
+        setPreloaderLoaded(true);
+        if (preloaderEl) {
+          preloaderEl.classList.add("loaded");
+          setTimeout(() => {
+            setPreloaderHidden(true);
+            if (preloaderEl) preloaderEl.style.display = "none";
+          }, 950);
+        }
+      }, 2500);
+    }
+
+    // 2) Intersection Observer for scroll reveal items
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -73,12 +132,21 @@ export function CinematicLanding() {
 
     document.querySelectorAll(".reveal-item").forEach((el) => observer.observe(el));
 
-    return () => observer.disconnect();
+    return () => {
+      cancelAnimationFrame(frameId);
+      clearTimeout(safetyTimer);
+      observer.disconnect();
+    };
   }, []);
 
   return (
     <div className="cinematic-root">
-      <div id="preloader" aria-hidden="true">
+      <div
+        id="preloader"
+        className={preloaderLoaded ? "loaded" : ""}
+        style={preloaderHidden ? { display: "none" } : undefined}
+        aria-hidden={preloaderLoaded ? "true" : "false"}
+      >
     <div className="preloader-header">
       <div className="preloader-badge">
         <span className="preloader-dot"></span>
