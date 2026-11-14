@@ -1,13 +1,35 @@
+# Dependencies
 node_modules/
+
+# Build output
 dist/
 .next/
 *.log
+
+# Vercel
 .vercel
 
-# build artifacts & local-only files
+# Build artifacts & local-only files
 tsconfig.tsbuildinfo
-public/advocate-original.jpg
-.claude/
 
-# Hallmark linter output
+# Original high-res photo (too large for git)
+public/advocate-original.jpg
+
+# Agent/AI tool directories (local dev only)
+.claude/
+.agents/
 .hallmark/
+
+# Astryx dev artifacts
+skills-lock.json
+src/astryx-themes.ts
+AGENTS.md
+GEMINI.md
+
+# Brand development docs (keep in repo for reference)
+# brand.md
+
+# Environment
+.env
+.env.local
+.env.production

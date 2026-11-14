@@ -210,7 +210,7 @@ function Hero() {
               fill
               priority
               sizes="(max-width: 768px) 92vw, 480px"
-              className="object-cover object-[72%_25%]"
+              className="object-cover object-[center_top]"
             />
           </div>
           <div className="anim-rise mt-3 rounded-2xl bg-paper-2 px-4 py-3 md:absolute md:bottom-5 md:left-5 md:right-auto md:mt-0 md:min-w-[260px] md:bg-paper-2/90 md:backdrop-blur-md" style={delay(950)}>
@@ -394,6 +394,20 @@ function Advocate() {
             </p>
             <div className="mt-6">
               <ForumList items={courts} />
+            </div>
+            <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-2xl bg-paper-3 shadow-sm">
+              <Image
+                src="/high-court.jpg"
+                alt="High Court of Andhra Pradesh at Amaravati"
+                fill
+                sizes="(max-width: 768px) 90vw, 560px"
+                className="object-cover transition-transform duration-700 hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+              <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-xs text-white">
+                <span className="font-semibold tracking-wide">High Court of Andhra Pradesh, Amaravati</span>
+                <span className="text-[11px] text-white/80">Writ &amp; Appellate Jurisdiction</span>
+              </div>
             </div>
           </div>
         </Reveal>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, ArrowUpRight, BadgeCheck, CircleDot } from "lucide-react";
@@ -47,6 +48,24 @@ export async function generateMetadata({
   };
 }
 
+const practiceImageMap: Record<string, { src: string; alt: string; caption: string }> = {
+  "revenue-land-lawyer-anantapur": {
+    src: "/revenue-land.jpg",
+    alt: "Andhra Pradesh Pattadar Passbook, 1B Adangal records, cadastral survey map and title deed inspection",
+    caption: "Land titles, 1B Adangal & cadastral survey verification",
+  },
+  "civil-lawyer-anantapur": {
+    src: "/civil-contract.jpg",
+    alt: "Legal contract with judicial seal, scales of justice and fountain pen",
+    caption: "Civil contracts, injunctions & title recovery suits",
+  },
+  "bail-criminal-lawyer-anantapur": {
+    src: "/high-court.jpg",
+    alt: "High Court of Andhra Pradesh at Amaravati judicial building",
+    caption: "High Court writ jurisdiction & Sessions bail petitions",
+  },
+};
+
 export default async function PracticeAreaPage({
   params,
 }: {
@@ -58,6 +77,7 @@ export default async function PracticeAreaPage({
 
   const area = practiceAreas.find((a) => a.id === page.practiceId);
   const Icon = area ? getPracticeAreaIcon(area.icon as PracticeAreaIcon) : null;
+  const practiceImage = practiceImageMap[page.slug];
 
   return (
     <main id="main" className="relative min-h-[100dvh]">
@@ -129,6 +149,22 @@ export default async function PracticeAreaPage({
           </div>
 
           <aside className="lg:sticky lg:top-28 lg:self-start">
+            {practiceImage ? (
+              <div className="relative mb-5 aspect-[16/10] overflow-hidden rounded-2xl bg-paper-3 shadow-sm border border-rule">
+                <Image
+                  src={practiceImage.src}
+                  alt={practiceImage.alt}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 420px"
+                  className="object-cover transition-transform duration-700 hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <span className="absolute bottom-3 left-4 right-4 text-xs font-medium text-white/95">
+                  {practiceImage.caption}
+                </span>
+              </div>
+            ) : null}
+
             <div className="naga-card p-6 sm:p-8">
               <h2 className="mb-5 text-lg font-semibold tracking-[-0.01em] text-ink">
                 Forums & courts
