@@ -1,6 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Onest:wght@400;500;600;700&display=swap");
 /* Design: client spec "Dental Health" layout system (masked-card mosaic, splash counter, glass cards, black and white), content for NAGA Law Chambers. Tokens in tokens.css. */
 @import "tailwindcss";
 @import "./tokens.css";
+@import "./cinematic.css";
 @import "./base.css" layer(base);
 
 :root {

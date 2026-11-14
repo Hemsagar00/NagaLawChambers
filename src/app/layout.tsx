@@ -93,7 +93,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#eaeff5",
+  themeColor: "#08080a",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -115,7 +115,7 @@ export default function RootLayout({
           <style>{`[style*="opacity:0"]{opacity:1!important;transform:none!important}`}</style>
         </noscript>
       </head>
-      <body style={{ backgroundColor: "#EAEFF5", color: "#121B60" }}>
+      <body style={{ backgroundColor: "#08080a", color: "#f3f1ea" }}>
         <a href="#main" className="skip-link">
           Skip to content
         </a>

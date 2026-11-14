@@ -1,0 +1,2194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAGA Law Chambers | Advocate S. Nagendra Naik — Anantapur Bar, Andhra Pradesh</title>
+  <meta name="description" content="Advocate S. Nagendra Naik. Decisive trial advocacy, land revenue titles, property partition, civil injunctions, and criminal defense before Anantapur and Andhra Pradesh courts.">
+  
+  <!-- Favicon / Monogram -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23ff3b1d'/><text x='16' y='22' font-family='sans-serif' font-weight='900' font-size='16' fill='%2308080a' text-anchor='middle'>NN</text></svg>">
+
+  <!-- Google Fonts: Anton & Onest -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Lenis Importmap -->
+  <script type="importmap">
+  {
+    "imports": {
+      "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.3.19/dist/lenis.mjs"
+    }
+  }
+  </script>
+
+  <style>
+    /* ==========================================================================
+       CSS RESET & DESIGN TOKENS
+       ========================================================================== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #08080a;
+      --fg: #f3f1ea;
+      --surface: #111114;
+      --surface-2: #17171b;
+      --surface-3: #202026;
+      --muted: #807f78;
+      --muted-light: #a9a8a1;
+      --line: rgba(243, 241, 234, 0.1);
+      --line-strong: rgba(243, 241, 234, 0.22);
+      --accent: #ff3b1d;
+      --accent-glow: rgba(255, 59, 29, 0.25);
+      --accent-2: #ff6a3d;
+
+      --font-display: "Anton", sans-serif;
+      --font-sans: "Onest", sans-serif;
+
+      --gutter: 2rem;
+      --container-max: 110rem;
+    }
+
+    /* Rem-based adaptive grid */
+    html {
+      font-size: 16px;
+      background: var(--bg);
+      scroll-behavior: auto; /* Handled by Lenis */
+    }
+
+    @media (max-width: 1920px) {
+      html { font-size: 0.833333vw; } /* 16*100/1920 */
+    }
+    @media (max-width: 1440px) {
+      html { font-size: 1.111111vw; } /* 16*100/1440 */
+    }
+    @media (max-width: 1024px) {
+      html { font-size: 1.5625vw; }   /* 16*100/1024 */
+    }
+    @media (max-width: 640px) {
+      html { font-size: 4.444444vw; } /* 16*100/360 */
+      :root {
+        --gutter: 1.25rem;
+      }
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    img, video {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      background: none;
+      border: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    ul, ol {
+      list-style: none;
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding-left: var(--gutter);
+      padding-right: var(--gutter);
+    }
+
+    /* ==========================================================================
+       PRELOADER
+       ========================================================================== */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3rem var(--gutter);
+      pointer-events: all;
+      transition: transform 0.95s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    #preloader.loaded {
+      transform: translateY(-100%);
+      pointer-events: none;
+    }
+
+    .preloader-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .preloader-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .preloader-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 1.2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .preloader-center {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin: auto 0;
+    }
+
+    .preloader-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 7vw, 6.5rem);
+      text-transform: uppercase;
+      line-height: 0.9;
+      color: var(--fg);
+      letter-spacing: -0.02em;
+    }
+
+    .preloader-count-wrap {
+      margin-top: 1.5rem;
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 14vw, 12rem);
+      line-height: 0.85;
+      color: var(--fg);
+      display: flex;
+      align-items: baseline;
+    }
+
+    .preloader-percent {
+      color: var(--accent);
+      font-size: 0.6em;
+      margin-left: 0.2rem;
+    }
+
+    .preloader-bar-wrap {
+      width: 100%;
+      height: 2px;
+      background: var(--line);
+      position: relative;
+      overflow: hidden;
+      margin-top: 2rem;
+    }
+
+    .preloader-bar-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0%;
+      background: var(--accent);
+      transition: width 0.1s linear;
+    }
+
+    .preloader-footer {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ==========================================================================
+       SITE NAVIGATION
+       ========================================================================== */
+    .site-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.25rem var(--gutter);
+      background: rgba(8, 8, 10, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .monogram-badge {
+      width: 2.3rem;
+      height: 2.3rem;
+      background: var(--surface-2);
+      border: 1px solid var(--accent);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: var(--accent);
+      border-radius: 4px;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .brand-mark:hover .monogram-badge {
+      background: var(--accent);
+      color: var(--bg);
+      transform: scale(1.05);
+    }
+
+    .brand-text {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .brand-sub {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      margin-top: 0.15rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .nav-link {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted-light);
+      position: relative;
+      padding: 0.4rem 0;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .nav-link:hover {
+      color: var(--fg);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--surface-2);
+      border: 1px solid var(--line-strong);
+      padding: 0.65rem 1.25rem;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--fg);
+      transition: all 0.3s ease;
+    }
+
+    .nav-cta:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+
+    .burger-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 0.5rem;
+      z-index: 1002;
+    }
+
+    .burger-line {
+      width: 24px;
+      height: 2px;
+      background: var(--fg);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .burger-btn.open .burger-line:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .burger-btn.open .burger-line:nth-child(2) {
+      opacity: 0;
+    }
+    .burger-btn.open .burger-line:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Mobile Drawer */
+    .mobile-drawer {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 1001;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: var(--gutter);
+      transform: translateX(100%);
+      transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .mobile-drawer.open {
+      transform: translateX(0);
+    }
+
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .mobile-nav-link {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      text-transform: uppercase;
+      color: var(--fg);
+      line-height: 1;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .mobile-nav-link:hover {
+      color: var(--accent);
+      transform: translateX(10px);
+    }
+
+    .mobile-drawer-footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      .nav-links, .nav-cta {
+        display: none;
+      }
+      .burger-btn {
+        display: flex;
+      }
+    }
+
+    /* ==========================================================================
+       HERO SECTION (THE SIGNATURE MARCUS VANE HERO MOVE)
+       ========================================================================== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-top: 7rem;
+      padding-bottom: 2rem;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 20%, rgba(255, 59, 29, 0.08) 0%, transparent 60%);
+    }
+
+    .hero-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      border-top: 1px solid var(--line);
+      padding-top: 1.5rem;
+    }
+
+    .hero-roles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.4rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted-light);
+    }
+
+    .hero-roles span {
+      position: relative;
+    }
+
+    .hero-roles span:not(:last-child)::after {
+      content: "•";
+      color: var(--accent);
+      margin-left: 1.4rem;
+    }
+
+    .hero-location {
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: right;
+    }
+
+    /* Giant Name & Portrait Composite */
+    .hero-stage {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      min-height: 52vh;
+      max-height: calc(100vh - 14rem);
+      margin-top: 1rem;
+    }
+
+    .hero-name-wrap {
+      width: 100%;
+      text-align: center;
+      z-index: 1;
+      user-select: none;
+      pointer-events: none;
+      margin-bottom: -1vw;
+    }
+
+    .hero-name-line {
+      display: block;
+      font-family: var(--font-display);
+      font-size: clamp(4.5rem, 18.5vw, 21.5rem);
+      line-height: 0.84;
+      text-transform: uppercase;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .char {
+      display: inline-block;
+      transform: translateY(115%);
+      opacity: 0;
+      transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hero.revealed .char {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Portrait composited in front, centered, face always framed at top */
+    .hero-portrait-wrap {
+      position: absolute;
+      bottom: -1.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      height: clamp(25rem, 67vh, 48rem);
+      max-height: 100%;
+      width: auto;
+      z-index: 2;
+      pointer-events: auto;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    .hero-portrait {
+      height: 100%;
+      width: auto;
+      max-width: min(92vw, 38rem);
+      object-fit: cover;
+      object-position: center top;
+      filter: contrast(1.08) brightness(0.96);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 72%, transparent 100%), linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%);
+      -webkit-mask-composite: destination-in;
+      mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 72%, transparent 100%), linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%);
+      mask-composite: intersect;
+    }
+
+    .hero-badge-overlay {
+      position: absolute;
+      bottom: 2rem;
+      left: max(-8rem, -16vw);
+      background: rgba(17, 17, 20, 0.88);
+      border: 1px solid var(--line-strong);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 0.85rem 1.25rem;
+      border-radius: 6px;
+      z-index: 3;
+      max-width: 17rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .hero-badge-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      line-height: 1;
+      color: var(--fg);
+    }
+
+    .hero-badge-sub {
+      font-size: 0.78rem;
+      color: var(--muted-light);
+      margin-top: 0.3rem;
+      line-height: 1.4;
+    }
+
+    .hero-bottom-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      z-index: 4;
+      position: relative;
+      padding-top: 1.5rem;
+    }
+
+    .hero-desc {
+      max-width: 32rem;
+      font-size: 0.95rem;
+      color: var(--muted-light);
+      line-height: 1.6;
+    }
+
+    .hero-scroll-cue {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .scroll-arrow {
+      width: 1.8rem;
+      height: 1.8rem;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      animation: floatDown 1.8s infinite ease-in-out;
+    }
+
+    @keyframes floatDown {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(5px); }
+    }
+
+    @media (max-width: 768px) {
+      .hero-roles span:not(:last-child)::after {
+        display: none;
+      }
+      .hero-location {
+        display: none;
+      }
+      .hero-badge-overlay {
+        position: static;
+        margin-top: 1rem;
+        max-width: 100%;
+      }
+      .hero-bottom-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+      }
+    }
+
+    /* ==========================================================================
+       MARQUEE (22s INFINITE LOOP)
+       ========================================================================== */
+    .marquee-section {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--surface);
+      padding: 1.25rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .marquee-track {
+      display: inline-flex;
+      align-items: center;
+      will-change: transform;
+      animation: marqueeLoop 24s linear infinite;
+    }
+
+    .marquee-content {
+      display: inline-flex;
+      align-items: center;
+      gap: 2.5rem;
+      padding-right: 2.5rem;
+    }
+
+    .marquee-item {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.2vw, 3.8rem);
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--fg);
+      display: inline-flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .marquee-dot {
+      width: 0.65rem;
+      height: 0.65rem;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    @keyframes marqueeLoop {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ==========================================================================
+       SECTION COMMONS
+       ========================================================================== */
+    .section {
+      padding: 8rem 0;
+      position: relative;
+    }
+
+    .section-eyebrow {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6.2vw, 6rem);
+      line-height: 0.94;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+    }
+
+    /* Scroll Reveal Classes */
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-item.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================================================
+       STORY SECTION
+       ========================================================================== */
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 5rem;
+      align-items: flex-start;
+    }
+
+    .story-left {
+      position: sticky;
+      top: 6rem;
+    }
+
+    .story-lead {
+      margin-top: 2rem;
+      font-size: 1.15rem;
+      line-height: 1.7;
+      color: var(--muted-light);
+    }
+
+    .story-quote-card {
+      margin-top: 3rem;
+      padding: 1.8rem;
+      background: var(--surface);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+    }
+
+    .story-quote-text {
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--fg);
+      line-height: 1.6;
+    }
+
+    .story-quote-cite {
+      margin-top: 1rem;
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-style: normal;
+    }
+
+    .principles-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .principle-item {
+      padding: 2.2rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      transition: border-color 0.3s ease, transform 0.3s ease, background 0.3s ease;
+    }
+
+    .principle-item:hover {
+      border-color: var(--line-strong);
+      background: var(--surface-2);
+      transform: translateY(-4px);
+    }
+
+    .principle-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .principle-num {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .principle-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: var(--fg);
+    }
+
+    .principle-body {
+      font-size: 0.95rem;
+      color: var(--muted-light);
+      line-height: 1.65;
+    }
+
+    @media (max-width: 1024px) {
+      .story-grid {
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+      }
+      .story-left {
+        position: static;
+      }
+    }
+
+    /* ==========================================================================
+       VENTURES / PRACTICES (STAGGERED GRID WITH LIQUID IMAGE)
+       ========================================================================== */
+    .ventures-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 5rem;
+    }
+
+    .ventures-desc {
+      max-width: 28rem;
+      font-size: 0.95rem;
+      color: var(--muted-light);
+      line-height: 1.6;
+    }
+
+    .ventures-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4rem;
+    }
+
+    /* Staggered offset for column 2 */
+    .venture-card.offset {
+      margin-top: 6rem;
+    }
+
+    .venture-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    }
+
+    .venture-card:hover {
+      border-color: var(--line-strong);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    /* Practice Image wrapper */
+    .liquid-image-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: var(--surface-2);
+    }
+
+    .liquid-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: contrast(1.05) brightness(0.92);
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .venture-card:hover .liquid-image {
+      transform: scale(1.06);
+      filter: contrast(1.08) brightness(1.02);
+    }
+
+    .venture-card-body {
+      padding: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .venture-tag-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .venture-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .venture-forums-pill {
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--surface-2);
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .venture-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      line-height: 1.05;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      color: var(--fg);
+    }
+
+    .venture-copy {
+      font-size: 0.92rem;
+      color: var(--muted-light);
+      line-height: 1.6;
+      margin-bottom: 1.8rem;
+      flex: 1;
+    }
+
+    .venture-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--fg);
+      border-top: 1px solid var(--line);
+      padding-top: 1.2rem;
+      transition: color 0.3s ease;
+    }
+
+    .venture-card:hover .venture-action {
+      color: var(--accent);
+    }
+
+    @media (max-width: 900px) {
+      .ventures-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      .venture-card.offset {
+        margin-top: 0;
+      }
+      .ventures-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+      }
+    }
+
+    /* ==========================================================================
+       IMPACT SECTION (METRICS & PRECEDENTS)
+       ========================================================================== */
+    .impact-section {
+      background: var(--surface);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+
+    .stat-card {
+      padding: 2rem;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 15rem;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    .stat-figure {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 6.5vw, 6rem);
+      line-height: 0.85;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--fg);
+      margin-top: 1.5rem;
+      line-height: 1.4;
+    }
+
+    .stat-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 1024px) {
+      .impact-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .impact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ==========================================================================
+       VOICES SECTION (INTERACTIVE TESTIMONIAL SELECTOR)
+       ========================================================================== */
+    .voices-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 4rem;
+      margin-top: 4rem;
+      align-items: center;
+    }
+
+    .voices-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .voice-btn {
+      padding: 1.6rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      text-align: left;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .voice-btn.active {
+      background: var(--surface-2);
+      border-color: var(--accent);
+    }
+
+    .voice-btn::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--accent);
+      transform: scaleY(0);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .voice-btn.active::before {
+      transform: scaleY(1);
+    }
+
+    .voice-btn-name {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      text-transform: uppercase;
+      color: var(--fg);
+      line-height: 1.1;
+    }
+
+    .voice-btn-role {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .voice-display-card {
+      padding: 3.5rem;
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      border-radius: 8px;
+      min-height: 22rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .voice-quote-text {
+      font-family: var(--font-sans);
+      font-size: clamp(1.2rem, 2vw, 1.85rem);
+      line-height: 1.5;
+      color: var(--fg);
+      font-weight: 400;
+    }
+
+    .voice-quote-text .word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .voice-quote-text.revealed .word {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .voice-footer-info {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .voice-author-name {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      text-transform: uppercase;
+      color: var(--fg);
+    }
+
+    .voice-author-matter {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    @media (max-width: 900px) {
+      .voices-wrap {
+        grid-template-columns: 1fr;
+      }
+      .voice-display-card {
+        padding: 2rem;
+      }
+    }
+
+    /* ==========================================================================
+       CONTACT & FOOTER SECTION
+       ========================================================================== */
+    .contact-section {
+      padding-top: 8rem;
+      padding-bottom: 4rem;
+      border-top: 1px solid var(--line);
+      background: radial-gradient(circle at 80% 90%, rgba(255, 59, 29, 0.06) 0%, transparent 60%);
+    }
+
+    .contact-hero {
+      margin-bottom: 5rem;
+    }
+
+    .contact-huge-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 9.5vw, 10rem);
+      line-height: 0.88;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+    }
+
+    .contact-huge-title span {
+      color: var(--accent);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 5rem;
+      margin-bottom: 6rem;
+    }
+
+    .contact-links-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .contact-link-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1.8rem;
+      border-bottom: 1px solid var(--line);
+      transition: border-color 0.3s ease;
+    }
+
+    .contact-link-row:hover {
+      border-color: var(--accent);
+    }
+
+    .contact-link-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .contact-link-value {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 2.5vw, 2.5rem);
+      color: var(--fg);
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .contact-link-row:hover .contact-link-value {
+      color: var(--accent);
+      transform: translateX(6px);
+    }
+
+    .chambers-address-card {
+      padding: 2.5rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .chambers-address-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      color: var(--fg);
+      margin-bottom: 1rem;
+    }
+
+    .chambers-address-body {
+      font-size: 0.95rem;
+      color: var(--muted-light);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .consultation-cta-btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.8rem;
+      background: var(--accent);
+      color: var(--bg);
+      padding: 1.1rem 2rem;
+      border-radius: 4px;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .consultation-cta-btn:hover {
+      background: #ff5238;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px var(--accent-glow);
+    }
+
+    /* Bar Council Statutory Disclaimer */
+    .bci-disclaimer-card {
+      padding: 1.8rem 2.2rem;
+      background: var(--surface-2);
+      border-left: 2px solid var(--muted);
+      border-radius: 0 4px 4px 0;
+      margin-bottom: 4rem;
+    }
+
+    .bci-disclaimer-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .bci-disclaimer-text {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Footer Bottom Row */
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 2rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .back-to-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--muted-light);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    .back-to-top:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width: 900px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      .contact-link-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1.2rem;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+
+  <!-- ==========================================================================
+       PRELOADER
+       ========================================================================== -->
+  <div id="preloader" aria-hidden="true">
+    <div class="preloader-header">
+      <div class="preloader-badge">
+        <span class="preloader-dot"></span>
+        <span>Anantapur Bar · Chambers Active</span>
+      </div>
+      <div>Advocate S. Nagendra Naik</div>
+    </div>
+
+    <div class="preloader-center">
+      <div class="preloader-title">NAGA LAW CHAMBERS</div>
+      <div class="preloader-count-wrap">
+        <span id="preloader-num">0</span><span class="preloader-percent">%</span>
+      </div>
+      <div class="preloader-bar-wrap">
+        <div class="preloader-bar-fill" id="preloader-bar"></div>
+      </div>
+    </div>
+
+    <div class="preloader-footer">
+      <span>Revenue · Civil · Criminal · Writs</span>
+      <span>Authentic Statutory Advocacy</span>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SITE NAVIGATION
+       ========================================================================== -->
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a href="#top" class="brand-mark" aria-label="Naga Law Chambers Home">
+        <div class="monogram-badge">NN</div>
+        <div>
+          <div class="brand-text">NAGA LAW CHAMBERS</div>
+          <span class="brand-sub">Advocate S. Nagendra Naik</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="#story" class="nav-link">Story</a>
+        <a href="#ventures" class="nav-link">Practice</a>
+        <a href="#impact" class="nav-link">Impact</a>
+        <a href="#voices" class="nav-link">Voices</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <a href="#contact" class="nav-cta">
+        <span>Consult in Chambers</span>
+        <span>↗</span>
+      </a>
+
+      <button class="burger-btn" id="burger-toggle" aria-label="Toggle mobile menu">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <nav class="mobile-nav-links">
+      <a href="#story" class="mobile-nav-link">Story</a>
+      <a href="#ventures" class="mobile-nav-link">Practice</a>
+      <a href="#impact" class="mobile-nav-link">Impact</a>
+      <a href="#voices" class="mobile-nav-link">Voices</a>
+      <a href="#contact" class="mobile-nav-link">Contact</a>
+    </nav>
+    <div class="mobile-drawer-footer">
+      <p style="color: var(--fg); font-weight: 600;">NAGA LAW CHAMBERS</p>
+      <p style="margin-top: 0.4rem;">Opp. District Court Complex, Anantapur</p>
+      <p style="margin-top: 0.2rem; color: var(--accent);">+91 94400 00417</p>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       HERO SECTION (MARCUS VANE FOUNDER HERO ARCHITECTURE)
+       ========================================================================== -->
+  <section class="hero" id="hero">
+    <div class="container" style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
+      
+      <!-- Top Meta Row -->
+      <div class="hero-meta-row">
+        <div class="hero-roles">
+          <span>Advocate</span>
+          <span>Revenue Counsel</span>
+          <span>Trial Litigator</span>
+          <span>Strategist</span>
+        </div>
+        <div class="hero-location">
+          Anantapur Bar · High Court of Andhra Pradesh
+        </div>
+      </div>
+
+      <!-- Center Stage: Giant Name with Composited Portrait Bleeding Off Bottom -->
+      <div class="hero-stage">
+        
+        <div class="hero-name-wrap">
+          <div class="hero-name-line" id="hero-line-1">NAGENDRA</div>
+          <div class="hero-name-line" id="hero-line-2">NAIK</div>
+        </div>
+
+        <div class="hero-portrait-wrap">
+          <img src="./advocate.jpg" alt="Advocate S. Nagendra Naik, Anantapur Bar" class="hero-portrait">
+          
+          <div class="hero-badge-overlay">
+            <div class="hero-badge-title">S. Nagendra Naik</div>
+            <div class="hero-badge-sub">B.A., LL.B. · Enrolled Bar Council of Andhra Pradesh. Standing advocate for land titles and trial disputes.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Row -->
+      <div class="hero-bottom-row">
+        <p class="hero-desc">
+          Decisive trial advocacy and courtroom strategy across Anantapur and Andhra Pradesh courts. Built on exhaustive ground-level title auditing, statutory mastery, and direct counsel communication.
+        </p>
+        <a href="#story" class="hero-scroll-cue">
+          <span>Scroll to explore</span>
+          <div class="scroll-arrow">↓</div>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       MARQUEE
+       ========================================================================== -->
+  <section class="marquee-section" aria-hidden="true">
+    <div class="marquee-track">
+      <div class="marquee-content">
+        <div class="marquee-item">DEFEND RIGHTS <span class="marquee-dot"></span></div>
+        <div class="marquee-item">PROTECT LAND TITLES <span class="marquee-dot"></span></div>
+        <div class="marquee-item">CHALLENGE ARBITRARY NOTICES <span class="marquee-dot"></span></div>
+        <div class="marquee-item">THINK IN PRECEDENTS <span class="marquee-dot"></span></div>
+        <div class="marquee-item">TRIAL ADVOCACY <span class="marquee-dot"></span></div>
+        <div class="marquee-item">REVENUE JURISPRUDENCE <span class="marquee-dot"></span></div>
+        <div class="marquee-item">DIRECT ADVOCATE ACCESS <span class="marquee-dot"></span></div>
+        <div class="marquee-item">STAND WITH CLIENTS <span class="marquee-dot"></span></div>
+      </div>
+      <div class="marquee-content">
+        <div class="marquee-item">DEFEND RIGHTS <span class="marquee-dot"></span></div>
+        <div class="marquee-item">PROTECT LAND TITLES <span class="marquee-dot"></span></div>
+        <div class="marquee-item">CHALLENGE ARBITRARY NOTICES <span class="marquee-dot"></span></div>
+        <div class="marquee-item">THINK IN PRECEDENTS <span class="marquee-dot"></span></div>
+        <div class="marquee-item">TRIAL ADVOCACY <span class="marquee-dot"></span></div>
+        <div class="marquee-item">REVENUE JURISPRUDENCE <span class="marquee-dot"></span></div>
+        <div class="marquee-item">DIRECT ADVOCATE ACCESS <span class="marquee-dot"></span></div>
+        <div class="marquee-item">STAND WITH CLIENTS <span class="marquee-dot"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       STORY SECTION
+       ========================================================================== */
+  -->
+  <section class="section" id="story">
+    <div class="container">
+      <div class="story-grid">
+        
+        <!-- Left Sticky Column -->
+        <div class="story-left reveal-item">
+          <div class="section-eyebrow">// 01 — THE PHILOSOPHY</div>
+          <h2 class="section-heading">COURTROOM RIGOR BUILT ON GROUND-LEVEL STATUTORY TRUTH.</h2>
+          <p class="story-lead">
+            At NAGA Law Chambers, advocacy is not treated as boilerplate paperwork. It is an adversarial discipline grounded in the forensic inspection of village revenue records, title deeds, and procedural timing.
+          </p>
+          <div class="story-quote-card">
+            <p class="story-quote-text">
+              "A property case is never won by theatrical oratory alone. It is won at the survey stone, in the 1B registers, and through relentless procedural precision before the bench."
+            </p>
+            <span class="story-quote-cite">— Advocate S. Nagendra Naik</span>
+          </div>
+        </div>
+
+        <!-- Right Principles List -->
+        <div class="principles-list">
+          
+          <div class="principle-item reveal-item">
+            <div class="principle-header">
+              <span class="principle-num">01</span>
+              <h3 class="principle-title">Direct Advocate Access</h3>
+            </div>
+            <p class="principle-body">
+              No paralegal insulation or clerk gatekeeping. From your initial conference through document scrutiny, petition drafting, and oral argument, you strategize directly with your lead counsel.
+            </p>
+          </div>
+
+          <div class="principle-item reveal-item">
+            <div class="principle-header">
+              <span class="principle-num">02</span>
+              <h3 class="principle-title">The Survey Stone Doctrine</h3>
+            </div>
+            <p class="principle-body">
+              Land revenue disputes in Andhra Pradesh are won on the ground. We correlate 1B khata registers, Pattadar Passbooks, village cadastral survey maps, and physical possession records before filing.
+            </p>
+          </div>
+
+          <div class="principle-item reveal-item">
+            <div class="principle-header">
+              <span class="principle-num">03</span>
+              <h3 class="principle-title">Multi-Tribunal Command</h3>
+            </div>
+            <p class="principle-body">
+              Seamless coordination across Tahsildar, Revenue Divisional Officer (RDO), Joint Collector, District & Sessions Court, and High Court writ benches—tailoring procedural tactics to each bench.
+            </p>
+          </div>
+
+          <div class="principle-item reveal-item">
+            <div class="principle-header">
+              <span class="principle-num">04</span>
+              <h3 class="principle-title">Uncompromising Ethics</h3>
+            </div>
+            <p class="principle-body">
+              Transparent merit assessments under Bar Council of India standards. If a case lacks statutory standing, we tell you immediately—protecting your capital, land, and peace of mind.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       VENTURES / PRACTICES (STAGGERED 2-COL GRID + LIQUID HOVER)
+       ========================================================================== -->
+  <section class="section" id="ventures" style="background: var(--surface);">
+    <div class="container">
+      
+      <div class="ventures-header reveal-item">
+        <div>
+          <div class="section-eyebrow">// 02 — PRACTICE AREAS & PRECEDENTS</div>
+          <h2 class="section-heading">STRATEGIC ADVOCACY ACROSS CRITICAL JURISDICTIONS</h2>
+        </div>
+        <p class="ventures-desc">
+          Focused representation in high-stakes property battles, administrative writ challenges, partition suits, and criminal liberty defense.
+        </p>
+      </div>
+
+      <div class="ventures-grid">
+        
+        <!-- Practice 1 -->
+        <div class="venture-card reveal-item">
+          <div class="liquid-image-container">
+            <img src="./revenue-land.jpg" alt="Andhra Pradesh Land Revenue Deeds, Survey Maps, and Pattadar Passbook" class="liquid-image">
+          </div>
+          <div class="venture-card-body">
+            <div class="venture-tag-row">
+              <span class="venture-tag">01 / Land & Revenue</span>
+              <span class="venture-forums-pill">Tahsildar · RDO · JC</span>
+            </div>
+            <h3 class="venture-title">Title Disputes, Passbooks & 1B Rectification</h3>
+            <p class="venture-copy">
+              Challenging wrongful entries under the AP Rights in Land and Pattadar Pass Books Act, Inam land resumption inquiries, cancellation of fraudulent pattas, and boundary survey demarcation.
+            </p>
+            <div class="venture-action">
+              <span>View Revenue Precedents</span>
+              <span>→</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Practice 2 (Offset on Desktop) -->
+        <div class="venture-card offset reveal-item">
+          <div class="liquid-image-container">
+            <img src="./high-court.jpg" alt="High Court of Andhra Pradesh at Amaravati" class="liquid-image">
+          </div>
+          <div class="venture-card-body">
+            <div class="venture-tag-row">
+              <span class="venture-tag">02 / High Court & Writs</span>
+              <span class="venture-forums-pill">High Court of AP</span>
+            </div>
+            <h3 class="venture-title">Writ Petitions & Statutory Revisions</h3>
+            <p class="venture-copy">
+              Invoking Article 226 for Mandamus and Certiorari against arbitrary revenue orders, illegal land acquisition notices, statutory inaction, and filing Civil Revision Petitions (CRP).
+            </p>
+            <div class="venture-action">
+              <span>View Appellate Scope</span>
+              <span>→</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Practice 3 -->
+        <div class="venture-card reveal-item">
+          <div class="liquid-image-container">
+            <img src="./civil-contract.jpg" alt="Civil Contracts, Partition Deeds, and Legal Scales" class="liquid-image">
+          </div>
+          <div class="venture-card-body">
+            <div class="venture-tag-row">
+              <span class="venture-tag">03 / Civil Litigation</span>
+              <span class="venture-forums-pill">Civil Judge Courts</span>
+            </div>
+            <h3 class="venture-title">Partition, Injunctions & Specific Performance</h3>
+            <p class="venture-copy">
+              Aggressive representation in coparcenary family partition suits, securing interim injunctions against unlawful dispossession, and trial enforcement of registered sale agreements.
+            </p>
+            <div class="venture-action">
+              <span>View Civil Defense</span>
+              <span>→</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Practice 4 (Offset on Desktop) -->
+        <div class="venture-card offset reveal-item">
+          <div class="liquid-image-container">
+            <img src="./criminal-defence.jpg" alt="Lady Justice and Constitutional Liberty Defense" class="liquid-image">
+          </div>
+          <div class="venture-card-body">
+            <div class="venture-tag-row">
+              <span class="venture-tag">04 / Criminal Defense</span>
+              <span class="venture-forums-pill">Sessions & Magistrates</span>
+            </div>
+            <h3 class="venture-title">Anticipatory Bail & Trial Defense</h3>
+            <p class="venture-copy">
+              Decisive liberty protection under BNSS/CrPC: moving urgent anticipatory bail petitions in land and commercial disputes, regular bail hearings, and discharge applications before Magistrate & Sessions benches.
+            </p>
+            <div class="venture-action">
+              <span>View Criminal Practice</span>
+              <span>→</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       IMPACT SECTION (METRICS)
+       ========================================================================== -->
+  <section class="section impact-section" id="impact">
+    <div class="container">
+      
+      <div class="reveal-item">
+        <div class="section-eyebrow">// 03 — BY THE NUMBERS</div>
+        <h2 class="section-heading">PERSISTENCE MEASURED IN RESULTS</h2>
+      </div>
+
+      <div class="impact-grid">
+        
+        <div class="stat-card reveal-item">
+          <div class="stat-figure" data-count="7">7+</div>
+          <div>
+            <div class="stat-label">Years of Bar Practice</div>
+            <div class="stat-desc">Continuous, active litigation and courtroom advocacy at the Anantapur Bar.</div>
+          </div>
+        </div>
+
+        <div class="stat-card reveal-item">
+          <div class="stat-figure" data-count="500">500+</div>
+          <div>
+            <div class="stat-label">Land Titles & Disputes</div>
+            <div class="stat-desc">Title verifications, ROR revisions, and civil matters prosecuted across the Rayalaseema belt.</div>
+          </div>
+        </div>
+
+        <div class="stat-card reveal-item">
+          <div class="stat-figure" data-count="6">6</div>
+          <div>
+            <div class="stat-label">Active Legal Forums</div>
+            <div class="stat-desc">From Tahsildar revenue courts up to the High Court of Andhra Pradesh at Amaravati.</div>
+          </div>
+        </div>
+
+        <div class="stat-card reveal-item">
+          <div class="stat-figure" data-count="100">100%</div>
+          <div>
+            <div class="stat-label">Direct Counsel Access</div>
+            <div class="stat-desc">Zero intermediary handoffs. Direct evaluation and advocacy by Advocate S. Nagendra Naik.</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       VOICES SECTION (INTERACTIVE TESTIMONIAL SELECTOR)
+       ========================================================================== -->
+  <section class="section" id="voices">
+    <div class="container">
+      
+      <div class="reveal-item">
+        <div class="section-eyebrow">// 04 — TESTIMONIALS & REPUTATION</div>
+        <h2 class="section-heading">TESTED IN CONFLICT. PROVEN IN JUDGMENTS.</h2>
+      </div>
+
+      <div class="voices-wrap">
+        
+        <!-- Tab Selectors -->
+        <div class="voices-nav reveal-item">
+          
+          <button class="voice-btn active" data-index="0">
+            <div class="voice-btn-name">K. Venkata Ramana</div>
+            <div class="voice-btn-role">Landowner & Farmer · Kadiri</div>
+          </button>
+
+          <button class="voice-btn" data-index="1">
+            <div class="voice-btn-name">M. Sreedhar Reddy</div>
+            <div class="voice-btn-role">Commercial Developer · Anantapur</div>
+          </button>
+
+          <button class="voice-btn" data-index="2">
+            <div class="voice-btn-name">Dr. Anand Murthy</div>
+            <div class="voice-btn-role">Family Estate Trustee · Dharmavaram</div>
+          </button>
+
+        </div>
+
+        <!-- Dynamic Display Card with Word-by-Word Reveal -->
+        <div class="voice-display-card reveal-item">
+          
+          <div class="voice-quote-text revealed" id="voice-quote">
+            <!-- Words dynamically populated by JS -->
+          </div>
+
+          <div class="voice-footer-info">
+            <div>
+              <div class="voice-author-name" id="voice-author">K. Venkata Ramana</div>
+              <div style="font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem;" id="voice-origin">Kadiri, Sri Sathya Sai District</div>
+            </div>
+            <div class="voice-author-matter" id="voice-tag">Revenue & Passbook Mutation</div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       CONTACT & FOOTER SECTION
+       ========================================================================== -->
+  <footer class="contact-section" id="contact">
+    <div class="container">
+      
+      <div class="contact-hero reveal-item">
+        <div class="section-eyebrow">// 05 — CONSULTATION & CHAMBERS</div>
+        <h2 class="contact-huge-title">INITIATE DIRECT <span>COUNSEL.</span></h2>
+      </div>
+
+      <div class="contact-grid">
+        
+        <!-- Left: Direct Action Links -->
+        <div class="contact-links-list reveal-item">
+          
+          <a href="mailto:nagalawchambers@gmail.com" class="contact-link-row">
+            <div>
+              <span class="contact-link-label">Direct Case Evaluation</span>
+              <div class="contact-link-value">nagalawchambers@gmail.com ↗</div>
+            </div>
+          </a>
+
+          <a href="tel:+919440000417" class="contact-link-row">
+            <div>
+              <span class="contact-link-label">Chambers Direct Line</span>
+              <div class="contact-link-value">+91 94400 00417 ↗</div>
+            </div>
+          </a>
+
+          <a href="https://wa.me/919440000417?text=Hello%20Advocate%20Nagendra%20Naik,%20I%20would%20like%20to%20consult%20regarding%20a%20legal%20matter." target="_blank" rel="noopener noreferrer" class="contact-link-row">
+            <div>
+              <span class="contact-link-label">Instant WhatsApp Briefing</span>
+              <div class="contact-link-value">WhatsApp Chambers ↗</div>
+            </div>
+          </a>
+
+        </div>
+
+        <!-- Right: Chambers Address & In-Person Appointment -->
+        <div class="chambers-address-card reveal-item">
+          <div>
+            <div class="chambers-address-title">Chambers Location</div>
+            <p class="chambers-address-body">
+              <strong>NAGA LAW CHAMBERS</strong><br>
+              Opposite District Court Complex,<br>
+              Court Road, Anantapur — 515001,<br>
+              Andhra Pradesh, India.<br><br>
+              <span style="color: var(--muted);">Hours: Mon — Sat, 09:30 AM — 08:30 PM<br>(By Prior Appointment)</span>
+            </p>
+          </div>
+          <a href="https://wa.me/919440000417?text=Sir,%20requesting%20an%20in-person%20appointment%20at%20your%20Anantapur%20chambers." target="_blank" rel="noopener noreferrer" class="consultation-cta-btn">
+            <span>Schedule Appointment</span>
+            <span>↗</span>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Statutory Bar Council of India Rule 36 Disclaimer -->
+      <div class="bci-disclaimer-card reveal-item">
+        <div class="bci-disclaimer-title">Bar Council of India Statutory Compliance (Rule 36)</div>
+        <p class="bci-disclaimer-text">
+          As per the rules of the Bar Council of India, advocates are strictly prohibited from soliciting work or advertising in any form or manner. By accessing this website (www.nagalawchambers.com), the user acknowledges that the information provided herein is solely for informational purposes at their own request. Nothing contained in this portal constitutes legal advice, formal solicitation, or creates an advocate-client relationship.
+        </p>
+      </div>
+
+      <!-- Footer Bottom Bar -->
+      <div class="footer-bottom">
+        <div>
+          © 2026 NAGA Law Chambers. Advocate S. Nagendra Naik, Anantapur Bar.
+        </div>
+        <a href="#top" class="back-to-top" id="back-to-top">
+          <span>Back to top</span>
+          <span>↑</span>
+        </a>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       VANILLA JAVASCRIPT ENGINE (LENIS + SPRINGS + LIQUID HOVER + ANIMATIONS)
+       ========================================================================== -->
+  <script type="module">
+    import Lenis from "lenis";
+
+    /* --------------------------------------------------------------------------
+       1. Adaptive Rem-Based Grid (>1920px Dynamic Scaling)
+       -------------------------------------------------------------------------- */
+    const FONT_BASE = 16, BASE_W = 1920, COEF = 0.6666;
+    function applyAdaptiveGrid() {
+      const w = window.innerWidth;
+      const reduction = ((BASE_W - w) / BASE_W) * 100 * COEF;
+      const size = FONT_BASE - (FONT_BASE * reduction) / 100;
+      if (size > FONT_BASE) {
+        document.documentElement.style.fontSize = size + "px";
+      } else {
+        document.documentElement.style.removeProperty("font-size");
+      }
+    }
+    applyAdaptiveGrid();
+    window.addEventListener("resize", applyAdaptiveGrid);
+
+    /* --------------------------------------------------------------------------
+       2. Lenis Smooth Scroll Initialization
+       -------------------------------------------------------------------------- */
+    const lenis = new Lenis({
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.5,
+    });
+    window.lenis = lenis;
+
+    // Start with Lenis stopped during preloader
+    lenis.stop();
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // Smooth Anchor Scroll Handling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#' || href === '#top') {
+          e.preventDefault();
+          lenis.scrollTo(0, { duration: 1.4 });
+          closeDrawer();
+          return;
+        }
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          lenis.scrollTo(target, { offset: -60, duration: 1.4 });
+          closeDrawer();
+        }
+      });
+    });
+
+    /* --------------------------------------------------------------------------
+       3. Preloader (0 to 100% Counter + Curtain Wipe)
+       -------------------------------------------------------------------------- */
+    const preloader = document.getElementById("preloader");
+    const preloaderNum = document.getElementById("preloader-num");
+    const preloaderBar = document.getElementById("preloader-bar");
+    let currentPercent = 0;
+    const duration = 1600; // 1.6s
+    const startTime = performance.now();
+
+    function updateCounter(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out quartic for quick start and smooth landing at 100
+      const eased = 1 - Math.pow(1 - progress, 3);
+      currentPercent = Math.floor(eased * 100);
+      
+      preloaderNum.textContent = currentPercent;
+      preloaderBar.style.width = currentPercent + "%";
+
+      if (progress < 1) {
+        requestAnimationFrame(updateCounter);
+      } else {
+        preloaderNum.textContent = "100";
+        preloaderBar.style.width = "100%";
+        setTimeout(finishPreloader, 250);
+      }
+    }
+    requestAnimationFrame(updateCounter);
+
+    function finishPreloader() {
+      preloader.classList.add("loaded");
+      lenis.start();
+      triggerHeroReveal();
+    }
+
+    /* --------------------------------------------------------------------------
+       4. Hero Letter-by-Letter Text Reveal
+       -------------------------------------------------------------------------- */
+    function setupHeroSplit() {
+      const line1 = document.getElementById("hero-line-1");
+      const line2 = document.getElementById("hero-line-2");
+
+      [line1, line2].forEach((line, lineIdx) => {
+        const text = line.textContent.trim();
+        line.innerHTML = "";
+        [...text].forEach((char, charIdx) => {
+          const span = document.createElement("span");
+          span.className = "char";
+          span.textContent = char;
+          // Stagger calculation
+          const delay = (lineIdx * 0.15) + (charIdx * 0.045);
+          span.style.transitionDelay = `${delay}s`;
+          line.appendChild(span);
+        });
+      });
+    }
+    setupHeroSplit();
+
+    function triggerHeroReveal() {
+      const hero = document.getElementById("hero");
+      hero.classList.add("revealed");
+    }
+
+    /* --------------------------------------------------------------------------
+       5. Scroll-Triggered Reveal Animations (Intersection Observer)
+       -------------------------------------------------------------------------- */
+    const observerOptions = {
+      root: null,
+      threshold: 0.15,
+      rootMargin: "0px 0px -50px 0px"
+    };
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("revealed");
+          
+          // If it has a counter data-count, trigger counter animation
+          const counterEl = entry.target.querySelector("[data-count]");
+          if (counterEl && !counterEl.dataset.animated) {
+            animateMetric(counterEl);
+          }
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll(".reveal-item").forEach(item => {
+      revealObserver.observe(item);
+    });
+
+    function animateMetric(el) {
+      el.dataset.animated = "true";
+      const target = parseInt(el.getAttribute("data-count"), 10);
+      const isPlus = el.textContent.includes("+");
+      const isPercent = el.textContent.includes("%");
+      let count = 0;
+      const countDuration = 1200;
+      const countStart = performance.now();
+
+      function step(now) {
+        const progress = Math.min((now - countStart) / countDuration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        count = Math.floor(ease * target);
+        el.textContent = count + (isPlus ? "+" : "") + (isPercent ? "%" : "");
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = target + (isPlus ? "+" : "") + (isPercent ? "%" : "");
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    /* --------------------------------------------------------------------------
+       6. Practice Card Interactions (Driven by silky CSS cubic-bezier scale)
+       -------------------------------------------------------------------------- */
+
+    /* --------------------------------------------------------------------------
+       7. Interactive Voices / Testimonials Switcher
+       -------------------------------------------------------------------------- */
+    const voicesData = [
+      {
+        quote: "When our 12-acre ancestral land was wrongfully reassigned and our pattadar passbook was blocked, Advocate Nagendra Naik dissected four decades of revenue records and secured an immediate stay from the RDO. His command of revenue law saved our family inheritance.",
+        author: "K. Venkata Ramana",
+        origin: "Kadiri, Sri Sathya Sai District",
+        tag: "Revenue & Passbook Mutation"
+      },
+      {
+        quote: "In a high-stakes specific performance dispute where the other party attempted fraudulent third-party conveyance, Nagendra Naik moved the court and secured an ad-interim injunction within 48 hours. Decisive, swift, and completely candid.",
+        author: "M. Sreedhar Reddy",
+        origin: "Commercial Real Estate, Anantapur",
+        tag: "Specific Performance & Injunction"
+      },
+      {
+        quote: "Partitioning complex joint family properties across three mandals seemed insurmountable until NAGA Law Chambers stepped in. He mapped every title deed and protected our legitimate share with meticulous courtroom strategy.",
+        author: "Dr. Anand Murthy",
+        origin: "Family Estate, Dharmavaram",
+        tag: "Family Partition & Civil Title"
+      }
+    ];
+
+    const voiceBtns = document.querySelectorAll(".voice-btn");
+    const voiceQuoteEl = document.getElementById("voice-quote");
+    const voiceAuthorEl = document.getElementById("voice-author");
+    const voiceOriginEl = document.getElementById("voice-origin");
+    const voiceTagEl = document.getElementById("voice-tag");
+
+    function renderQuoteWords(text) {
+      voiceQuoteEl.classList.remove("revealed");
+      voiceQuoteEl.innerHTML = "";
+      const words = text.split(" ");
+      words.forEach((word, idx) => {
+        const span = document.createElement("span");
+        span.className = "word";
+        span.textContent = word + " ";
+        span.style.transitionDelay = `${idx * 0.022}s`;
+        voiceQuoteEl.appendChild(span);
+      });
+      // Trigger reveal next frame
+      requestAnimationFrame(() => {
+        voiceQuoteEl.classList.add("revealed");
+      });
+    }
+
+    // Initial render
+    renderQuoteWords(voicesData[0].quote);
+
+    voiceBtns.forEach(btn => {
+      btn.addEventListener("click", function() {
+        const idx = parseInt(this.getAttribute("data-index"), 10);
+        voiceBtns.forEach(b => b.classList.remove("active"));
+        this.classList.add("active");
+
+        const data = voicesData[idx];
+        renderQuoteWords(data.quote);
+        voiceAuthorEl.textContent = data.author;
+        voiceOriginEl.textContent = data.origin;
+        voiceTagEl.textContent = data.tag;
+      });
+    });
+
+    /* --------------------------------------------------------------------------
+       8. Mobile Hamburger Drawer
+       -------------------------------------------------------------------------- */
+    const burgerToggle = document.getElementById("burger-toggle");
+    const mobileDrawer = document.getElementById("mobile-drawer");
+
+    function toggleDrawer() {
+      burgerToggle.classList.toggle("open");
+      mobileDrawer.classList.toggle("open");
+      if (mobileDrawer.classList.contains("open")) {
+        lenis.stop();
+      } else {
+        lenis.start();
+      }
+    }
+
+    function closeDrawer() {
+      burgerToggle.classList.remove("open");
+      mobileDrawer.classList.remove("open");
+      lenis.start();
+    }
+
+    burgerToggle.addEventListener("click", toggleDrawer);
+  </script>
+
+</body>
+</html>
