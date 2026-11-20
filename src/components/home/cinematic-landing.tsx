@@ -320,6 +320,8 @@ export function CinematicLanding() {
             <a href="#ventures" className="nav-link">Practice</a>
             <a href="#impact" className="nav-link">Impact</a>
             <a href="#voices" className="nav-link">Voices</a>
+            <a href="/blog" className="nav-link">Legal Guides</a>
+            <a href="/book-consultation" className="nav-link">Book Consultation</a>
             <a href="#contact" className="nav-link">Contact</a>
           </nav>
 
@@ -347,6 +349,8 @@ export function CinematicLanding() {
           <a href="#ventures" className="mobile-nav-link" onClick={() => setDrawerOpen(false)}>Practice</a>
           <a href="#impact" className="mobile-nav-link" onClick={() => setDrawerOpen(false)}>Impact</a>
           <a href="#voices" className="mobile-nav-link" onClick={() => setDrawerOpen(false)}>Voices</a>
+          <a href="/blog" className="mobile-nav-link" onClick={() => setDrawerOpen(false)}>Legal Guides</a>
+          <a href="/book-consultation" className="mobile-nav-link" onClick={() => setDrawerOpen(false)}>Book Consultation</a>
           <a href="#contact" className="mobile-nav-link" onClick={() => setDrawerOpen(false)}>Contact</a>
         </nav>
         <div className="mobile-drawer-footer">
@@ -827,6 +831,22 @@ export function CinematicLanding() {
             <span>↗</span>
           </a>
         </div>
+
+        {site.gbp.reviewUrl && (
+          <div className="google-review-card reveal-item">
+            <div>
+              <div className="chambers-address-title">Leave a Google Review</div>
+              <p className="chambers-address-body">
+                If our representation helped you, a short review on Google
+                helps others find the right advocate. Takes under a minute.
+              </p>
+            </div>
+            <a href={site.gbp.reviewUrl} target="_blank" rel="noopener noreferrer" className="consultation-cta-btn">
+              <span>Write a Google Review</span>
+              <span>↗</span>
+            </a>
+          </div>
+        )}
 
       </div>
 
