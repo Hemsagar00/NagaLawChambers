@@ -28,11 +28,31 @@
       --container-max: 110rem;
     }
 
+    /* Light Theme (Courtroom Ivory Mode) */
+    html[data-theme="light"],
+    body[data-theme="light"],
+    .theme-light {
+      --bg: #f8f6f0;
+      --fg: #141416;
+      --surface: #ede8dc;
+      --surface-2: #e3ded1;
+      --surface-3: #d7d0c2;
+      --muted: #696860;
+      --muted-light: #44433e;
+      --line: rgba(20, 20, 22, 0.12);
+      --line-strong: rgba(20, 20, 22, 0.28);
+      --accent: #d82b10;
+      --accent-glow: rgba(216, 43, 16, 0.25);
+      --accent-2: #b8220a;
+    }
+
     /* Rem-based adaptive grid */
     html {
       font-size: 16px;
       background: var(--bg);
+      color: var(--fg);
       scroll-behavior: auto; /* Handled by Lenis */
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     @media (max-width: 1920px) {
@@ -319,6 +339,195 @@
     .nav-link:hover::after {
       width: 100%;
     }
+
+    /* ==========================================================================
+       COUNCIL UPGRADES: CONTROLS, TIMELINE & CHECKLISTS
+       ========================================================================== */
+    .nav-controls-group {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .lang-pill {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.45rem 0.85rem;
+      border-radius: 9999px;
+      background: var(--surface-2);
+      border: 1px solid var(--line-strong);
+      color: var(--fg);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.25s ease;
+    }
+    .lang-pill:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .theme-toggle-btn {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.45rem 0.85rem;
+      border-radius: 9999px;
+      background: var(--surface-2);
+      border: 1px solid var(--line-strong);
+      color: var(--fg);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.25s ease;
+    }
+    .theme-toggle-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .hero-direct-wa-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--accent);
+      color: #ffffff;
+      padding: 0.65rem 1.4rem;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      margin-left: 1rem;
+    }
+    .hero-direct-wa-btn:hover {
+      background: #ff5238;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px var(--accent-glow);
+      color: #ffffff;
+    }
+    .hero-direct-wa-btn .wa-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 9999px;
+      background: #ffffff;
+      animation: pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* 3-Step Intake Timeline */
+    .intake-timeline-wrap {
+      margin-top: 5rem;
+      padding: 3.5rem var(--gutter);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+    }
+    .timeline-section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 3.2rem);
+      text-transform: uppercase;
+      color: var(--fg);
+      line-height: 1.05;
+      margin-top: 0.8rem;
+      margin-bottom: 2.5rem;
+    }
+    .intake-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    @media (max-width: 900px) {
+      .intake-steps-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+    .intake-step-card {
+      padding: 2rem;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      position: relative;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .intake-step-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+    .intake-step-num {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.8rem;
+    }
+    .intake-step-heading {
+      font-family: var(--font-sans);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 0.6rem;
+    }
+    .intake-step-desc {
+      font-size: 0.88rem;
+      color: var(--muted-light);
+      line-height: 1.6;
+    }
+
+    /* Venture Document Checklist */
+    .venture-checklist {
+      margin-top: 1.2rem;
+      margin-bottom: 1.5rem;
+      padding: 1rem 1.25rem;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+    }
+    .venture-checklist-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .venture-checklist-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.82rem;
+      color: var(--muted-light);
+      line-height: 1.5;
+    }
+    .venture-checklist-items li {
+      position: relative;
+      padding-left: 1.1rem;
+    }
+    .venture-checklist-items li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: bold;
+    }
+
 
     .nav-cta {
       display: inline-flex;
@@ -1568,5 +1777,194 @@
     .nav-link:hover::after {
       width: 100%;
     }
+
+    /* ==========================================================================
+       COUNCIL UPGRADES: CONTROLS, TIMELINE & CHECKLISTS
+       ========================================================================== */
+    .nav-controls-group {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .lang-pill {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.45rem 0.85rem;
+      border-radius: 9999px;
+      background: var(--surface-2);
+      border: 1px solid var(--line-strong);
+      color: var(--fg);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.25s ease;
+    }
+    .lang-pill:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .theme-toggle-btn {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.45rem 0.85rem;
+      border-radius: 9999px;
+      background: var(--surface-2);
+      border: 1px solid var(--line-strong);
+      color: var(--fg);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.25s ease;
+    }
+    .theme-toggle-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .hero-direct-wa-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--accent);
+      color: #ffffff;
+      padding: 0.65rem 1.4rem;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      margin-left: 1rem;
+    }
+    .hero-direct-wa-btn:hover {
+      background: #ff5238;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px var(--accent-glow);
+      color: #ffffff;
+    }
+    .hero-direct-wa-btn .wa-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 9999px;
+      background: #ffffff;
+      animation: pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* 3-Step Intake Timeline */
+    .intake-timeline-wrap {
+      margin-top: 5rem;
+      padding: 3.5rem var(--gutter);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+    }
+    .timeline-section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 3.2rem);
+      text-transform: uppercase;
+      color: var(--fg);
+      line-height: 1.05;
+      margin-top: 0.8rem;
+      margin-bottom: 2.5rem;
+    }
+    .intake-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    @media (max-width: 900px) {
+      .intake-steps-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+    .intake-step-card {
+      padding: 2rem;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      position: relative;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .intake-step-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+    .intake-step-num {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.8rem;
+    }
+    .intake-step-heading {
+      font-family: var(--font-sans);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 0.6rem;
+    }
+    .intake-step-desc {
+      font-size: 0.88rem;
+      color: var(--muted-light);
+      line-height: 1.6;
+    }
+
+    /* Venture Document Checklist */
+    .venture-checklist {
+      margin-top: 1.2rem;
+      margin-bottom: 1.5rem;
+      padding: 1rem 1.25rem;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+    }
+    .venture-checklist-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .venture-checklist-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.82rem;
+      color: var(--muted-light);
+      line-height: 1.5;
+    }
+    .venture-checklist-items li {
+      position: relative;
+      padding-left: 1.1rem;
+    }
+    .venture-checklist-items li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: bold;
+    }
+
 
   
