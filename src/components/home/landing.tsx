@@ -73,7 +73,7 @@ function Header() {
         </a>
 
         <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
-          {nav.map((item) => (
+          {[...nav, { label: "Legal Guides", href: "/blog" }].map((item) => (
             <a key={item.href} href={item.href} className="naga-nav-link">
               {item.label}
             </a>
@@ -122,7 +122,7 @@ function Header() {
             className="overflow-hidden border-t border-rule/70 bg-paper md:hidden"
           >
             <div className="px-5 pb-5 pt-2">
-              {nav.map((item, i) => (
+              {[...nav, { label: "Legal Guides", href: "/blog" }].map((item, i) => (
                 <motion.a
                   key={item.href}
                   href={item.href}
