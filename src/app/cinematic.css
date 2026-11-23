@@ -1,0 +1,200 @@
+/* Cinematic dark editorial theme for NAGA Law Chambers.
+ * Aligns global tokens and homepage layout with brand.md:
+ * Ground #08080a, Surface #111114, Surface-2 #17171b, Ink #f3f1ea,
+ * Crimson Accent #ff3b1d / #c92810, Amber Flame #ff6a3d, Muted #98968f.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* Core Brand Surface & Ink Tokens (overrides tokens.css light defaults cleanly) */
+  --color-paper: #08080a;
+  --color-paper-2: #111114;
+  --color-paper-3: #17171b;
+  --color-sheet: #111114;
+  --color-ink: #f3f1ea;
+  --color-ink-2: #c9c6be;
+  --color-muted: #98968f;
+  --color-rule: rgba(243, 241, 234, 0.12);
+  --color-ink-soft: rgba(243, 241, 234, 0.28);
+
+  /* Accent System: Crimson button fill (#c92810) meets WCAG AA (4.9:1) with #f3f1ea */
+  --color-accent: #c92810;
+  --color-accent-ink: #f3f1ea;
+  --color-accent-soft: rgba(255, 59, 29, 0.14);
+  --color-focus: #ff6a3d;
+  --color-error: #ff6b57;
+  --color-success: #4ade80;
+
+  /* Brand Cinematic Aliases */
+  --cine-ground: #08080a;
+  --cine-surface: #111114;
+  --cine-surface-2: #17171b;
+  --cine-ink: #f3f1ea;
+  --cine-ink-2: #c9c6be;
+  --cine-muted: #98968f;
+  --cine-accent: #ff3b1d;
+  --cine-accent-2: #ff6a3d;
+  --cine-line: rgba(243, 241, 234, 0.12);
+  --cine-line-strong: rgba(243, 241, 234, 0.24);
+  --naga-line: rgba(243, 241, 234, 0.12);
+  --naga-line-hover: rgba(243, 241, 234, 0.3);
+
+  /* Brand Typography */
+  --font-display: "Anton", var(--font-serif), Georgia, serif;
+  --font-body: "Onest", var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-outlier: "Onest", var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --tracking-display: 0.015em;
+  --display-weight: 400;
+
+  /* Refined dark elevation */
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.45), 0 16px 36px -18px rgba(0, 0, 0, 0.72);
+  --shadow-lift: 0 2px 6px rgba(0, 0, 0, 0.5), 0 24px 50px -20px rgba(0, 0, 0, 0.85);
+}
+
+@layer components {
+  /* Dark-surface refinements for shared naga-* components across subpages */
+  .site-header {
+    background: rgba(8, 8, 10, 0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--cine-line);
+  }
+
+  .naga-divider {
+    background: var(--cine-line);
+  }
+
+  .naga-ruled {
+    border-top: 1px solid var(--cine-line-strong);
+  }
+
+  .naga-card {
+    background: var(--cine-surface);
+    box-shadow: 0 0 0 1px var(--cine-line);
+  }
+
+  .naga-card:hover {
+    box-shadow: 0 0 0 1px var(--cine-line-strong);
+  }
+
+  .naga-form-card {
+    background: var(--cine-surface);
+    box-shadow: 0 0 0 1px var(--cine-line-strong), var(--shadow-lift);
+  }
+
+  .naga-contact-panel {
+    border: 1px solid var(--cine-line-strong);
+    background: var(--cine-surface);
+    box-shadow: var(--shadow-card);
+  }
+
+  .naga-input {
+    border-color: var(--cine-line-strong);
+    background: var(--cine-surface-2);
+    color: var(--cine-ink);
+  }
+
+  .naga-input:hover {
+    border-color: rgba(243, 241, 234, 0.42);
+  }
+
+  .naga-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f3f1ea' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  }
+
+  .naga-button {
+    box-shadow: none;
+    border-color: var(--cine-line-strong);
+  }
+
+  .naga-button-primary {
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
+    border-color: rgba(255, 106, 61, 0.45);
+  }
+
+  .naga-button-primary:hover {
+    background: #df3015;
+  }
+
+  .naga-button-secondary {
+    background: var(--cine-surface-2);
+    color: var(--cine-ink);
+  }
+
+  .naga-button-secondary:hover {
+    background: #202026;
+  }
+
+  .naga-map-frame {
+    border: 1px solid var(--cine-line-strong);
+    background: var(--cine-surface-2);
+  }
+
+  .naga-map-link {
+    border: 1px solid var(--cine-line-strong);
+    background: rgba(17, 17, 20, 0.92);
+    color: var(--cine-ink);
+  }
+
+  .naga-map-link:hover {
+    background: #222228;
+  }
+
+  .naga-sticky-cta {
+    border-top: 1px solid var(--cine-line-strong);
+    background: rgba(8, 8, 10, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .naga-whatsapp-fab {
+    box-shadow: 0 0 0 1px rgba(8, 8, 10, 0.65), var(--shadow-lift);
+  }
+
+  /* Cinematic Homepage Layout Primitives */
+  .cine-shell {
+    min-height: 100dvh;
+    background: var(--cine-ground);
+    color: var(--cine-ink);
+  }
+
+  .cine-display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.015em;
+    line-height: 0.98;
+    text-wrap: balance;
+  }
+
+  .cine-surface {
+    background: var(--cine-surface);
+    border: 1px solid var(--cine-line);
+    border-radius: 20px;
+  }
+
+  .cine-card-link {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 1px solid var(--cine-line);
+    background: var(--cine-surface);
+    transition: border-color var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+  }
+
+  .cine-card-link:hover {
+    border-color: var(--cine-line-strong);
+    transform: translateY(-3px);
+  }
+
+  .cine-media-frame {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 1px solid var(--cine-line);
+    background: var(--cine-surface-2);
+  }
+}
